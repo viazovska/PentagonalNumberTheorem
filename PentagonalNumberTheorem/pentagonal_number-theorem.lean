@@ -1,7 +1,6 @@
 
 import Mathlib.RingTheory.PowerSeries.Basic
 import Mathlib.Data.Finset.Basic
-import Mathlib.Algebra.BigOperators.Basic
 import Mathlib.Data.Int.Basic
 
 open BigOperators Finset PowerSeries
