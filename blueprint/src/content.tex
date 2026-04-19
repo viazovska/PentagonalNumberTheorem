@@ -27,6 +27,8 @@
 \newcommand{\mC}{\mathcal{C}}
 \newcommand{\K}{\mathcal{K}}
 \newcommand{\twelvecubed}{N}
+\renewcommand{\setminus}{\mathbin{\backslash}}
+
 
 \section{Partitions}
 
@@ -46,9 +48,23 @@ The generating function for $p(n)$ is given by
 $$\sum_{n=0}^\infty p(n)\,x^n=\prod_{k=1}^\infty(1+x^k+x^{2k}+\ldots)=\prod_{k=1}^{\infty}(1-x^k)^{-1}.$$
 \end{lemma}
 
+\begin{comment}
 \begin{definition}
 For a positive integer $n$ we denote by $p_e(n)$ the number of partitions of $n$ into an even number of \emph{different} parts, analogously, we denote by $p_o(n)$ the number of partitions of $n$ into an odd number of \emph{different} parts.
 \end{definition}
+\end{comment}
+
+\begin{definition}[Partitions of $n$ into distinct parts] \lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions}
+
+Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{align*}
+\mathcal{P}(n) &= \left\{ S \subseteq \{1, \ldots, n\} \;\middle|\; \sum_{s \in S} s = n \right\}, \\
+\mathcal{P}_{\mathrm{even}}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; |S| \equiv 0 \pmod{2} \right\}, \\
+\mathcal{P}_{\mathrm{odd}}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; |S| \equiv 1 \pmod{2} \right\}.
+\end{align*}
+We further define the number of even and odd partitions of $n$ as $p_e(n) = |\mathcal{P}_{\mathrm{even}}(n)|$ and $p_o(n) = |\mathcal{P}_{\mathrm{odd}}(n)|$.
+\end{definition}
+
 
 \begin{lemma}
 We have
@@ -78,7 +94,7 @@ $7$&$7=6+1=5+2=4+3=4+2+1$&$2$&$3$\\
 
 \section{Pentagonal number theorem}
 
-\begin{theorem}[Euler]
+\begin{theorem}[Euler] \lean{euler_pentagonal_number_theorem}
 $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\,=\,
 \sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
 \end{theorem}
@@ -186,7 +202,28 @@ Consider a diagram of a partition of $n$ into different parts.\\
 \end{tikzpicture}
 \end{center}
 
+\begin{definition}[Base and slope]
+  Consider a partition $S \subseteq \{1, \ldots, n\}$ of $n$ into different parts. We define the \emph{base} $b \in S$ as the smallest element of the partition. Let $\max(S)$ denote the largest element of $S$. We define the \emph{slope} $s$ as:
+  \begin{equation*}
+      s = \max\{k \geq 1 : \max(S), \max(S)-1, \max(S)-2, \ldots, \max(S)-k + 1 \in S\}.
+  \end{equation*}
+  and the \emph{slope set} $D$ as $\{\max(S), \max(S)-1, \ldots, \max(S)-s + 1\}$.
+\end{definition}
 
+\begin{definition} [Operations $\alpha$ and $\beta$]
+Let $S \subseteq \{1, \ldots, n\}$ be a partition of $n$ into different parts with base $b$ and slope $s$ and slope set $D$. We define the following operations on $S$:
+
+$\alpha$: If $b \leq s$ and $b \notin D$, or if $b \leq s - 1$, then we move $b$ up and turn its points into new slope. 
+\begin{equation*}
+    \alpha(S) = (S \setminus \{b, \max(S) - b + 1\}) \cup \{\max(S)+1\}.
+\end{equation*}
+
+$\beta$: If $b > s$ and $b \notin D$, or if $b \geq s + 2$, then we move the slope down and turn its points into the new base.
+\begin{equation*}
+    \beta(S) = S \cup \{s, \max(S)-s\} \setminus \{\max(S)\}.
+\end{equation*}
+\end{definition}
+\begin{comment}
 We define the following two operations on the diagrams and denote them $\alpha$ and $\beta$.
 
 \paragraph{$\alpha$ :} If $|b|\leq |s|$ and if $b$ and $s$ have no common point, or if $|b|\leq |s|-1$,
@@ -194,6 +231,7 @@ then we move $b$ up and turn its points into new slope.
 
 \paragraph{$\beta$ :} If $|b|> |s|$ and if $b$ and $s$ have no common point, or if $|b|\geq |s|+2$,
 then we move the slope down and turn its points into the new base.
+\end{comment}
 
 \begin{remark}
 If $b$ and $s$ have a common point and $|b|=|s|$ or $|b|=|s|+1$ then neither $\alpha$ nor $\beta$ can be applied.
@@ -323,6 +361,24 @@ $$\left\{\begin{smallmatrix}
           \mbox{s. t. }\alpha\mbox{ or }\beta\mbox{ can be applied }
         \end{smallmatrix}\right\}$$
 
+\begin{lemma}
+ Operation $\alpha$ and $\beta$ can never be applied to the same partition.
+\end{lemma}
+
+\begin{lemma}
+  If $\alpha$ can be applied to a partition $S$, then $\beta$ can be applied to $\alpha(S)$ and $\beta(\alpha(S))=S$.
+
+  If $\beta$ can be applied to a partition $S$, then $\alpha$ can be applied to $\beta(S)$ and $\alpha(\beta(S))=S$.
+\end{lemma}
+
+\begin{lemma}
+  The operations $\alpha$ and $\beta$ change the parity of the number of parts of a partition.
+\end{lemma}
+
+\begin{lemma}
+The number of odd partitions of $n$ into different parts such that $\alpha$ or $\beta$ can be applied is equal to the number of even partitions of $n$ into different parts such that $\alpha$ or $\beta$ can be applied.
+\end{lemma}
+
 When can neither $\alpha$ nor $\beta$ be applied?
 \begin{itemize}
 \item $b$ and $s$ have a common point and $|b|=|s|=k$
@@ -331,10 +387,15 @@ $$n=k+(k+1)+\ldots+(2k-1)=\frac{3k^2-k}{2}.$$
 $$n=(k+1)+\ldots+2k=\frac{3k^2+k}{2}.$$
 \end{itemize}
 
-Therefore:
+\begin{lemma}
+  If neither $\alpha$ nor $\beta$ can be applied to a partition $S$, then $n$ is a pentagonal number, i.e. $n=\frac{3k^2\pm k}{2}$ for some $k\in \Z$ and the parity of the number of parts of $S$ is the same as the parity of $k$.
+\end{lemma}
+
+\begin{lemma}
 $$p_e(n)-p_o(n)=c_n=
 \begin{cases}(-1)^k,&\mbox{ if } n= \frac{3k^2\pm k}{2}\\
 0, & \mbox{otherwise.}\end{cases}$$
+\end{lemma}
 
 This finishes the proof.
 
