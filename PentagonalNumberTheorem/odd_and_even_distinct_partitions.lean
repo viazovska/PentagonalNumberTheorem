@@ -81,12 +81,56 @@ def beta_involution (s : Finset ℕ) (hne : s.Nonempty) (hcrit : beta_crit s hne
   (s \ slope) ∪ slope.image (· - 1) ∪ {slope.card}
 
 
+/-- The slope (consecutive run ending at max) is an interval [min_slope, max]. -/
+lemma slope_is_interval (s : Finset ℕ) (h : s.Nonempty)
+    (hσ : (s.filter (fun x => Finset.Icc x (s.max' h) ⊆ s)).Nonempty) :
+    s.filter (fun x => Finset.Icc x (s.max' h) ⊆ s) =
+    Finset.Icc ((s.filter (fun x => Finset.Icc x (s.max' h) ⊆ s)).min' hσ) (s.max' h) := by
+  set m := s.max' h
+  set σ := s.filter (fun x => Finset.Icc x m ⊆ s)
+  have hk_mem  : σ.min' hσ ∈ σ   := Finset.min'_mem σ hσ
+  have hk_Icc  : Finset.Icc (σ.min' hσ) m ⊆ s := (Finset.mem_filter.mp hk_mem).2
+  ext x
+  simp only [Finset.mem_filter, Finset.mem_Icc]
+  constructor
+  · intro ⟨hxs, hIcc⟩
+    exact ⟨Finset.min'_le σ x (Finset.mem_filter.mpr ⟨hxs, hIcc⟩),
+           Finset.le_max' s x hxs⟩
+  · intro ⟨hkx, hxm⟩
+    exact ⟨hk_Icc (Finset.mem_Icc.mpr ⟨hkx, hxm⟩),
+           fun z hz => hk_Icc (Finset.mem_Icc.mpr
+             ⟨le_trans hkx (Finset.mem_Icc.mp hz).1, (Finset.mem_Icc.mp hz).2⟩)⟩
+
 /-- The top-b slice of the slope has exactly b elements. -/
 lemma top_b_slope_card (s : Finset ℕ) (hne : s.Nonempty)
     (hcrit : alpha_crit s hne = true) :
     ((s.filter (fun x => Finset.Icc x (s.max' hne) ⊆ s)).filter
       (fun x => x + s.min' hne > s.max' hne)).card = s.min' hne := by
-  sorry
+  set b := s.min' hne
+  set m := s.max' hne
+  set σ := s.filter (fun x => Finset.Icc x m ⊆ s)
+  -- b ≤ m since min ≤ max
+  have hbm : b ≤ m := Finset.min'_le s m (Finset.max'_mem s hne)
+  -- σ is nonempty: m ∈ σ since Icc m m = {m} ⊆ s
+  have hm_σ : m ∈ σ := Finset.mem_filter.mpr ⟨Finset.max'_mem s hne,
+    fun z hz => by obtain ⟨h1, h2⟩ := Finset.mem_Icc.mp hz
+                   rw [le_antisymm h2 h1]; exact Finset.max'_mem s hne⟩
+  -- σ = Icc k m for k = σ.min'
+  set k := σ.min' ⟨m, hm_σ⟩
+  have hσ_eq : σ = Finset.Icc k m := slope_is_interval s hne ⟨m, hm_σ⟩
+  -- b ≤ σ.card from alpha_crit
+  have hb_le : b ≤ σ.card := by
+    have h := hcrit
+    simp only [alpha_crit, base_and_slope, decide_eq_true_eq] at h
+    exact h.elim (·.1) Nat.le_of_lt
+  -- σ.card = m + 1 - k, so k + b ≤ m + 1
+  have hσ_card : σ.card = m + 1 - k := by rw [hσ_eq, Nat.card_Icc]
+  -- rewrite σ as interval, filter top-b elements = Icc (m+1-b) m
+  rw [hσ_eq]
+  have hT_eq : (Finset.Icc k m).filter (fun x => x + b > m) = Finset.Icc (m + 1 - b) m := by
+    ext x; simp only [Finset.mem_filter, Finset.mem_Icc]; omega
+  rw [hT_eq, Nat.card_Icc]
+  omega
 
 /-- Alpha preserves the sum of parts. -/
 lemma alpha_preserves_sum (s : Finset ℕ) (hne : s.Nonempty)
@@ -100,7 +144,23 @@ lemma alpha_preserves_sum (s : Finset ℕ) (hne : s.Nonempty)
   have hT_sub   : T ⊆ s      := (Finset.filter_subset _ _).trans (Finset.filter_subset _ _)
   have hb_mem   : b ∈ s      := Finset.min'_mem s hne
   have hcard    : T.card = b := top_b_slope_card s hne hcrit
-  have hb_not_T : b ∉ T     := sorry
+  have hb_not_T : b ∉ T := by
+    rw [Finset.mem_filter, not_and]
+    intro hb_σ
+    -- alpha_crit: case 1 gives b ∉ σ (contradicts hb_σ), so case 2: b < σ.card
+    have hlt : b < σ.card := by
+      have h := hcrit
+      simp only [alpha_crit, base_and_slope, decide_eq_true_eq] at h
+      exact h.elim (fun ⟨_, hns⟩ => absurd hb_σ hns) id
+    -- b ∈ σ ⊆ s and b = s.min', so σ.min' = b
+    have hσne : σ.Nonempty := ⟨b, hb_σ⟩
+    have hk_in_s : σ.min' hσne ∈ s := Finset.filter_subset _ _ (Finset.min'_mem σ hσne)
+    have hk_eq : σ.min' hσne = b :=
+      le_antisymm (Finset.min'_le σ b hb_σ) (Finset.min'_le s _ hk_in_s)
+    -- σ = Icc b m, so σ.card = m + 1 - b; combined with b < σ.card: 2b ≤ m
+    have hσ_eq : σ = Finset.Icc (σ.min' hσne) m := slope_is_interval s hne hσne
+    have hσ_card : σ.card = m + 1 - b := by rw [hσ_eq, Nat.card_Icc, hk_eq]
+    omega
   have hdj : Disjoint ((s \ T).erase b) (T.image (· + 1)) := by
     rw [Finset.disjoint_left]
     intro x hx hx_im

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PentagonalNubmberTheorem</title>
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<div class="titlepage">
+<h1>PentagonalNubmberTheorem</h1>
+<p class="authors">
+<span class="author">JC PM MV</span>
+</p>
+</div>
+<h1 id="a0000000002">1 Pentagonal Number Theorem</h1>
+<p> The goal of this project is to provide formal proof of Euler’s pentagonal number theorem. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="a0000000003">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">1</span>
+    <span class="theorem_thmtitle">Euler’s Pentagonal Number Theorem</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000003">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <div class="equation" id="a0000000004">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \prod _{i=1}^{\infty } (1 - x^i) = 1+ \sum _{k=1}^{\infty } (-1)^k \left( x^{\frac{k(3k-1)}{2}} + x^{\frac{k(3k+1)}{2}} \right)=\sum _{k\in \mathbb {Z}} (-1)^k x^{\frac{3k^2-k}{2}}. \end{equation}
+  </div>
+  <span class="equation_label">1</span>
+</p>
+</div>
+<div class="proof_wrapper" id="a0000000005">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We have </p>
+<div class="equation" id="a0000000006">
+<p>
+  <div class="equation_content">
+    \begin{equation}  \prod _{i=1}^{\infty } (1 - x^i) = \sum _{s=0}^{\infty } (-1)^s \sum _{1 \leq i_1 {\lt} i_2 {\lt} \ldots {\lt} i_s} x^{i_1 + i_2 + \ldots + i_s}. \end{equation}
+  </div>
+  <span class="equation_label">2</span>
+</p>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+<h1 id="a0000000007">2 Partitions with Distinct Parts</h1>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000008">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2</span>
+    <span class="definition_thmtitle">All Distinct Partitions</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000008">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> The set of partitions of \(n\) into distinct parts is defined as: </p>
+<div class="displaymath" id="a0000000009">
+  \begin{equation*}  \text{all\_ distinct\_ partitions}(n) = \left\{  S \subseteq \mathbb {N} : \sum _{x \in S} x = n \text{ and } \forall x \in S, x {\gt} 0 \right\}  \end{equation*}
+</div>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000010">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3</span>
+    <span class="definition_thmtitle">Even Distinct Partitions</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000010">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> The set of partitions of \(n\) into an even number of distinct parts is: </p>
+<div class="displaymath" id="a0000000011">
+  \begin{equation*}  \text{even\_ distinct\_ partitions}(n) = \left\{  S \in \text{all\_ distinct\_ partitions}(n) : |S| \equiv 0 \pmod{2} \right\}  \end{equation*}
+</div>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000012">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">4</span>
+    <span class="definition_thmtitle">Odd Distinct Partitions</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000012">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> The set of partitions of \(n\) into an odd number of distinct parts is: </p>
+<div class="displaymath" id="a0000000013">
+  \begin{equation*}  \text{odd\_ distinct\_ partitions}(n) = \left\{  S \in \text{all\_ distinct\_ partitions}(n) : |S| \equiv 1 \pmod{2} \right\}  \end{equation*}
+</div>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000014">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">5</span>
+    <span class="definition_thmtitle">Partition Counts</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000014">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Let \(p_e(n)\) denote the number of partitions of \(n\) into an even number of distinct parts, and \(p_o(n)\) denote the number of partitions of \(n\) into an odd number of distinct parts: </p>
+<div class="displaymath" id="a0000000015">
+  \begin{align*}  p_e(n) & = |\text{even\_ distinct\_ partitions}(n)| \\ p_o(n) & = |\text{odd\_ distinct\_ partitions}(n)| \end{align*}
+</div>
+
+  </div>
+</div>
+<h1 id="a0000000016">3 Pentagonal Numbers</h1>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000017">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">6</span>
+    <span class="definition_thmtitle">Pentagonal Numbers</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000017">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> The pentagonal numbers are given by: </p>
+<div class="displaymath" id="a0000000018">
+  \begin{equation*}  \text{pentagonal}(k) = \left| \frac{3k^2 - k}{2} \right| \quad \text{for } k \in \mathbb {Z} \end{equation*}
+</div>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000019">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">7</span>
+    <span class="definition_thmtitle">Pentagonal Number Coefficients</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000019">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> The pentagonal coefficient associated with \(k\) is: </p>
+<div class="displaymath" id="a0000000020">
+  \begin{equation*}  \text{pentagonal\_ coeff}(k) = \left( (-1)^{|k|}, \text{pentagonal}(k) \right) \end{equation*}
+</div>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000021">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">8</span>
+    <span class="definition_thmtitle">Pentagonal Series Coefficients</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000021">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> The coefficient of \(X^n\) in the pentagonal series is: </p>
+<div class="displaymath" id="a0000000022">
+  \begin{equation*}  \text{pentagonal\_ series\_ coeff}(n) = \sum _{\substack {k \in \mathbb {Z} \\ \begin{bgroup} \text{pentagonal}(k) = n
+
+\end{bgroup}}} (-1)^{|k|} \end{equation*}
+</div>
+
+  </div>
+</div>
+<h1 id="a0000000023">4 Theorems</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="a0000000024">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">9</span>
+    <span class="theorem_thmtitle">Euler’s Pentagonal Number Theorem (Distinct Partitions Version)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000024">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> Let \(n\) be a natural number. Then: </p>
+<div class="displaymath" id="a0000000025">
+  \begin{equation*}  p_e(n) - p_o(n) = \begin{cases}  (-1)^k &  \text{if } n = \frac{k(3k-1)}{2} \text{ for some } k \in \mathbb {Z} \\ 0 &  \text{otherwise} \end{cases}\end{equation*}
+</div>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="a0000000026">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">10</span>
+    <span class="theorem_thmtitle">Euler’s Pentagonal Number Theorem (Formal Power Series)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000026">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> For a commutative ring \(R\), Euler’s pentagonal number theorem states: </p>
+<div class="displaymath" id="a0000000027">
+  \begin{equation*}  \prod _{n=1}^{\infty } (1 - X^n) = \sum _{k \in \mathbb {Z}} (-1)^k X^{\text{pentagonal}(k)} \end{equation*}
+</div>
+<p> where the product and sum are understood as formal power series in \(R\llbracket X \rrbracket \). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="a0000000028">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">11</span>
+    <span class="theorem_thmtitle">Euler’s Pentagonal Number Theorem (Power Series Coefficients)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000028">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> For a commutative ring \(R\) and natural number \(n\): </p>
+<div class="displaymath" id="a0000000029">
+  \begin{equation*}  \left[ X^n \right] \prod _{k=1}^{\infty } (1 - X^k) = \text{pentagonal\_ series\_ coeff}(n) \end{equation*}
+</div>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>
