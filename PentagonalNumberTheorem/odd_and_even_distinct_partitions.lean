@@ -6,6 +6,7 @@ import Mathlib.Data.Nat.Basic
 import Mathlib.Algebra.Group.Even
 import Mathlib.Data.Finset.Powerset
 import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+import Mathlib.Data.Finset.Max
 
 /- Define the set of partitions of n to distinct parts -/
 def all_distinct_partitions (n : ℕ) : Finset (Finset ℕ) :=
@@ -57,4 +58,27 @@ theorem euler_pentagonal_number_theorem (n : ℕ) :
   ((p_e n : ℤ) - (p_o n : ℤ) = (-1 : ℤ) ^ (Int.natAbs k) )) ∨
   ((¬ ∃ k : ℤ, n = (k * (3 * k - 1)) / 2 ) ∧
     ((p_e n : ℤ) - (p_o n : ℤ) = 0 )) :=
-sorry
+ sorry
+
+/- Definition of the base of a partition into different parts
+
+Let $n$ be a natural number. Let $S$ be a partition of $n$ into
+different parts. The base of S is defined as its minimal element.-/
+
+def base (S : Finset ℕ) (H : S.Nonempty) : ℕ := S.min' H
+
+/- Definition of the slope of a partition into different parts
+
+Let $n$ be a natural number. Let $S$ be a partition of $n$ into
+different parts. Let $m$ be the maximal element of S.
+The slope of S is the length of the longest interval
+$[m-l,… ,m]$ contained in $S$. -/
+
+def slope (S : Finset ℕ) (H : S.Nonempty) : WithTop ℕ :=
+  let m := S.max' H
+  let L := (Icc' 0 m).filter (fun l => Icc' l m ⊆ S)
+  have h1: m ∈ Icc' 0 m := by exact mem_Icc'_self m
+  have h2: Icc' m m ⊆ S := by unfold m; sorry
+  have hLm: m ∈ L := by unfold L; apply h1; rw[m,l] sorry
+  have HL: L.Nonempty := by simp[hLm]
+  m-(L.min' HL)+1
