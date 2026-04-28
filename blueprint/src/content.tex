@@ -13,21 +13,7 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\h}{\mathbb{H}}
-\newcommand{\tr}{\mathrm{tr}}
-\newcommand{\res}{\mathrm{res}}
-\newcommand{\rk}{\mathrm{rk}}
-\newcommand{\e}{\bm{\mathrm{e}}}
-\newcommand{\n}{\mathrm{n}}
-\newcommand{\q}{\mathrm{Q}}
-\newcommand{\B}{\mathrm{B}}
-\newcommand{\slz}{\mathrm{SL}_2(\Z)}
-\newcommand{\mpz}{\mathrm{Mp}_2(\Z)}
-\newcommand{\gr}{G_k^{\Gamma\backslash \h}}
-\newcommand{\rds}{\mathfrak{s}}
-\newcommand{\mC}{\mathcal{C}}
-\newcommand{\K}{\mathcal{K}}
-\newcommand{\twelvecubed}{N}
-\renewcommand{\setminus}{\mathbin{\backslash}}
+
 
 
 \section{Partitions}
@@ -210,15 +196,39 @@ Consider a diagram of a partition of $n$ into different parts.\\
   and the \emph{slope set} $D$ as $\{\max(S), \max(S)-1, \ldots, \max(S)-s + 1\}$.
 \end{definition}
 
+\begin{definition} Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{align*}
+\mathcal{P}_{\alpha}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\;  b \leq s \mbox{ and } b \notin D, \mbox{ or if } b \leq s - 1\right\}, \\
+\mathcal{P}_{\beta}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; b > s \mbox{ and } b \notin D, \mbox{ or if } b \geq s + 2 \right\}, \\
+\mathcal{P}_{\mathrm{special}}(n)  &= \left\{ S \in \mathcal{P}(n) \;\middle|\; b\in D \mbox{ and } |b|=|s| \mbox{ or } |b|=|s|+1   \right\}.
+\end{align*}
+\end{definition}
+
+\begin{lemma}For all natural numbers $n$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
+\end{lemma}
+
+\begin{lemma} \label{lemma: alpha beta special}For all natural numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
+\end{lemma}
+
+\begin{definition}
+For $k\in\mathbb{Z}_{\geq 1}$ define $ S_{-k}=\{2k-1 , 2k-2 , \ldots , k\}$.\\
+For $k\in\mathbb{Z}_{\geq 0}$ define $S_{k}=\{2k , 2k-1 , \ldots , k\}$.
+\end{definition}
+
+\begin{lemma}\label{lemma: special} If $n$ is not a pentagonal number, then $ \mathcal{P}_{\mathrm{special}}(n)=\varnothing$.\\
+If $n=\frac{3k^2-k}{2}$ for some $k\in\mathbb{Z}_{\geq 1}$, then $ \mathcal{P}_{\mathrm{special}}(n)=\{S_{-k}\} $.\\
+If $n=\frac{3k^2+k}{2}$ for some $k\in\mathbb{Z}_{\geq 0}$, then $ \mathcal{P}_{\mathrm{special}}(n)=\{S_{k}\}$.
+\end{lemma}
+
 \begin{definition} [Operations $\alpha$ and $\beta$]
 Let $S \subseteq \{1, \ldots, n\}$ be a partition of $n$ into different parts with base $b$ and slope $s$ and slope set $D$. We define the following operations on $S$:
 
-$\alpha$: If $b \leq s$ and $b \notin D$, or if $b \leq s - 1$, then we move $b$ up and turn its points into new slope. 
+$\alpha$: If $S\in \mathcal{P_\alpha}$  (equivalently, if $b \leq s$ and $b \notin D$, or if $b \leq s - 1$), then we move $b$ up and turn its points into new slope.
 \begin{equation*}
     \alpha(S) = (S \setminus \{b, \max(S) - b + 1\}) \cup \{\max(S)+1\}.
 \end{equation*}
 
-$\beta$: If $b > s$ and $b \notin D$, or if $b \geq s + 2$, then we move the slope down and turn its points into the new base.
+$\beta$: If  $S\in \mathcal{P_\beta}$ (equivalently, if $b > s$ and $b \notin D$, or if $b \geq s + 2$), then we move the slope down and turn its points into the new base.
 \begin{equation*}
     \beta(S) = S \cup \{s, \max(S)-s\} \setminus \{\max(S)\}.
 \end{equation*}
@@ -233,9 +243,11 @@ then we move $b$ up and turn its points into new slope.
 then we move the slope down and turn its points into the new base.
 \end{comment}
 
+\begin{comment}
 \begin{remark}
 If $b$ and $s$ have a common point and $|b|=|s|$ or $|b|=|s|+1$ then neither $\alpha$ nor $\beta$ can be applied.
 \end{remark}
+\end{comment}
 
 \paragraph{$\alpha$}
 \begin{center}
@@ -345,6 +357,7 @@ If $b$ and $s$ have a common point and $|b|=|s|$ or $|b|=|s|+1$ then neither $\a
 \end{tikzpicture}
 \end{center}
 
+\begin{comment}
 To each diagram $D$ we can apply at most one of the operations $\alpha$ or $\beta$.
 If $\alpha$ can be applied to $D$ then $\beta$ can be applied to $\alpha(D)$.
 If $\beta$ can be applied to $D$ then $\alpha$ can be applied to $\beta(D)$.
@@ -361,24 +374,6 @@ $$\left\{\begin{smallmatrix}
           \mbox{s. t. }\alpha\mbox{ or }\beta\mbox{ can be applied }
         \end{smallmatrix}\right\}$$
 
-\begin{lemma}
- Operation $\alpha$ and $\beta$ can never be applied to the same partition.
-\end{lemma}
-
-\begin{lemma}
-  If $\alpha$ can be applied to a partition $S$, then $\beta$ can be applied to $\alpha(S)$ and $\beta(\alpha(S))=S$.
-
-  If $\beta$ can be applied to a partition $S$, then $\alpha$ can be applied to $\beta(S)$ and $\alpha(\beta(S))=S$.
-\end{lemma}
-
-\begin{lemma}
-  The operations $\alpha$ and $\beta$ change the parity of the number of parts of a partition.
-\end{lemma}
-
-\begin{lemma}
-The number of odd partitions of $n$ into different parts such that $\alpha$ or $\beta$ can be applied is equal to the number of even partitions of $n$ into different parts such that $\alpha$ or $\beta$ can be applied.
-\end{lemma}
-
 When can neither $\alpha$ nor $\beta$ be applied?
 \begin{itemize}
 \item $b$ and $s$ have a common point and $|b|=|s|=k$
@@ -387,17 +382,70 @@ $$n=k+(k+1)+\ldots+(2k-1)=\frac{3k^2-k}{2}.$$
 $$n=(k+1)+\ldots+2k=\frac{3k^2+k}{2}.$$
 \end{itemize}
 
+
 \begin{lemma}
   If neither $\alpha$ nor $\beta$ can be applied to a partition $S$, then $n$ is a pentagonal number, i.e. $n=\frac{3k^2\pm k}{2}$ for some $k\in \Z$ and the parity of the number of parts of $S$ is the same as the parity of $k$.
 \end{lemma}
+\end{comment}
 
 \begin{lemma}
-$$p_e(n)-p_o(n)=c_n=
+ If $S\in \mathcal{P}_\alpha(n)$ then $\alpha (S)\in \mathcal{P}_\beta(n)$.
+\end{lemma}
+
+\begin{lemma}
+ If $S\in \mathcal{P}_\beta(n)$ then $\beta (S)\in \mathcal{P}_\alpha(n)$.
+\end{lemma}
+
+\begin{lemma}
+  The composition of maps $\beta\circ\alpha$ is equal to the identity map on  $\mathcal{P}_\alpha(n)$. Equivalently, if $S\in \mathcal{P}_\alpha(n)$ then $\beta(\alpha(S))=S$.
+\end{lemma}
+
+\begin{lemma}
+  The composition of maps $\alpha\circ\beta$ is equal to the identity map on  $\mathcal{P}_\beta(n)$. Equivalently, if $S\in \mathcal{P}_\beta(n)$ then $\alpha(\beta(S))=S$.
+\end{lemma}
+
+\begin{lemma}
+The map $\alpha: \mathcal{P}_\alpha(n)\to \mathcal{P}_\beta(n)$ is a bijection. \\
+The map $\beta: \mathcal{P}_\beta(n)\to \mathcal{P}_\alpha(n)$ is a bijection.
+\end{lemma}
+
+\begin{lemma}
+$$\left| \mathcal{P}_\alpha(n)\right|=\left|\mathcal{P}_\beta(n) \right|.$$
+\end{lemma}
+
+\begin{lemma}
+The operations $\alpha$ and $\beta$ change the parity of the number of parts of a partition. More precisely,
+\begin{itemize}
+\item If $S\in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $ then  $\alpha(S) \in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $;
+\item If $S\in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{even}}(n) $ then  $\alpha(S) \in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $;
+\item If $S\in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $ then  $\beta(S) \in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{even}}(n) $;
+\item If $S\in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $ then  $\beta(S) \in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $.
+\end{itemize}
+\end{lemma}
+
+\begin{lemma}\label{lemma: alpha odd eq beta even}
+$$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|,$$
+$$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|.$$
+\end{lemma}
+
+
+
+\begin{lemma}
+$$p_e(n)-p_o(n)=
 \begin{cases}(-1)^k,&\mbox{ if } n= \frac{3k^2\pm k}{2}\\
 0, & \mbox{otherwise.}\end{cases}$$
 \end{lemma}
-
-This finishes the proof.
+\begin{proof}
+We have
+\begin{equation}\label{eqn: pe minus po}p_e(n)-p_o(n)=\left|\mathcal{P}_{even}(n)\right|-\left|\mathcal{P}_{odd}(n)\right|.\end{equation}
+By Lemma~\ref{lemma: alpha beta special} we have
+$$\left|\mathcal{P}_{\mathrm{even}}(n)\right|=\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\alpha}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n) \cap \mathcal{P}_{\beta}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|$$
+and
+$$\left|\mathcal{P}_{\mathrm{odd}}(n)\right|=\left|\mathcal{P}_{\mathrm{odd}}(n)\cap \mathcal{P}_{\alpha}(n)\right|+\left|\mathcal{P}_{\mathrm{odd}}(n) \cap \mathcal{P}_{\beta}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.$$
+It follows from two previous equations and Lemma~\ref{lemma: alpha odd eq beta even} that
+\begin{equation}\label{eqn: Peven minus Podd is Special}\left|\mathcal{P}_{\mathrm{even}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\right| =\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|-\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.\end{equation}
+Finally, the statement of the lemma follows from the equations \eqref{eqn: pe minus po}, \eqref{eqn: Peven minus Podd is Special} and Lemma~\ref{lemma: special}.
+\end{proof}
 
 \section{Jacobi triple product}
 \begin{theorem}
@@ -438,4 +486,4 @@ $$\prod_{k=1}^n (1-q^{2k})\,(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2})=\sum_{k=-n}^
 where
 $$B_{n,k}(q)=\prod_{s=n-k+1}^n(1-q^{2s})\,\prod_{s=n+k+1}^{2n}(1-q^{2s}).$$
 We have $B_{n,k}=1+O(q^{n-k+1})$.
-We take the limit $n\to \infty$ and  finish the proof.
+We take the limit $n\to \infty$ and  finish the proof. 
