@@ -51,7 +51,6 @@ def base_and_slope (s : Finset ℕ) (h : s.Nonempty) : ℕ × Finset ℕ :=
   let m := s.max' h
   let base := s.min' h
   let slope_set := s.filter (fun x => Finset.Icc x m ⊆ s)
-
   (base, slope_set)
 
 
@@ -79,6 +78,10 @@ def beta_crit (s : Finset ℕ) (h : s.Nonempty) : Bool :=
 def beta_involution (s : Finset ℕ) (hne : s.Nonempty) (hcrit : beta_crit s hne = true) : Finset ℕ :=
   let (base, slope) := base_and_slope s hne
   (s \ slope) ∪ slope.image (· - 1) ∪ {slope.card}
+
+
+
+
 
 
 /-- The slope (consecutive run ending at max) is an interval [min_slope, max]. -/
