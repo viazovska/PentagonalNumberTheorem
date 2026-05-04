@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PentagonalNumberTheorem</title>
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<div class="titlepage">
+<h1>PentagonalNumberTheorem</h1>
+<p class="authors">
+<span class="author">JC PM MV</span>
+</p>
+</div>
+
+<h1 id="a0000000002">1 Partitions</h1>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000003">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000003">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>A <em>partition</em> of a positive integer \(n\), also called an integer partition, is a way of writing \(n\) as a sum of positive integers. Two sums that differ only in the order of their summands are considered the same partition. </p>
+<p>The <em>partition function</em> \(p(n)\) represents the number of possible partitions of a natural number \(n\). </p>
+
+  </div>
+</div>
+<div class="example_thmwrapper theorem-style-plain" id="a0000000004">
+  <div class="example_thmheading">
+    <span class="example_thmcaption">
+    Example
+    </span>
+    <span class="example_thmlabel">2</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000004">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="example_thmcontent">
+  <p>\(5\; =\; 4+1\; =\; 3+2\; =\; 3+1+1\; =\; 2+2+1\; =\; 2+1+1+1\; =\; 1+1+1+1+1\)<br />\(p(5)=7\) </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="a0000000005">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000005">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000006"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>The generating function for \(p(n)\) is given by </p>
+<div class="displaymath" id="a0000000007">
+  \[ \sum _{n=0}^\infty p(n)\, x^n=\prod _{k=1}^\infty (1+x^k+x^{2k}+\ldots )=\prod _{k=1}^{\infty }(1-x^k)^{-1}. \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000006">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We work in the ring of formal power series \(\mathbb {Z}[[x]]\). </p>
+<p><b class="bfseries">Step 1.</b> For each fixed \(k \geq 1\), the geometric series identity </p>
+<div class="displaymath" id="a0000000008">
+  \[ 1 + x^k + x^{2k} + \cdots = \sum _{j=0}^\infty x^{jk} = (1 - x^k)^{-1} \]
+</div>
+<p> holds as formal power series. This gives the second equality. </p>
+<p><b class="bfseries">Step 2.</b> Expand the product \(\prod _{k=1}^\infty (1 + x^k + x^{2k} + \cdots )\). Each term in the expansion is obtained by selecting, for every \(k \geq 1\), an exponent \(j_k \in \mathbb {Z}_{\geq 0}\) (with \(j_k = 0\) for all but finitely many \(k\)) and multiplying the chosen monomials. Such a selection contributes a single term </p>
+<div class="displaymath" id="a0000000009">
+  \[ \prod _k x^{j_k \cdot k} = x^{\sum _k j_k \cdot k}. \]
+</div>
+<p><b class="bfseries">Step 3.</b> The coefficient of \(x^n\) is therefore the number of tuples \((j_1, j_2, \ldots )\) with \(\sum _k k \cdot j_k = n\). </p>
+<p><b class="bfseries">Step 4.</b> Such a tuple corresponds bijectively to a partition of \(n\): \(j_k\) is the multiplicity of the part \(k\). Hence the coefficient of \(x^n\) equals \(p(n)\), and the first equality follows. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000010">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">4</span>
+    <span class="definition_thmtitle">Partitions of \(n\) into distinct parts</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000010">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/all_distinct_partitions" class="lean_decl">all_distinct_partitions</a></li>
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/even_distinct_partitions" class="lean_decl">even_distinct_partitions</a></li>
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/odd_distinct_partitions" class="lean_decl">odd_distinct_partitions</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  
+<p>Let \(n \in \mathbb {N}\). We define the following sets of partitions of \(n\) into distinct positive parts: </p>
+<div class="displaymath" id="a0000000011">
+  \begin{align*}  \mathcal{P}(n) & = \left\{  S \subseteq \{ 1, \ldots , n\}  \; \middle |\;  \sum _{s \in S} s = n \right\} , \\ \mathcal{P}_{\mathrm{even}}(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  |S| \equiv 0 \pmod{2} \right\} , \\ \mathcal{P}_{\mathrm{odd}}(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  |S| \equiv 1 \pmod{2} \right\} . \end{align*}
+</div>
+<p> We further define the number of even and odd partitions of \(n\) as \(p_e(n) = |\mathcal{P}_{\mathrm{even}}(n)|\) and \(p_o(n) = |\mathcal{P}_{\mathrm{odd}}(n)|\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="a0000000012">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">5</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000012">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000013"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>We have </p>
+<div class="displaymath" id="a0000000014">
+  \[ \prod _{k=1}^{\infty }(1-x^k)\, =\, \sum _{s=0}^\infty \, \sum _{k_1{\lt}k_2{\lt}\cdots {\lt}k_s}(-1)^s\, x^{k_1+k_2+\ldots +k_s}\, =\, \sum _{n=0}^\infty c_n\,  x^n \]
+</div>
+<p> where \(c_0=1\) and for \(n\geq 1\) and \(c_n=p_e(n)-p_o(n).\) </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000013">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We expand the infinite product as a formal power series. </p>
+<p><b class="bfseries">Step 1: Expansion as a sum over finite subsets.</b> For each \(k \geq 1\), the factor \((1 - x^k)\) contributes either \(1\) or \(-x^k\) when expanding the product. A choice across all factors corresponds to a finite subset </p>
+<div class="displaymath" id="a0000000015">
+  \[ K = \{ k_1 {\lt} k_2 {\lt} \cdots {\lt} k_s\}  \subseteq \mathbb {Z}_{\geq 1} \]
+</div>
+<p> (the indices for which \(-x^k\) was selected). The contribution is </p>
+<div class="displaymath" id="a0000000016">
+  \[ \prod _{k \in K} (-x^k) = (-1)^{|K|}\,  x^{\sum _{k \in K} k} = (-1)^s \,  x^{k_1 + \cdots + k_s}. \]
+</div>
+<p> Summing over all such \(K\) yields the first equality. </p>
+<p><b class="bfseries">Step 2: Grouping by total exponent.</b> A subset \(K\) of size \(s\) summing to \(n\) is exactly a partition \(S \in \mathcal{P}(n)\) with \(|S| = s\). Hence the coefficient of \(x^n\) equals </p>
+<div class="displaymath" id="a0000000017">
+  \[ c_n = \sum _{S \in \mathcal{P}(n)} (-1)^{|S|}. \]
+</div>
+<p><b class="bfseries">Step 3: \(c_0 = 1\).</b> Only \(S = \emptyset \) partitions \(0\) into distinct positive parts, contributing \((-1)^0 = 1\). </p>
+<p><b class="bfseries">Step 4: \(c_n = p_e(n) - p_o(n)\) for \(n \geq 1\).</b> Splitting the sum by parity of \(|S|\): </p>
+<div class="displaymath" id="a0000000018">
+  \[ c_n = \sum _{\substack {S \in \mathcal{P}(n) \\ |S| \text{ even}}} 1 \; -\;  \sum _{\substack {S \in \mathcal{P}(n) \\ |S| \text{ odd}}} 1 = |\mathcal{P}_{\mathrm{even}}(n)| - |\mathcal{P}_{\mathrm{odd}}(n)| = p_e(n) - p_o(n). \]
+</div>
+
+  </div>
+</div>
+<div class="example_thmwrapper theorem-style-plain" id="a0000000019">
+  <div class="example_thmheading">
+    <span class="example_thmcaption">
+    Example
+    </span>
+    <span class="example_thmlabel">6</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000019">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="example_thmcontent">
+  <p>We compute \(\prod _{i=1}^{20}(1 - x^i) + o(x^{20}).\)<br /></p>
+<p>The answer is \(1-x-x^2+x^5+x^7-x^{12}-x^{15}+O\left(x^{20}\right).\)<br /></p>
+<div class="centered"> <table class="tabular">
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> \(n\) </p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">&nbsp;</td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> \(p_o(n)\) </p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p> \(p_e(n)\)</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>\(0\)</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(2\)</p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(2\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>\(0\)</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(3\)</p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(3=2+1\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(4\)</p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(4=3+1\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(5\)</p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(5=4+1=3+2\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(1\)</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>\(2\)</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(6\)</p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(6=5+1=4+2=3+2+1\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(2\)</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>\(2\)</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(7\)</p>
+
+    </td>
+    <td  style="text-align:left; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(7=6+1=5+2=4+3=4+2+1\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(2\)</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>\(3\)</p>
+
+    </td>
+  </tr>
+</table> </div>
+
+  </div>
+</div>
+<h1 id="a0000000020">2 Pentagonal number theorem</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="a0000000021">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">7</span>
+    <span class="theorem_thmtitle">Euler</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000021">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000022"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/euler_pentagonal_number_theorem" class="lean_decl">euler_pentagonal_number_theorem</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  
+<div class="displaymath" id="a0000000023">
+  \[ \prod _{i=1}^\infty (1-x^i)\, =\, 1+\sum _{k=1}^\infty (-1)^k\, (x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\, =\,  \sum _{k\in \mathbb {Z}}(-1)^k\, x^{(3k^2-k)/2}. \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000022">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The proof combines the previous expansion lemma with the closed-form computation of \(p_e(n) - p_o(n)\) via Franklin’s involution. </p>
+<p><b class="bfseries">Step 1: Coefficient identification.</b> By the previous lemma, </p>
+<div class="displaymath" id="a0000000024">
+  \[ \prod _{i=1}^\infty (1 - x^i) = \sum _{n=0}^\infty c_n \,  x^n, \]
+</div>
+<p> where \(c_0 = 1\) and \(c_n = p_e(n) - p_o(n)\) for \(n \geq 1\). </p>
+<p><b class="bfseries">Step 2: Closed form for \(c_n\).</b> By Lemma&#160;<a href="index.html#lemma: pe minus po closed form">24</a> below, </p>
+<div class="displaymath" id="a0000000025">
+  \[ p_e(n) - p_o(n) = \begin{cases}  (-1)^k &  \text{if } n = (3k^2 - k)/2 \text{ for some } k \in \mathbb {Z}_{\geq 1}, \\ (-1)^k &  \text{if } n = (3k^2 + k)/2 \text{ for some } k \in \mathbb {Z}_{\geq 1}, \\ 0 &  \text{otherwise.} \end{cases} \]
+</div>
+<p><b class="bfseries">Step 3: Reassembling the sum.</b> The values of \(n\) where \(c_n \neq 0\) are exactly the (generalized) pentagonal numbers \(n = (3k^2 \pm k)/2\) for \(k \geq 1\), plus \(n = 0\). Each contributes \((-1)^k\). Hence </p>
+<div class="displaymath" id="a0000000026">
+  \[ \prod _{i=1}^\infty (1 - x^i) = 1 + \sum _{k=1}^\infty (-1)^k \left( x^{(3k^2 - k)/2} + x^{(3k^2 + k)/2} \right). \]
+</div>
+<p><b class="bfseries">Step 4: Bilateral sum reformulation.</b> Reindex the second family by \(k \mapsto -k\). For \(k \in \mathbb {Z}_{\geq 1}\), set \(k' = -k\), so \(k' \in \mathbb {Z}_{\leq -1}\) and </p>
+<div class="displaymath" id="a0000000027">
+  \[ \frac{3(k')^2 - k'}{2} = \frac{3k^2 + k}{2}, \qquad (-1)^{k} = (-1)^{|k'|} = (-1)^{k'}. \]
+</div>
+<p> The \(k = 0\) term gives \((-1)^0 \,  x^0 = 1\), matching the leading \(1\). Combining the three contributions: </p>
+<div class="displaymath" id="a0000000028">
+  \[ \sum _{k \in \mathbb {Z}_{\geq 1}} (-1)^k x^{(3k^2 - k)/2} \; +\;  (-1)^0 x^0 \; +\;  \sum _{k' \in \mathbb {Z}_{\leq -1}} (-1)^{k'} x^{(3(k')^2 - k')/2} \; =\;  \sum _{k \in \mathbb {Z}} (-1)^k x^{(3k^2 - k)/2}. \]
+</div>
+
+  </div>
+</div>
+<div class="remark_thmwrapper theorem-style-plain" id="a0000000029">
+  <div class="remark_thmheading">
+    <span class="remark_thmcaption">
+    Remark
+    </span>
+    <span class="remark_thmlabel">8</span>
+    <span class="remark_thmtitle">Pentagonal numbers</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000029">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="remark_thmcontent">
+  <table class="tabular">
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> \(k\)</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> -3</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>-2</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>-1</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>0</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>1</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>2</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p>3</p>
+
+    </td>
+  </tr>
+  <tr>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p>\(\frac{3k^2-k}{2}\) </p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> 15</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> 7</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> 2</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> 0</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> 1</p>
+
+    </td>
+    <td  style="text-align:center; border-right:1px solid black" 
+        rowspan=""
+        colspan="">
+      <p> 5</p>
+
+    </td>
+    <td  style="text-align:center" 
+        rowspan=""
+        colspan="">
+      <p> 12 </p>
+
+    </td>
+  </tr>
+</table>
+<div class="centered"> <div class="tikzpicture" id="a0000000030">
+    <img src="images/img-0001.svg" alt="\begin{tikzpicture} [scale=0.5]
+\fill[red!20!white] (0,1)--(3*0.951,-2+3*0.309)--(3*0.588,-2-3*0.809)--(-3*0.588,-2-3*0.809)--(-3*0.951,-2+3*0.309);
+\fill[red!60!white] (0,1)--(2*0.951,-1+2*0.309)--(2*0.588,-1-2*0.809)--(-2*0.588,-1-2*0.809)--(-2*0.951,-1+2*0.309);
+\fill[red] (0,1)--(0.951,0.309)--(0.588,-0.809)--(-0.588,-0.809)--(-0.951,0.309);
+
+\fill[black!70!white] (0,1) circle(0.2 cm);
+\fill[black!50!white] (0.951,0.309) circle(0.2 cm);
+\fill[black!50!white] (-0.951,0.309) circle(0.2 cm);
+\fill[black!50!white] (0.588,-0.809) circle(0.2 cm);
+\fill[black!50!white] (-0.588,-0.809) circle(0.2 cm);
+
+\draw (0,1) circle(0.2 cm);
+\draw (0.951,0.309) circle(0.2 cm);
+\draw (-0.951,0.309) circle(0.2 cm);
+\draw (0.588,-0.809) circle(0.2 cm);
+\draw (-0.588,-0.809) circle(0.2 cm);
+
+\fill[black!30!white] (2*0.951,-1+2*0.309) circle(0.2 cm);
+\fill[black!30!white] (1.539,-1.5) circle(0.2 cm);
+\fill[black!30!white] (-2*0.951,-1+2*0.309) circle(0.2 cm);
+\fill[black!30!white] (-1.539,-1.5) circle(0.2 cm);
+\fill[black!30!white] (2*0.588,-1-2*0.809) circle(0.2 cm);
+\fill[black!30!white] (-2*0.588,-1-2*0.809) circle(0.2 cm);
+\fill[black!30!white] (0,-1-2*0.809) circle(0.2 cm);
+
+\draw (2*0.951,-1+2*0.309) circle(0.2 cm);
+\draw (1.539,-1.5) circle(0.2 cm);
+\draw (-2*0.951,-1+2*0.309) circle(0.2 cm);
+\draw (-1.539,-1.5) circle(0.2 cm);
+\draw (2*0.588,-1-2*0.809) circle(0.2 cm);
+\draw (-2*0.588,-1-2*0.809) circle(0.2 cm);
+\draw (0,-1-2*0.809) circle(0.2 cm);
+
+\fill[black!10!white] (3*0.951,-2+3*0.309) circle(0.2 cm);
+\fill[black!10!white] (3*0.951-0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\fill[black!10!white] (3*0.951-2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\fill[black!10!white] (-3*0.951,-2+3*0.309) circle(0.2 cm);
+\fill[black!10!white] (-3*0.951+0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\fill[black!10!white] (-3*0.951+2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\fill[black!10!white] (3*0.588,-2-3*0.809) circle(0.2 cm);
+\fill[black!10!white] (-3*0.588,-2-3*0.809) circle(0.2 cm);
+\fill[black!10!white] (-3*0.588+1.17557,-2-3*0.809) circle(0.2 cm);
+\fill[black!10!white] (-3*0.588+2*1.17557,-2-3*0.809) circle(0.2 cm);
+
+\draw (3*0.951,-2+3*0.309) circle(0.2 cm);
+\draw (3*0.951-0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\draw (3*0.951-2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\draw (-3*0.951,-2+3*0.309) circle(0.2 cm);
+\draw (-3*0.951+0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\draw (-3*0.951+2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\draw (3*0.588,-2-3*0.809) circle(0.2 cm);
+\draw (-3*0.588,-2-3*0.809) circle(0.2 cm);
+\draw (-3*0.588+1.17557,-2-3*0.809) circle(0.2 cm);
+\draw (-3*0.588+2*1.17557,-2-3*0.809) circle(0.2 cm);
+\end{tikzpicture}" />
+</div> </div>
+
+  </div>
+</div>
+<h2 id="a0000000031">2.1 Proof</h2>
+<p> Consider a diagram of a partition of \(n\) into different parts.<br /></p>
+<div class="centered"> <div class="tikzpicture" id="a0000000032">
+    <img src="images/img-0002.svg" alt="\begin{tikzpicture} [scale=1]
+\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
+\fill[red!20!white] (2.,-2.5)--(3.,-2.5)--(6.,0.5)--(5.,0.5);
+\draw (5.5,-1) node{\color{red}slope};
+\draw (2.5,-3) node{\color{blue}base};
+\draw (-1,1) node{$17$};
+\draw (-1,0.5) node{$\scriptscriptstyle\mid\,\mid$};
+\draw (-1,0) node{$6$};
+\draw (-1,-0.5) node{$\scriptscriptstyle+$};
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+\draw (-1,-1) node{$5$};
+\draw (-1,-1.5) node{$\scriptscriptstyle+$};
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+\draw (-1,-2) node{$4$};
+\draw (-1,-2.5) node{$\scriptscriptstyle+$};
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+\draw (3,-2) circle(0.2 cm);
+\draw (-1,-3) node{$2$};
+\draw (0,-3) circle(0.2 cm);
+\draw (1,-3) circle(0.2 cm);
+\end{tikzpicture}" />
+</div> </div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000033">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">9</span>
+    <span class="definition_thmtitle">Base and slope</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000033">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Consider a partition \(S \subseteq \{ 1, \ldots , n\} \) of \(n\) into different parts. We define the <em>base</em> \(b \in S\) as the smallest element of the partition. Let \(\max (S)\) denote the largest element of \(S\). We define the <em>slope</em> \(s\) as: </p>
+<div class="displaymath" id="a0000000034">
+  \begin{equation*}  s = \max \{ k \geq 1 : \max (S), \max (S)-1, \max (S)-2, \ldots , \max (S)-k + 1 \in S\} . \end{equation*}
+</div>
+<p> and the <em>slope set</em> \(D\) as \(\{ \max (S), \max (S)-1, \ldots , \max (S)-s + 1\} \). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000035">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">10</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000035">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(n \in \mathbb {N}\). We define the following sets of partitions of \(n\) into distinct positive parts: </p>
+<div class="displaymath" id="a0000000036">
+  \begin{align*}  \mathcal{P}_{\alpha }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  b \leq s \mbox{ and } b \notin D, \mbox{ or if } b \leq s - 1\right\} , \\ \mathcal{P}_{\beta }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  b {\gt} s \mbox{ and } b \notin D, \mbox{ or if } b \geq s + 2 \right\} , \\ \mathcal{P}_{\mathrm{special}}(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  b\in D \mbox{ and } |b|=|s| \mbox{ or } |b|=|s|+1 \right\} . \end{align*}
+</div>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="a0000000037">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">11</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000037">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000038"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all natural numbers \(n\) the following holds: The sets \(\mathcal{P}_{\alpha }(n)\), \(\mathcal{P}_{\beta }(n)\), \(\mathcal{P}_{\mathrm{special}}(n)\) are pairwise disjoint. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000038">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Throughout, let \(S \in \mathcal{P}(n)\) be a partition with base \(b\), slope \(s\), slope set \(D\). Recall the membership criteria: </p>
+<ul class="itemize">
+  <li><p>\(S \in \mathcal{P}_\alpha \) iff (\(b \leq s\) and \(b \notin D\)) or \(b \leq s - 1\); </p>
+</li>
+  <li><p>\(S \in \mathcal{P}_\beta \) iff (\(b {\gt} s\) and \(b \notin D\)) or \(b \geq s + 2\); </p>
+</li>
+  <li><p>\(S \in \mathcal{P}_{\mathrm{special}}\) iff \(b \in D\) and (\(b = s\) or \(b = s + 1\)). </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 1: \(\mathcal{P}_\alpha \cap \mathcal{P}_\beta = \emptyset \).</b> Suppose \(S \in \mathcal{P}_\alpha \cap \mathcal{P}_\beta \). Both branches of \(\mathcal{P}_\alpha \) imply \(b \leq s\), and both branches of \(\mathcal{P}_\beta \) imply \(b {\gt} s\). Contradiction. </p>
+<p><b class="bfseries">Step 2: \(\mathcal{P}_\alpha \cap \mathcal{P}_{\mathrm{special}} = \emptyset \).</b> Suppose \(S \in \mathcal{P}_{\mathrm{special}}\), so \(b \in D\) and \(b \in \{ s, s + 1\} \). </p>
+<ul class="itemize">
+  <li><p>In particular \(b \geq s\), so the second clause of \(\mathcal{P}_\alpha \) (\(b \leq s - 1\)) fails. </p>
+</li>
+  <li><p>The first clause requires \(b \notin D\), but \(b \in D\), so it also fails. </p>
+</li>
+</ul>
+<p> Hence \(S \notin \mathcal{P}_\alpha \). </p>
+<p><b class="bfseries">Step 3: \(\mathcal{P}_\beta \cap \mathcal{P}_{\mathrm{special}} = \emptyset \).</b> Suppose \(S \in \mathcal{P}_{\mathrm{special}}\), so \(b \in D\) and \(b \leq s + 1\). </p>
+<ul class="itemize">
+  <li><p>The second clause of \(\mathcal{P}_\beta \) (\(b \geq s + 2\)) fails since \(b \leq s + 1\). </p>
+</li>
+  <li><p>The first clause requires \(b \notin D\), contradicted by \(b \in D\). </p>
+</li>
+</ul>
+<p> Hence \(S \notin \mathcal{P}_\beta \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha beta special">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">12</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha beta special">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000039"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all natural numbers \(n\) the following holds </p>
+<div class="displaymath" id="a0000000040">
+  \[ \mathcal{P}(n)=\mathcal{P}_{\alpha }(n)\sqcup \mathcal{P}_{\beta }(n)\sqcup \mathcal{P}_{\mathrm{special}}(n). \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000039">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By the previous lemma the three sets are pairwise disjoint, so it suffices to show that every \(S \in \mathcal{P}(n)\) belongs to at least one of them. </p>
+<p><b class="bfseries">Step 1: Edge case.</b> If \(S = \emptyset \) (which can occur only when \(n = 0\)), the base, slope, and slope set are not defined. We treat this case separately: there are no special, \(\alpha \), or \(\beta \) partitions of \(0\) in the sense above, so the statement reduces to \(\mathcal{P}(0) = \emptyset \sqcup \emptyset \sqcup \emptyset \). <span style="color:#FF0000">TODO: confirm/define the convention for \(n = 0\) — the natural reading is \(\mathcal{P}(0) = \{ \emptyset \} \) but no operation applies. The statement either needs \(n \geq 1\) or a convention placing \(\emptyset \) in one of the three sets.</span> </p>
+<p><b class="bfseries">Step 2: Main case (\(S \neq \emptyset \)).</b> Let \(b = \min (S)\), \(s\) the slope, \(D\) the slope set. We perform a trichotomy on \(b\) vs \(s\): </p>
+<p><b class="bfseries">Case 1: \(b \leq s - 1\).</b> The second clause of \(\mathcal{P}_\alpha \) holds, so \(S \in \mathcal{P}_\alpha \). </p>
+<p><b class="bfseries">Case 2: \(b = s\).</b> </p>
+<ul class="itemize">
+  <li><p>If \(b \notin D\): the first clause of \(\mathcal{P}_\alpha \) (\(b \leq s\) and \(b \notin D\)) holds, so \(S \in \mathcal{P}_\alpha \). </p>
+</li>
+  <li><p>If \(b \in D\): then \(b = s\) and \(b \in D\), so \(S \in \mathcal{P}_{\mathrm{special}}\). </p>
+</li>
+</ul>
+<p><b class="bfseries">Case 3: \(b = s + 1\).</b> </p>
+<ul class="itemize">
+  <li><p>If \(b \notin D\): the first clause of \(\mathcal{P}_\beta \) (\(b {\gt} s\) and \(b \notin D\)) holds (since \(b = s + 1 {\gt} s\)), so \(S \in \mathcal{P}_\beta \). </p>
+</li>
+  <li><p>If \(b \in D\): then \(b = s + 1\) and \(b \in D\), so \(S \in \mathcal{P}_{\mathrm{special}}\). </p>
+</li>
+</ul>
+<p><b class="bfseries">Case 4: \(b \geq s + 2\).</b> The second clause of \(\mathcal{P}_\beta \) holds, so \(S \in \mathcal{P}_\beta \). </p>
+<p>These four cases cover all possibilities (either \(b \leq s + 1\) or \(b \geq s + 2\); within \(b \leq s + 1\) we split into \(b \leq s - 1\), \(b = s\), \(b = s + 1\)). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000041">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">13</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000041">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ 2k-1 , 2k-2 , \ldots , k\} \).<br />For \(k\in \mathbb {Z}_{\geq 0}\) define \(S_{k}=\{ 2k , 2k-1 , \ldots , k\} \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: special">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">14</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: special">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000042"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> If \(n\) is not a pentagonal number, then \( \mathcal{P}_{\mathrm{special}}(n)=\varnothing \).<br />If \(n=\frac{3k^2-k}{2}\) for some \(k\in \mathbb {Z}_{\geq 1}\), then \( \mathcal{P}_{\mathrm{special}}(n)=\{ S_{-k}\}  \).<br />If \(n=\frac{3k^2+k}{2}\) for some \(k\in \mathbb {Z}_{\geq 0}\), then \( \mathcal{P}_{\mathrm{special}}(n)=\{ S_{k}\} \). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000042">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p><span style="color:#FF0000">TODO: The statement and the definition of \(S_k\) for the upper-staircase family require reconciliation. As written, \(S_k = \{ 2k, 2k-1, \ldots , k\} \) has \(k + 1\) elements summing to \(\sum _{i=k}^{2k} i = (3k^2 + 3k)/2 \neq (3k^2 + k)/2\). The intended set is \(\{ k+1, k+2, \ldots , 2k\} \) with \(k\) elements (and base \(k+1\), slope \(k\)). Also the case \(k = 0\) is degenerate since it would require \(S = \{ 0\} \), which is not a partition into positive parts. The statement should be: for \(k \in \mathbb {Z}_{\geq 1}\), \(\mathcal{P}_{\mathrm{special}}((3k^2 + k)/2) = \{ \{ k+1, k+2, \ldots , 2k\} \} \). The proof below uses this corrected reading.</span> </p>
+<p><b class="bfseries">Step 1: Structure of a special partition.</b> Let \(S \in \mathcal{P}_{\mathrm{special}}(n)\) with base \(b\), slope \(s\), slope set \(D\). By definition, \(b \in D\) and either \(b = s\) or \(b = s + 1\). </p>
+<p><b class="bfseries">Sub-step 1a: \(S = D\).</b> The slope set is the maximal top-consecutive run: \(D = \{ \max (S) - s + 1, \ldots , \max (S)\} \). Since \(b \in D\) and \(b = \min (S)\), every element of \(S\) lies between \(b\) and \(\max (S)\). Moreover, the integers \(b, b+1, \ldots , \max (S)\) all lie in \(D\) (because \(b \in D\) implies \(b \geq \max (S) - s + 1\), so \(\{ b, b+1, \ldots , \max (S)\}  \subseteq D\)), and \(D \subseteq S\). Combined with \(b = \min (S)\), this forces </p>
+<div class="displaymath" id="a0000000043">
+  \[ S = \{ b, b+1, \ldots , \max (S)\} . \]
+</div>
+<p>In particular \(|S| = \max (S) - b + 1\), and since \(S = D\) this also equals \(s\). Thus \(\max (S) = b + s - 1\). </p>
+<p><b class="bfseries">Step 2: Case A — \(b = s\).</b> Then \(|S| = s = b\) and \(\max (S) = 2b - 1\), so </p>
+<div class="displaymath" id="a0000000044">
+  \[ S = \{ b, b+1, \ldots , 2b - 1\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000045">
+  \[ \sum _{i=b}^{2b-1} i = b \cdot b + (0 + 1 + \cdots + (b-1)) = b^2 + \frac{b(b-1)}{2} = \frac{3b^2 - b}{2}. \]
+</div>
+<p> Setting \(k = b \in \mathbb {Z}_{\geq 1}\), we have \(n = (3k^2 - k)/2\) and \(S = S_{-k}\) (matching the definition \(S_{-k} = \{ 2k - 1, \ldots , k\} \)). </p>
+<p><b class="bfseries">Step 3: Case B — \(b = s + 1\).</b> Then \(|S| = s = b - 1\) and \(\max (S) = b + s - 1 = 2b - 2\), so </p>
+<div class="displaymath" id="a0000000046">
+  \[ S = \{ b, b+1, \ldots , 2b - 2\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000047">
+  \[ \sum _{i=b}^{2b-2} i = (b-1) \cdot b + (0 + 1 + \cdots + (b-2)) = b(b-1) + \frac{(b-1)(b-2)}{2} = \frac{(b-1)(3b - 2)}{2}. \]
+</div>
+<p> Setting \(k = b - 1 \in \mathbb {Z}_{\geq 1}\) (note \(b \geq 2\) since \(s \geq 1\)), we get </p>
+<div class="displaymath" id="a0000000048">
+  \[ n = \frac{k(3(k+1) - 2)}{2} = \frac{k(3k + 1)}{2} = \frac{3k^2 + k}{2}, \qquad S = \{ k+1, k+2, \ldots , 2k\} . \]
+</div>
+<p><b class="bfseries">Step 4: Forward direction.</b> Conversely, given \(n = (3k^2 - k)/2\) with \(k \geq 1\), the set \(S_{-k} = \{ k, k+1, \ldots , 2k - 1\} \) has base \(k\), slope \(k\) (the entire set is a top-consecutive run), and \(b = k \in D\), hence is special. Similarly for the upper family. </p>
+<p><b class="bfseries">Step 5: Uniqueness.</b> The case analysis in Steps 2–3 shows that for each pentagonal \(n\), there is at most one special partition (the candidate is uniquely determined by \(b\)). Combined with the forward direction, this gives exactly one. </p>
+<p><b class="bfseries">Step 6: Non-pentagonal \(n\).</b> If \(n\) is not pentagonal of either form, no \(b \geq 1\) produces \(\sum = n\) in the analysis above, so \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000049">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">15</span>
+    <span class="definition_thmtitle">Operations \(\alpha \) and \(\beta \)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000049">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Let \(S \subseteq \{ 1, \ldots , n\} \) be a partition of \(n\) into different parts with base \(b\) and slope \(s\) and slope set \(D\). We define the following operations on \(S\): </p>
+<p>\(\alpha \): If \(S\in \mathcal{P_\alpha }\) (equivalently, if \(b \leq s\) and \(b \notin D\), or if \(b \leq s - 1\)), then we move \(b\) up and turn its points into new slope. </p>
+<div class="displaymath" id="a0000000050">
+  \begin{equation*}  \alpha (S) = (S \setminus \{ b, \max (S) - b + 1\} ) \cup \{ \max (S)+1\} . \end{equation*}
+</div>
+<p>\(\beta \): If \(S\in \mathcal{P_\beta }\) (equivalently, if \(b {\gt} s\) and \(b \notin D\), or if \(b \geq s + 2\)), then we move the slope down and turn its points into the new base. </p>
+<div class="displaymath" id="a0000000051">
+  \begin{equation*}  \beta (S) = S \cup \{ s, \max (S)-s\}  \setminus \{ \max (S)\} . \end{equation*}
+</div>
+
+  </div>
+</div>
+<h4 id="a0000000052">\(\alpha \)</h4>
+<div class="centered"> <div class="tikzpicture" id="a0000000053">
+    <img src="images/img-0003.svg" alt="\begin{tikzpicture} [scale=0.5]
+
+\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+\draw (3,-2) circle(0.2 cm);
+
+\draw (0,-3) circle(0.2 cm);
+\draw (1,-3) circle(0.2 cm);
+
+
+
+\begin{scope}[xshift=12 cm]
+
+\fill[red!20!white] (4.,-1.5)--(5.,-1.5)--(7.,0.5)--(6.,0.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+\draw (6,0) circle(0.2 cm);
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+\draw (5,-1) circle(0.2 cm);
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+\draw (3,-2) circle(0.2 cm);
+\end{scope}
+\end{tikzpicture}" />
+</div> </div>
+<h4 id="a0000000054">\(\beta \)</h4>
+<div class="centered"> <div class="tikzpicture" id="a0000000055">
+    <img src="images/img-0004.svg" alt="\begin{tikzpicture} [scale=0.5]
+
+\fill[red!20!white] (3.,-1.5)--(4.,-1.5)--(6.,0.5)--(5.,0.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+
+
+\begin{scope}[xshift=12 cm]
+
+\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+
+\draw (0,-3) circle(0.2 cm);
+\draw (1,-3) circle(0.2 cm);
+\end{scope}
+\end{tikzpicture}" />
+</div> </div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha lands in beta">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">16</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha lands in beta">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000056"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> If \(S\in \mathcal{P}_\alpha (n)\) then \(\alpha (S)\in \mathcal{P}_\beta (n)\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000056">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(S \in \mathcal{P}_\alpha (n)\) with base \(b\), slope \(s\), max \(m = \max (S)\), slope set \(D = \{ m - s + 1, \ldots , m\} \). Recall that the \(\alpha \)-condition says \(b \leq s\) (with \(b \notin D\) if \(b = s\)), and </p>
+<div class="displaymath" id="a0000000057">
+  \[ \alpha (S) = (S \setminus \{ b, m - b + 1\} ) \cup \{ m + 1\} . \]
+</div>
+<p> (Equivalently in the more granular form used in the Lean code: remove the base \(b\), remove the bottom-most element of the top-\(b\) slope \(\{ m - b + 1\} \), and add \(m + 1\). The remaining \(b - 1\) slope elements stay where they are; the smallest one of them is \(m - b + 2\).) </p>
+<p><b class="bfseries">Step 1: \(\alpha (S)\) is a partition of \(n\).</b> The change in sum is \(-b - (m - b + 1) + (m + 1) = 0\), so the sum is preserved. Since \(b\) and \(m - b + 1\) both lie in \(S\) and \(m + 1 \notin S\) (as \(m = \max (S)\)), the operation produces a set, and all parts are positive (the smallest possible new value is \(m + 1 \geq 2\), and any retained part is in \(S\), hence \(\geq b \geq 1\)). </p>
+<p>We must verify that \(b \neq m - b + 1\) (so we are removing two distinct elements). Equivalently \(m \neq 2b - 1\). If \(m = 2b - 1\), then \(S \supseteq \{ b, b+1, \ldots , 2b-1\}  = D\), forcing \(S = D\) (since \(|S| \geq |D| = s = b\) and \(S = \{ b, \ldots , 2b-1\} \)). But then \(S\) would be the special partition \(S_{-b}\), contradicting \(S \in \mathcal{P}_\alpha \). </p>
+<p><b class="bfseries">Step 2: New extremes.</b> </p>
+<ul class="itemize">
+  <li><p>New maximum: \(m' := \max (\alpha (S)) = m + 1\). </p>
+</li>
+  <li><p>New base: \(b' := \min (\alpha (S))\). Since \(b\) was removed, \(b'\) is the second-smallest element of \(S\) (if \(|S| \geq 2\)) or \(m + 1\) (if \(|S| = 1\)). </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 3: New slope \(s'\) and slope set \(D'\).</b> The slope of \(\alpha (S)\) is the maximal consecutive run from \(m'\) downward. The retained top-\((b-1)\) slope elements \(\{ m - b + 2, \ldots , m\} \) together with the new element \(m + 1\) form the consecutive run \(\{ m - b + 2, m - b + 3, \ldots , m, m + 1\} \) of length \(b\). We claim this is the entire new slope, i.e., \(s' = b\) and \(D' = \{ m - b + 2, \ldots , m + 1\} \). </p>
+<p><b class="bfseries">Sub-step 3a: The run does not extend further down.</b> The next candidate would be \(m - b + 1\), which we just removed; so \(m - b + 1 \notin \alpha (S)\), terminating the run. </p>
+<p><b class="bfseries">Step 4: Verify \(\alpha (S) \in \mathcal{P}_\beta (n)\).</b> We need \(b' {\gt} s'\) (and \(b' \notin D'\)) or \(b' \geq s' + 2\). We have \(s' = b\) from Step 3, and we examine which clause of \(\mathcal{P}_\alpha \) produced \(S\): </p>
+<p><i class="itshape">Sub-case (i): \(b \leq s - 1\) (the second clause of \(\mathcal{P}_\alpha \)).</i> The slope of \(S\) has length \(s \geq b + 1\), so its top \(b\) elements \(\{ m - b + 1, \ldots , m\} \) are a strict subset of \(D\). The element \(m - s + 1 \in D\) satisfies \(m - s + 1 {\lt} m - b + 1\), so \(m - s + 1\) is in \(S\) and below the part removed. After applying \(\alpha \), this element remains, and its value \(m - s + 1\) may or may not be the new minimum. </p>
+<p><span style="color:#FF0000">TODO: Case analysis on the location of the new base \(b'\) relative to \(D'\). The careful analysis (matching the Lean lemma <span class="ttfamily">alpha_gives_beta_crit</span>) shows: the new base \(b' \geq b + 1\) (since the second-smallest element of \(S\) is \(\geq b + 1\); in fact \(\geq b + 1\) because elements are distinct), and one verifies that \(b' \geq s' + 2\) or \(b' {\gt} s' \wedge b' \notin D'\). The detailed bookkeeping requires distinguishing whether the second-smallest of \(S\) is in the slope or below it.</span> </p>
+<p><i class="itshape">Sub-case (ii): \(b = s\) and \(b \notin D\) (first clause of \(\mathcal{P}_\alpha \)).</i> <span style="color:#FF0000">TODO: Symmetric analysis. The conclusion is again that the resulting partition satisfies the \(\beta \)-criterion.</span> </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: beta lands in alpha">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">17</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: beta lands in alpha">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000058"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> If \(S\in \mathcal{P}_\beta (n)\) then \(\beta (S)\in \mathcal{P}_\alpha (n)\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000058">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(S \in \mathcal{P}_\beta (n)\) with base \(b\), slope \(s\), max \(m\), slope set \(D\). Recall the \(\beta \)-condition: \(b {\gt} s\) (with \(b \notin D\) if \(b = s + 1\)), and </p>
+<div class="displaymath" id="a0000000059">
+  \[ \beta (S) = (S \cup \{ s, m - s\} ) \setminus \{ m\} . \]
+</div>
+<p> (In the granular form: remove the top-of-slope \(m\), shift the slope \(D = \{ m - s + 1, \ldots , m\} \) down by one to \(\{ m - s, \ldots , m - 1\} \), and adjoin a new bottom element \(\{ s\} \). The retained slope elements stay at \(\{ m - s + 1, \ldots , m - 1\} \); the only "new" element below them is \(m - s\), and the only "new" element overall is \(s\).) </p>
+<p><b class="bfseries">Step 1: \(\beta (S)\) is a partition of \(n\).</b> Sum change: shifting \(s\) slope elements each down by 1 contributes \(-s\), and adjoining the new singleton \(\{ s\} \) contributes \(+s\). The net change is zero. </p>
+<p>We must verify the resulting set has distinct elements: </p>
+<ul class="itemize">
+  <li><p>\(s \notin S \setminus \{ m\} \): since \(b {\gt} s\) (from \(\beta \)-criterion) and \(b = \min (S)\), all parts of \(S\) exceed \(s\). So \(s\) is genuinely new. </p>
+</li>
+  <li><p>\(m - s \notin S \setminus \{ m\} \): if \(m - s\) were already in \(S\), then since \(m - s {\lt} m - s + 1\) (the slope minimum), \(m - s\) would be in \(S \setminus D\). But by maximality of the slope (the slope is the maximal top-consecutive run; cf. <span class="ttfamily">slope_is_interval</span> in Lean), if \(m - s \in S\) then \(\{ m - s, m - s + 1, \ldots , m\}  \subseteq S\), which would mean \(m - s \in D\), contradiction. </p>
+</li>
+  <li><p>\(s \neq m - s\), i.e., \(m \neq 2s\). <span style="color:#FF0000">TODO: verify this from the \(\beta \)-criterion. Heuristically, if \(m = 2s\) then \(D = \{ s + 1, \ldots , 2s\} \) has minimum \(s + 1\); combined with \(\beta \)-criterion (\(b \geq s + 2\) in the second clause, or \(b = s + 1, b \notin D\) in the first), one checks the case \(m = 2s, b = s + 1\) would give \(b \in D\) (since \(b = s + 1 \in D\)), excluded.</span> </p>
+</li>
+  <li><p>Positivity: \(s \geq 1\) and \(m - s \geq 1\) (since \(m - s \geq m - s + 1 - 1\) and the slope minimum is \(\geq 1\)). </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 2: New extremes.</b> </p>
+<ul class="itemize">
+  <li><p>New base: \(b' := \min (\beta (S)) = \min (b, s) = s\) (since \(b {\gt} s\)). </p>
+</li>
+  <li><p>New maximum: \(m' := \max (\beta (S))\). If \(|S| \geq 2\), then \(m' = \) second-largest element of \(S\), which equals \(m - 1\) (the next slope element). If \(|S| = 1\), then \(S = \{ m\}  = \{ b\} \), but \(b {\gt} s \geq 1\) means \(s \geq 1\), so \(|S| = 1\) forces a degenerate case; <span style="color:#FF0000">TODO: verify \(|S| \geq 2\) holds whenever \(S \in \mathcal{P}_\beta \), by a small computation.</span> </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 3: New slope \(s'\) and slope set \(D'\).</b> The shifted slope occupies \(\{ m - s, m - s + 1, \ldots , m - 1\} \), a consecutive run of length \(s\) ending at \(m' = m - 1\). So the new slope is at least this run. We claim it is exactly this run, i.e., \(s' = s\) and \(D' = \{ m - s, \ldots , m - 1\} \). </p>
+<p><i class="itshape">Reason it does not extend further down:</i> the next candidate is \(m - s - 1\). If this were in \(\beta (S)\), it would have to come from \(S \setminus \{ m\} \) (since neither shift-target nor \(s\) equals \(m - s - 1\) generically). But \(m - s - 1 \in S\) would, by slope maximality applied to \(S\), require \(m - s - 1 \in D\), contradicting \(\min (D) = m - s + 1\). </p>
+<p><b class="bfseries">Step 4: Verify \(\beta (S) \in \mathcal{P}_\alpha (n)\).</b> We have \(b' = s\) and \(s' = s\), so \(b' = s'\). We need either \(b' \notin D'\) (giving the first clause of \(\mathcal{P}_\alpha \)) or \(b' \leq s' - 1\) (the second clause). Since \(b' = s'\), the second clause fails, and we must show \(b' = s \notin D'\). </p>
+<p>\(D' = \{ m - s, m - s + 1, \ldots , m - 1\} \). We have \(s \in D'\) iff \(m - s \leq s \leq m - 1\), iff \(m \geq s + 1\) (always true since \(m \geq b {\gt} s\)) and \(s \leq m - 1\), the latter equivalent to \(m \geq s + 1\). </p>
+<p>So generically \(s \in D'\) would hold, which would block \(\mathcal{P}_\alpha \). But we have additional information from the \(\beta \)-criterion: </p>
+<ul class="itemize">
+  <li><p>If \(b \geq s + 2\) (second clause of \(\beta \)): then \(m \geq b \geq s + 2\), so \(m - s \geq 2 {\gt} s\) would require... <span style="color:#FF0000">TODO: this analysis is delicate and the careful statement is that \(s \notin D'\), which translates to \(s {\lt} m - s\), i.e., \(m {\gt} 2s\). This holds in both clauses of \(\mathcal{P}_\beta \), but needs the same kind of casework as in the \(\alpha \) direction. See Lean’s <span class="ttfamily">beta_gives_alpha_crit</span> (currently sorry-ed).</span> </p>
+</li>
+</ul>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: beta after alpha">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">18</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: beta after alpha">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000060"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> The composition of maps \(\beta \circ \alpha \) is equal to the identity map on \(\mathcal{P}_\alpha (n)\). Equivalently, if \(S\in \mathcal{P}_\alpha (n)\) then \(\beta (\alpha (S))=S\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000060">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(S \in \mathcal{P}_\alpha (n)\) with base \(b\), slope \(s\), max \(m\), slope set \(D\). </p>
+<p><b class="bfseries">Step 1: Compute \(\alpha (S)\).</b> By the definition of \(\alpha \): </p>
+<div class="displaymath" id="a0000000061">
+  \[ \alpha (S) = (S \setminus \{ b, m - b + 1\} ) \cup \{ m + 1\} . \]
+</div>
+<p> By Lemma&#160;<a href="index.html#lemma: alpha lands in beta">16</a>, \(\alpha (S) \in \mathcal{P}_\beta (n)\). From the proof of that lemma, the data of \(\alpha (S)\) is: </p>
+<ul class="itemize">
+  <li><p>new max \(m^\alpha = m + 1\), </p>
+</li>
+  <li><p>new slope \(s^\alpha = b\) (the run \(\{ m - b + 2, \ldots , m + 1\} \)), </p>
+</li>
+  <li><p>new slope set \(D^\alpha = \{ m - b + 2, \ldots , m + 1\} \). </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 2: Apply \(\beta \) to \(\alpha (S)\).</b> By definition of \(\beta \): </p>
+<div class="displaymath" id="a0000000062">
+  \[ \beta (\alpha (S)) = (\alpha (S) \cup \{ s^\alpha , m^\alpha - s^\alpha \} ) \setminus \{ m^\alpha \}  = (\alpha (S) \cup \{ b, m + 1 - b\} ) \setminus \{ m + 1\} . \]
+</div>
+<p><b class="bfseries">Step 3: Simplify.</b> Substituting \(\alpha (S) = (S \setminus \{ b, m - b + 1\} ) \cup \{ m + 1\} \): </p>
+<div class="displaymath" id="a0000000063">
+  \begin{align*}  \beta (\alpha (S)) & = \bigl[\bigl((S \setminus \{ b, m - b + 1\} ) \cup \{ m + 1\} \bigr) \cup \{ b, m - b + 1\} \bigr] \setminus \{ m + 1\}  \\ & = \bigl[(S \setminus \{ b, m - b + 1\} ) \cup \{ b, m - b + 1, m + 1\} \bigr] \setminus \{ m + 1\}  \\ & = (S \setminus \{ b, m - b + 1\} ) \cup \{ b, m - b + 1\}  \\ & = S, \end{align*}
+</div>
+<p> where we used that \(b\) and \(m - b + 1\) are in \(S\) (so re-adding them after removal recovers \(S\)), and that \(m + 1 \notin S \setminus \{ b, m - b + 1\} \) (since \(m + 1 {\gt} m \geq \) every element of \(S\)). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha after beta">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">19</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha after beta">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000064"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> The composition of maps \(\alpha \circ \beta \) is equal to the identity map on \(\mathcal{P}_\beta (n)\). Equivalently, if \(S\in \mathcal{P}_\beta (n)\) then \(\alpha (\beta (S))=S\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000064">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Let \(S \in \mathcal{P}_\beta (n)\) with base \(b\), slope \(s\), max \(m\), slope set \(D\). </p>
+<p><b class="bfseries">Step 1: Compute \(\beta (S)\).</b> </p>
+<div class="displaymath" id="a0000000065">
+  \[ \beta (S) = (S \cup \{ s, m - s\} ) \setminus \{ m\} . \]
+</div>
+<p> By Lemma&#160;<a href="index.html#lemma: beta lands in alpha">17</a>, \(\beta (S) \in \mathcal{P}_\alpha (n)\). From the proof of that lemma, the data of \(\beta (S)\) is: </p>
+<ul class="itemize">
+  <li><p>new max \(m^\beta = m - 1\), </p>
+</li>
+  <li><p>new base \(b^\beta = s\), </p>
+</li>
+  <li><p>new slope \(s^\beta = s\) (the run \(\{ m - s, \ldots , m - 1\} \)), </p>
+</li>
+  <li><p>new slope set \(D^\beta = \{ m - s, \ldots , m - 1\} \). </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 2: Apply \(\alpha \) to \(\beta (S)\).</b> </p>
+<div class="displaymath" id="a0000000066">
+  \[ \alpha (\beta (S)) = \bigl(\beta (S) \setminus \{ b^\beta , m^\beta - b^\beta + 1\} \bigr) \cup \{ m^\beta + 1\}  = \bigl(\beta (S) \setminus \{ s, m - s\} \bigr) \cup \{ m\} . \]
+</div>
+<p> (We used \(b^\beta = s\), \(m^\beta = m - 1\), so \(m^\beta - b^\beta + 1 = m - 1 - s + 1 = m - s\).) </p>
+<p><b class="bfseries">Step 3: Simplify.</b> Substituting \(\beta (S) = (S \cup \{ s, m - s\} ) \setminus \{ m\} \): </p>
+<div class="displaymath" id="a0000000067">
+  \begin{align*}  \alpha (\beta (S)) & = \bigl[\bigl((S \cup \{ s, m - s\} ) \setminus \{ m\} \bigr) \setminus \{ s, m - s\} \bigr] \cup \{ m\}  \\ & = \bigl[(S \setminus \{ m\} ) \setminus \{ s, m - s\} \bigr] \cup \{ m\} . \end{align*}
+</div>
+<p> Since \(s \notin S\) and \(m - s \notin S\) (verified in the proof of Lemma&#160;<a href="index.html#lemma: beta lands in alpha">17</a>), removing them from \(S \setminus \{ m\} \) has no effect: </p>
+<div class="displaymath" id="a0000000068">
+  \[ \alpha (\beta (S)) = (S \setminus \{ m\} ) \cup \{ m\}  = S, \]
+</div>
+<p> since \(m \in S\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha beta bijection">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">20</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha beta bijection">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000069"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> The map \(\alpha : \mathcal{P}_\alpha (n)\to \mathcal{P}_\beta (n)\) is a bijection. <br />The map \(\beta : \mathcal{P}_\beta (n)\to \mathcal{P}_\alpha (n)\) is a bijection. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000069">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Lemma&#160;<a href="index.html#lemma: alpha lands in beta">16</a> shows \(\alpha \) is well-defined as a map \(\mathcal{P}_\alpha (n) \to \mathcal{P}_\beta (n)\), and Lemma&#160;<a href="index.html#lemma: beta lands in alpha">17</a> shows \(\beta \) is well-defined as a map \(\mathcal{P}_\beta (n) \to \mathcal{P}_\alpha (n)\). </p>
+<p>Lemma&#160;<a href="index.html#lemma: beta after alpha">18</a> gives \(\beta \circ \alpha = \mathrm{id}_{\mathcal{P}_\alpha (n)}\), and Lemma&#160;<a href="index.html#lemma: alpha after beta">19</a> gives \(\alpha \circ \beta = \mathrm{id}_{\mathcal{P}_\beta (n)}\). </p>
+<p>Hence \(\alpha \) and \(\beta \) are mutually inverse bijections. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: P alpha card eq P beta card">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">21</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: P alpha card eq P beta card">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000070"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<div class="displaymath" id="a0000000071">
+  \[ \left| \mathcal{P}_\alpha (n)\right|=\left|\mathcal{P}_\beta (n) \right|. \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000070">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>A bijection between finite sets implies equal cardinality. Apply this to the bijection \(\alpha : \mathcal{P}_\alpha (n) \to \mathcal{P}_\beta (n)\) from Lemma&#160;<a href="index.html#lemma: alpha beta bijection">20</a>. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha beta change parity">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">22</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha beta change parity">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000072"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> The operations \(\alpha \) and \(\beta \) change the parity of the number of parts of a partition. More precisely, </p>
+<ul class="itemize">
+  <li><p>If \(S\in \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{odd}}(n) \) then \(\alpha (S) \in \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{even}}(n) \); </p>
+</li>
+  <li><p>If \(S\in \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{even}}(n) \) then \(\alpha (S) \in \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{odd}}(n) \); </p>
+</li>
+  <li><p>If \(S\in \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{odd}}(n) \) then \(\beta (S) \in \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{even}}(n) \); </p>
+</li>
+  <li><p>If \(S\in \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{even}}(n) \) then \(\beta (S) \in \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{odd}}(n) \). </p>
+</li>
+</ul>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000072">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Membership in \(\mathcal{P}_\beta \) for \(\alpha (S)\) (and in \(\mathcal{P}_\alpha \) for \(\beta (S)\)) is supplied by Lemmas&#160;<a href="index.html#lemma: alpha lands in beta">16</a> and&#160;<a href="index.html#lemma: beta lands in alpha">17</a>. It remains to show that the parity of the number of parts is flipped. </p>
+<p><b class="bfseries">Step 1: \(|\alpha (S)| = |S| - 1\).</b> By the definition \(\alpha (S) = (S \setminus \{ b, m - b + 1\} ) \cup \{ m + 1\} \): </p>
+<ul class="itemize">
+  <li><p>we remove two distinct elements (\(b\) and \(m - b + 1\), distinct as shown in the proof of Lemma&#160;<a href="index.html#lemma: alpha lands in beta">16</a>), reducing the size by \(2\); </p>
+</li>
+  <li><p>we add one element (\(m + 1\)), which is not in \(S \setminus \{ b, m - b + 1\} \) since \(m + 1 {\gt} \max (S)\). </p>
+</li>
+</ul>
+<p> Net change: \(-2 + 1 = -1\). So \(|\alpha (S)| = |S| - 1\), flipping parity. </p>
+<p><b class="bfseries">Step 2: \(|\beta (S)| = |S| + 1\).</b> By the definition \(\beta (S) = (S \cup \{ s, m - s\} ) \setminus \{ m\} \): </p>
+<ul class="itemize">
+  <li><p>we add two distinct new elements \(s\) and \(m - s\) (distinct, and not in \(S\), as verified in the proof of Lemma&#160;<a href="index.html#lemma: beta lands in alpha">17</a>), increasing the size by \(2\); </p>
+</li>
+  <li><p>we remove one element (\(m \in S\)), reducing by \(1\). </p>
+</li>
+</ul>
+<p> Net change: \(+2 - 1 = +1\). So \(|\beta (S)| = |S| + 1\), flipping parity. </p>
+<p><b class="bfseries">Step 3: Conclusion.</b> </p>
+<ul class="itemize">
+  <li><p>\(S \in \mathcal{P}_\mathrm {odd}\) means \(|S|\) is odd; then \(|\alpha (S)| = |S| - 1\) is even, so \(\alpha (S) \in \mathcal{P}_\mathrm {even}\). </p>
+</li>
+  <li><p>\(S \in \mathcal{P}_\mathrm {even}\) means \(|S|\) is even; then \(|\alpha (S)| = |S| - 1\) is odd, so \(\alpha (S) \in \mathcal{P}_\mathrm {odd}\). </p>
+</li>
+  <li><p>Symmetrically for \(\beta \) with \(|\beta (S)| = |S| + 1\). </p>
+</li>
+</ul>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha odd eq beta even">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">23</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha odd eq beta even">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<div class="displaymath" id="a0000000073">
+  \[ \left| \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|=\left| \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|, \]
+</div>
+<div class="displaymath" id="a0000000074">
+  \[ \left| \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|=\left| \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|. \]
+</div>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: pe minus po closed form">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">24</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: pe minus po closed form">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000075"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<div class="displaymath" id="a0000000076">
+  \[ p_e(n)-p_o(n)= \begin{cases} (-1)^k,& \mbox{ if } n= \frac{3k^2\pm k}{2}\\ 0, &  \mbox{otherwise.}\end{cases} \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000075">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>We have </p>
+<div class="equation" id="eqn: pe minus po">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eqn: pe minus po}p_e(n)-p_o(n)=\left|\mathcal{P}_{even}(n)\right|-\left|\mathcal{P}_{odd}(n)\right|.\end{equation}
+  </div>
+  <span class="equation_label">6</span>
+</p>
+</div>
+<p> By Lemma&#160;<a href="index.html#lemma: alpha beta special">12</a> we have </p>
+<div class="displaymath" id="a0000000077">
+  \[ \left|\mathcal{P}_{\mathrm{even}}(n)\right|=\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\alpha }(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n) \cap \mathcal{P}_{\beta }(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right| \]
+</div>
+<p> and </p>
+<div class="displaymath" id="a0000000078">
+  \[ \left|\mathcal{P}_{\mathrm{odd}}(n)\right|=\left|\mathcal{P}_{\mathrm{odd}}(n)\cap \mathcal{P}_{\alpha }(n)\right|+\left|\mathcal{P}_{\mathrm{odd}}(n) \cap \mathcal{P}_{\beta }(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|. \]
+</div>
+<p> It follows from two previous equations and Lemma&#160;<a href="index.html#lemma: alpha odd eq beta even">23</a> that </p>
+<div class="equation" id="eqn: Peven minus Podd is Special">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eqn: Peven minus Podd is Special}\left|\mathcal{P}_{\mathrm{even}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\right| =\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|-\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.\end{equation}
+  </div>
+  <span class="equation_label">7</span>
+</p>
+</div>
+<p> Finally, the statement of the lemma follows from the equations <a href="index.html#eqn: pe minus po" class="eqref">6</a>, <a href="index.html#eqn: Peven minus Podd is Special" class="eqref">7</a> and Lemma&#160;<a href="index.html#lemma: special">14</a>. </p>
+
+  </div>
+</div>
+<h1 id="a0000000079">3 Jacobi triple product</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="a0000000080">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">25</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000080">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>For all \(w\neq 0\) and \(q\) with \(|q|{\lt}1\): </p>
+<div class="displaymath" id="a0000000081">
+  \[ \prod _{k=1}^\infty (1-q^{2k})\, (1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2})=\sum _{k=-\infty }^\infty (-1)^k\, w^{2k}\, q^{k^2}. \]
+</div>
+
+  </div>
+</div>
+<h2 id="a0000000082">3.1 Proof</h2>
+<p> Set \( \phi _n(w,q):=\prod _{k=1}^n(1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2}). \) We have </p>
+<div class="equation" id="eqn: 1">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eqn: 1}\phi _n(qw,q)\, =\, \phi _n(w,q)\, \frac{(1-q^{2n+1}\, w^2)\, (1-q^{-1}w^{-2})}{(1-qw^2)\, (1-q^{2n-1}w^{-2})}\, =\, \phi _n(w,q)\, \frac{1-q^{2n+1}\, w^2}{-qw^2+q^{2n}}. \end{equation}
+  </div>
+  <span class="equation_label">8</span>
+</p>
+</div>
+<p> We consider the following expansion </p>
+<div class="equation" id="eqn: 2">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eqn: 2} \phi _n(w,q)=\sum _{k=-n}^nA_{n,k}(q)\, w^{2k}, \end{equation}
+  </div>
+  <span class="equation_label">9</span>
+</p>
+</div>
+<p> where \(A_{n,k}(q)\) is a polynomial in \(q\). We have a symmetry \(A_{n,k}(q)=A_{n,-k}(q)\). We find </p>
+<div class="equation" id="eqn: 3">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eqn: 3} A_{n,n}(q)=q^{1+3+5+\ldots +(2n-1)}=q^{n^2}. \end{equation}
+  </div>
+  <span class="equation_label">10</span>
+</p>
+</div>
+<p> We substitute <a href="index.html#eqn: 2" class="eqref">9</a> into <a href="index.html#eqn: 1" class="eqref">8</a> and obtain </p>
+<div class="equation" id="eqn: 4">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eqn: 4} A_{n,k}(q)=A_{n,k-1}(q)\, q^{2k-1}\, \frac{1-q^{2n-2k+2}}{1-q^{2n+2k}}. \end{equation}
+  </div>
+  <span class="equation_label">11</span>
+</p>
+</div>
+<p>From <a href="index.html#eqn: 3" class="eqref">10</a> and <a href="index.html#eqn: 4" class="eqref">11</a> we find </p>
+<div class="equation" id="eqn: 5">
+<p>
+  <div class="equation_content">
+    \begin{equation} \label{eqn: 5} A_{n,k}=\frac{q^{k^2}}{(1-q^2)\cdots (1-q^{2n})}\, \prod _{s=n-k+1}^n(1-q^{2s})\, \prod _{s=n+k+1}^{2n}(1-q^{2s}). \end{equation}
+  </div>
+  <span class="equation_label">12</span>
+</p>
+</div>
+<p> From <a href="index.html#eqn: 5" class="eqref">12</a> we obtain </p>
+<div class="displaymath" id="a0000000083">
+  \[ \prod _{k=1}^n (1-q^{2k})\, (1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2})=\sum _{k=-n}^n(-1)^k w^{2k}\, q^{k^2}\, B_{n,k}(q). \]
+</div>
+<p> where </p>
+<div class="displaymath" id="a0000000084">
+  \[ B_{n,k}(q)=\prod _{s=n-k+1}^n(1-q^{2s})\, \prod _{s=n+k+1}^{2n}(1-q^{2s}). \]
+</div>
+<p> We have \(B_{n,k}=1+O(q^{n-k+1})\). We take the limit \(n\to \infty \) and finish the proof.  </p>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

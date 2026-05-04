@@ -1,0 +1,789 @@
+% In this file you should put the actual content of the blueprint.
+% It will be used both by the web and the print version.
+% It should *not* include the \begin{document}
+%
+% If you want to split the blueprint content into several files then
+% the current file can be a simple sequence of \input. Otherwise It
+% can start with a \section or \chapter for instance.
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\h}{\mathbb{H}}
+
+
+
+\section{Partitions}
+
+\begin{definition}
+   A \emph{partition} of a positive integer $n$, also called an integer partition, is a way of writing $n$ as a sum of positive integers. Two sums that differ only in the order of their summands are considered the same partition.
+
+   The \emph{partition function} $p(n)$ represents the number of possible partitions of a natural number $n$.
+\end{definition}
+
+\begin{example}
+$5\;=\;4+1\;=\;3+2\;=\;3+1+1\;=\;2+2+1\;=\;2+1+1+1\;=\;1+1+1+1+1$\\
+$p(5)=7$
+\end{example}
+
+\begin{lemma}
+The generating function for $p(n)$ is given by
+$$\sum_{n=0}^\infty p(n)\,x^n=\prod_{k=1}^\infty(1+x^k+x^{2k}+\ldots)=\prod_{k=1}^{\infty}(1-x^k)^{-1}.$$
+\end{lemma}
+\begin{proof}
+We work in the ring of formal power series $\mathbb{Z}[[x]]$.
+
+\textbf{Step 1.} For each fixed $k \geq 1$, the geometric series identity
+$$1 + x^k + x^{2k} + \cdots = \sum_{j=0}^\infty x^{jk} = (1 - x^k)^{-1}$$
+holds as formal power series. This gives the second equality.
+
+\textbf{Step 2.} Expand the product $\prod_{k=1}^\infty (1 + x^k + x^{2k} + \cdots)$. Each term in the expansion is obtained by selecting, for every $k \geq 1$, an exponent $j_k \in \mathbb{Z}_{\geq 0}$ (with $j_k = 0$ for all but finitely many $k$) and multiplying the chosen monomials. Such a selection contributes a single term
+$$\prod_k x^{j_k \cdot k} = x^{\sum_k j_k \cdot k}.$$
+
+\textbf{Step 3.} The coefficient of $x^n$ is therefore the number of tuples $(j_1, j_2, \ldots)$ with $\sum_k k \cdot j_k = n$.
+
+\textbf{Step 4.} Such a tuple corresponds bijectively to a partition of $n$: $j_k$ is the multiplicity of the part $k$. Hence the coefficient of $x^n$ equals $p(n)$, and the first equality follows.
+\end{proof}
+
+\begin{comment}
+\begin{definition}
+For a positive integer $n$ we denote by $p_e(n)$ the number of partitions of $n$ into an even number of \emph{different} parts, analogously, we denote by $p_o(n)$ the number of partitions of $n$ into an odd number of \emph{different} parts.
+\end{definition}
+\end{comment}
+
+\begin{definition}[Partitions of $n$ into distinct parts] \lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions}
+
+Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{align*}
+\mathcal{P}(n) &= \left\{ S \subseteq \{1, \ldots, n\} \;\middle|\; \sum_{s \in S} s = n \right\}, \\
+\mathcal{P}_{\mathrm{even}}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; |S| \equiv 0 \pmod{2} \right\}, \\
+\mathcal{P}_{\mathrm{odd}}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; |S| \equiv 1 \pmod{2} \right\}.
+\end{align*}
+We further define the number of even and odd partitions of $n$ as $p_e(n) = |\mathcal{P}_{\mathrm{even}}(n)|$ and $p_o(n) = |\mathcal{P}_{\mathrm{odd}}(n)|$.
+\end{definition}
+
+
+\begin{lemma}
+We have
+$$\prod_{k=1}^{\infty}(1-x^k)\,=\,\sum_{s=0}^\infty\,\sum_{k_1<k_2<\cdots<k_s}(-1)^s\,x^{k_1+k_2+\ldots+k_s}\,=\,\sum_{n=0}^\infty c_n\, x^n$$
+where $c_0=1$ and for $n\geq 1$ and $c_n=p_e(n)-p_o(n).$
+\end{lemma}
+\begin{proof}
+We expand the infinite product as a formal power series.
+
+\textbf{Step 1: Expansion as a sum over finite subsets.}
+For each $k \geq 1$, the factor $(1 - x^k)$ contributes either $1$ or $-x^k$ when expanding the product. A choice across all factors corresponds to a finite subset
+$$K = \{k_1 < k_2 < \cdots < k_s\} \subseteq \mathbb{Z}_{\geq 1}$$
+(the indices for which $-x^k$ was selected). The contribution is
+$$\prod_{k \in K} (-x^k) = (-1)^{|K|}\, x^{\sum_{k \in K} k} = (-1)^s \, x^{k_1 + \cdots + k_s}.$$
+Summing over all such $K$ yields the first equality.
+
+\textbf{Step 2: Grouping by total exponent.}
+A subset $K$ of size $s$ summing to $n$ is exactly a partition $S \in \mathcal{P}(n)$ with $|S| = s$. Hence the coefficient of $x^n$ equals
+$$c_n = \sum_{S \in \mathcal{P}(n)} (-1)^{|S|}.$$
+
+\textbf{Step 3: $c_0 = 1$.}
+Only $S = \emptyset$ partitions $0$ into distinct positive parts, contributing $(-1)^0 = 1$.
+
+\textbf{Step 4: $c_n = p_e(n) - p_o(n)$ for $n \geq 1$.}
+Splitting the sum by parity of $|S|$:
+$$c_n = \sum_{\substack{S \in \mathcal{P}(n) \\ |S| \text{ even}}} 1 \;-\; \sum_{\substack{S \in \mathcal{P}(n) \\ |S| \text{ odd}}} 1 = |\mathcal{P}_{\mathrm{even}}(n)| - |\mathcal{P}_{\mathrm{odd}}(n)| = p_e(n) - p_o(n).$$
+\end{proof}
+
+\begin{example}
+We compute $\prod_{i=1}^{20}(1 - x^i) + o(x^{20}).$\\
+
+The answer is $1-x-x^2+x^5+x^7-x^{12}-x^{15}+O\left(x^{20}\right).$\\
+
+\begin{center}
+\begin{tabular}{c|l|c|c}
+$n$ && $p_o(n)$ & $p_e(n)$\\
+$1$&$1$&$1$&$0$\\
+$2$&$2$&$1$&$0$\\
+$3$&$3=2+1$&$1$&$1$\\
+$4$&$4=3+1$&$1$&$1$\\
+$5$&$5=4+1=3+2$&$1$&$2$\\
+$6$&$6=5+1=4+2=3+2+1$&$2$&$2$\\
+$7$&$7=6+1=5+2=4+3=4+2+1$&$2$&$3$\\
+\end{tabular}
+\end{center}
+
+\end{example}
+
+\section{Pentagonal number theorem}
+
+\begin{theorem}[Euler] \lean{euler_pentagonal_number_theorem}
+$$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\,=\,
+\sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
+\end{theorem}
+\begin{proof}
+The proof combines the previous expansion lemma with the closed-form computation of $p_e(n) - p_o(n)$ via Franklin's involution.
+
+\textbf{Step 1: Coefficient identification.}
+By the previous lemma,
+$$\prod_{i=1}^\infty (1 - x^i) = \sum_{n=0}^\infty c_n \, x^n,$$
+where $c_0 = 1$ and $c_n = p_e(n) - p_o(n)$ for $n \geq 1$.
+
+\textbf{Step 2: Closed form for $c_n$.}
+By Lemma~\ref{lemma: pe minus po closed form} below,
+$$p_e(n) - p_o(n) = \begin{cases}
+(-1)^k & \text{if } n = (3k^2 - k)/2 \text{ for some } k \in \mathbb{Z}_{\geq 1}, \\
+(-1)^k & \text{if } n = (3k^2 + k)/2 \text{ for some } k \in \mathbb{Z}_{\geq 1}, \\
+0 & \text{otherwise.}
+\end{cases}$$
+
+\textbf{Step 3: Reassembling the sum.}
+The values of $n$ where $c_n \neq 0$ are exactly the (generalized) pentagonal numbers $n = (3k^2 \pm k)/2$ for $k \geq 1$, plus $n = 0$. Each contributes $(-1)^k$. Hence
+$$\prod_{i=1}^\infty (1 - x^i) = 1 + \sum_{k=1}^\infty (-1)^k \left( x^{(3k^2 - k)/2} + x^{(3k^2 + k)/2} \right).$$
+
+\textbf{Step 4: Bilateral sum reformulation.}
+Reindex the second family by $k \mapsto -k$. For $k \in \mathbb{Z}_{\geq 1}$, set $k' = -k$, so $k' \in \mathbb{Z}_{\leq -1}$ and
+$$\frac{3(k')^2 - k'}{2} = \frac{3k^2 + k}{2}, \qquad (-1)^{k} = (-1)^{|k'|} = (-1)^{k'}.$$
+The $k = 0$ term gives $(-1)^0 \, x^0 = 1$, matching the leading $1$. Combining the three contributions:
+$$\sum_{k \in \mathbb{Z}_{\geq 1}} (-1)^k x^{(3k^2 - k)/2} \;+\; (-1)^0 x^0 \;+\; \sum_{k' \in \mathbb{Z}_{\leq -1}} (-1)^{k'} x^{(3(k')^2 - k')/2} \;=\; \sum_{k \in \mathbb{Z}} (-1)^k x^{(3k^2 - k)/2}.$$
+\end{proof}
+
+\begin{remark}[Pentagonal numbers]
+  \begin{tabular}{c|c|c|c|c|c|c|c}
+$k$& -3&-2&-1&0&1&2&3\\
+$\frac{3k^2-k}{2}$ & 15& 7& 2& 0& 1& 5& 12
+\end{tabular}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\fill[red!20!white] (0,1)--(3*0.951,-2+3*0.309)--(3*0.588,-2-3*0.809)--(-3*0.588,-2-3*0.809)--(-3*0.951,-2+3*0.309);
+\fill[red!60!white] (0,1)--(2*0.951,-1+2*0.309)--(2*0.588,-1-2*0.809)--(-2*0.588,-1-2*0.809)--(-2*0.951,-1+2*0.309);
+\fill[red] (0,1)--(0.951,0.309)--(0.588,-0.809)--(-0.588,-0.809)--(-0.951,0.309);
+
+\fill[black!70!white] (0,1) circle(0.2 cm);
+\fill[black!50!white] (0.951,0.309) circle(0.2 cm);
+\fill[black!50!white] (-0.951,0.309) circle(0.2 cm);
+\fill[black!50!white] (0.588,-0.809) circle(0.2 cm);
+\fill[black!50!white] (-0.588,-0.809) circle(0.2 cm);
+
+\draw (0,1) circle(0.2 cm);
+\draw (0.951,0.309) circle(0.2 cm);
+\draw (-0.951,0.309) circle(0.2 cm);
+\draw (0.588,-0.809) circle(0.2 cm);
+\draw (-0.588,-0.809) circle(0.2 cm);
+
+\fill[black!30!white] (2*0.951,-1+2*0.309) circle(0.2 cm);
+\fill[black!30!white] (1.539,-1.5) circle(0.2 cm);
+\fill[black!30!white] (-2*0.951,-1+2*0.309) circle(0.2 cm);
+\fill[black!30!white] (-1.539,-1.5) circle(0.2 cm);
+\fill[black!30!white] (2*0.588,-1-2*0.809) circle(0.2 cm);
+\fill[black!30!white] (-2*0.588,-1-2*0.809) circle(0.2 cm);
+\fill[black!30!white] (0,-1-2*0.809) circle(0.2 cm);
+
+\draw (2*0.951,-1+2*0.309) circle(0.2 cm);
+\draw (1.539,-1.5) circle(0.2 cm);
+\draw (-2*0.951,-1+2*0.309) circle(0.2 cm);
+\draw (-1.539,-1.5) circle(0.2 cm);
+\draw (2*0.588,-1-2*0.809) circle(0.2 cm);
+\draw (-2*0.588,-1-2*0.809) circle(0.2 cm);
+\draw (0,-1-2*0.809) circle(0.2 cm);
+
+\fill[black!10!white] (3*0.951,-2+3*0.309) circle(0.2 cm);
+\fill[black!10!white] (3*0.951-0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\fill[black!10!white] (3*0.951-2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\fill[black!10!white] (-3*0.951,-2+3*0.309) circle(0.2 cm);
+\fill[black!10!white] (-3*0.951+0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\fill[black!10!white] (-3*0.951+2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\fill[black!10!white] (3*0.588,-2-3*0.809) circle(0.2 cm);
+\fill[black!10!white] (-3*0.588,-2-3*0.809) circle(0.2 cm);
+\fill[black!10!white] (-3*0.588+1.17557,-2-3*0.809) circle(0.2 cm);
+\fill[black!10!white] (-3*0.588+2*1.17557,-2-3*0.809) circle(0.2 cm);
+
+\draw (3*0.951,-2+3*0.309) circle(0.2 cm);
+\draw (3*0.951-0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\draw (3*0.951-2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\draw (-3*0.951,-2+3*0.309) circle(0.2 cm);
+\draw (-3*0.951+0.363,-2+3*0.309-1.118) circle(0.2 cm);
+\draw (-3*0.951+2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
+\draw (3*0.588,-2-3*0.809) circle(0.2 cm);
+\draw (-3*0.588,-2-3*0.809) circle(0.2 cm);
+\draw (-3*0.588+1.17557,-2-3*0.809) circle(0.2 cm);
+\draw (-3*0.588+2*1.17557,-2-3*0.809) circle(0.2 cm);
+\end{tikzpicture}
+\end{center}
+\end{remark}
+
+
+\subsection{Proof}
+Consider a diagram of a partition of $n$ into different parts.\\
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
+\fill[red!20!white] (2.,-2.5)--(3.,-2.5)--(6.,0.5)--(5.,0.5);
+\draw (5.5,-1) node{\color{red}slope};
+\draw (2.5,-3) node{\color{blue}base};
+\draw (-1,1) node{$17$};
+\draw (-1,0.5) node{$\scriptscriptstyle\mid\,\mid$};
+\draw (-1,0) node{$6$};
+\draw (-1,-0.5) node{$\scriptscriptstyle+$};
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+\draw (-1,-1) node{$5$};
+\draw (-1,-1.5) node{$\scriptscriptstyle+$};
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+\draw (-1,-2) node{$4$};
+\draw (-1,-2.5) node{$\scriptscriptstyle+$};
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+\draw (3,-2) circle(0.2 cm);
+\draw (-1,-3) node{$2$};
+\draw (0,-3) circle(0.2 cm);
+\draw (1,-3) circle(0.2 cm);
+\end{tikzpicture}
+\end{center}
+
+\begin{definition}[Base and slope]
+  Consider a partition $S \subseteq \{1, \ldots, n\}$ of $n$ into different parts. We define the \emph{base} $b \in S$ as the smallest element of the partition. Let $\max(S)$ denote the largest element of $S$. We define the \emph{slope} $s$ as:
+  \begin{equation*}
+      s = \max\{k \geq 1 : \max(S), \max(S)-1, \max(S)-2, \ldots, \max(S)-k + 1 \in S\}.
+  \end{equation*}
+  and the \emph{slope set} $D$ as $\{\max(S), \max(S)-1, \ldots, \max(S)-s + 1\}$.
+\end{definition}
+
+\begin{definition} Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{align*}
+\mathcal{P}_{\alpha}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\;  b \leq s \mbox{ and } b \notin D, \mbox{ or if } b \leq s - 1\right\}, \\
+\mathcal{P}_{\beta}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; b > s \mbox{ and } b \notin D, \mbox{ or if } b \geq s + 2 \right\}, \\
+\mathcal{P}_{\mathrm{special}}(n)  &= \left\{ S \in \mathcal{P}(n) \;\middle|\; b\in D \mbox{ and } |b|=|s| \mbox{ or } |b|=|s|+1   \right\}.
+\end{align*}
+\end{definition}
+
+\begin{lemma}For all natural numbers $n$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
+\end{lemma}
+\begin{proof}
+Throughout, let $S \in \mathcal{P}(n)$ be a partition with base $b$, slope $s$, slope set $D$. Recall the membership criteria:
+\begin{itemize}
+\item $S \in \mathcal{P}_\alpha$ iff ($b \leq s$ and $b \notin D$) or $b \leq s - 1$;
+\item $S \in \mathcal{P}_\beta$ iff ($b > s$ and $b \notin D$) or $b \geq s + 2$;
+\item $S \in \mathcal{P}_{\mathrm{special}}$ iff $b \in D$ and ($b = s$ or $b = s + 1$).
+\end{itemize}
+
+\textbf{Step 1: $\mathcal{P}_\alpha \cap \mathcal{P}_\beta = \emptyset$.}
+Suppose $S \in \mathcal{P}_\alpha \cap \mathcal{P}_\beta$. Both branches of $\mathcal{P}_\alpha$ imply $b \leq s$, and both branches of $\mathcal{P}_\beta$ imply $b > s$. Contradiction.
+
+\textbf{Step 2: $\mathcal{P}_\alpha \cap \mathcal{P}_{\mathrm{special}} = \emptyset$.}
+Suppose $S \in \mathcal{P}_{\mathrm{special}}$, so $b \in D$ and $b \in \{s, s + 1\}$.
+\begin{itemize}
+\item In particular $b \geq s$, so the second clause of $\mathcal{P}_\alpha$ ($b \leq s - 1$) fails.
+\item The first clause requires $b \notin D$, but $b \in D$, so it also fails.
+\end{itemize}
+Hence $S \notin \mathcal{P}_\alpha$.
+
+\textbf{Step 3: $\mathcal{P}_\beta \cap \mathcal{P}_{\mathrm{special}} = \emptyset$.}
+Suppose $S \in \mathcal{P}_{\mathrm{special}}$, so $b \in D$ and $b \leq s + 1$.
+\begin{itemize}
+\item The second clause of $\mathcal{P}_\beta$ ($b \geq s + 2$) fails since $b \leq s + 1$.
+\item The first clause requires $b \notin D$, contradicted by $b \in D$.
+\end{itemize}
+Hence $S \notin \mathcal{P}_\beta$.
+\end{proof}
+
+\begin{lemma} \label{lemma: alpha beta special}For all natural numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
+\end{lemma}
+\begin{proof}
+By the previous lemma the three sets are pairwise disjoint, so it suffices to show that every $S \in \mathcal{P}(n)$ belongs to at least one of them.
+
+\textbf{Step 1: Edge case.}
+If $S = \emptyset$ (which can occur only when $n = 0$), the base, slope, and slope set are not defined. We treat this case separately: there are no special, $\alpha$, or $\beta$ partitions of $0$ in the sense above, so the statement reduces to $\mathcal{P}(0) = \emptyset \sqcup \emptyset \sqcup \emptyset$. \textcolor{red}{TODO: confirm/define the convention for $n = 0$ — the natural reading is $\mathcal{P}(0) = \{\emptyset\}$ but no operation applies. The statement either needs $n \geq 1$ or a convention placing $\emptyset$ in one of the three sets.}
+
+\textbf{Step 2: Main case ($S \neq \emptyset$).}
+Let $b = \min(S)$, $s$ the slope, $D$ the slope set. We perform a trichotomy on $b$ vs $s$:
+
+\textbf{Case 1: $b \leq s - 1$.}
+The second clause of $\mathcal{P}_\alpha$ holds, so $S \in \mathcal{P}_\alpha$.
+
+\textbf{Case 2: $b = s$.}
+\begin{itemize}
+\item If $b \notin D$: the first clause of $\mathcal{P}_\alpha$ ($b \leq s$ and $b \notin D$) holds, so $S \in \mathcal{P}_\alpha$.
+\item If $b \in D$: then $b = s$ and $b \in D$, so $S \in \mathcal{P}_{\mathrm{special}}$.
+\end{itemize}
+
+\textbf{Case 3: $b = s + 1$.}
+\begin{itemize}
+\item If $b \notin D$: the first clause of $\mathcal{P}_\beta$ ($b > s$ and $b \notin D$) holds (since $b = s + 1 > s$), so $S \in \mathcal{P}_\beta$.
+\item If $b \in D$: then $b = s + 1$ and $b \in D$, so $S \in \mathcal{P}_{\mathrm{special}}$.
+\end{itemize}
+
+\textbf{Case 4: $b \geq s + 2$.}
+The second clause of $\mathcal{P}_\beta$ holds, so $S \in \mathcal{P}_\beta$.
+
+These four cases cover all possibilities (either $b \leq s + 1$ or $b \geq s + 2$; within $b \leq s + 1$ we split into $b \leq s - 1$, $b = s$, $b = s + 1$).
+\end{proof}
+
+\begin{definition}
+For $k\in\mathbb{Z}_{\geq 1}$ define $ S_{-k}=\{2k-1 , 2k-2 , \ldots , k\}$.\\
+For $k\in\mathbb{Z}_{\geq 0}$ define $S_{k}=\{2k , 2k-1 , \ldots , k\}$.
+\end{definition}
+
+\begin{lemma}\label{lemma: special} If $n$ is not a pentagonal number, then $ \mathcal{P}_{\mathrm{special}}(n)=\varnothing$.\\
+If $n=\frac{3k^2-k}{2}$ for some $k\in\mathbb{Z}_{\geq 1}$, then $ \mathcal{P}_{\mathrm{special}}(n)=\{S_{-k}\} $.\\
+If $n=\frac{3k^2+k}{2}$ for some $k\in\mathbb{Z}_{\geq 0}$, then $ \mathcal{P}_{\mathrm{special}}(n)=\{S_{k}\}$.
+\end{lemma}
+\begin{proof}
+\textcolor{red}{TODO: The statement and the definition of $S_k$ for the upper-staircase family require reconciliation. As written, $S_k = \{2k, 2k-1, \ldots, k\}$ has $k + 1$ elements summing to $\sum_{i=k}^{2k} i = (3k^2 + 3k)/2 \neq (3k^2 + k)/2$. The intended set is $\{k+1, k+2, \ldots, 2k\}$ with $k$ elements (and base $k+1$, slope $k$). Also the case $k = 0$ is degenerate since it would require $S = \{0\}$, which is not a partition into positive parts. The statement should be: for $k \in \mathbb{Z}_{\geq 1}$, $\mathcal{P}_{\mathrm{special}}((3k^2 + k)/2) = \{\{k+1, k+2, \ldots, 2k\}\}$. The proof below uses this corrected reading.}
+
+\textbf{Step 1: Structure of a special partition.}
+Let $S \in \mathcal{P}_{\mathrm{special}}(n)$ with base $b$, slope $s$, slope set $D$. By definition, $b \in D$ and either $b = s$ or $b = s + 1$.
+
+\textbf{Sub-step 1a: $S = D$.}
+The slope set is the maximal top-consecutive run: $D = \{\max(S) - s + 1, \ldots, \max(S)\}$. Since $b \in D$ and $b = \min(S)$, every element of $S$ lies between $b$ and $\max(S)$. Moreover, the integers $b, b+1, \ldots, \max(S)$ all lie in $D$ (because $b \in D$ implies $b \geq \max(S) - s + 1$, so $\{b, b+1, \ldots, \max(S)\} \subseteq D$), and $D \subseteq S$. Combined with $b = \min(S)$, this forces
+$$S = \{b, b+1, \ldots, \max(S)\}.$$
+
+In particular $|S| = \max(S) - b + 1$, and since $S = D$ this also equals $s$. Thus $\max(S) = b + s - 1$.
+
+\textbf{Step 2: Case A — $b = s$.}
+Then $|S| = s = b$ and $\max(S) = 2b - 1$, so
+$$S = \{b, b+1, \ldots, 2b - 1\}.$$
+The sum is
+$$\sum_{i=b}^{2b-1} i = b \cdot b + (0 + 1 + \cdots + (b-1)) = b^2 + \frac{b(b-1)}{2} = \frac{3b^2 - b}{2}.$$
+Setting $k = b \in \mathbb{Z}_{\geq 1}$, we have $n = (3k^2 - k)/2$ and $S = S_{-k}$ (matching the definition $S_{-k} = \{2k - 1, \ldots, k\}$).
+
+\textbf{Step 3: Case B — $b = s + 1$.}
+Then $|S| = s = b - 1$ and $\max(S) = b + s - 1 = 2b - 2$, so
+$$S = \{b, b+1, \ldots, 2b - 2\}.$$
+The sum is
+$$\sum_{i=b}^{2b-2} i = (b-1) \cdot b + (0 + 1 + \cdots + (b-2)) = b(b-1) + \frac{(b-1)(b-2)}{2} = \frac{(b-1)(3b - 2)}{2}.$$
+Setting $k = b - 1 \in \mathbb{Z}_{\geq 1}$ (note $b \geq 2$ since $s \geq 1$), we get
+$$n = \frac{k(3(k+1) - 2)}{2} = \frac{k(3k + 1)}{2} = \frac{3k^2 + k}{2}, \qquad S = \{k+1, k+2, \ldots, 2k\}.$$
+
+\textbf{Step 4: Forward direction.}
+Conversely, given $n = (3k^2 - k)/2$ with $k \geq 1$, the set $S_{-k} = \{k, k+1, \ldots, 2k - 1\}$ has base $k$, slope $k$ (the entire set is a top-consecutive run), and $b = k \in D$, hence is special. Similarly for the upper family.
+
+\textbf{Step 5: Uniqueness.}
+The case analysis in Steps 2–3 shows that for each pentagonal $n$, there is at most one special partition (the candidate is uniquely determined by $b$). Combined with the forward direction, this gives exactly one.
+
+\textbf{Step 6: Non-pentagonal $n$.}
+If $n$ is not pentagonal of either form, no $b \geq 1$ produces $\sum = n$ in the analysis above, so $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$.
+\end{proof}
+
+\begin{definition} [Operations $\alpha$ and $\beta$]
+Let $S \subseteq \{1, \ldots, n\}$ be a partition of $n$ into different parts with base $b$ and slope $s$ and slope set $D$. We define the following operations on $S$:
+
+$\alpha$: If $S\in \mathcal{P_\alpha}$  (equivalently, if $b \leq s$ and $b \notin D$, or if $b \leq s - 1$), then we move $b$ up and turn its points into new slope.
+\begin{equation*}
+    \alpha(S) = (S \setminus \{b, \max(S) - b + 1\}) \cup \{\max(S)+1\}.
+\end{equation*}
+
+$\beta$: If  $S\in \mathcal{P_\beta}$ (equivalently, if $b > s$ and $b \notin D$, or if $b \geq s + 2$), then we move the slope down and turn its points into the new base.
+\begin{equation*}
+    \beta(S) = S \cup \{s, \max(S)-s\} \setminus \{\max(S)\}.
+\end{equation*}
+\end{definition}
+
+\paragraph{$\alpha$}
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+
+\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+\draw (3,-2) circle(0.2 cm);
+
+\draw (0,-3) circle(0.2 cm);
+\draw (1,-3) circle(0.2 cm);
+
+
+
+\begin{scope}[xshift=12 cm]
+
+\fill[red!20!white] (4.,-1.5)--(5.,-1.5)--(7.,0.5)--(6.,0.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+\draw (6,0) circle(0.2 cm);
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+\draw (5,-1) circle(0.2 cm);
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+\draw (3,-2) circle(0.2 cm);
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+
+\paragraph{$\beta$}
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+
+\fill[red!20!white] (3.,-1.5)--(4.,-1.5)--(6.,0.5)--(5.,0.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+\draw (5,0) circle(0.2 cm);
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+\draw (4,-1) circle(0.2 cm);
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+
+
+\begin{scope}[xshift=12 cm]
+
+\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
+
+\draw (0,0) circle(0.2 cm);
+\draw (1,0) circle(0.2 cm);
+\draw (2,0) circle(0.2 cm);
+\draw (3,0) circle(0.2 cm);
+\draw (4,0) circle(0.2 cm);
+
+
+\draw (0,-1) circle(0.2 cm);
+\draw (1,-1) circle(0.2 cm);
+\draw (2,-1) circle(0.2 cm);
+\draw (3,-1) circle(0.2 cm);
+
+
+\draw (0,-2) circle(0.2 cm);
+\draw (1,-2) circle(0.2 cm);
+\draw (2,-2) circle(0.2 cm);
+
+\draw (0,-3) circle(0.2 cm);
+\draw (1,-3) circle(0.2 cm);
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{comment}
+To each diagram $D$ we can apply at most one of the operations $\alpha$ or $\beta$.
+If $\alpha$ can be applied to $D$ then $\beta$ can be applied to $\alpha(D)$.
+If $\beta$ can be applied to $D$ then $\alpha$ can be applied to $\beta(D)$.
+
+Thus we have a 1:1 correspondence
+$$\left\{\begin{smallmatrix}
+          \mbox{odd partitions}\\
+          \mbox{into distinct parts} \\
+          \mbox{s. t. }\alpha\mbox{ or }\beta\mbox{ can be applied }
+        \end{smallmatrix}\right\}\leftrightarrow
+\left\{\begin{smallmatrix}
+          \mbox{even partitions}\\
+          \mbox{into distinct parts} \\
+          \mbox{s. t. }\alpha\mbox{ or }\beta\mbox{ can be applied }
+        \end{smallmatrix}\right\}$$
+
+When can neither $\alpha$ nor $\beta$ be applied?
+\begin{itemize}
+\item $b$ and $s$ have a common point and $|b|=|s|=k$
+$$n=k+(k+1)+\ldots+(2k-1)=\frac{3k^2-k}{2}.$$
+\item  $b$ and $s$ have a common point and $|b|-1=|s|=k$
+$$n=(k+1)+\ldots+2k=\frac{3k^2+k}{2}.$$
+\end{itemize}
+
+
+\begin{lemma}
+  If neither $\alpha$ nor $\beta$ can be applied to a partition $S$, then $n$ is a pentagonal number, i.e. $n=\frac{3k^2\pm k}{2}$ for some $k\in \Z$ and the parity of the number of parts of $S$ is the same as the parity of $k$.
+\end{lemma}
+\end{comment}
+
+\begin{lemma}\label{lemma: alpha lands in beta}
+ If $S\in \mathcal{P}_\alpha(n)$ then $\alpha (S)\in \mathcal{P}_\beta(n)$.
+\end{lemma}
+\begin{proof}
+Let $S \in \mathcal{P}_\alpha(n)$ with base $b$, slope $s$, max $m = \max(S)$, slope set $D = \{m - s + 1, \ldots, m\}$. Recall that the $\alpha$-condition says $b \leq s$ (with $b \notin D$ if $b = s$), and
+$$\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}.$$
+(Equivalently in the more granular form used in the Lean code: remove the base $b$, remove the bottom-most element of the top-$b$ slope $\{m - b + 1\}$, and add $m + 1$. The remaining $b - 1$ slope elements stay where they are; the smallest one of them is $m - b + 2$.)
+
+\textbf{Step 1: $\alpha(S)$ is a partition of $n$.}
+The change in sum is $-b - (m - b + 1) + (m + 1) = 0$, so the sum is preserved. Since $b$ and $m - b + 1$ both lie in $S$ and $m + 1 \notin S$ (as $m = \max(S)$), the operation produces a set, and all parts are positive (the smallest possible new value is $m + 1 \geq 2$, and any retained part is in $S$, hence $\geq b \geq 1$).
+
+We must verify that $b \neq m - b + 1$ (so we are removing two distinct elements). Equivalently $m \neq 2b - 1$. If $m = 2b - 1$, then $S \supseteq \{b, b+1, \ldots, 2b-1\} = D$, forcing $S = D$ (since $|S| \geq |D| = s = b$ and $S = \{b, \ldots, 2b-1\}$). But then $S$ would be the special partition $S_{-b}$, contradicting $S \in \mathcal{P}_\alpha$.
+
+\textbf{Step 2: New extremes.}
+\begin{itemize}
+\item New maximum: $m' := \max(\alpha(S)) = m + 1$.
+\item New base: $b' := \min(\alpha(S))$. Since $b$ was removed, $b'$ is the second-smallest element of $S$ (if $|S| \geq 2$) or $m + 1$ (if $|S| = 1$).
+\end{itemize}
+
+\textbf{Step 3: New slope $s'$ and slope set $D'$.}
+The slope of $\alpha(S)$ is the maximal consecutive run from $m'$ downward. The retained top-$(b-1)$ slope elements $\{m - b + 2, \ldots, m\}$ together with the new element $m + 1$ form the consecutive run $\{m - b + 2, m - b + 3, \ldots, m, m + 1\}$ of length $b$. We claim this is the entire new slope, i.e., $s' = b$ and $D' = \{m - b + 2, \ldots, m + 1\}$.
+
+\textbf{Sub-step 3a: The run does not extend further down.}
+The next candidate would be $m - b + 1$, which we just removed; so $m - b + 1 \notin \alpha(S)$, terminating the run.
+
+\textbf{Step 4: Verify $\alpha(S) \in \mathcal{P}_\beta(n)$.}
+We need $b' > s'$ (and $b' \notin D'$) or $b' \geq s' + 2$. We have $s' = b$ from Step 3, and we examine which clause of $\mathcal{P}_\alpha$ produced $S$:
+
+\textit{Sub-case (i): $b \leq s - 1$ (the second clause of $\mathcal{P}_\alpha$).}
+The slope of $S$ has length $s \geq b + 1$, so its top $b$ elements $\{m - b + 1, \ldots, m\}$ are a strict subset of $D$. The element $m - s + 1 \in D$ satisfies $m - s + 1 < m - b + 1$, so $m - s + 1$ is in $S$ and below the part removed. After applying $\alpha$, this element remains, and its value $m - s + 1$ may or may not be the new minimum.
+
+\textcolor{red}{TODO: Case analysis on the location of the new base $b'$ relative to $D'$. The careful analysis (matching the Lean lemma \texttt{alpha\_gives\_beta\_crit}) shows: the new base $b' \geq b + 1$ (since the second-smallest element of $S$ is $\geq b + 1$; in fact $\geq b + 1$ because elements are distinct), and one verifies that $b' \geq s' + 2$ or $b' > s' \wedge b' \notin D'$. The detailed bookkeeping requires distinguishing whether the second-smallest of $S$ is in the slope or below it.}
+
+\textit{Sub-case (ii): $b = s$ and $b \notin D$ (first clause of $\mathcal{P}_\alpha$).}
+\textcolor{red}{TODO: Symmetric analysis. The conclusion is again that the resulting partition satisfies the $\beta$-criterion.}
+\end{proof}
+
+\begin{lemma}\label{lemma: beta lands in alpha}
+ If $S\in \mathcal{P}_\beta(n)$ then $\beta (S)\in \mathcal{P}_\alpha(n)$.
+\end{lemma}
+\begin{proof}
+Let $S \in \mathcal{P}_\beta(n)$ with base $b$, slope $s$, max $m$, slope set $D$. Recall the $\beta$-condition: $b > s$ (with $b \notin D$ if $b = s + 1$), and
+$$\beta(S) = (S \cup \{s, m - s\}) \setminus \{m\}.$$
+(In the granular form: remove the top-of-slope $m$, shift the slope $D = \{m - s + 1, \ldots, m\}$ down by one to $\{m - s, \ldots, m - 1\}$, and adjoin a new bottom element $\{s\}$. The retained slope elements stay at $\{m - s + 1, \ldots, m - 1\}$; the only "new" element below them is $m - s$, and the only "new" element overall is $s$.)
+
+\textbf{Step 1: $\beta(S)$ is a partition of $n$.}
+Sum change: shifting $s$ slope elements each down by 1 contributes $-s$, and adjoining the new singleton $\{s\}$ contributes $+s$. The net change is zero.
+
+We must verify the resulting set has distinct elements:
+\begin{itemize}
+\item $s \notin S \setminus \{m\}$: since $b > s$ (from $\beta$-criterion) and $b = \min(S)$, all parts of $S$ exceed $s$. So $s$ is genuinely new.
+\item $m - s \notin S \setminus \{m\}$: if $m - s$ were already in $S$, then since $m - s < m - s + 1$ (the slope minimum), $m - s$ would be in $S \setminus D$. But by maximality of the slope (the slope is the maximal top-consecutive run; cf.\ \texttt{slope\_is\_interval} in Lean), if $m - s \in S$ then $\{m - s, m - s + 1, \ldots, m\} \subseteq S$, which would mean $m - s \in D$, contradiction.
+\item $s \neq m - s$, i.e., $m \neq 2s$. \textcolor{red}{TODO: verify this from the $\beta$-criterion. Heuristically, if $m = 2s$ then $D = \{s + 1, \ldots, 2s\}$ has minimum $s + 1$; combined with $\beta$-criterion ($b \geq s + 2$ in the second clause, or $b = s + 1, b \notin D$ in the first), one checks the case $m = 2s, b = s + 1$ would give $b \in D$ (since $b = s + 1 \in D$), excluded.}
+\item Positivity: $s \geq 1$ and $m - s \geq 1$ (since $m - s \geq m - s + 1 - 1$ and the slope minimum is $\geq 1$).
+\end{itemize}
+
+\textbf{Step 2: New extremes.}
+\begin{itemize}
+\item New base: $b' := \min(\beta(S)) = \min(b, s) = s$ (since $b > s$).
+\item New maximum: $m' := \max(\beta(S))$. If $|S| \geq 2$, then $m' = $ second-largest element of $S$, which equals $m - 1$ (the next slope element). If $|S| = 1$, then $S = \{m\} = \{b\}$, but $b > s \geq 1$ means $s \geq 1$, so $|S| = 1$ forces a degenerate case; \textcolor{red}{TODO: verify $|S| \geq 2$ holds whenever $S \in \mathcal{P}_\beta$, by a small computation.}
+\end{itemize}
+
+\textbf{Step 3: New slope $s'$ and slope set $D'$.}
+The shifted slope occupies $\{m - s, m - s + 1, \ldots, m - 1\}$, a consecutive run of length $s$ ending at $m' = m - 1$. So the new slope is at least this run. We claim it is exactly this run, i.e., $s' = s$ and $D' = \{m - s, \ldots, m - 1\}$.
+
+\textit{Reason it does not extend further down:} the next candidate is $m - s - 1$. If this were in $\beta(S)$, it would have to come from $S \setminus \{m\}$ (since neither shift-target nor $s$ equals $m - s - 1$ generically). But $m - s - 1 \in S$ would, by slope maximality applied to $S$, require $m - s - 1 \in D$, contradicting $\min(D) = m - s + 1$.
+
+\textbf{Step 4: Verify $\beta(S) \in \mathcal{P}_\alpha(n)$.}
+We have $b' = s$ and $s' = s$, so $b' = s'$. We need either $b' \notin D'$ (giving the first clause of $\mathcal{P}_\alpha$) or $b' \leq s' - 1$ (the second clause). Since $b' = s'$, the second clause fails, and we must show $b' = s \notin D'$.
+
+$D' = \{m - s, m - s + 1, \ldots, m - 1\}$. We have $s \in D'$ iff $m - s \leq s \leq m - 1$, iff $m \geq s + 1$ (always true since $m \geq b > s$) and $s \leq m - 1$, the latter equivalent to $m \geq s + 1$.
+
+So generically $s \in D'$ would hold, which would block $\mathcal{P}_\alpha$. But we have additional information from the $\beta$-criterion:
+\begin{itemize}
+\item If $b \geq s + 2$ (second clause of $\beta$): then $m \geq b \geq s + 2$, so $m - s \geq 2 > s$ would require... \textcolor{red}{TODO: this analysis is delicate and the careful statement is that $s \notin D'$, which translates to $s < m - s$, i.e., $m > 2s$. This holds in both clauses of $\mathcal{P}_\beta$, but needs the same kind of casework as in the $\alpha$ direction. See Lean's \texttt{beta\_gives\_alpha\_crit} (currently sorry-ed).}
+\end{itemize}
+\end{proof}
+
+\begin{lemma}\label{lemma: beta after alpha}
+  The composition of maps $\beta\circ\alpha$ is equal to the identity map on  $\mathcal{P}_\alpha(n)$. Equivalently, if $S\in \mathcal{P}_\alpha(n)$ then $\beta(\alpha(S))=S$.
+\end{lemma}
+\begin{proof}
+Let $S \in \mathcal{P}_\alpha(n)$ with base $b$, slope $s$, max $m$, slope set $D$.
+
+\textbf{Step 1: Compute $\alpha(S)$.}
+By the definition of $\alpha$:
+$$\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}.$$
+By Lemma~\ref{lemma: alpha lands in beta}, $\alpha(S) \in \mathcal{P}_\beta(n)$. From the proof of that lemma, the data of $\alpha(S)$ is:
+\begin{itemize}
+\item new max $m^\alpha = m + 1$,
+\item new slope $s^\alpha = b$ (the run $\{m - b + 2, \ldots, m + 1\}$),
+\item new slope set $D^\alpha = \{m - b + 2, \ldots, m + 1\}$.
+\end{itemize}
+
+\textbf{Step 2: Apply $\beta$ to $\alpha(S)$.}
+By definition of $\beta$:
+$$\beta(\alpha(S)) = (\alpha(S) \cup \{s^\alpha, m^\alpha - s^\alpha\}) \setminus \{m^\alpha\} = (\alpha(S) \cup \{b, m + 1 - b\}) \setminus \{m + 1\}.$$
+
+\textbf{Step 3: Simplify.}
+Substituting $\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}$:
+\begin{align*}
+\beta(\alpha(S))
+&= \bigl[\bigl((S \setminus \{b, m - b + 1\}) \cup \{m + 1\}\bigr) \cup \{b, m - b + 1\}\bigr] \setminus \{m + 1\} \\
+&= \bigl[(S \setminus \{b, m - b + 1\}) \cup \{b, m - b + 1, m + 1\}\bigr] \setminus \{m + 1\} \\
+&= (S \setminus \{b, m - b + 1\}) \cup \{b, m - b + 1\} \\
+&= S,
+\end{align*}
+where we used that $b$ and $m - b + 1$ are in $S$ (so re-adding them after removal recovers $S$), and that $m + 1 \notin S \setminus \{b, m - b + 1\}$ (since $m + 1 > m \geq$ every element of $S$).
+\end{proof}
+
+\begin{lemma}\label{lemma: alpha after beta}
+  The composition of maps $\alpha\circ\beta$ is equal to the identity map on  $\mathcal{P}_\beta(n)$. Equivalently, if $S\in \mathcal{P}_\beta(n)$ then $\alpha(\beta(S))=S$.
+\end{lemma}
+\begin{proof}
+Let $S \in \mathcal{P}_\beta(n)$ with base $b$, slope $s$, max $m$, slope set $D$.
+
+\textbf{Step 1: Compute $\beta(S)$.}
+$$\beta(S) = (S \cup \{s, m - s\}) \setminus \{m\}.$$
+By Lemma~\ref{lemma: beta lands in alpha}, $\beta(S) \in \mathcal{P}_\alpha(n)$. From the proof of that lemma, the data of $\beta(S)$ is:
+\begin{itemize}
+\item new max $m^\beta = m - 1$,
+\item new base $b^\beta = s$,
+\item new slope $s^\beta = s$ (the run $\{m - s, \ldots, m - 1\}$),
+\item new slope set $D^\beta = \{m - s, \ldots, m - 1\}$.
+\end{itemize}
+
+\textbf{Step 2: Apply $\alpha$ to $\beta(S)$.}
+$$\alpha(\beta(S)) = \bigl(\beta(S) \setminus \{b^\beta, m^\beta - b^\beta + 1\}\bigr) \cup \{m^\beta + 1\} = \bigl(\beta(S) \setminus \{s, m - s\}\bigr) \cup \{m\}.$$
+(We used $b^\beta = s$, $m^\beta = m - 1$, so $m^\beta - b^\beta + 1 = m - 1 - s + 1 = m - s$.)
+
+\textbf{Step 3: Simplify.}
+Substituting $\beta(S) = (S \cup \{s, m - s\}) \setminus \{m\}$:
+\begin{align*}
+\alpha(\beta(S))
+&= \bigl[\bigl((S \cup \{s, m - s\}) \setminus \{m\}\bigr) \setminus \{s, m - s\}\bigr] \cup \{m\} \\
+&= \bigl[(S \setminus \{m\}) \setminus \{s, m - s\}\bigr] \cup \{m\}.
+\end{align*}
+Since $s \notin S$ and $m - s \notin S$ (verified in the proof of Lemma~\ref{lemma: beta lands in alpha}), removing them from $S \setminus \{m\}$ has no effect:
+$$\alpha(\beta(S)) = (S \setminus \{m\}) \cup \{m\} = S,$$
+since $m \in S$.
+\end{proof}
+
+\begin{lemma}\label{lemma: alpha beta bijection}
+The map $\alpha: \mathcal{P}_\alpha(n)\to \mathcal{P}_\beta(n)$ is a bijection. \\
+The map $\beta: \mathcal{P}_\beta(n)\to \mathcal{P}_\alpha(n)$ is a bijection.
+\end{lemma}
+\begin{proof}
+Lemma~\ref{lemma: alpha lands in beta} shows $\alpha$ is well-defined as a map $\mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$, and Lemma~\ref{lemma: beta lands in alpha} shows $\beta$ is well-defined as a map $\mathcal{P}_\beta(n) \to \mathcal{P}_\alpha(n)$.
+
+Lemma~\ref{lemma: beta after alpha} gives $\beta \circ \alpha = \mathrm{id}_{\mathcal{P}_\alpha(n)}$, and Lemma~\ref{lemma: alpha after beta} gives $\alpha \circ \beta = \mathrm{id}_{\mathcal{P}_\beta(n)}$.
+
+Hence $\alpha$ and $\beta$ are mutually inverse bijections.
+\end{proof}
+
+\begin{lemma}\label{lemma: P alpha card eq P beta card}
+$$\left| \mathcal{P}_\alpha(n)\right|=\left|\mathcal{P}_\beta(n) \right|.$$
+\end{lemma}
+\begin{proof}
+A bijection between finite sets implies equal cardinality. Apply this to the bijection $\alpha: \mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$ from Lemma~\ref{lemma: alpha beta bijection}.
+\end{proof}
+
+\begin{lemma}\label{lemma: alpha beta change parity}
+The operations $\alpha$ and $\beta$ change the parity of the number of parts of a partition. More precisely,
+\begin{itemize}
+\item If $S\in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $ then  $\alpha(S) \in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $;
+\item If $S\in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{even}}(n) $ then  $\alpha(S) \in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $;
+\item If $S\in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $ then  $\beta(S) \in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{even}}(n) $;
+\item If $S\in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $ then  $\beta(S) \in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+Membership in $\mathcal{P}_\beta$ for $\alpha(S)$ (and in $\mathcal{P}_\alpha$ for $\beta(S)$) is supplied by Lemmas~\ref{lemma: alpha lands in beta} and~\ref{lemma: beta lands in alpha}. It remains to show that the parity of the number of parts is flipped.
+
+\textbf{Step 1: $|\alpha(S)| = |S| - 1$.}
+By the definition $\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}$:
+\begin{itemize}
+\item we remove two distinct elements ($b$ and $m - b + 1$, distinct as shown in the proof of Lemma~\ref{lemma: alpha lands in beta}), reducing the size by $2$;
+\item we add one element ($m + 1$), which is not in $S \setminus \{b, m - b + 1\}$ since $m + 1 > \max(S)$.
+\end{itemize}
+Net change: $-2 + 1 = -1$. So $|\alpha(S)| = |S| - 1$, flipping parity.
+
+\textbf{Step 2: $|\beta(S)| = |S| + 1$.}
+By the definition $\beta(S) = (S \cup \{s, m - s\}) \setminus \{m\}$:
+\begin{itemize}
+\item we add two distinct new elements $s$ and $m - s$ (distinct, and not in $S$, as verified in the proof of Lemma~\ref{lemma: beta lands in alpha}), increasing the size by $2$;
+\item we remove one element ($m \in S$), reducing by $1$.
+\end{itemize}
+Net change: $+2 - 1 = +1$. So $|\beta(S)| = |S| + 1$, flipping parity.
+
+\textbf{Step 3: Conclusion.}
+\begin{itemize}
+\item $S \in \mathcal{P}_\mathrm{odd}$ means $|S|$ is odd; then $|\alpha(S)| = |S| - 1$ is even, so $\alpha(S) \in \mathcal{P}_\mathrm{even}$.
+\item $S \in \mathcal{P}_\mathrm{even}$ means $|S|$ is even; then $|\alpha(S)| = |S| - 1$ is odd, so $\alpha(S) \in \mathcal{P}_\mathrm{odd}$.
+\item Symmetrically for $\beta$ with $|\beta(S)| = |S| + 1$.
+\end{itemize}
+\end{proof}
+
+\begin{lemma}\label{lemma: alpha odd eq beta even}
+$$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|,$$
+$$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|.$$
+\end{lemma}
+
+
+
+\begin{lemma}\label{lemma: pe minus po closed form}
+$$p_e(n)-p_o(n)=
+\begin{cases}(-1)^k,&\mbox{ if } n= \frac{3k^2\pm k}{2}\\
+0, & \mbox{otherwise.}\end{cases}$$
+\end{lemma}
+\begin{proof}
+We have
+\begin{equation}\label{eqn: pe minus po}p_e(n)-p_o(n)=\left|\mathcal{P}_{even}(n)\right|-\left|\mathcal{P}_{odd}(n)\right|.\end{equation}
+By Lemma~\ref{lemma: alpha beta special} we have
+$$\left|\mathcal{P}_{\mathrm{even}}(n)\right|=\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\alpha}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n) \cap \mathcal{P}_{\beta}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|$$
+and
+$$\left|\mathcal{P}_{\mathrm{odd}}(n)\right|=\left|\mathcal{P}_{\mathrm{odd}}(n)\cap \mathcal{P}_{\alpha}(n)\right|+\left|\mathcal{P}_{\mathrm{odd}}(n) \cap \mathcal{P}_{\beta}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.$$
+It follows from two previous equations and Lemma~\ref{lemma: alpha odd eq beta even} that
+\begin{equation}\label{eqn: Peven minus Podd is Special}\left|\mathcal{P}_{\mathrm{even}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\right| =\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|-\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.\end{equation}
+Finally, the statement of the lemma follows from the equations \eqref{eqn: pe minus po}, \eqref{eqn: Peven minus Podd is Special} and Lemma~\ref{lemma: special}.
+\end{proof}
+
+\section{Jacobi triple product}
+\begin{theorem}
+For all $w\neq 0$ and $q$ with $|q|<1$:
+$$\prod_{k=1}^\infty (1-q^{2k})\,(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2})=\sum_{k=-\infty}^\infty (-1)^k\,w^{2k}\,q^{k^2}.$$
+\end{theorem}
+
+
+\subsection{Proof}
+Set
+$
+\phi_n(w,q):=\prod_{k=1}^n(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2}).
+$
+We have
+\begin{equation}\label{eqn: 1}\phi_n(qw,q)\,=\,\phi_n(w,q)\,\frac{(1-q^{2n+1}\,w^2)\,(1-q^{-1}w^{-2})}
+{(1-qw^2)\,(1-q^{2n-1}w^{-2})}\,=\,\phi_n(w,q)\,\frac{1-q^{2n+1}\,w^2}{-qw^2+q^{2n}}.
+\end{equation}
+We consider the following expansion
+\begin{equation}\label{eqn: 2}
+\phi_n(w,q)=\sum_{k=-n}^nA_{n,k}(q)\,w^{2k},
+\end{equation}
+where $A_{n,k}(q)$ is a polynomial in $q$. We have a symmetry $A_{n,k}(q)=A_{n,-k}(q)$.
+We find
+\begin{equation}\label{eqn: 3}
+A_{n,n}(q)=q^{1+3+5+\ldots+(2n-1)}=q^{n^2}.
+\end{equation}
+We substitute \eqref{eqn: 2} into \eqref{eqn: 1} and obtain
+\begin{equation}\label{eqn: 4}
+A_{n,k}(q)=A_{n,k-1}(q)\,q^{2k-1}\,\frac{1-q^{2n-2k+2}}{1-q^{2n+2k}}.
+\end{equation}
+
+From \eqref{eqn: 3} and \eqref{eqn: 4} we find
+\begin{equation}\label{eqn: 5}
+A_{n,k}=\frac{q^{k^2}}{(1-q^2)\cdots(1-q^{2n})}\,\prod_{s=n-k+1}^n(1-q^{2s})\,\prod_{s=n+k+1}^{2n}(1-q^{2s}).
+\end{equation}
+From \eqref{eqn: 5} we obtain
+$$\prod_{k=1}^n (1-q^{2k})\,(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2})=\sum_{k=-n}^n(-1)^k w^{2k}\,q^{k^2}\,B_{n,k}(q).$$
+where
+$$B_{n,k}(q)=\prod_{s=n-k+1}^n(1-q^{2s})\,\prod_{s=n+k+1}^{2n}(1-q^{2s}).$$
+We have $B_{n,k}=1+O(q^{n-k+1})$.
+We take the limit $n\to \infty$ and  finish the proof. 
