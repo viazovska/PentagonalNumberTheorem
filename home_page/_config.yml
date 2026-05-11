@@ -18,9 +18,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: PentagonalNubmberTheorem
+title: Pentagonal Number Theorem
 #email: your-email@example.com
-description: by JC and PM and MV
+description: A Lean 4 / Mathlib formalization of Euler's Pentagonal Number Theorem.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://viazovska.github.io/my_project" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username:
