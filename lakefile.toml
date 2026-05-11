@@ -1,7 +1,7 @@
 name = "my_project"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["MyProject"]
+defaultTargets = ["MyProject", "PentagonalNumberTheorem"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -20,3 +20,6 @@ name = "checkdecls"
 git = "https://github.com/PatrickMassot/checkdecls.git"
 [[lean_lib]]
 name = "MyProject"
+
+[[lean_lib]]
+name = "PentagonalNumberTheorem"

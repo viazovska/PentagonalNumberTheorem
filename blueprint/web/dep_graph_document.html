@@ -173,59 +173,25 @@
 
 
     
-    <div class="dep-modal-container" id="a0000000012_modal">
+    <div class="dep-modal-container" id="a0000000020_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
 <svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
 </button>
         
-  <div class="thm" id="a0000000012" style="display: none">
-    <div class="thm_thmheading">
-      <span class="lemma_thmcaption">
-      Lemma
-      </span>
-      <span class="lemma_thmlabel">5</span></div>
-    <div class="thm_thmcontent"><p>We have </p>
-<div class="displaymath" id="a0000000014">
-  \[ \prod _{k=1}^{\infty }(1-x^k)\, =\, \sum _{s=0}^\infty \, \sum _{k_1{\lt}k_2{\lt}\cdots {\lt}k_s}(-1)^s\, x^{k_1+k_2+\ldots +k_s}\, =\, \sum _{n=0}^\infty c_n\,  x^n \]
-</div>
-<p> where \(c_0=1\) and for \(n\geq 1\) and \(c_n=p_e(n)-p_o(n).\) </p>
-</div>
-
-    <a class="latex_link" href="index.html#a0000000012">LaTeX</a>
-    
-    
-  
-    
-    
-  
-    
-  </div>
-    
-      </div>
-    </div>
-
-
-    
-    <div class="dep-modal-container" id="a0000000021_modal">
-      <div class="dep-modal-content">
-          <button class="dep-closebtn">
-<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
-</button>
-        
-  <div class="thm" id="a0000000021" style="display: none">
+  <div class="thm" id="a0000000020" style="display: none">
     <div class="thm_thmheading">
       <span class="theorem_thmcaption">
       Theorem
       </span>
       <span class="theorem_thmlabel">7</span><span class="theorem_thmtitle">Euler</span></div>
     <div class="thm_thmcontent">
-<div class="displaymath" id="a0000000023">
+<div class="displaymath" id="a0000000022">
   \[ \prod _{i=1}^\infty (1-x^i)\, =\, 1+\sum _{k=1}^\infty (-1)^k\, (x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\, =\,  \sum _{k\in \mathbb {Z}}(-1)^k\, x^{(3k^2-k)/2}. \]
 </div>
 </div>
 
-    <a class="latex_link" href="index.html#a0000000021">LaTeX</a>
+    <a class="latex_link" href="index.html#a0000000020">LaTeX</a>
     
     
   <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/euler_pentagonal_number_theorem">Lean</a>
@@ -251,12 +217,12 @@
       <span class="definition_thmcaption">
       Definition
       </span>
-      <span class="definition_thmlabel">9</span><span class="definition_thmtitle">Base and slope</span></div>
-    <div class="thm_thmcontent"><p> Consider a partition \(S \subseteq \{ 1, \ldots , n\} \) of \(n\) into different parts. We define the <em>base</em> \(b \in S\) as the smallest element of the partition. Let \(\max (S)\) denote the largest element of \(S\). We define the <em>slope</em> \(s\) as: </p>
+      <span class="definition_thmlabel">11</span></div>
+    <div class="thm_thmcontent"><p>Let \(n\) be a positive integer. We define the following sets of partitions of \(n\) into distinct positive parts: &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
 <div class="displaymath" id="a0000000034">
-  \begin{equation*}  s = \max \{ k \geq 1 : \max (S), \max (S)-1, \max (S)-2, \ldots , \max (S)-k + 1 \in S\} . \end{equation*}
+  \begin{align*}  \mathcal{P}_{\alpha }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  S \neq \emptyset \text{ and } \bigl[(b \leq s \text{ and } b \notin D) \text{ or } b \leq s - 1\bigr] \right\} , \\ \mathcal{P}_{\beta }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  S \neq \emptyset \text{ and } \bigl[(b {\gt} s \text{ and } b \notin D) \text{ or } b \geq s + 2\bigr] \right\} , \\ \mathcal{P}_{\mathrm{special}}(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  S = \emptyset , \text{ or } \bigl[b \in D \text{ and } (b = s \text{ or } b = s + 1)\bigr] \right\} . \end{align*}
 </div>
-<p> and the <em>slope set</em> \(D\) as \(\{ \max (S), \max (S)-1, \ldots , \max (S)-s + 1\} \). </p>
+<p> By convention \(\emptyset \in \mathcal{P}_{\mathrm{special}}(0)\) (and \(\mathcal{P}(0) = \{ \emptyset \} \)). </p>
 </div>
 
     <a class="latex_link" href="index.html#a0000000033">LaTeX</a>
@@ -282,14 +248,11 @@
         
   <div class="thm" id="a0000000035" style="display: none">
     <div class="thm_thmheading">
-      <span class="definition_thmcaption">
-      Definition
+      <span class="lemma_thmcaption">
+      Lemma
       </span>
-      <span class="definition_thmlabel">10</span></div>
-    <div class="thm_thmcontent"><p>Let \(n \in \mathbb {N}\). We define the following sets of partitions of \(n\) into distinct positive parts: </p>
-<div class="displaymath" id="a0000000036">
-  \begin{align*}  \mathcal{P}_{\alpha }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  b \leq s \mbox{ and } b \notin D, \mbox{ or if } b \leq s - 1\right\} , \\ \mathcal{P}_{\beta }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  b {\gt} s \mbox{ and } b \notin D, \mbox{ or if } b \geq s + 2 \right\} , \\ \mathcal{P}_{\mathrm{special}}(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  b\in D \mbox{ and } |b|=|s| \mbox{ or } |b|=|s|+1 \right\} . \end{align*}
-</div>
+      <span class="lemma_thmlabel">13</span></div>
+    <div class="thm_thmcontent"><p>For all positive integer numbers \(n\) the following holds: The sets \(\mathcal{P}_{\alpha }(n)\), \(\mathcal{P}_{\beta }(n)\), \(\mathcal{P}_{\mathrm{special}}(n)\) are pairwise disjoint. &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
 </div>
 
     <a class="latex_link" href="index.html#a0000000035">LaTeX</a>
@@ -307,52 +270,22 @@
 
 
     
-    <div class="dep-modal-container" id="a0000000037_modal">
+    <div class="dep-modal-container" id="a0000000039_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
 <svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
 </button>
         
-  <div class="thm" id="a0000000037" style="display: none">
-    <div class="thm_thmheading">
-      <span class="lemma_thmcaption">
-      Lemma
-      </span>
-      <span class="lemma_thmlabel">11</span></div>
-    <div class="thm_thmcontent"><p>For all natural numbers \(n\) the following holds: The sets \(\mathcal{P}_{\alpha }(n)\), \(\mathcal{P}_{\beta }(n)\), \(\mathcal{P}_{\mathrm{special}}(n)\) are pairwise disjoint. </p>
-</div>
-
-    <a class="latex_link" href="index.html#a0000000037">LaTeX</a>
-    
-    
-  
-    
-    
-  
-    
-  </div>
-    
-      </div>
-    </div>
-
-
-    
-    <div class="dep-modal-container" id="a0000000041_modal">
-      <div class="dep-modal-content">
-          <button class="dep-closebtn">
-<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
-</button>
-        
-  <div class="thm" id="a0000000041" style="display: none">
+  <div class="thm" id="a0000000039" style="display: none">
     <div class="thm_thmheading">
       <span class="definition_thmcaption">
       Definition
       </span>
-      <span class="definition_thmlabel">13</span></div>
-    <div class="thm_thmcontent"><p>For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ 2k-1 , 2k-2 , \ldots , k\} \).<br />For \(k\in \mathbb {Z}_{\geq 0}\) define \(S_{k}=\{ 2k , 2k-1 , \ldots , k\} \). </p>
+      <span class="definition_thmlabel">16</span></div>
+    <div class="thm_thmcontent"><p>For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ 2k-1 , 2k-2 , \ldots , k\} \).<br />For \(k\in \mathbb {Z}_{\geq 0}\) define \(S_{k}=\{ 2k , 2k-1 , \ldots , k+1\} \). &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
 </div>
 
-    <a class="latex_link" href="index.html#a0000000041">LaTeX</a>
+    <a class="latex_link" href="index.html#a0000000039">LaTeX</a>
     
     
   
@@ -367,63 +300,608 @@
 
 
     
-    <div class="dep-modal-container" id="a0000000049_modal">
+    <div class="dep-modal-container" id="a0000000082_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
 <svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
 </button>
         
-  <div class="thm" id="a0000000049" style="display: none">
-    <div class="thm_thmheading">
-      <span class="definition_thmcaption">
-      Definition
-      </span>
-      <span class="definition_thmlabel">15</span><span class="definition_thmtitle">Operations \(\alpha \) and \(\beta \)</span></div>
-    <div class="thm_thmcontent"><p> Let \(S \subseteq \{ 1, \ldots , n\} \) be a partition of \(n\) into different parts with base \(b\) and slope \(s\) and slope set \(D\). We define the following operations on \(S\): </p>
-<p>\(\alpha \): If \(S\in \mathcal{P_\alpha }\) (equivalently, if \(b \leq s\) and \(b \notin D\), or if \(b \leq s - 1\)), then we move \(b\) up and turn its points into new slope. </p>
-<div class="displaymath" id="a0000000050">
-  \begin{equation*}  \alpha (S) = (S \setminus \{ b, \max (S) - b + 1\} ) \cup \{ \max (S)+1\} . \end{equation*}
-</div>
-<p>\(\beta \): If \(S\in \mathcal{P_\beta }\) (equivalently, if \(b {\gt} s\) and \(b \notin D\), or if \(b \geq s + 2\)), then we move the slope down and turn its points into the new base. </p>
-<div class="displaymath" id="a0000000051">
-  \begin{equation*}  \beta (S) = S \cup \{ s, \max (S)-s\}  \setminus \{ \max (S)\} . \end{equation*}
-</div>
-</div>
-
-    <a class="latex_link" href="index.html#a0000000049">LaTeX</a>
-    
-    
-  
-    
-    
-  
-    
-  </div>
-    
-      </div>
-    </div>
-
-
-    
-    <div class="dep-modal-container" id="a0000000080_modal">
-      <div class="dep-modal-content">
-          <button class="dep-closebtn">
-<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
-</button>
-        
-  <div class="thm" id="a0000000080" style="display: none">
+  <div class="thm" id="a0000000082" style="display: none">
     <div class="thm_thmheading">
       <span class="theorem_thmcaption">
       Theorem
       </span>
-      <span class="theorem_thmlabel">25</span></div>
+      <span class="theorem_thmlabel">28</span></div>
     <div class="thm_thmcontent"><p>For all \(w\neq 0\) and \(q\) with \(|q|{\lt}1\): </p>
-<div class="displaymath" id="a0000000081">
+<div class="displaymath" id="a0000000083">
   \[ \prod _{k=1}^\infty (1-q^{2k})\, (1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2})=\sum _{k=-\infty }^\infty (-1)^k\, w^{2k}\, q^{k^2}. \]
 </div>
 </div>
 
-    <a class="latex_link" href="index.html#a0000000080">LaTeX</a>
+    <a class="latex_link" href="index.html#a0000000082">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def: alpha beta ops_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def: alpha beta ops" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">18</span><span class="definition_thmtitle">Operations \(\alpha \) and \(\beta \)</span></div>
+    <div class="thm_thmcontent"><p> Let \(S \subseteq \{ 1, \ldots , n\} \) be a nonempty partition of \(n\) into different parts with base \(b\), slope \(s\), max \(m = \max (S)\), and slope set \(D\). We define: </p>
+<p>\(\alpha \): For \(S \in \mathcal{P}_\alpha (n)\) (equivalently, \(b \leq s\) and \(b \notin D\), or \(b \leq s - 1\)): </p>
+<div class="displaymath" id="a0000000047">
+  \begin{equation*}  \alpha (S) = \bigl(S \setminus \{ b,\,  m - b + 1\} \bigr) \cup \{ m + 1\} . \end{equation*}
+</div>
+<p>\(\beta \): For \(S \in \mathcal{P}_\beta (n)\) (equivalently, \(b {\gt} s\) and \(b \notin D\), or \(b \geq s + 2\)): </p>
+<div class="displaymath" id="a0000000048">
+  \begin{equation*}  \beta (S) = \bigl(S \cup \{ s,\,  m - s\} \bigr) \setminus \{ m\} . \end{equation*}
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def: alpha beta ops">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def: base slope_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def: base slope" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">9</span><span class="definition_thmtitle">Base and slope</span></div>
+    <div class="thm_thmcontent"><p> Consider a nonempty partition \(S \subseteq \{ 1, \ldots , n\} \) of \(n\) into different parts. We define the <em>base</em> \(b \in S\) as the smallest element of the partition, \(b = \min (S)\). Let \(\max (S)\) denote the largest element of \(S\). We define the <em>slope</em> \(s\) as: </p>
+<div class="displaymath" id="a0000000032">
+  \begin{equation*}  s = \max \{ k \geq 1 : \max (S), \max (S)-1, \max (S)-2, \ldots , \max (S)-k + 1 \in S\} . \end{equation*}
+</div>
+<p> and the <em>slope set</em> \(D\) as \(\{ \max (S), \max (S)-1, \ldots , \max (S)-s + 1\} \). </p>
+</div>
+
+    <a class="latex_link" href="index.html#def: base slope">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def: P alpha beta special_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def: P alpha beta special" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">10</span></div>
+    <div class="thm_thmcontent"><p> Let \(n \in \mathbb {N}_{\geq 1}\) and \(S \in \mathcal{P}(n)\) nonempty with base \(b\), slope \(s\), and slope set \(D\). We define the following sets of partitions of \(n\) into distinct positive parts: ======= </p>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000033">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">11</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000033">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>Let \(n\) be a positive integer. We define the following sets of partitions of \(n\) into distinct positive parts: &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+<div class="displaymath" id="a0000000034">
+  \begin{align*}  \mathcal{P}_{\alpha }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  S \neq \emptyset \text{ and } \bigl[(b \leq s \text{ and } b \notin D) \text{ or } b \leq s - 1\bigr] \right\} , \\ \mathcal{P}_{\beta }(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  S \neq \emptyset \text{ and } \bigl[(b {\gt} s \text{ and } b \notin D) \text{ or } b \geq s + 2\bigr] \right\} , \\ \mathcal{P}_{\mathrm{special}}(n) & = \left\{  S \in \mathcal{P}(n) \; \middle |\;  S = \emptyset , \text{ or } \bigl[b \in D \text{ and } (b = s \text{ or } b = s + 1)\bigr] \right\} . \end{align*}
+</div>
+<p> By convention \(\emptyset \in \mathcal{P}_{\mathrm{special}}(0)\) (and \(\mathcal{P}(0) = \{ \emptyset \} \)). </p>
+
+  </div>
+</div>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha beta special disjoint">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">12</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha beta special disjoint">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all natural numbers \(n\) the following holds: The sets \(\mathcal{P}_{\alpha }(n)\), \(\mathcal{P}_{\beta }(n)\), \(\mathcal{P}_{\mathrm{special}}(n)\) are pairwise disjoint. ======= </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="a0000000035">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">13</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000035">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000036"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all positive integer numbers \(n\) the following holds: The sets \(\mathcal{P}_{\alpha }(n)\), \(\mathcal{P}_{\beta }(n)\), \(\mathcal{P}_{\mathrm{special}}(n)\) are pairwise disjoint. &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000036">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The empty partition belongs only to \(\mathcal{P}_{\mathrm{special}}(0)\) by definition. For nonempty \(S \in \mathcal{P}(n)\) with base \(b\), slope \(s\), slope set \(D\), recall the membership criteria: </p>
+<ul class="itemize">
+  <li><p>\(S \in \mathcal{P}_\alpha \) iff (\(b \leq s\) and \(b \notin D\)) or \(b \leq s - 1\); </p>
+</li>
+  <li><p>\(S \in \mathcal{P}_\beta \) iff (\(b {\gt} s\) and \(b \notin D\)) or \(b \geq s + 2\); </p>
+</li>
+  <li><p>\(S \in \mathcal{P}_{\mathrm{special}}\) iff \(b \in D\) and (\(b = s\) or \(b = s + 1\)). </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 1: \(\mathcal{P}_\alpha \cap \mathcal{P}_\beta = \emptyset \).</b> Suppose \(S \in \mathcal{P}_\alpha \cap \mathcal{P}_\beta \). Both branches of \(\mathcal{P}_\alpha \) imply \(b \leq s\), and both branches of \(\mathcal{P}_\beta \) imply \(b {\gt} s\). Contradiction. </p>
+<p><b class="bfseries">Step 2: \(\mathcal{P}_\alpha \cap \mathcal{P}_{\mathrm{special}} = \emptyset \).</b> Suppose \(S \in \mathcal{P}_{\mathrm{special}}\), so \(b \in D\) and \(b \in \{ s, s + 1\} \). </p>
+<ul class="itemize">
+  <li><p>In particular \(b \geq s\), so the second clause of \(\mathcal{P}_\alpha \) (\(b \leq s - 1\)) fails. </p>
+</li>
+  <li><p>The first clause requires \(b \notin D\), but \(b \in D\), so it also fails. </p>
+</li>
+</ul>
+<p> Hence \(S \notin \mathcal{P}_\alpha \). </p>
+<p><b class="bfseries">Step 3: \(\mathcal{P}_\beta \cap \mathcal{P}_{\mathrm{special}} = \emptyset \).</b> Suppose \(S \in \mathcal{P}_{\mathrm{special}}\), so \(b \in D\) and \(b \leq s + 1\). </p>
+<ul class="itemize">
+  <li><p>The second clause of \(\mathcal{P}_\beta \) (\(b \geq s + 2\)) fails since \(b \leq s + 1\). </p>
+</li>
+  <li><p>The first clause requires \(b \notin D\), contradicted by \(b \in D\). </p>
+</li>
+</ul>
+<p> Hence \(S \notin \mathcal{P}_\beta \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha beta special">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">14</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha beta special">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000037"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all positive integer numbers \(n\) the following holds </p>
+<div class="displaymath" id="a0000000038">
+  \[ \mathcal{P}(n)=\mathcal{P}_{\alpha }(n)\sqcup \mathcal{P}_{\beta }(n)\sqcup \mathcal{P}_{\mathrm{special}}(n). \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000037">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By Lemma&#160;<a href="index.html#lemma: alpha beta special disjoint">12</a> the three sets are pairwise disjoint, so it suffices to show that every \(S \in \mathcal{P}(n)\) belongs to at least one of them. </p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD <b class="bfseries">Step 1: Edge case \(S = \emptyset \).</b> This occurs only when \(n = 0\). By Definition&#160;<a href="index.html#def: P alpha beta special">10</a>, \(\emptyset \in \mathcal{P}_{\mathrm{special}}(0)\). ======= &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+<p><b class="bfseries">Step 2: Main case (\(S \neq \emptyset \)).</b> Let \(b = \min (S)\), \(s\) the slope, \(D\) the slope set. We consider four cases on \(b\) vs \(s\): </p>
+<p><b class="bfseries">Case 1: \(b \leq s - 1\).</b> The second clause of \(\mathcal{P}_\alpha \) holds, so \(S \in \mathcal{P}_\alpha \). </p>
+<p><b class="bfseries">Case 2: \(b = s\).</b> </p>
+<ul class="itemize">
+  <li><p>If \(b \notin D\): the first clause of \(\mathcal{P}_\alpha \) (\(b \leq s\) and \(b \notin D\)) holds, so \(S \in \mathcal{P}_\alpha \). </p>
+</li>
+  <li><p>If \(b \in D\): then \(b = s\) and \(b \in D\), so \(S \in \mathcal{P}_{\mathrm{special}}\). </p>
+</li>
+</ul>
+<p><b class="bfseries">Case 3: \(b = s + 1\).</b> </p>
+<ul class="itemize">
+  <li><p>If \(b \notin D\): the first clause of \(\mathcal{P}_\beta \) (\(b {\gt} s\) and \(b \notin D\)) holds (since \(b = s + 1 {\gt} s\)), so \(S \in \mathcal{P}_\beta \). </p>
+</li>
+  <li><p>If \(b \in D\): then \(b = s + 1\) and \(b \in D\), so \(S \in \mathcal{P}_{\mathrm{special}}\). </p>
+</li>
+</ul>
+<p><b class="bfseries">Case 4: \(b \geq s + 2\).</b> The second clause of \(\mathcal{P}_\beta \) holds, so \(S \in \mathcal{P}_\beta \). </p>
+<p>These four cases cover all possibilities. </p>
+
+  </div>
+</div>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def: staircase sets">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">15</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def: staircase sets">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ k, k+1, \ldots , 2k-1\} \) (a set of \(k\) elements summing to \((3k^2-k)/2\)).<br />For \(k\in \mathbb {Z}_{\geq 1}\) define \(S_{k}=\{ k+1, k+2, \ldots , 2k\} \) (a set of \(k\) elements summing to \((3k^2+k)/2\)). ======= </p>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000039">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">16</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000039">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ 2k-1 , 2k-2 , \ldots , k\} \).<br />For \(k\in \mathbb {Z}_{\geq 0}\) define \(S_{k}=\{ 2k , 2k-1 , \ldots , k+1\} \). &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: special">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">17</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: special">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000040"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For \(n \geq 1\): </p>
+<ul class="itemize">
+  <li><p>If \(n\) is not a pentagonal number, then \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 - k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{-k}\} \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 + k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{k}\} \). </p>
+</li>
+</ul>
+<p> For \(n = 0\), \(\mathcal{P}_{\mathrm{special}}(0) = \{ \emptyset \} \) by convention. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000040">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD The case \(n = 0\) holds by Definition&#160;<a href="index.html#def: P alpha beta special">10</a>. Assume \(n \geq 1\), so any \(S \in \mathcal{P}_{\mathrm{special}}(n)\) is nonempty. ======= &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+<p><b class="bfseries">Step 1: Structure of a special partition.</b> Let \(S \in \mathcal{P}_{\mathrm{special}}(n)\) with base \(b\), slope \(s\), slope set \(D\). By definition, \(b \in D\) and either \(b = s\) or \(b = s + 1\). </p>
+<p><b class="bfseries">Sub-step 1a: \(S = D\).</b> The slope set is the maximal top-consecutive run: \(D = \{ \max (S) - s + 1, \ldots , \max (S)\} \). Since \(b \in D\), we have \(b \geq \max (S) - s + 1\), so \(\{ b, b+1, \ldots , \max (S)\}  \subseteq D \subseteq S\). Combined with \(b = \min (S)\), this forces </p>
+<div class="displaymath" id="a0000000041">
+  \[ S = \{ b, b+1, \ldots , \max (S)\}  = D. \]
+</div>
+<p> In particular \(|S| = \max (S) - b + 1 = s\), so \(\max (S) = b + s - 1\). </p>
+<p><b class="bfseries">Step 2: Case A — \(b = s\).</b> Then \(|S| = s = b\) and \(\max (S) = 2b - 1\), so </p>
+<div class="displaymath" id="a0000000042">
+  \[ S = \{ b, b+1, \ldots , 2b - 1\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000043">
+  \[ \sum _{i=b}^{2b-1} i = b \cdot b + (0 + 1 + \cdots + (b-1)) = b^2 + \frac{b(b-1)}{2} = \frac{3b^2 - b}{2}. \]
+</div>
+<p> Setting \(k = b \in \mathbb {Z}_{\geq 1}\), we have \(n = (3k^2 - k)/2\) and \(S = S_{-k} = \{ k, k+1, \ldots , 2k - 1\} \). </p>
+<p><b class="bfseries">Step 3: Case B — \(b = s + 1\).</b> Then \(|S| = s = b - 1\) and \(\max (S) = b + s - 1 = 2b - 2\), so </p>
+<div class="displaymath" id="a0000000044">
+  \[ S = \{ b, b+1, \ldots , 2b - 2\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000045">
+  \[ \sum _{i=b}^{2b-2} i = (b-1) \cdot b + (0 + 1 + \cdots + (b-2)) = b(b-1) + \frac{(b-1)(b-2)}{2} = \frac{(b-1)(3b - 2)}{2}. \]
+</div>
+<p> Setting \(k = b - 1 \in \mathbb {Z}_{\geq 1}\) (note \(b \geq 2\) since \(s \geq 1\)), we get </p>
+<div class="displaymath" id="a0000000046">
+  \[ n = \frac{k(3(k+1) - 2)}{2} = \frac{k(3k + 1)}{2} = \frac{3k^2 + k}{2}, \qquad S = \{ k+1, k+2, \ldots , 2k\}  = S_k. \]
+</div>
+<p><b class="bfseries">Step 4: Forward direction (existence).</b> Conversely, given \(n = (3k^2 - k)/2\) with \(k \geq 1\), the set \(S_{-k} = \{ k, k+1, \ldots , 2k - 1\} \) has base \(k\), slope \(k\) (the entire set is a top-consecutive run of length \(k\)), slope set \(D = S_{-k}\), and \(b = k \in D\) with \(b = s\), hence \(S_{-k} \in \mathcal{P}_{\mathrm{special}}\). Similarly, \(S_k = \{ k+1, \ldots , 2k\} \) has base \(k+1\), slope \(k\), slope set \(D = S_k\), and \(b = k+1 = s+1 \in D\), hence \(S_k \in \mathcal{P}_{\mathrm{special}}\). </p>
+<p><b class="bfseries">Step 5: Uniqueness.</b> The case analysis in Steps 2–3 shows that for each pentagonal \(n\), there is at most one special partition (the candidate is uniquely determined by \(b\), and \(b\) is determined by \(n\)). Combined with Step 4, this gives exactly one. </p>
+<p><b class="bfseries">Step 6: Non-pentagonal \(n\).</b> If \(n\) is not pentagonal of either form, then by Steps 2–3 no \(b \geq 1\) produces a special partition with \(\sum = n\), so \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def: alpha beta ops">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">18</span>
+    <span class="definition_thmtitle">Operations \(\alpha \) and \(\beta \)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def: alpha beta ops">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Let \(S \subseteq \{ 1, \ldots , n\} \) be a nonempty partition of \(n\) into different parts with base \(b\), slope \(s\), max \(m = \max (S)\), and slope set \(D\). We define: </p>
+<p>\(\alpha \): For \(S \in \mathcal{P}_\alpha (n)\) (equivalently, \(b \leq s\) and \(b \notin D\), or \(b \leq s - 1\)): </p>
+<div class="displaymath" id="a0000000047">
+  \begin{equation*}  \alpha (S) = \bigl(S \setminus \{ b,\,  m - b + 1\} \bigr) \cup \{ m + 1\} . \end{equation*}
+</div>
+<p>\(\beta \): For \(S \in \mathcal{P}_\beta (n)\) (equivalently, \(b {\gt} s\) and \(b \notin D\), or \(b \geq s + 2\)): </p>
+<div class="displaymath" id="a0000000048">
+  \begin{equation*}  \beta (S) = \bigl(S \cup \{ s,\,  m - s\} \bigr) \setminus \{ m\} . \end{equation*}
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def: P alpha beta special">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def: staircase sets_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def: staircase sets" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">15</span></div>
+    <div class="thm_thmcontent"><p> For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ k, k+1, \ldots , 2k-1\} \) (a set of \(k\) elements summing to \((3k^2-k)/2\)).<br />For \(k\in \mathbb {Z}_{\geq 1}\) define \(S_{k}=\{ k+1, k+2, \ldots , 2k\} \) (a set of \(k\) elements summing to \((3k^2+k)/2\)). ======= </p>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000039">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">16</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000039">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ 2k-1 , 2k-2 , \ldots , k\} \).<br />For \(k\in \mathbb {Z}_{\geq 0}\) define \(S_{k}=\{ 2k , 2k-1 , \ldots , k+1\} \). &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: special">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">17</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: special">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000040"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For \(n \geq 1\): </p>
+<ul class="itemize">
+  <li><p>If \(n\) is not a pentagonal number, then \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 - k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{-k}\} \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 + k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{k}\} \). </p>
+</li>
+</ul>
+<p> For \(n = 0\), \(\mathcal{P}_{\mathrm{special}}(0) = \{ \emptyset \} \) by convention. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000040">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD The case \(n = 0\) holds by Definition&#160;<a href="index.html#def: P alpha beta special">10</a>. Assume \(n \geq 1\), so any \(S \in \mathcal{P}_{\mathrm{special}}(n)\) is nonempty. ======= &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+<p><b class="bfseries">Step 1: Structure of a special partition.</b> Let \(S \in \mathcal{P}_{\mathrm{special}}(n)\) with base \(b\), slope \(s\), slope set \(D\). By definition, \(b \in D\) and either \(b = s\) or \(b = s + 1\). </p>
+<p><b class="bfseries">Sub-step 1a: \(S = D\).</b> The slope set is the maximal top-consecutive run: \(D = \{ \max (S) - s + 1, \ldots , \max (S)\} \). Since \(b \in D\), we have \(b \geq \max (S) - s + 1\), so \(\{ b, b+1, \ldots , \max (S)\}  \subseteq D \subseteq S\). Combined with \(b = \min (S)\), this forces </p>
+<div class="displaymath" id="a0000000041">
+  \[ S = \{ b, b+1, \ldots , \max (S)\}  = D. \]
+</div>
+<p> In particular \(|S| = \max (S) - b + 1 = s\), so \(\max (S) = b + s - 1\). </p>
+<p><b class="bfseries">Step 2: Case A — \(b = s\).</b> Then \(|S| = s = b\) and \(\max (S) = 2b - 1\), so </p>
+<div class="displaymath" id="a0000000042">
+  \[ S = \{ b, b+1, \ldots , 2b - 1\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000043">
+  \[ \sum _{i=b}^{2b-1} i = b \cdot b + (0 + 1 + \cdots + (b-1)) = b^2 + \frac{b(b-1)}{2} = \frac{3b^2 - b}{2}. \]
+</div>
+<p> Setting \(k = b \in \mathbb {Z}_{\geq 1}\), we have \(n = (3k^2 - k)/2\) and \(S = S_{-k} = \{ k, k+1, \ldots , 2k - 1\} \). </p>
+<p><b class="bfseries">Step 3: Case B — \(b = s + 1\).</b> Then \(|S| = s = b - 1\) and \(\max (S) = b + s - 1 = 2b - 2\), so </p>
+<div class="displaymath" id="a0000000044">
+  \[ S = \{ b, b+1, \ldots , 2b - 2\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000045">
+  \[ \sum _{i=b}^{2b-2} i = (b-1) \cdot b + (0 + 1 + \cdots + (b-2)) = b(b-1) + \frac{(b-1)(b-2)}{2} = \frac{(b-1)(3b - 2)}{2}. \]
+</div>
+<p> Setting \(k = b - 1 \in \mathbb {Z}_{\geq 1}\) (note \(b \geq 2\) since \(s \geq 1\)), we get </p>
+<div class="displaymath" id="a0000000046">
+  \[ n = \frac{k(3(k+1) - 2)}{2} = \frac{k(3k + 1)}{2} = \frac{3k^2 + k}{2}, \qquad S = \{ k+1, k+2, \ldots , 2k\}  = S_k. \]
+</div>
+<p><b class="bfseries">Step 4: Forward direction (existence).</b> Conversely, given \(n = (3k^2 - k)/2\) with \(k \geq 1\), the set \(S_{-k} = \{ k, k+1, \ldots , 2k - 1\} \) has base \(k\), slope \(k\) (the entire set is a top-consecutive run of length \(k\)), slope set \(D = S_{-k}\), and \(b = k \in D\) with \(b = s\), hence \(S_{-k} \in \mathcal{P}_{\mathrm{special}}\). Similarly, \(S_k = \{ k+1, \ldots , 2k\} \) has base \(k+1\), slope \(k\), slope set \(D = S_k\), and \(b = k+1 = s+1 \in D\), hence \(S_k \in \mathcal{P}_{\mathrm{special}}\). </p>
+<p><b class="bfseries">Step 5: Uniqueness.</b> The case analysis in Steps 2–3 shows that for each pentagonal \(n\), there is at most one special partition (the candidate is uniquely determined by \(b\), and \(b\) is determined by \(n\)). Combined with Step 4, this gives exactly one. </p>
+<p><b class="bfseries">Step 6: Non-pentagonal \(n\).</b> If \(n\) is not pentagonal of either form, then by Steps 2–3 no \(b \geq 1\) produces a special partition with \(\sum = n\), so \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def: alpha beta ops">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">18</span>
+    <span class="definition_thmtitle">Operations \(\alpha \) and \(\beta \)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def: alpha beta ops">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Let \(S \subseteq \{ 1, \ldots , n\} \) be a nonempty partition of \(n\) into different parts with base \(b\), slope \(s\), max \(m = \max (S)\), and slope set \(D\). We define: </p>
+<p>\(\alpha \): For \(S \in \mathcal{P}_\alpha (n)\) (equivalently, \(b \leq s\) and \(b \notin D\), or \(b \leq s - 1\)): </p>
+<div class="displaymath" id="a0000000047">
+  \begin{equation*}  \alpha (S) = \bigl(S \setminus \{ b,\,  m - b + 1\} \bigr) \cup \{ m + 1\} . \end{equation*}
+</div>
+<p>\(\beta \): For \(S \in \mathcal{P}_\beta (n)\) (equivalently, \(b {\gt} s\) and \(b \notin D\), or \(b \geq s + 2\)): </p>
+<div class="displaymath" id="a0000000048">
+  \begin{equation*}  \beta (S) = \bigl(S \cup \{ s,\,  m - s\} \bigr) \setminus \{ m\} . \end{equation*}
+</div>
+
+  </div>
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def: staircase sets">LaTeX</a>
     
     
   
@@ -449,7 +927,7 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">19</span></div>
+      <span class="lemma_thmlabel">22</span></div>
     <div class="thm_thmcontent"><p> The composition of maps \(\alpha \circ \beta \) is equal to the identity map on \(\mathcal{P}_\beta (n)\). Equivalently, if \(S\in \mathcal{P}_\beta (n)\) then \(\alpha (\beta (S))=S\). </p>
 </div>
 
@@ -479,7 +957,7 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">20</span></div>
+      <span class="lemma_thmlabel">23</span></div>
     <div class="thm_thmcontent"><p> The map \(\alpha : \mathcal{P}_\alpha (n)\to \mathcal{P}_\beta (n)\) is a bijection. <br />The map \(\beta : \mathcal{P}_\beta (n)\to \mathcal{P}_\alpha (n)\) is a bijection. </p>
 </div>
 
@@ -509,7 +987,7 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">22</span></div>
+      <span class="lemma_thmlabel">25</span></div>
     <div class="thm_thmcontent"><p> The operations \(\alpha \) and \(\beta \) change the parity of the number of parts of a partition. More precisely, </p>
 <ul class="itemize">
   <li><p>If \(S\in \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{odd}}(n) \) then \(\alpha (S) \in \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{even}}(n) \); </p>
@@ -549,14 +1027,317 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">12</span></div>
-    <div class="thm_thmcontent"><p>For all natural numbers \(n\) the following holds </p>
-<div class="displaymath" id="a0000000040">
+      <span class="lemma_thmlabel">14</span></div>
+    <div class="thm_thmcontent"><p>For all positive integer numbers \(n\) the following holds </p>
+<div class="displaymath" id="a0000000038">
   \[ \mathcal{P}(n)=\mathcal{P}_{\alpha }(n)\sqcup \mathcal{P}_{\beta }(n)\sqcup \mathcal{P}_{\mathrm{special}}(n). \]
 </div>
 </div>
 
     <a class="latex_link" href="index.html#lemma: alpha beta special">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lemma: alpha beta special disjoint_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lemma: alpha beta special disjoint" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">12</span></div>
+    <div class="thm_thmcontent"><p>For all natural numbers \(n\) the following holds: The sets \(\mathcal{P}_{\alpha }(n)\), \(\mathcal{P}_{\beta }(n)\), \(\mathcal{P}_{\mathrm{special}}(n)\) are pairwise disjoint. ======= </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="a0000000035">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">13</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000035">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000036"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all positive integer numbers \(n\) the following holds: The sets \(\mathcal{P}_{\alpha }(n)\), \(\mathcal{P}_{\beta }(n)\), \(\mathcal{P}_{\mathrm{special}}(n)\) are pairwise disjoint. &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000036">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The empty partition belongs only to \(\mathcal{P}_{\mathrm{special}}(0)\) by definition. For nonempty \(S \in \mathcal{P}(n)\) with base \(b\), slope \(s\), slope set \(D\), recall the membership criteria: </p>
+<ul class="itemize">
+  <li><p>\(S \in \mathcal{P}_\alpha \) iff (\(b \leq s\) and \(b \notin D\)) or \(b \leq s - 1\); </p>
+</li>
+  <li><p>\(S \in \mathcal{P}_\beta \) iff (\(b {\gt} s\) and \(b \notin D\)) or \(b \geq s + 2\); </p>
+</li>
+  <li><p>\(S \in \mathcal{P}_{\mathrm{special}}\) iff \(b \in D\) and (\(b = s\) or \(b = s + 1\)). </p>
+</li>
+</ul>
+<p><b class="bfseries">Step 1: \(\mathcal{P}_\alpha \cap \mathcal{P}_\beta = \emptyset \).</b> Suppose \(S \in \mathcal{P}_\alpha \cap \mathcal{P}_\beta \). Both branches of \(\mathcal{P}_\alpha \) imply \(b \leq s\), and both branches of \(\mathcal{P}_\beta \) imply \(b {\gt} s\). Contradiction. </p>
+<p><b class="bfseries">Step 2: \(\mathcal{P}_\alpha \cap \mathcal{P}_{\mathrm{special}} = \emptyset \).</b> Suppose \(S \in \mathcal{P}_{\mathrm{special}}\), so \(b \in D\) and \(b \in \{ s, s + 1\} \). </p>
+<ul class="itemize">
+  <li><p>In particular \(b \geq s\), so the second clause of \(\mathcal{P}_\alpha \) (\(b \leq s - 1\)) fails. </p>
+</li>
+  <li><p>The first clause requires \(b \notin D\), but \(b \in D\), so it also fails. </p>
+</li>
+</ul>
+<p> Hence \(S \notin \mathcal{P}_\alpha \). </p>
+<p><b class="bfseries">Step 3: \(\mathcal{P}_\beta \cap \mathcal{P}_{\mathrm{special}} = \emptyset \).</b> Suppose \(S \in \mathcal{P}_{\mathrm{special}}\), so \(b \in D\) and \(b \leq s + 1\). </p>
+<ul class="itemize">
+  <li><p>The second clause of \(\mathcal{P}_\beta \) (\(b \geq s + 2\)) fails since \(b \leq s + 1\). </p>
+</li>
+  <li><p>The first clause requires \(b \notin D\), contradicted by \(b \in D\). </p>
+</li>
+</ul>
+<p> Hence \(S \notin \mathcal{P}_\beta \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: alpha beta special">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">14</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: alpha beta special">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000037"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p>For all positive integer numbers \(n\) the following holds </p>
+<div class="displaymath" id="a0000000038">
+  \[ \mathcal{P}(n)=\mathcal{P}_{\alpha }(n)\sqcup \mathcal{P}_{\beta }(n)\sqcup \mathcal{P}_{\mathrm{special}}(n). \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000037">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>By Lemma&#160;<a href="index.html#lemma: alpha beta special disjoint">12</a> the three sets are pairwise disjoint, so it suffices to show that every \(S \in \mathcal{P}(n)\) belongs to at least one of them. </p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD <b class="bfseries">Step 1: Edge case \(S = \emptyset \).</b> This occurs only when \(n = 0\). By Definition&#160;<a href="index.html#def: P alpha beta special">10</a>, \(\emptyset \in \mathcal{P}_{\mathrm{special}}(0)\). ======= &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+<p><b class="bfseries">Step 2: Main case (\(S \neq \emptyset \)).</b> Let \(b = \min (S)\), \(s\) the slope, \(D\) the slope set. We consider four cases on \(b\) vs \(s\): </p>
+<p><b class="bfseries">Case 1: \(b \leq s - 1\).</b> The second clause of \(\mathcal{P}_\alpha \) holds, so \(S \in \mathcal{P}_\alpha \). </p>
+<p><b class="bfseries">Case 2: \(b = s\).</b> </p>
+<ul class="itemize">
+  <li><p>If \(b \notin D\): the first clause of \(\mathcal{P}_\alpha \) (\(b \leq s\) and \(b \notin D\)) holds, so \(S \in \mathcal{P}_\alpha \). </p>
+</li>
+  <li><p>If \(b \in D\): then \(b = s\) and \(b \in D\), so \(S \in \mathcal{P}_{\mathrm{special}}\). </p>
+</li>
+</ul>
+<p><b class="bfseries">Case 3: \(b = s + 1\).</b> </p>
+<ul class="itemize">
+  <li><p>If \(b \notin D\): the first clause of \(\mathcal{P}_\beta \) (\(b {\gt} s\) and \(b \notin D\)) holds (since \(b = s + 1 {\gt} s\)), so \(S \in \mathcal{P}_\beta \). </p>
+</li>
+  <li><p>If \(b \in D\): then \(b = s + 1\) and \(b \in D\), so \(S \in \mathcal{P}_{\mathrm{special}}\). </p>
+</li>
+</ul>
+<p><b class="bfseries">Case 4: \(b \geq s + 2\).</b> The second clause of \(\mathcal{P}_\beta \) holds, so \(S \in \mathcal{P}_\beta \). </p>
+<p>These four cases cover all possibilities. </p>
+
+  </div>
+</div>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def: staircase sets">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">15</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def: staircase sets">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ k, k+1, \ldots , 2k-1\} \) (a set of \(k\) elements summing to \((3k^2-k)/2\)).<br />For \(k\in \mathbb {Z}_{\geq 1}\) define \(S_{k}=\{ k+1, k+2, \ldots , 2k\} \) (a set of \(k\) elements summing to \((3k^2+k)/2\)). ======= </p>
+<div class="definition_thmwrapper theorem-style-definition" id="a0000000039">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">16</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000039">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(k\in \mathbb {Z}_{\geq 1}\) define \( S_{-k}=\{ 2k-1 , 2k-2 , \ldots , k\} \).<br />For \(k\in \mathbb {Z}_{\geq 0}\) define \(S_{k}=\{ 2k , 2k-1 , \ldots , k+1\} \). &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lemma: special">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">17</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lemma: special">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000040"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For \(n \geq 1\): </p>
+<ul class="itemize">
+  <li><p>If \(n\) is not a pentagonal number, then \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 - k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{-k}\} \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 + k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{k}\} \). </p>
+</li>
+</ul>
+<p> For \(n = 0\), \(\mathcal{P}_{\mathrm{special}}(0) = \{ \emptyset \} \) by convention. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000040">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD The case \(n = 0\) holds by Definition&#160;<a href="index.html#def: P alpha beta special">10</a>. Assume \(n \geq 1\), so any \(S \in \mathcal{P}_{\mathrm{special}}(n)\) is nonempty. ======= &gt;&gt;&gt;&gt;&gt;&gt;&gt; 5af2e2d829e3117fbf2fa547dad2870eb7080f67 </p>
+<p><b class="bfseries">Step 1: Structure of a special partition.</b> Let \(S \in \mathcal{P}_{\mathrm{special}}(n)\) with base \(b\), slope \(s\), slope set \(D\). By definition, \(b \in D\) and either \(b = s\) or \(b = s + 1\). </p>
+<p><b class="bfseries">Sub-step 1a: \(S = D\).</b> The slope set is the maximal top-consecutive run: \(D = \{ \max (S) - s + 1, \ldots , \max (S)\} \). Since \(b \in D\), we have \(b \geq \max (S) - s + 1\), so \(\{ b, b+1, \ldots , \max (S)\}  \subseteq D \subseteq S\). Combined with \(b = \min (S)\), this forces </p>
+<div class="displaymath" id="a0000000041">
+  \[ S = \{ b, b+1, \ldots , \max (S)\}  = D. \]
+</div>
+<p> In particular \(|S| = \max (S) - b + 1 = s\), so \(\max (S) = b + s - 1\). </p>
+<p><b class="bfseries">Step 2: Case A — \(b = s\).</b> Then \(|S| = s = b\) and \(\max (S) = 2b - 1\), so </p>
+<div class="displaymath" id="a0000000042">
+  \[ S = \{ b, b+1, \ldots , 2b - 1\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000043">
+  \[ \sum _{i=b}^{2b-1} i = b \cdot b + (0 + 1 + \cdots + (b-1)) = b^2 + \frac{b(b-1)}{2} = \frac{3b^2 - b}{2}. \]
+</div>
+<p> Setting \(k = b \in \mathbb {Z}_{\geq 1}\), we have \(n = (3k^2 - k)/2\) and \(S = S_{-k} = \{ k, k+1, \ldots , 2k - 1\} \). </p>
+<p><b class="bfseries">Step 3: Case B — \(b = s + 1\).</b> Then \(|S| = s = b - 1\) and \(\max (S) = b + s - 1 = 2b - 2\), so </p>
+<div class="displaymath" id="a0000000044">
+  \[ S = \{ b, b+1, \ldots , 2b - 2\} . \]
+</div>
+<p> The sum is </p>
+<div class="displaymath" id="a0000000045">
+  \[ \sum _{i=b}^{2b-2} i = (b-1) \cdot b + (0 + 1 + \cdots + (b-2)) = b(b-1) + \frac{(b-1)(b-2)}{2} = \frac{(b-1)(3b - 2)}{2}. \]
+</div>
+<p> Setting \(k = b - 1 \in \mathbb {Z}_{\geq 1}\) (note \(b \geq 2\) since \(s \geq 1\)), we get </p>
+<div class="displaymath" id="a0000000046">
+  \[ n = \frac{k(3(k+1) - 2)}{2} = \frac{k(3k + 1)}{2} = \frac{3k^2 + k}{2}, \qquad S = \{ k+1, k+2, \ldots , 2k\}  = S_k. \]
+</div>
+<p><b class="bfseries">Step 4: Forward direction (existence).</b> Conversely, given \(n = (3k^2 - k)/2\) with \(k \geq 1\), the set \(S_{-k} = \{ k, k+1, \ldots , 2k - 1\} \) has base \(k\), slope \(k\) (the entire set is a top-consecutive run of length \(k\)), slope set \(D = S_{-k}\), and \(b = k \in D\) with \(b = s\), hence \(S_{-k} \in \mathcal{P}_{\mathrm{special}}\). Similarly, \(S_k = \{ k+1, \ldots , 2k\} \) has base \(k+1\), slope \(k\), slope set \(D = S_k\), and \(b = k+1 = s+1 \in D\), hence \(S_k \in \mathcal{P}_{\mathrm{special}}\). </p>
+<p><b class="bfseries">Step 5: Uniqueness.</b> The case analysis in Steps 2–3 shows that for each pentagonal \(n\), there is at most one special partition (the candidate is uniquely determined by \(b\), and \(b\) is determined by \(n\)). Combined with Step 4, this gives exactly one. </p>
+<p><b class="bfseries">Step 6: Non-pentagonal \(n\).</b> If \(n\) is not pentagonal of either form, then by Steps 2–3 no \(b \geq 1\) produces a special partition with \(\sum = n\), so \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def: alpha beta ops">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">18</span>
+    <span class="definition_thmtitle">Operations \(\alpha \) and \(\beta \)</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def: alpha beta ops">#</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p> Let \(S \subseteq \{ 1, \ldots , n\} \) be a nonempty partition of \(n\) into different parts with base \(b\), slope \(s\), max \(m = \max (S)\), and slope set \(D\). We define: </p>
+<p>\(\alpha \): For \(S \in \mathcal{P}_\alpha (n)\) (equivalently, \(b \leq s\) and \(b \notin D\), or \(b \leq s - 1\)): </p>
+<div class="displaymath" id="a0000000047">
+  \begin{equation*}  \alpha (S) = \bigl(S \setminus \{ b,\,  m - b + 1\} \bigr) \cup \{ m + 1\} . \end{equation*}
+</div>
+<p>\(\beta \): For \(S \in \mathcal{P}_\beta (n)\) (equivalently, \(b {\gt} s\) and \(b \notin D\), or \(b \geq s + 2\)): </p>
+<div class="displaymath" id="a0000000048">
+  \begin{equation*}  \beta (S) = \bigl(S \cup \{ s,\,  m - s\} \bigr) \setminus \{ m\} . \end{equation*}
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#lemma: alpha beta special disjoint">LaTeX</a>
     
     
   
@@ -582,7 +1363,7 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">16</span></div>
+      <span class="lemma_thmlabel">19</span></div>
     <div class="thm_thmcontent"><p> If \(S\in \mathcal{P}_\alpha (n)\) then \(\alpha (S)\in \mathcal{P}_\beta (n)\). </p>
 </div>
 
@@ -612,12 +1393,12 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">23</span></div>
+      <span class="lemma_thmlabel">26</span></div>
     <div class="thm_thmcontent">
-<div class="displaymath" id="a0000000073">
+<div class="displaymath" id="a0000000075">
   \[ \left| \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|=\left| \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|, \]
 </div>
-<div class="displaymath" id="a0000000074">
+<div class="displaymath" id="a0000000076">
   \[ \left| \mathcal{P}_\alpha (n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|=\left| \mathcal{P}_\beta (n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|. \]
 </div>
 </div>
@@ -648,7 +1429,7 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">18</span></div>
+      <span class="lemma_thmlabel">21</span></div>
     <div class="thm_thmcontent"><p> The composition of maps \(\beta \circ \alpha \) is equal to the identity map on \(\mathcal{P}_\alpha (n)\). Equivalently, if \(S\in \mathcal{P}_\alpha (n)\) then \(\beta (\alpha (S))=S\). </p>
 </div>
 
@@ -678,11 +1459,45 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">17</span></div>
+      <span class="lemma_thmlabel">20</span></div>
     <div class="thm_thmcontent"><p> If \(S\in \mathcal{P}_\beta (n)\) then \(\beta (S)\in \mathcal{P}_\alpha (n)\). </p>
 </div>
 
     <a class="latex_link" href="index.html#lemma: beta lands in alpha">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lemma: expansion product_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lemma: expansion product" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">5</span></div>
+    <div class="thm_thmcontent"><p> We have </p>
+<div class="displaymath" id="a0000000013">
+  \[ \prod _{k=1}^{\infty }(1-x^k)\, =\, \sum _{s=0}^\infty \, \sum _{k_1{\lt}k_2{\lt}\cdots {\lt}k_s}(-1)^s\, x^{k_1+k_2+\ldots +k_s}\, =\, \sum _{n=0}^\infty c_n\,  x^n \]
+</div>
+<p> where \(c_0=1\) and \(c_n=p_e(n)-p_o(n)\) for \(n\geq 1\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lemma: expansion product">LaTeX</a>
     
     
   
@@ -708,9 +1523,9 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">21</span></div>
+      <span class="lemma_thmlabel">24</span></div>
     <div class="thm_thmcontent">
-<div class="displaymath" id="a0000000071">
+<div class="displaymath" id="a0000000072">
   \[ \left| \mathcal{P}_\alpha (n)\right|=\left|\mathcal{P}_\beta (n) \right|. \]
 </div>
 </div>
@@ -741,10 +1556,10 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">24</span></div>
+      <span class="lemma_thmlabel">27</span></div>
     <div class="thm_thmcontent">
-<div class="displaymath" id="a0000000076">
-  \[ p_e(n)-p_o(n)= \begin{cases} (-1)^k,& \mbox{ if } n= \frac{3k^2\pm k}{2}\\ 0, &  \mbox{otherwise.}\end{cases} \]
+<div class="displaymath" id="a0000000078">
+  \[ p_e(n)-p_o(n)= \begin{cases} (-1)^k,& \mbox{ if } n= \frac{3k^2\pm k}{2} \text{ for some } k \in \mathbb {Z}_{\geq 1},\\ 1, &  \mbox{ if } n = 0,\\ 0, &  \mbox{otherwise.}\end{cases} \]
 </div>
 </div>
 
@@ -774,8 +1589,17 @@
       <span class="lemma_thmcaption">
       Lemma
       </span>
-      <span class="lemma_thmlabel">14</span></div>
-    <div class="thm_thmcontent"><p> If \(n\) is not a pentagonal number, then \( \mathcal{P}_{\mathrm{special}}(n)=\varnothing \).<br />If \(n=\frac{3k^2-k}{2}\) for some \(k\in \mathbb {Z}_{\geq 1}\), then \( \mathcal{P}_{\mathrm{special}}(n)=\{ S_{-k}\}  \).<br />If \(n=\frac{3k^2+k}{2}\) for some \(k\in \mathbb {Z}_{\geq 0}\), then \( \mathcal{P}_{\mathrm{special}}(n)=\{ S_{k}\} \). </p>
+      <span class="lemma_thmlabel">17</span></div>
+    <div class="thm_thmcontent"><p> For \(n \geq 1\): </p>
+<ul class="itemize">
+  <li><p>If \(n\) is not a pentagonal number, then \(\mathcal{P}_{\mathrm{special}}(n) = \emptyset \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 - k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{-k}\} \). </p>
+</li>
+  <li><p>If \(n = \frac{3k^2 + k}{2}\) for some \(k \in \mathbb {Z}_{\geq 1}\), then \(\mathcal{P}_{\mathrm{special}}(n) = \{ S_{k}\} \). </p>
+</li>
+</ul>
+<p> For \(n = 0\), \(\mathcal{P}_{\mathrm{special}}(0) = \{ \emptyset \} \) by convention. </p>
 </div>
 
     <a class="latex_link" href="index.html#lemma: special">LaTeX</a>
@@ -809,7 +1633,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lemma: alpha lands in beta"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha lands in beta",		shape=ellipse,		style=filled];	"lemma: beta lands in alpha"	[color=blue,		fillcolor="#A3D6FF",		label=" beta lands in alpha",		shape=ellipse,		style=filled];	"lemma: beta after alpha"	[color=blue,		fillcolor="#A3D6FF",		label=" beta after alpha",		shape=ellipse,		style=filled];	a0000000003	[color=blue,		fillcolor="#A3D6FF",		label=a0000000003,		shape=box,		style=filled];	a0000000049	[color=blue,		fillcolor="#A3D6FF",		label=a0000000049,		shape=box,		style=filled];	a0000000012	[color=blue,		fillcolor="#A3D6FF",		label=a0000000012,		shape=ellipse,		style=filled];	"lemma: alpha beta special"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha beta special",		shape=ellipse,		style=filled];	"lemma: alpha beta bijection"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha beta bijection",		shape=ellipse,		style=filled];	"lemma: alpha odd eq beta even"	[color=blue,		label=" alpha odd eq beta even",		shape=ellipse];	"lemma: pe minus po closed form"	[color=blue,		fillcolor="#A3D6FF",		label=" pe minus po closed form",		shape=ellipse,		style=filled];	a0000000021	[color=blue,		fillcolor="#A3D6FF",		label=a0000000021,		shape=ellipse,		style=filled];	"lemma: special"	[color=blue,		fillcolor="#A3D6FF",		label=" special",		shape=ellipse,		style=filled];	"lemma: P alpha card eq P beta card"	[color=blue,		fillcolor="#A3D6FF",		label=" P alpha card eq P beta card",		shape=ellipse,		style=filled];	"lemma: alpha beta change parity"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha beta change parity",		shape=ellipse,		style=filled];	a0000000033	[color=blue,		fillcolor="#A3D6FF",		label=a0000000033,		shape=box,		style=filled];	a0000000035	[color=blue,		fillcolor="#A3D6FF",		label=a0000000035,		shape=box,		style=filled];	a0000000041	[color=blue,		fillcolor="#A3D6FF",		label=a0000000041,		shape=box,		style=filled];	a0000000010	[color=blue,		fillcolor="#A3D6FF",		label=a0000000010,		shape=box,		style=filled];	a0000000005	[color=blue,		fillcolor="#A3D6FF",		label=a0000000005,		shape=ellipse,		style=filled];	a0000000037	[color=blue,		fillcolor="#A3D6FF",		label=a0000000037,		shape=ellipse,		style=filled];	"lemma: alpha after beta"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha after beta",		shape=ellipse,		style=filled];	a0000000080	[color=blue,		label=a0000000080,		shape=ellipse];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lemma: alpha after beta"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha after beta",		shape=ellipse,		style=filled];	"lemma: alpha beta bijection"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha beta bijection",		shape=ellipse,		style=filled];	a0000000035	[color=blue,		fillcolor="#A3D6FF",		label=a0000000035,		shape=ellipse,		style=filled];	"lemma: special"	[color=blue,		fillcolor="#A3D6FF",		label=" special",		shape=ellipse,		style=filled];	"def: base slope"	[color=blue,		fillcolor="#A3D6FF",		label=" base slope",		shape=box,		style=filled];	"def: P alpha beta special"	[color=blue,		fillcolor="#A3D6FF",		label=" P alpha beta special",		shape=box,		style=filled];	a0000000010	[color=blue,		fillcolor="#A3D6FF",		label=a0000000010,		shape=box,		style=filled];	"lemma: alpha beta special"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha beta special",		shape=ellipse,		style=filled];	"lemma: pe minus po closed form"	[color=blue,		fillcolor="#A3D6FF",		label=" pe minus po closed form",		shape=ellipse,		style=filled];	a0000000020	[color=blue,		fillcolor="#A3D6FF",		label=a0000000020,		shape=ellipse,		style=filled];	"lemma: P alpha card eq P beta card"	[color=blue,		fillcolor="#A3D6FF",		label=" P alpha card eq P beta card",		shape=ellipse,		style=filled];	"lemma: alpha lands in beta"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha lands in beta",		shape=ellipse,		style=filled];	"lemma: alpha beta special disjoint"	[color=blue,		label=" alpha beta special disjoint",		shape=ellipse];	a0000000003	[color=blue,		fillcolor="#A3D6FF",		label=a0000000003,		shape=box,		style=filled];	a0000000033	[color=blue,		fillcolor="#A3D6FF",		label=a0000000033,		shape=box,		style=filled];	"def: staircase sets"	[color=blue,		fillcolor="#A3D6FF",		label=" staircase sets",		shape=box,		style=filled];	a0000000039	[color=blue,		fillcolor="#A3D6FF",		label=a0000000039,		shape=box,		style=filled];	"def: alpha beta ops"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha beta ops",		shape=box,		style=filled];	a0000000005	[color=blue,		fillcolor="#A3D6FF",		label=a0000000005,		shape=ellipse,		style=filled];	"lemma: expansion product"	[color=blue,		fillcolor="#A3D6FF",		label=" expansion product",		shape=ellipse,		style=filled];	"lemma: beta after alpha"	[color=blue,		fillcolor="#A3D6FF",		label=" beta after alpha",		shape=ellipse,		style=filled];	a0000000082	[color=blue,		label=a0000000082,		shape=ellipse];	"lemma: alpha odd eq beta even"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha odd eq beta even",		shape=ellipse,		style=filled];	"lemma: alpha beta change parity"	[color=blue,		fillcolor="#A3D6FF",		label=" alpha beta change parity",		shape=ellipse,		style=filled];	"lemma: beta lands in alpha"	[color=blue,		fillcolor="#A3D6FF",		label=" beta lands in alpha",		shape=ellipse,		style=filled];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {

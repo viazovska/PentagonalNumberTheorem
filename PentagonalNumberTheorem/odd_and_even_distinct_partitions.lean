@@ -74,6 +74,9 @@ different parts. Let $m$ be the maximal element of S.
 The slope of S is the length of the longest interval
 $[m-l,… ,m]$ contained in $S$. -/
 
+/- WIP — temporarily commented out so doc-gen4 can build docs for the
+declarations above. Re-enable once the proof compiles.
+
 def slope (S : Finset ℕ) (H : S.Nonempty) : WithTop ℕ :=
   let m := S.max' H
   let L := (Icc' 0 m).filter (fun l => Icc' l m ⊆ S)
@@ -82,3 +85,4 @@ def slope (S : Finset ℕ) (H : S.Nonempty) : WithTop ℕ :=
   have hLm: m ∈ L := by unfold L; apply h1; rw[m,l] sorry
   have HL: L.Nonempty := by simp[hLm]
   m-(L.min' HL)+1
+-/
