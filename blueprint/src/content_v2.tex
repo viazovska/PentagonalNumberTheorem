@@ -213,7 +213,7 @@ $\frac{3k^2-k}{2}$ & 15& 7& 2& 0& 1& 5& 12
 
 
 \subsection{Proof}
-Consider a diagram of a partition of $n$ into different parts.\\
+Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into different parts.\\
 \begin{center}
 \begin{tikzpicture}[scale=1]
 \fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
@@ -265,7 +265,7 @@ Consider a diagram of a partition of $n$ into different parts.\\
 \end{align*}
 \end{definition}
 
-\begin{lemma}For all natural numbers $n$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
+\begin{lemma}For all positive integer numbers $n$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
 \end{lemma}
 \begin{proof}
 Throughout, let $S \in \mathcal{P}(n)$ be a partition with base $b$, slope $s$, slope set $D$. Recall the membership criteria:
@@ -295,16 +295,14 @@ Suppose $S \in \mathcal{P}_{\mathrm{special}}$, so $b \in D$ and $b \leq s + 1$.
 Hence $S \notin \mathcal{P}_\beta$.
 \end{proof}
 
-\begin{lemma} \label{lemma: alpha beta special}For all natural numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
+\begin{lemma} \label{lemma: alpha beta special}For all positive integer numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
 \end{lemma}
 \begin{proof}
 By the previous lemma the three sets are pairwise disjoint, so it suffices to show that every $S \in \mathcal{P}(n)$ belongs to at least one of them.
 
-\textbf{Step 1: Edge case.}
-If $S = \emptyset$ (which can occur only when $n = 0$), the base, slope, and slope set are not defined. We treat this case separately: there are no special, $\alpha$, or $\beta$ partitions of $0$ in the sense above, so the statement reduces to $\mathcal{P}(0) = \emptyset \sqcup \emptyset \sqcup \emptyset$. \textcolor{red}{TODO: confirm/define the convention for $n = 0$ — the natural reading is $\mathcal{P}(0) = \{\emptyset\}$ but no operation applies. The statement either needs $n \geq 1$ or a convention placing $\emptyset$ in one of the three sets.}
 
 \textbf{Step 2: Main case ($S \neq \emptyset$).}
-Let $b = \min(S)$, $s$ the slope, $D$ the slope set. We perform a trichotomy on $b$ vs $s$:
+Let $b = \min(S)$, $s$ the slope, $D$ the slope set. We consider four cases on $b$ vs $s$:
 
 \textbf{Case 1: $b \leq s - 1$.}
 The second clause of $\mathcal{P}_\alpha$ holds, so $S \in \mathcal{P}_\alpha$.
@@ -324,12 +322,12 @@ The second clause of $\mathcal{P}_\alpha$ holds, so $S \in \mathcal{P}_\alpha$.
 \textbf{Case 4: $b \geq s + 2$.}
 The second clause of $\mathcal{P}_\beta$ holds, so $S \in \mathcal{P}_\beta$.
 
-These four cases cover all possibilities (either $b \leq s + 1$ or $b \geq s + 2$; within $b \leq s + 1$ we split into $b \leq s - 1$, $b = s$, $b = s + 1$).
+These four cases cover all possibilities.
 \end{proof}
 
 \begin{definition}
 For $k\in\mathbb{Z}_{\geq 1}$ define $ S_{-k}=\{2k-1 , 2k-2 , \ldots , k\}$.\\
-For $k\in\mathbb{Z}_{\geq 0}$ define $S_{k}=\{2k , 2k-1 , \ldots , k\}$.
+For $k\in\mathbb{Z}_{\geq 0}$ define $S_{k}=\{2k , 2k-1 , \ldots , k+1\}$.
 \end{definition}
 
 \begin{lemma}\label{lemma: special} If $n$ is not a pentagonal number, then $ \mathcal{P}_{\mathrm{special}}(n)=\varnothing$.\\
@@ -337,7 +335,7 @@ If $n=\frac{3k^2-k}{2}$ for some $k\in\mathbb{Z}_{\geq 1}$, then $ \mathcal{P}_{
 If $n=\frac{3k^2+k}{2}$ for some $k\in\mathbb{Z}_{\geq 0}$, then $ \mathcal{P}_{\mathrm{special}}(n)=\{S_{k}\}$.
 \end{lemma}
 \begin{proof}
-\textcolor{red}{TODO: The statement and the definition of $S_k$ for the upper-staircase family require reconciliation. As written, $S_k = \{2k, 2k-1, \ldots, k\}$ has $k + 1$ elements summing to $\sum_{i=k}^{2k} i = (3k^2 + 3k)/2 \neq (3k^2 + k)/2$. The intended set is $\{k+1, k+2, \ldots, 2k\}$ with $k$ elements (and base $k+1$, slope $k$). Also the case $k = 0$ is degenerate since it would require $S = \{0\}$, which is not a partition into positive parts. The statement should be: for $k \in \mathbb{Z}_{\geq 1}$, $\mathcal{P}_{\mathrm{special}}((3k^2 + k)/2) = \{\{k+1, k+2, \ldots, 2k\}\}$. The proof below uses this corrected reading.}
+%\textcolor{red}{TODO: The statement and the definition of $S_k$ for the upper-staircase family require reconciliation. As written, $S_k = \{2k, 2k-1, \ldots, k\}$ has $k + 1$ elements summing to $\sum_{i=k}^{2k} i = (3k^2 + 3k)/2 \neq (3k^2 + k)/2$. The intended set is $\{k+1, k+2, \ldots, 2k\}$ with $k$ elements (and base $k+1$, slope $k$). Also the case $k = 0$ is degenerate since it would require $S = \{0\}$, which is not a partition into positive parts. The statement should be: for $k \in \mathbb{Z}_{\geq 1}$, $\mathcal{P}_{\mathrm{special}}((3k^2 + k)/2) = \{\{k+1, k+2, \ldots, 2k\}\}$. The proof below uses this corrected reading.}
 
 \textbf{Step 1: Structure of a special partition.}
 Let $S \in \mathcal{P}_{\mathrm{special}}(n)$ with base $b$, slope $s$, slope set $D$. By definition, $b \in D$ and either $b = s$ or $b = s + 1$.
