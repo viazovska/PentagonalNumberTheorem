@@ -263,6 +263,11 @@ lemma mem_alpha_partitions_of_mem_all_distinct_of_applicable
   refine ⟨hmem, ?_⟩
   simp [hne, hα]
 
+lemma mem_all_distinct_of_mem_alpha {n : ℕ} {S : Finset ℕ}
+    (hS : S ∈ alpha_partitions n) : S ∈ all_distinct_partitions n := by
+  simp only [alpha_partitions, Finset.mem_filter] at hS
+  exact hS.1
+
 lemma beta_applicable_of_mem (n : ℕ) (S : Finset ℕ)
     (hS : S ∈ beta_partitions n) :
     beta_applicable S (nonempty_of_beta_mem n S hS) := by
@@ -279,6 +284,28 @@ lemma mem_beta_partitions_of_mem_all_distinct_of_applicable
   simp only [beta_partitions, Finset.mem_filter]
   refine ⟨hmem, ?_⟩
   simp [hne, hβ]
+
+lemma mem_all_distinct_of_mem_beta {n : ℕ} {S : Finset ℕ}
+    (hS : S ∈ beta_partitions n) : S ∈ all_distinct_partitions n := by
+  simp only [beta_partitions, Finset.mem_filter] at hS
+  exact hS.1
+
+lemma range_of_mem_all_distinct {n : ℕ} {S : Finset ℕ}
+    (hS : S ∈ all_distinct_partitions n) :
+    ∀ x ∈ S, x ∈ Finset.range (n + 1) := by
+  simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hS
+  exact hS.1
+
+lemma sum_eq_of_mem_all_distinct {n : ℕ} {S : Finset ℕ}
+    (hS : S ∈ all_distinct_partitions n) : S.sum id = n := by
+  simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hS
+  exact hS.2.1
+
+lemma pos_of_mem_all_distinct {n : ℕ} {S : Finset ℕ}
+    (hS : S ∈ all_distinct_partitions n) :
+    ∀ x ∈ S, 0 < x := by
+  simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hS
+  exact hS.2.2
 
 lemma mem_of_le_consecutiveRunDown (S : Finset ℕ) :
     ∀ {n k : ℕ}, 0 < k → k ≤ consecutiveRunDown S n → n + 1 - k ∈ S := by
@@ -311,6 +338,77 @@ lemma mem_of_le_consecutiveRunDown (S : Finset ℕ) :
 lemma alpha_nonempty (S : Finset ℕ) (hne : S.Nonempty) : (alpha S hne).Nonempty := by
   refine ⟨S.max' hne + 1, ?_⟩
   simp [alpha]
+
+lemma alpha_base_le_slope (S : Finset ℕ) (hne : S.Nonempty)
+    (hα : alpha_applicable S hne) :
+    base S hne ≤ slope S hne := by
+  rcases hα with hα | hα
+  · simpa [alpha_applicable] using hα.1
+  · have hsminus : base S hne ≤ slope S hne - 1 := by
+      simpa [alpha_applicable] using hα
+    omega
+
+lemma alpha_other_removed_mem (S : Finset ℕ) (hne : S.Nonempty)
+    (hpos : ∀ x ∈ S, 0 < x) (hα : alpha_applicable S hne) :
+    S.max' hne - base S hne + 1 ∈ S := by
+  set b := base S hne
+  set m := S.max' hne
+  have hb_mem : b ∈ S := Finset.min'_mem S hne
+  have hb_pos : 0 < b := hpos b hb_mem
+  have hb_le_m : b ≤ m := by
+    simpa [m] using Finset.min'_le S (S.max' hne) (Finset.max'_mem S hne)
+  have hb_le_s : b ≤ slope S hne := by
+    simpa [b] using alpha_base_le_slope S hne hα
+  have hrun : m + 1 - b ∈ S := by
+    simpa [m] using mem_of_le_consecutiveRunDown S hb_pos hb_le_s
+  have hm_eq : m + 1 - b = m - b + 1 := by omega
+  simpa [b, m, hm_eq] using hrun
+
+lemma alpha_removed_pair_distinct (S : Finset ℕ) (hne : S.Nonempty)
+    (hα : alpha_applicable S hne) :
+    base S hne ≠ S.max' hne - base S hne + 1 := by
+  set b := base S hne
+  set m := S.max' hne
+  have hb_mem : b ∈ S := Finset.min'_mem S hne
+  intro heq
+  rcases hα with hα | hα
+  · have hb_mem_D : b ∈ slopeSet S hne := by
+      simp [slopeSet, b, hb_mem]
+      omega
+    exact hα.2 (by simpa [alpha_applicable, b] using hb_mem_D)
+  · have hsminus : b ≤ slope S hne - 1 := by
+      simpa [alpha_applicable, b] using hα
+    have hb_lt_s : b + 1 ≤ slope S hne := by omega
+    have hlow_mem : m + 1 - (b + 1) ∈ S := by
+      simpa [m] using mem_of_le_consecutiveRunDown S (by omega) hb_lt_s
+    have hmin_le : b ≤ m + 1 - (b + 1) := Finset.min'_le S _ hlow_mem
+    omega
+
+lemma alpha_insert_not_mem (S : Finset ℕ) (hne : S.Nonempty) :
+    S.max' hne + 1 ∉ S := by
+  intro hm1
+  have hle : S.max' hne + 1 ≤ S.max' hne :=
+    Finset.le_max' S (S.max' hne + 1) hm1
+  omega
+
+lemma alpha_removed_pair_subset (S : Finset ℕ) (hne : S.Nonempty)
+    (hpos : ∀ x ∈ S, 0 < x) (hα : alpha_applicable S hne) :
+    ({base S hne, S.max' hne - base S hne + 1} : Finset ℕ) ⊆ S := by
+  intro x hx
+  simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+  rcases hx with rfl | rfl
+  · exact Finset.min'_mem S hne
+  · exact alpha_other_removed_mem S hne hpos hα
+
+lemma alpha_removed_insert_disjoint (S : Finset ℕ) (hne : S.Nonempty)
+    :
+    Disjoint
+      (S \ ({base S hne, S.max' hne - base S hne + 1} : Finset ℕ))
+      ({S.max' hne + 1} : Finset ℕ) := by
+  rw [Finset.disjoint_singleton_right]
+  intro hx
+  exact alpha_insert_not_mem S hne (Finset.mem_sdiff.mp hx).1
+
 lemma alpha_mem_all_distinct (n : ℕ) (S : Finset ℕ)
     (hS : S ∈ alpha_partitions n) :
     alpha S (nonempty_of_alpha_mem n S hS) ∈ all_distinct_partitions n := by
@@ -325,33 +423,11 @@ lemma alpha_mem_all_distinct (n : ℕ) (S : Finset ℕ)
   obtain ⟨hrange, hsum, hpos⟩ := hmem
   -- Basic facts about b and m
   have hb_mem  : b ∈ S := Finset.min'_mem S hne
-  have hb_pos  : 0 < b := hpos b hb_mem
   have hb_le_m : b ≤ m := Finset.min'_le S m (Finset.max'_mem S hne)
-  have hb_le_s : b ≤ slope S hne := by
-    rcases hα with hα | hα
-    · simpa [b] using hα.1
-    · have hsminus : b ≤ slope S hne - 1 := by simpa [b] using hα
-      omega
-  -- m-b+1 ∈ S because slope ≥ b in both cases of the α condition
   have hmb_mem : m - b + 1 ∈ S := by
-    have hrun : m + 1 - b ∈ S := by
-      simpa [m] using mem_of_le_consecutiveRunDown S hb_pos hb_le_s
-    have hm_eq : m + 1 - b = m - b + 1 := by omega
-    simpa [hm_eq] using hrun
-  -- b ≠ m-b+1, otherwise slope < b contradicting α
+    simpa [b, m] using alpha_other_removed_mem S hne hpos hα
   have hdiff : b ≠ m - b + 1 := by
-    intro heq
-    rcases hα with hα | hα
-    · have hb_mem_D : b ∈ slopeSet S hne := by
-        simp [slopeSet, b, hb_mem]
-        omega
-      exact hα.2 (by simpa [b] using hb_mem_D)
-    · have hsminus : b ≤ slope S hne - 1 := by simpa [b] using hα
-      have hb_lt_s : b + 1 ≤ slope S hne := by omega
-      have hlow_mem : m + 1 - (b + 1) ∈ S := by
-        simpa [m] using mem_of_le_consecutiveRunDown S (by omega) hb_lt_s
-      have hmin_le : b ≤ m + 1 - (b + 1) := Finset.min'_le S _ hlow_mem
-      omega
+    simpa [b, m] using alpha_removed_pair_distinct S hne hα
   -- Two distinct elements sum to m+1, so m+1 ≤ n
   have hm_lt_n : m + 1 ≤ n := by
     have hpair : ({b, m - b + 1} : Finset ℕ).sum id ≤ S.sum id :=
@@ -367,17 +443,9 @@ lemma alpha_mem_all_distinct (n : ℕ) (S : Finset ℕ)
       rw [← hsum]
       exact hpair'
     omega
-  have hm1_notin_S : m + 1 ∉ S := by
-    intro hm1
-    have hle : m + 1 ≤ m := Finset.le_max' S (m + 1) hm1
-    omega
-  have hm1_not_mem : m + 1 ∉ S \ ({b, m - b + 1} : Finset ℕ) := by
-    intro hx
-    exact hm1_notin_S (Finset.mem_sdiff.mp hx).1
   -- The disjointness needed for sum_union
   have hdisj : Disjoint (S \ {b, m - b + 1}) ({m + 1} : Finset ℕ) := by
-    rw [Finset.disjoint_singleton_right]
-    simpa using hm1_not_mem
+    simpa [b, m] using alpha_removed_insert_disjoint S hne
   -- Sum is preserved: remove b and m-b+1, add m+1
   have hsum' : (alpha S hne).sum id = n := by
     have hsdiff := Finset.sum_sdiff (s₁ := ({b, m - b + 1} : Finset ℕ)) (s₂ := S) (f := id)
@@ -461,16 +529,98 @@ lemma le_consecutiveRunDown_of_mem (S : Finset ℕ) :
         rw [consecutiveRunDown, if_pos htop]
         omega
 
+lemma beta_slope_lt_base (S : Finset ℕ) (hne : S.Nonempty)
+    (hβ : beta_applicable S hne) :
+    slope S hne < base S hne := by
+  rcases hβ with hβ | hβ
+  · simpa [beta_applicable] using hβ.1
+  · omega
+
+lemma beta_slope_lt_max (S : Finset ℕ) (hne : S.Nonempty)
+    (hβ : beta_applicable S hne) :
+    slope S hne < S.max' hne := by
+  exact lt_of_lt_of_le (beta_slope_lt_base S hne hβ)
+    (Finset.min'_le S (S.max' hne) (Finset.max'_mem S hne))
+
+lemma beta_slope_not_mem (S : Finset ℕ) (hne : S.Nonempty)
+    (hβ : beta_applicable S hne) :
+    slope S hne ∉ S := by
+  intro hs_mem
+  exact (not_lt_of_ge (Finset.min'_le S (slope S hne) hs_mem))
+    (beta_slope_lt_base S hne hβ)
+
+lemma beta_base_le_runstart (S : Finset ℕ) (hne : S.Nonempty)
+    (hpos : ∀ x ∈ S, 0 < x) (hβ : beta_applicable S hne) :
+    base S hne ≤ S.max' hne - slope S hne + 1 := by
+  set s := slope S hne
+  set m := S.max' hne
+  have hs_pos : 0 < s := by
+    simpa [s] using slope_pos_of_pos S hne hpos
+  have hs_lt_m : s < m := by
+    simpa [s, m] using beta_slope_lt_max S hne hβ
+  have hrunstart_mem : m - s + 1 ∈ S := by
+    have hs_le : s ≤ slope S hne := by simp [s]
+    have h := mem_of_le_consecutiveRunDown S hs_pos hs_le
+    have hm_eq : m + 1 - s = m - s + 1 := by omega
+    simpa [m, s, hm_eq] using h
+  simpa [m, s] using Finset.min'_le S _ hrunstart_mem
+
+lemma beta_slope_lt_max_sub_slope (S : Finset ℕ) (hne : S.Nonempty)
+    (hpos : ∀ x ∈ S, 0 < x) (hβ : beta_applicable S hne) :
+    slope S hne < S.max' hne - slope S hne := by
+  set s := slope S hne
+  set m := S.max' hne
+  set b := base S hne
+  have hb_mem : b ∈ S := Finset.min'_mem S hne
+  have hb_le_runstart : b ≤ m - s + 1 := by
+    simpa [b, m, s] using beta_base_le_runstart S hne hpos hβ
+  rcases hβ with hβ | hβ
+  · have hb_not_D := hβ.2
+    have hb_cut : b < m + 1 - s := by
+      by_contra hge
+      have hb_mem_D : b ∈ slopeSet S hne := by
+        simp [slopeSet, b, hb_mem]
+        omega
+      exact hb_not_D hb_mem_D
+    omega
+  · omega
+
+lemma beta_max_sub_slope_not_mem (S : Finset ℕ) (hne : S.Nonempty)
+    (hβ : beta_applicable S hne) :
+    S.max' hne - slope S hne ∉ S := by
+  set s := slope S hne
+  set m := S.max' hne
+  have hs_lt_m : s < m := by
+    simpa [s, m] using beta_slope_lt_max S hne hβ
+  intro hms_mem
+  have hs1_le : s + 1 ≤ slope S hne := by
+    apply le_consecutiveRunDown_of_mem S (n := m) (k := s + 1)
+    · omega
+    · intro i hi0 hik
+      by_cases his : i = s + 1
+      · subst his
+        simpa [m, s] using hms_mem
+      · have hik' : i ≤ s := by omega
+        have h := mem_of_le_consecutiveRunDown S hi0 (by simpa [s] using hik')
+        simpa [m] using h
+  omega
+
+lemma beta_insert_pair_disjoint (S : Finset ℕ) (hne : S.Nonempty)
+    (hβ : beta_applicable S hne) :
+    Disjoint S ({slope S hne, S.max' hne - slope S hne} : Finset ℕ) := by
+  rw [Finset.disjoint_left]
+  intro x hxS hxP
+  simp only [Finset.mem_insert, Finset.mem_singleton] at hxP
+  rcases hxP with rfl | rfl
+  · exact beta_slope_not_mem S hne hβ hxS
+  · exact beta_max_sub_slope_not_mem S hne hβ hxS
+
 lemma beta_nonempty_of_applicable (S : Finset ℕ) (hne : S.Nonempty)
     (hβ : beta_applicable S hne) : (beta S hne).Nonempty := by
   let s := slope S hne
   let m := S.max' hne
-  have hs_lt_b : s < base S hne := by
-    rcases hβ with hβ | hβ
-    · simpa [beta_applicable, s] using hβ.1
-    · omega
   have hs_lt_m : s < m := by
-    exact lt_of_lt_of_le hs_lt_b (Finset.min'_le S m (Finset.max'_mem S hne))
+    simpa [s, m] using beta_slope_lt_max S hne hβ
   refine ⟨s, ?_⟩
   change s ∈ (S ∪ ({s, m - s} : Finset ℕ)) \ ({m} : Finset ℕ)
   simp [hs_lt_m.ne, m, s]
@@ -481,65 +631,20 @@ lemma beta_mem_all_distinct (n : ℕ) (S : Finset ℕ)
   set hne := nonempty_of_beta_mem n S hS
   set s := slope S hne
   set m := S.max' hne
-  set b := base S hne
   simp only [beta_partitions, Finset.mem_filter, dif_pos hne] at hS
   obtain ⟨hmem, hβ⟩ := hS
   simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
   obtain ⟨hrange, hsum, hpos⟩ := hmem
   have hm_mem : m ∈ S := Finset.max'_mem S hne
-  have hb_mem : b ∈ S := Finset.min'_mem S hne
   have hs_pos : 0 < s := by
     simpa [s] using slope_pos_of_pos S hne hpos
-  have hs_lt_b : s < b := by
-    rcases hβ with hβ | hβ
-    · simpa [beta_applicable, b, s] using hβ.1
-    · omega
-  have hs_lt_m : s < m := by
-    exact lt_of_lt_of_le hs_lt_b (Finset.min'_le S m hm_mem)
-  have hs_not_mem : s ∉ S := by
-    intro hs_mem
-    exact (not_lt_of_ge (Finset.min'_le S s hs_mem)) hs_lt_b
-  have hb_le_runstart : b ≤ m - s + 1 := by
-    have hrunstart_mem : m - s + 1 ∈ S := by
-      have hs_le : s ≤ slope S hne := by simp [s]
-      have h := mem_of_le_consecutiveRunDown S hs_pos hs_le
-      have hm_eq : m + 1 - s = m - s + 1 := by omega
-      simpa [m, s, hm_eq] using h
-    exact Finset.min'_le S _ hrunstart_mem
   have hs_lt_hms : s < m - s := by
-    rcases hβ with hβ | hβ
-    · have hb_not_D := hβ.2
-      have hb_cut : b < m + 1 - s := by
-        by_contra hge
-        have hb_mem_D : b ∈ slopeSet S hne := by
-          simp [slopeSet, b, hb_mem]
-          omega
-        exact hb_not_D hb_mem_D
-      omega
-    · omega
+    simpa [m, s] using beta_slope_lt_max_sub_slope S hne hpos hβ
   have hs_ne_hms : s ≠ m - s := ne_of_lt hs_lt_hms
   have hms_pos : 0 < m - s := by
     exact lt_trans hs_pos hs_lt_hms
-  have hms_not_mem : m - s ∉ S := by
-    intro hms_mem
-    have hs1_le : s + 1 ≤ slope S hne := by
-      apply le_consecutiveRunDown_of_mem S (n := m) (k := s + 1)
-      · omega
-      · intro i hi0 hik
-        by_cases his : i = s + 1
-        · subst his
-          simpa [m] using hms_mem
-        · have hik' : i ≤ s := by omega
-          have h := mem_of_le_consecutiveRunDown S hi0 (by simpa [s] using hik')
-          simpa [m] using h
-    omega
   have h_union_disj : Disjoint S ({s, m - s} : Finset ℕ) := by
-    rw [Finset.disjoint_left]
-    intro x hxS hxP
-    simp only [Finset.mem_insert, Finset.mem_singleton] at hxP
-    rcases hxP with rfl | rfl
-    · exact hs_not_mem hxS
-    · exact hms_not_mem hxS
+    simpa [s, m] using beta_insert_pair_disjoint S hne hβ
   have hsum' : (beta S hne).sum id = n := by
     have hsdiff := Finset.sum_sdiff (s₁ := ({m} : Finset ℕ))
       (s₂ := S ∪ ({s, m - s} : Finset ℕ)) (f := id) (by
@@ -884,13 +989,8 @@ theorem alpha_maps_to_beta (n : ℕ) (S : Finset ℕ)
     simpa [T, hne] using alpha_nonempty S hne
   have hα : alpha_applicable S hne := by
     simpa [hne] using alpha_applicable_of_mem n S hS
-  have hmemS : S ∈ all_distinct_partitions n := by
-    have htmp : S ∈ all_distinct_partitions n ∧ alpha_applicable S hne := by
-      simpa [alpha_partitions, hne] using hS
-    exact htmp.1
-  have hpos : ∀ x ∈ S, 0 < x := by
-    simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-    exact hmemS.2.2
+  have hmemS : S ∈ all_distinct_partitions n := mem_all_distinct_of_mem_alpha hS
+  have hpos : ∀ x ∈ S, 0 < x := pos_of_mem_all_distinct hmemS
   have hβT : beta_applicable T hneT := by
     simpa [T, hne] using alpha_maps_applicable_to_beta_applicable S hne hpos hα
   exact mem_beta_partitions_of_mem_all_distinct_of_applicable n T hneT hmemT hβT
@@ -905,13 +1005,8 @@ theorem beta_maps_to_alpha (n : ℕ) (S : Finset ℕ)
     simpa [T, hne] using beta_mem_all_distinct n S hS
   have hβ : beta_applicable S hne := by
     simpa [hne] using beta_applicable_of_mem n S hS
-  have hmemS : S ∈ all_distinct_partitions n := by
-    have htmp : S ∈ all_distinct_partitions n ∧ beta_applicable S hne := by
-      simpa [beta_partitions, hne] using hS
-    exact htmp.1
-  have hpos : ∀ x ∈ S, 0 < x := by
-    simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-    exact hmemS.2.2
+  have hmemS : S ∈ all_distinct_partitions n := mem_all_distinct_of_mem_beta hS
+  have hpos : ∀ x ∈ S, 0 < x := pos_of_mem_all_distinct hmemS
   have hneT : T.Nonempty := by
     simpa [T, hne] using beta_nonempty_of_applicable S hne hβ
   have hαT : alpha_applicable T hneT := by
@@ -1229,48 +1324,12 @@ lemma alpha_card (S : Finset ℕ) (hne : S.Nonempty)
   classical
   set b := base S hne
   set m := S.max' hne
-  have hb_mem : b ∈ S := Finset.min'_mem S hne
-  have hb_pos : 0 < b := hpos b hb_mem
-  have hb_le_m : b ≤ m := Finset.min'_le S m (Finset.max'_mem S hne)
-  have hb_le_s : b ≤ slope S hne := by
-    rcases hα with hα | hα
-    · simpa [alpha_applicable, b] using hα.1
-    · have hsminus : b ≤ slope S hne - 1 := by
-        simpa [alpha_applicable, b] using hα
-      omega
-  have hmb_mem : m - b + 1 ∈ S := by
-    have hrun : m + 1 - b ∈ S := by
-      simpa [m] using mem_of_le_consecutiveRunDown S hb_pos hb_le_s
-    have hm_eq : m + 1 - b = m - b + 1 := by omega
-    simpa [hm_eq] using hrun
   have hdiff : b ≠ m - b + 1 := by
-    intro heq
-    rcases hα with hα | hα
-    · have hb_mem_D : b ∈ slopeSet S hne := by
-        simp [slopeSet, b, hb_mem]
-        omega
-      exact hα.2 (by simpa [alpha_applicable, b] using hb_mem_D)
-    · have hsminus : b ≤ slope S hne - 1 := by
-        simpa [alpha_applicable, b] using hα
-      have hb_lt_s : b + 1 ≤ slope S hne := by omega
-      have hlow_mem : m + 1 - (b + 1) ∈ S := by
-        simpa [m] using mem_of_le_consecutiveRunDown S (by omega) hb_lt_s
-      have hmin_le : b ≤ m + 1 - (b + 1) := Finset.min'_le S _ hlow_mem
-      omega
-  have hm1_notin_S : m + 1 ∉ S := by
-    intro hm1
-    have hle : m + 1 ≤ m := Finset.le_max' S (m + 1) hm1
-    omega
+    simpa [b, m] using alpha_removed_pair_distinct S hne hα
   have hsubset : ({b, m - b + 1} : Finset ℕ) ⊆ S := by
-    intro x hx
-    simp only [Finset.mem_insert, Finset.mem_singleton] at hx
-    rcases hx with rfl | rfl
-    · exact hb_mem
-    · exact hmb_mem
+    simpa [b, m] using alpha_removed_pair_subset S hne hpos hα
   have hdisj : Disjoint (S \ ({b, m - b + 1} : Finset ℕ)) ({m + 1} : Finset ℕ) := by
-    rw [Finset.disjoint_singleton_right]
-    intro hx
-    exact hm1_notin_S (Finset.mem_sdiff.mp hx).1
+    simpa [b, m] using alpha_removed_insert_disjoint S hne
   calc
     (alpha S hne).card + 1
         = ((S \ ({b, m - b + 1} : Finset ℕ)).card + ({m + 1} : Finset ℕ).card) + 1 := by
@@ -1293,60 +1352,11 @@ lemma beta_card (S : Finset ℕ) (hne : S.Nonempty)
   set s := slope S hne
   set m := S.max' hne
   have hm_mem : m ∈ S := Finset.max'_mem S hne
-  have hs_pos : 0 < s := by
-    simpa [s] using slope_pos_of_pos S hne hpos
-  have hs_lt_b : s < base S hne := by
-    rcases hβ with hβ | hβ
-    · simpa [beta_applicable, s] using hβ.1
-    · omega
-  have hs_lt_m : s < m := by
-    exact lt_of_lt_of_le hs_lt_b (Finset.min'_le S m hm_mem)
-  have hb_mem : base S hne ∈ S := Finset.min'_mem S hne
-  have hb_le_runstart : base S hne ≤ m - s + 1 := by
-    have hrunstart_mem : m - s + 1 ∈ S := by
-      have hs_le : s ≤ slope S hne := by simp [s]
-      have h := mem_of_le_consecutiveRunDown S hs_pos hs_le
-      have hm_eq : m + 1 - s = m - s + 1 := by omega
-      simpa [m, s, hm_eq] using h
-    exact Finset.min'_le S _ hrunstart_mem
   have hs_lt_hms : s < m - s := by
-    rcases hβ with hβ | hβ
-    · have hb_not_D := hβ.2
-      have hb_cut : base S hne < m + 1 - s := by
-        by_contra hge
-        have hb_mem_D : base S hne ∈ slopeSet S hne := by
-          simp [slopeSet, hb_mem]
-          omega
-        exact hb_not_D hb_mem_D
-      omega
-    · have hs2b : s + 2 ≤ base S hne := by
-        simpa [beta_applicable, s] using hβ
-      have hs2_hms1 : s + 2 ≤ m - s + 1 := le_trans hs2b hb_le_runstart
-      omega
+    simpa [m, s] using beta_slope_lt_max_sub_slope S hne hpos hβ
   have hs_ne_hms : s ≠ m - s := ne_of_lt hs_lt_hms
-  have hs_not_mem : s ∉ S := by
-    intro hs_mem
-    exact (not_lt_of_ge (Finset.min'_le S s hs_mem)) hs_lt_b
-  have hms_not_mem : m - s ∉ S := by
-    intro hms_mem
-    have hs1_le : s + 1 ≤ slope S hne := by
-      apply le_consecutiveRunDown_of_mem S (n := m) (k := s + 1)
-      · omega
-      · intro i hi0 hik
-        by_cases his : i = s + 1
-        · subst his
-          simpa [m] using hms_mem
-        · have hik' : i ≤ s := by omega
-          have h := mem_of_le_consecutiveRunDown S hi0 (by simpa [s] using hik')
-          simpa [m] using h
-    omega
   have hdisj : Disjoint S ({s, m - s} : Finset ℕ) := by
-    rw [Finset.disjoint_left]
-    intro x hxS hxP
-    simp only [Finset.mem_insert, Finset.mem_singleton] at hxP
-    rcases hxP with rfl | rfl
-    · exact hs_not_mem hxS
-    · exact hms_not_mem hxS
+    simpa [s, m] using beta_insert_pair_disjoint S hne hβ
   have hm_mem_union : m ∈ S ∪ ({s, m - s} : Finset ℕ) := Finset.mem_union.mpr (Or.inl hm_mem)
   have hsingle_subset : ({m} : Finset ℕ) ⊆ S ∪ ({s, m - s} : Finset ℕ) := by
     intro x hx
@@ -1391,77 +1401,87 @@ noncomputable def odd_beta_partitions (n : ℕ) : Finset (Finset ℕ) :=
 noncomputable def even_beta_partitions (n : ℕ) : Finset (Finset ℕ) :=
   Finset.filter (fun S => S.card % 2 = 0) (beta_partitions n)
 
+noncomputable def distinct_partitions_parity (n r : ℕ) : Finset (Finset ℕ) :=
+  Finset.filter (fun S => S.card % 2 = r) (all_distinct_partitions n)
+
+lemma filter_union_eq {α : Type} [DecidableEq α]
+    (p : α → Prop) [DecidablePred p] (A B : Finset α) :
+    Finset.filter p (A ∪ B) = Finset.filter p A ∪ Finset.filter p B := by
+  simpa using (Finset.filter_union (p := p) A B)
+
+theorem alpha_maps_to_beta_parity_flip (n : ℕ) (S : Finset ℕ)
+    (hSα : S ∈ alpha_partitions n) :
+    alpha S (nonempty_of_alpha_mem n S hSα) ∈ beta_partitions n ∧
+      (alpha S (nonempty_of_alpha_mem n S hSα)).card % 2 ≠ S.card % 2 := by
+  have hne : S.Nonempty := nonempty_of_alpha_mem n S hSα
+  have hα : alpha_applicable S hne := alpha_applicable_of_mem n S hSα
+  have hpos : ∀ x ∈ S, 0 < x :=
+    pos_of_mem_all_distinct (mem_all_distinct_of_mem_alpha hSα)
+  refine ⟨alpha_maps_to_beta n S hSα, ?_⟩
+  simpa [hne] using alpha_card_parity_flip S hne hpos hα
+
+theorem beta_maps_to_alpha_parity_flip (n : ℕ) (S : Finset ℕ)
+    (hSβ : S ∈ beta_partitions n) :
+    beta S (nonempty_of_beta_mem n S hSβ) ∈ alpha_partitions n ∧
+      (beta S (nonempty_of_beta_mem n S hSβ)).card % 2 ≠ S.card % 2 := by
+  have hne : S.Nonempty := nonempty_of_beta_mem n S hSβ
+  have hβ : beta_applicable S hne := beta_applicable_of_mem n S hSβ
+  have hpos : ∀ x ∈ S, 0 < x :=
+    pos_of_mem_all_distinct (mem_all_distinct_of_mem_beta hSβ)
+  refine ⟨beta_maps_to_alpha n S hSβ, ?_⟩
+  simpa [hne] using beta_card_parity_flip S hne hpos hβ
+
+theorem alpha_maps_to_beta_with_flipped_parity (n : ℕ) (S : Finset ℕ)
+    (hSα : S ∈ alpha_partitions n) (r : ℕ) (hr : r ≤ 1)
+    (hparS : S.card % 2 = r) :
+    alpha S (nonempty_of_alpha_mem n S hSα) ∈
+      Finset.filter (fun T => T.card % 2 = 1 - r) (beta_partitions n) := by
+  have hne : S.Nonempty := nonempty_of_alpha_mem n S hSα
+  have hflip := alpha_maps_to_beta_parity_flip n S hSα
+  have hparT : (alpha S hne).card % 2 = 1 - r := by
+    have hneq : (alpha S hne).card % 2 ≠ S.card % 2 := by
+      simpa [hne] using hflip.2
+    have hlt : (alpha S hne).card % 2 < 2 := Nat.mod_lt _ (by omega)
+    omega
+  simpa [hne] using And.intro hflip.1 hparT
+
+theorem beta_maps_to_alpha_with_flipped_parity (n : ℕ) (S : Finset ℕ)
+    (hSβ : S ∈ beta_partitions n) (r : ℕ) (hr : r ≤ 1)
+    (hparS : S.card % 2 = r) :
+    beta S (nonempty_of_beta_mem n S hSβ) ∈
+      Finset.filter (fun T => T.card % 2 = 1 - r) (alpha_partitions n) := by
+  have hne : S.Nonempty := nonempty_of_beta_mem n S hSβ
+  have hflip := beta_maps_to_alpha_parity_flip n S hSβ
+  have hparT : (beta S hne).card % 2 = 1 - r := by
+    have hneq : (beta S hne).card % 2 ≠ S.card % 2 := by
+      simpa [hne] using hflip.2
+    have hlt : (beta S hne).card % 2 < 2 := Nat.mod_lt _ (by omega)
+    omega
+  simpa [hne] using And.intro hflip.1 hparT
+
 theorem alpha_maps_odd_to_even_beta (n : ℕ) (S : Finset ℕ)
     (hSα : S ∈ alpha_partitions n) (hodd : S.card % 2 = 1) :
     alpha S (nonempty_of_alpha_mem n S hSα) ∈ even_beta_partitions n := by
-  have hne : S.Nonempty := nonempty_of_alpha_mem n S hSα
-  have hα : alpha_applicable S hne := alpha_applicable_of_mem n S hSα
-  have hmemS : S ∈ all_distinct_partitions n := by
-    have htmp : S ∈ all_distinct_partitions n ∧ alpha_applicable S hne := by
-      simpa [alpha_partitions, hne] using hSα
-    exact htmp.1
-  have hpos : ∀ x ∈ S, 0 < x := by
-    simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-    exact hmemS.2.2
-  have hmemβ : alpha S hne ∈ beta_partitions n := alpha_maps_to_beta n S hSα
-  have hpar : (alpha S hne).card % 2 = 0 := by
-    have hcard := alpha_card S hne hpos hα
-    omega
-  simpa [even_beta_partitions, hne] using And.intro hmemβ hpar
+  simpa [even_beta_partitions] using
+    alpha_maps_to_beta_with_flipped_parity n S hSα 1 (by omega) hodd
 
 theorem alpha_maps_even_to_odd_beta (n : ℕ) (S : Finset ℕ)
     (hSα : S ∈ alpha_partitions n) (heven : S.card % 2 = 0) :
     alpha S (nonempty_of_alpha_mem n S hSα) ∈ odd_beta_partitions n := by
-  have hne : S.Nonempty := nonempty_of_alpha_mem n S hSα
-  have hα : alpha_applicable S hne := alpha_applicable_of_mem n S hSα
-  have hmemS : S ∈ all_distinct_partitions n := by
-    have htmp : S ∈ all_distinct_partitions n ∧ alpha_applicable S hne := by
-      simpa [alpha_partitions, hne] using hSα
-    exact htmp.1
-  have hpos : ∀ x ∈ S, 0 < x := by
-    simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-    exact hmemS.2.2
-  have hmemβ : alpha S hne ∈ beta_partitions n := alpha_maps_to_beta n S hSα
-  have hpar : (alpha S hne).card % 2 = 1 := by
-    have hcard := alpha_card S hne hpos hα
-    omega
-  simpa [odd_beta_partitions, hne] using And.intro hmemβ hpar
+  simpa [odd_beta_partitions] using
+    alpha_maps_to_beta_with_flipped_parity n S hSα 0 (by omega) heven
 
 theorem beta_maps_odd_to_even_alpha (n : ℕ) (S : Finset ℕ)
     (hSβ : S ∈ beta_partitions n) (hodd : S.card % 2 = 1) :
     beta S (nonempty_of_beta_mem n S hSβ) ∈ even_alpha_partitions n := by
-  have hne : S.Nonempty := nonempty_of_beta_mem n S hSβ
-  have hβ : beta_applicable S hne := beta_applicable_of_mem n S hSβ
-  have hmemS : S ∈ all_distinct_partitions n := by
-    have htmp : S ∈ all_distinct_partitions n ∧ beta_applicable S hne := by
-      simpa [beta_partitions, hne] using hSβ
-    exact htmp.1
-  have hpos : ∀ x ∈ S, 0 < x := by
-    simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-    exact hmemS.2.2
-  have hmemα : beta S hne ∈ alpha_partitions n := beta_maps_to_alpha n S hSβ
-  have hpar : (beta S hne).card % 2 = 0 := by
-    have hcard := beta_card S hne hpos hβ
-    omega
-  simpa [even_alpha_partitions, hne] using And.intro hmemα hpar
+  simpa [even_alpha_partitions] using
+    beta_maps_to_alpha_with_flipped_parity n S hSβ 1 (by omega) hodd
 
 theorem beta_maps_even_to_odd_alpha (n : ℕ) (S : Finset ℕ)
     (hSβ : S ∈ beta_partitions n) (heven : S.card % 2 = 0) :
     beta S (nonempty_of_beta_mem n S hSβ) ∈ odd_alpha_partitions n := by
-  have hne : S.Nonempty := nonempty_of_beta_mem n S hSβ
-  have hβ : beta_applicable S hne := beta_applicable_of_mem n S hSβ
-  have hmemS : S ∈ all_distinct_partitions n := by
-    have htmp : S ∈ all_distinct_partitions n ∧ beta_applicable S hne := by
-      simpa [beta_partitions, hne] using hSβ
-    exact htmp.1
-  have hpos : ∀ x ∈ S, 0 < x := by
-    simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-    exact hmemS.2.2
-  have hmemα : beta S hne ∈ alpha_partitions n := beta_maps_to_alpha n S hSβ
-  have hpar : (beta S hne).card % 2 = 1 := by
-    have hcard := beta_card S hne hpos hβ
-    omega
-  simpa [odd_alpha_partitions, hne] using And.intro hmemα hpar
+  simpa [odd_alpha_partitions] using
+    beta_maps_to_alpha_with_flipped_parity n S hSβ 0 (by omega) heven
 
 def minusExceptional (k : ℕ) : Finset ℕ :=
   (Finset.range k).image (fun i => k + i)
@@ -1812,9 +1832,7 @@ theorem n_eq_generalized_pentagonal_of_neither_applicable
     (h : ¬ alpha_applicable S hne ∧ ¬ beta_applicable S hne) :
     (∃ k : ℕ, n = k * (3 * k - 1) / 2) ∨
       (∃ k : ℕ, n = k * (3 * k + 1) / 2) := by
-  have hsum : S.sum id = n := by
-    simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-    exact hmem.2.1
+  have hsum : S.sum id = n := sum_eq_of_mem_all_distinct hmem
   rcases (neither_alpha_nor_beta_applicable_iff S hne).mp h with ⟨hD, hs⟩
   rcases hs with hsb | hsb
   · left
@@ -1874,16 +1892,11 @@ noncomputable def exceptional_even_partitions (n : ℕ) : Finset (Finset ℕ) :=
 noncomputable def exceptional_odd_partitions (n : ℕ) : Finset (Finset ℕ) :=
   Finset.filter (fun S => S.card % 2 = 1) (exceptional_partitions n)
 
-/- Proof roadmap for Euler's pentagonal number theorem:
-1. For `n > 0`, every partition in `all_distinct_partitions n` is either regular
-   (`alpha` or `beta` applies) or exceptional (neither applies).
-2. The regular partitions cancel in pairs because `alpha` and `beta` map between
-   even and odd partitions and act as inverses on the regular locus.
-3. The remaining contribution therefore comes only from the exceptional partitions.
-4. Exceptional partitions exist exactly at generalized pentagonal numbers, and
-   when they exist there is exactly one such partition whose parity gives the sign.
-5. The `n = 0` case is handled separately inside the exceptional contribution theorem.
--/
+noncomputable def regular_partitions_parity (n r : ℕ) : Finset (Finset ℕ) :=
+  Finset.filter (fun S => S.card % 2 = r) (regular_partitions n)
+
+noncomputable def exceptional_partitions_parity (n r : ℕ) : Finset (Finset ℕ) :=
+  Finset.filter (fun S => S.card % 2 = r) (exceptional_partitions n)
 
 lemma nonempty_of_mem_all_distinct_of_pos
     (n : ℕ) (hn : 0 < n) (S : Finset ℕ)
@@ -1955,11 +1968,6 @@ lemma plusExceptional_mem_exceptional (n k : ℕ) (hk : 0 < k)
   rw [mem_exceptional_partitions_iff]
   exact ⟨hmem, hne, hneither.1, hneither.2⟩
 
-lemma sum_eq_of_mem_all_distinct {n : ℕ} {S : Finset ℕ}
-    (hS : S ∈ all_distinct_partitions n) : S.sum id = n := by
-  simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hS
-  exact hS.2.1
-
 lemma exceptional_eq_minus_or_plus
     (n : ℕ) (S : Finset ℕ) (hS : S ∈ exceptional_partitions n) :
     ∃ k : ℕ, 0 < k ∧ (S = minusExceptional k ∨ S = plusExceptional k) := by
@@ -1969,9 +1977,7 @@ lemma exceptional_eq_minus_or_plus
   rcases hs with hsb | hsb
   · refine ⟨base S hne, ?_, Or.inl ?_⟩
     · have hb_mem : base S hne ∈ S := Finset.min'_mem S hne
-      have hpos : ∀ x ∈ S, 0 < x := by
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-        exact hmem.2.2
+      have hpos : ∀ x ∈ S, 0 < x := pos_of_mem_all_distinct hmem
       exact hpos _ hb_mem
     · exact eq_minusExceptional_of_slope_eq_base n S hmem hne hD hsb.symm
   · refine ⟨base S hne - 1, ?_, Or.inr ?_⟩
@@ -2119,39 +2125,37 @@ lemma regular_exceptional_disjoint (n : ℕ) :
   · exact hα (alpha_applicable_of_mem n S hαmem)
   · exact hβ (beta_applicable_of_mem n S hβmem)
 
+lemma all_distinct_partitions_eq_regular_union_exceptional (n : ℕ) (hn : 0 < n) :
+    all_distinct_partitions n = regular_partitions n ∪ exceptional_partitions n := by
+  ext S
+  constructor
+  · intro hS
+    rcases mem_regular_or_exceptional_of_mem_all_distinct n hn S hS with hreg | hexc
+    · exact Finset.mem_union.mpr (Or.inl hreg)
+    · exact Finset.mem_union.mpr (Or.inr hexc)
+  · intro hS
+    rcases Finset.mem_union.mp hS with hreg | hexc
+    · rw [regular_partitions, Finset.mem_union] at hreg
+      rcases hreg with hα | hβ
+      · exact mem_all_distinct_of_mem_alpha hα
+      · exact mem_all_distinct_of_mem_beta hβ
+    · exact (mem_exceptional_partitions_iff n S).mp hexc |>.1
+
 lemma regular_even_card_eq_regular_odd_card (n : ℕ) (hn : 0 < n) :
     (regular_even_partitions n).card = (regular_odd_partitions n).card := by
   classical
   have hreg_even :
       regular_even_partitions n = (even_alpha_partitions n) ∪ (even_beta_partitions n) := by
-    ext S
-    constructor
-    · intro hS
-      have hmem := Finset.mem_filter.mp hS
-      rcases Finset.mem_union.mp hmem.1 with hα | hβ
-      · exact Finset.mem_union.mpr <| Or.inl <| Finset.mem_filter.mpr ⟨hα, hmem.2⟩
-      · exact Finset.mem_union.mpr <| Or.inr <| Finset.mem_filter.mpr ⟨hβ, hmem.2⟩
-    · intro hS
-      rcases Finset.mem_union.mp hS with hα | hβ
-      · exact Finset.mem_filter.mpr ⟨Finset.mem_union.mpr (Or.inl (Finset.mem_filter.mp hα).1),
-          (Finset.mem_filter.mp hα).2⟩
-      · exact Finset.mem_filter.mpr ⟨Finset.mem_union.mpr (Or.inr (Finset.mem_filter.mp hβ).1),
-          (Finset.mem_filter.mp hβ).2⟩
+    simpa [regular_even_partitions, regular_partitions, even_alpha_partitions,
+      even_beta_partitions] using
+      (filter_union_eq (fun S : Finset ℕ => S.card % 2 = 0)
+        (alpha_partitions n) (beta_partitions n))
   have hreg_odd :
       regular_odd_partitions n = (odd_alpha_partitions n) ∪ (odd_beta_partitions n) := by
-    ext S
-    constructor
-    · intro hS
-      have hmem := Finset.mem_filter.mp hS
-      rcases Finset.mem_union.mp hmem.1 with hα | hβ
-      · exact Finset.mem_union.mpr <| Or.inl <| Finset.mem_filter.mpr ⟨hα, hmem.2⟩
-      · exact Finset.mem_union.mpr <| Or.inr <| Finset.mem_filter.mpr ⟨hβ, hmem.2⟩
-    · intro hS
-      rcases Finset.mem_union.mp hS with hα | hβ
-      · exact Finset.mem_filter.mpr ⟨Finset.mem_union.mpr (Or.inl (Finset.mem_filter.mp hα).1),
-          (Finset.mem_filter.mp hα).2⟩
-      · exact Finset.mem_filter.mpr ⟨Finset.mem_union.mpr (Or.inr (Finset.mem_filter.mp hβ).1),
-          (Finset.mem_filter.mp hβ).2⟩
+    simpa [regular_odd_partitions, regular_partitions, odd_alpha_partitions,
+      odd_beta_partitions] using
+      (filter_union_eq (fun S : Finset ℕ => S.card % 2 = 1)
+        (alpha_partitions n) (beta_partitions n))
   have hdisj_even : Disjoint (even_alpha_partitions n) (even_beta_partitions n) := by
     rw [Finset.disjoint_left]
     intro S hα hβ
@@ -2176,25 +2180,15 @@ lemma regular_even_card_eq_regular_odd_card (n : ℕ) (hn : 0 < n) :
       have hSα : S ∈ alpha_partitions n := (Finset.mem_filter.mp hS).1
       have hne : S.Nonempty := nonempty_of_alpha_mem n S hSα
       have hα : alpha_applicable S hne := alpha_applicable_of_mem n S hSα
-      have hmemS : S ∈ all_distinct_partitions n := by
-        have htmp : S ∈ all_distinct_partitions n ∧ alpha_applicable S hne := by
-          simpa [alpha_partitions, hne] using hSα
-        exact htmp.1
-      have hpos : ∀ x ∈ S, 0 < x := by
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-        exact hmemS.2.2
+      have hpos : ∀ x ∈ S, 0 < x :=
+        pos_of_mem_all_distinct (mem_all_distinct_of_mem_alpha hSα)
       simpa using beta_alpha_eq_self S hne hpos hα
     · intro S hS
       have hSβ : S ∈ beta_partitions n := (Finset.mem_filter.mp hS).1
       have hne : S.Nonempty := nonempty_of_beta_mem n S hSβ
       have hβ : beta_applicable S hne := beta_applicable_of_mem n S hSβ
-      have hmemS : S ∈ all_distinct_partitions n := by
-        have htmp : S ∈ all_distinct_partitions n ∧ beta_applicable S hne := by
-          simpa [beta_partitions, hne] using hSβ
-        exact htmp.1
-      have hpos : ∀ x ∈ S, 0 < x := by
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-        exact hmemS.2.2
+      have hpos : ∀ x ∈ S, 0 < x :=
+        pos_of_mem_all_distinct (mem_all_distinct_of_mem_beta hSβ)
       simpa using alpha_beta_eq_self S hne hpos hβ
   have hcard_oddα_evenβ :
       (odd_alpha_partitions n).card = (even_beta_partitions n).card := by
@@ -2210,132 +2204,64 @@ lemma regular_even_card_eq_regular_odd_card (n : ℕ) (hn : 0 < n) :
       have hSα : S ∈ alpha_partitions n := (Finset.mem_filter.mp hS).1
       have hne : S.Nonempty := nonempty_of_alpha_mem n S hSα
       have hα : alpha_applicable S hne := alpha_applicable_of_mem n S hSα
-      have hmemS : S ∈ all_distinct_partitions n := by
-        have htmp : S ∈ all_distinct_partitions n ∧ alpha_applicable S hne := by
-          simpa [alpha_partitions, hne] using hSα
-        exact htmp.1
-      have hpos : ∀ x ∈ S, 0 < x := by
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-        exact hmemS.2.2
+      have hpos : ∀ x ∈ S, 0 < x :=
+        pos_of_mem_all_distinct (mem_all_distinct_of_mem_alpha hSα)
       simpa using beta_alpha_eq_self S hne hpos hα
     · intro S hS
       have hSβ : S ∈ beta_partitions n := (Finset.mem_filter.mp hS).1
       have hne : S.Nonempty := nonempty_of_beta_mem n S hSβ
       have hβ : beta_applicable S hne := beta_applicable_of_mem n S hSβ
-      have hmemS : S ∈ all_distinct_partitions n := by
-        have htmp : S ∈ all_distinct_partitions n ∧ beta_applicable S hne := by
-          simpa [beta_partitions, hne] using hSβ
-        exact htmp.1
-      have hpos : ∀ x ∈ S, 0 < x := by
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmemS
-        exact hmemS.2.2
+      have hpos : ∀ x ∈ S, 0 < x :=
+        pos_of_mem_all_distinct (mem_all_distinct_of_mem_beta hSβ)
       simpa using alpha_beta_eq_self S hne hpos hβ
   rw [hreg_even, hreg_odd, Finset.card_union_of_disjoint hdisj_even,
     Finset.card_union_of_disjoint hdisj_odd]
   rw [hcard_evenα_oddβ, hcard_oddα_evenβ]
   omega
 
-lemma partition_counts_split_even (n : ℕ) (hn : 0 < n) :
-    p_e n = (regular_even_partitions n).card + (exceptional_even_partitions n).card := by
+lemma partition_counts_split_parity (n r : ℕ) (hn : 0 < n) :
+    (distinct_partitions_parity n r).card =
+      (regular_partitions_parity n r).card + (exceptional_partitions_parity n r).card := by
   classical
-  have hdisj : Disjoint (regular_even_partitions n) (exceptional_even_partitions n) := by
+  have hdisj : Disjoint (regular_partitions_parity n r) (exceptional_partitions_parity n r) := by
     rw [Finset.disjoint_left]
     intro S hreg hexc
     exact (Finset.disjoint_left.mp (regular_exceptional_disjoint n))
       ((Finset.mem_filter.mp hreg).1) ((Finset.mem_filter.mp hexc).1)
   have hunion :
-      even_distinct_partitions n = (regular_even_partitions n) ∪ (exceptional_even_partitions n) := by
-    ext S
-    constructor
-    · intro hS
-      simp only [even_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hS
-      obtain ⟨hpow, hsum, hpos, hpar⟩ := hS
-      have hmem : S ∈ all_distinct_partitions n := by
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-        exact ⟨hpow, hsum, hpos⟩
-      rcases mem_regular_or_exceptional_of_mem_all_distinct n hn S hmem with hreg | hexc
-      · exact Finset.mem_union.mpr (Or.inl (Finset.mem_filter.mpr ⟨hreg, hpar⟩))
-      · exact Finset.mem_union.mpr (Or.inr (Finset.mem_filter.mpr ⟨hexc, hpar⟩))
-    · intro hS
-      rcases Finset.mem_union.mp hS with hreg | hexc
-      · obtain ⟨hreg, hpar⟩ := Finset.mem_filter.mp hreg
-        rcases Finset.mem_union.mp hreg with hα | hβ
-        · have hmem : S ∈ all_distinct_partitions n := by
-            have htmp : S ∈ all_distinct_partitions n ∧
-                alpha_applicable S (nonempty_of_alpha_mem n S hα) := by
-              simpa [alpha_partitions, nonempty_of_alpha_mem n S hα] using hα
-            exact htmp.1
-          simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-          rcases hmem with ⟨hpow, hsum, hpos⟩
-          simp only [even_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-          exact ⟨hpow, hsum, hpos, hpar⟩
-        · have hmem : S ∈ all_distinct_partitions n := by
-            have htmp : S ∈ all_distinct_partitions n ∧
-                beta_applicable S (nonempty_of_beta_mem n S hβ) := by
-              simpa [beta_partitions, nonempty_of_beta_mem n S hβ] using hβ
-            exact htmp.1
-          simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-          rcases hmem with ⟨hpow, hsum, hpos⟩
-          simp only [even_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-          exact ⟨hpow, hsum, hpos, hpar⟩
-      · obtain ⟨hexc, hpar⟩ := Finset.mem_filter.mp hexc
-        have hmem : S ∈ all_distinct_partitions n := (mem_exceptional_partitions_iff n S).mp hexc |>.1
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-        rcases hmem with ⟨hpow, hsum, hpos⟩
-        simp only [even_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-        exact ⟨hpow, hsum, hpos, hpar⟩
-  rw [show p_e n = (even_distinct_partitions n).card by rfl, hunion, Finset.card_union_of_disjoint hdisj]
+      distinct_partitions_parity n r =
+        regular_partitions_parity n r ∪ exceptional_partitions_parity n r := by
+    rw [distinct_partitions_parity, all_distinct_partitions_eq_regular_union_exceptional n hn,
+      regular_partitions_parity, exceptional_partitions_parity]
+    exact filter_union_eq (fun S : Finset ℕ => S.card % 2 = r)
+      (regular_partitions n) (exceptional_partitions n)
+  rw [hunion, Finset.card_union_of_disjoint hdisj]
+
+lemma even_distinct_partitions_eq_distinct_partitions_parity_zero (n : ℕ) :
+    even_distinct_partitions n = distinct_partitions_parity n 0 := by
+  ext S
+  simp [even_distinct_partitions, distinct_partitions_parity, all_distinct_partitions, and_assoc]
+
+lemma odd_distinct_partitions_eq_distinct_partitions_parity_one (n : ℕ) :
+    odd_distinct_partitions n = distinct_partitions_parity n 1 := by
+  ext S
+  simp [odd_distinct_partitions, distinct_partitions_parity, all_distinct_partitions, and_assoc]
+
+lemma partition_counts_split_even (n : ℕ) (hn : 0 < n) :
+    p_e n = (regular_even_partitions n).card + (exceptional_even_partitions n).card := by
+  rw [show p_e n = (even_distinct_partitions n).card by rfl,
+    even_distinct_partitions_eq_distinct_partitions_parity_zero n,
+    show regular_even_partitions n = regular_partitions_parity n 0 by rfl,
+    show exceptional_even_partitions n = exceptional_partitions_parity n 0 by rfl]
+  exact partition_counts_split_parity n 0 hn
 
 lemma partition_counts_split_odd (n : ℕ) (hn : 0 < n) :
     p_o n = (regular_odd_partitions n).card + (exceptional_odd_partitions n).card := by
-  classical
-  have hdisj : Disjoint (regular_odd_partitions n) (exceptional_odd_partitions n) := by
-    rw [Finset.disjoint_left]
-    intro S hreg hexc
-    exact (Finset.disjoint_left.mp (regular_exceptional_disjoint n))
-      ((Finset.mem_filter.mp hreg).1) ((Finset.mem_filter.mp hexc).1)
-  have hunion :
-      odd_distinct_partitions n = (regular_odd_partitions n) ∪ (exceptional_odd_partitions n) := by
-    ext S
-    constructor
-    · intro hS
-      simp only [odd_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hS
-      obtain ⟨hpow, hsum, hpos, hpar⟩ := hS
-      have hmem : S ∈ all_distinct_partitions n := by
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-        exact ⟨hpow, hsum, hpos⟩
-      rcases mem_regular_or_exceptional_of_mem_all_distinct n hn S hmem with hreg | hexc
-      · exact Finset.mem_union.mpr (Or.inl (Finset.mem_filter.mpr ⟨hreg, hpar⟩))
-      · exact Finset.mem_union.mpr (Or.inr (Finset.mem_filter.mpr ⟨hexc, hpar⟩))
-    · intro hS
-      rcases Finset.mem_union.mp hS with hreg | hexc
-      · obtain ⟨hreg, hpar⟩ := Finset.mem_filter.mp hreg
-        rcases Finset.mem_union.mp hreg with hα | hβ
-        · have hmem : S ∈ all_distinct_partitions n := by
-            have htmp : S ∈ all_distinct_partitions n ∧
-                alpha_applicable S (nonempty_of_alpha_mem n S hα) := by
-              simpa [alpha_partitions, nonempty_of_alpha_mem n S hα] using hα
-            exact htmp.1
-          simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-          rcases hmem with ⟨hpow, hsum, hpos⟩
-          simp only [odd_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-          exact ⟨hpow, hsum, hpos, hpar⟩
-        · have hmem : S ∈ all_distinct_partitions n := by
-            have htmp : S ∈ all_distinct_partitions n ∧
-                beta_applicable S (nonempty_of_beta_mem n S hβ) := by
-              simpa [beta_partitions, nonempty_of_beta_mem n S hβ] using hβ
-            exact htmp.1
-          simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-          rcases hmem with ⟨hpow, hsum, hpos⟩
-          simp only [odd_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-          exact ⟨hpow, hsum, hpos, hpar⟩
-      · obtain ⟨hexc, hpar⟩ := Finset.mem_filter.mp hexc
-        have hmem : S ∈ all_distinct_partitions n := (mem_exceptional_partitions_iff n S).mp hexc |>.1
-        simp only [all_distinct_partitions, Finset.mem_filter, Finset.mem_powerset] at hmem
-        rcases hmem with ⟨hpow, hsum, hpos⟩
-        simp only [odd_distinct_partitions, Finset.mem_filter, Finset.mem_powerset]
-        exact ⟨hpow, hsum, hpos, hpar⟩
-  rw [show p_o n = (odd_distinct_partitions n).card by rfl, hunion, Finset.card_union_of_disjoint hdisj]
+  rw [show p_o n = (odd_distinct_partitions n).card by rfl,
+    odd_distinct_partitions_eq_distinct_partitions_parity_one n,
+    show regular_odd_partitions n = regular_partitions_parity n 1 by rfl,
+    show exceptional_odd_partitions n = exceptional_partitions_parity n 1 by rfl]
+  exact partition_counts_split_parity n 1 hn
 
 lemma count_difference_eq_exceptional_difference (n : ℕ) (hn : 0 < n) :
     (p_e n : ℤ) - (p_o n : ℤ) =
