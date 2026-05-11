@@ -24,7 +24,7 @@
 
 \section{Partitions}
 
-\begin{definition}
+\begin{definition}\label{def:partition}
    A \emph{partition} of a positive integer $n$, also called an integer partition, is a way of writing $n$ as a sum of positive integers. Two sums that differ only in the order of their summands are considered the same partition.
 
    The \emph{partition function} $p(n)$ represents the number of possible partitions of a natural number $n$.
@@ -35,7 +35,7 @@ $5\;=\;4+1\;=\;3+2\;=\;3+1+1\;=\;2+2+1\;=\;2+1+1+1\;=\;1+1+1+1+1$\\
 $p(5)=7$
 \end{example}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:gen-func-p}\uses{def:partition}
 The generating function for $p(n)$ is given by
 $$\sum_{n=0}^\infty p(n)\,x^n=\prod_{k=1}^\infty(1+x^k+x^{2k}+\ldots)=\prod_{k=1}^{\infty}(1-x^k)^{-1}.$$
 \end{lemma}
@@ -54,7 +54,7 @@ $$\prod_k x^{j_k \cdot k} = x^{\sum_k j_k \cdot k}.$$
 \textbf{Step 4.} Such a tuple corresponds bijectively to a partition of $n$: $j_k$ is the multiplicity of the part $k$. Hence the coefficient of $x^n$ equals $p(n)$, and the first equality follows.
 \end{proof}
 
-\begin{definition}[Partitions of $n$ into distinct parts] \lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions}
+\begin{definition}[Partitions of $n$ into distinct parts]\label{def:distinct-partitions}\lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions}\uses{def:partition}
 
 Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
@@ -66,7 +66,7 @@ We further define the number of even and odd partitions of $n$ as $p_e(n) = |\ma
 \end{definition}
 
 
-\begin{lemma}\label{lemma: expansion product}
+\begin{lemma}\label{lemma:expansion-product}\uses{def:distinct-partitions}
 We have
 $$\prod_{k=1}^{\infty}(1-x^k)\,=\,\sum_{s=0}^\infty\,\sum_{k_1<k_2<\cdots<k_s}(-1)^s\,x^{k_1+k_2+\ldots+k_s}\,=\,\sum_{n=0}^\infty c_n\, x^n$$
 where $c_0=1$ and $c_n=p_e(n)-p_o(n)$ for $n\geq 1$.
@@ -115,20 +115,20 @@ $7$&$7=6+1=5+2=4+3=4+2+1$&$2$&$3$\\
 
 \section{Pentagonal number theorem}
 
-\begin{theorem}[Euler] \lean{euler_pentagonal_number_theorem}
+\begin{theorem}[Euler]\label{thm:euler-pentagonal}\lean{euler_pentagonal_number_theorem}\uses{def:distinct-partitions}
 $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\,=\,
 \sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
 \end{theorem}
-\begin{proof}
+\begin{proof}\uses{lemma:expansion-product, lemma:pe-minus-po-closed-form}
 The proof combines the previous expansion lemma with the closed-form computation of $p_e(n) - p_o(n)$ via Franklin's involution.
 
 \textbf{Step 1: Coefficient identification.}
-By Lemma~\ref{lemma: expansion product},
+By Lemma~\ref{lemma:expansion-product},
 $$\prod_{i=1}^\infty (1 - x^i) = \sum_{n=0}^\infty c_n \, x^n,$$
 where $c_0 = 1$ and $c_n = p_e(n) - p_o(n)$ for $n \geq 1$.
 
 \textbf{Step 2: Closed form for $c_n$.}
-By Lemma~\ref{lemma: pe minus po closed form} below,
+By Lemma~\ref{lemma:pe-minus-po-closed-form} below,
 $$p_e(n) - p_o(n) = \begin{cases}
 (-1)^k & \text{if } n = (3k^2 - k)/2 \text{ for some } k \in \mathbb{Z}_{\geq 1}, \\
 (-1)^k & \text{if } n = (3k^2 + k)/2 \text{ for some } k \in \mathbb{Z}_{\geq 1}, \\
@@ -249,7 +249,7 @@ Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into dif
 \end{tikzpicture}
 \end{center}
 
-\begin{definition}[Base and slope]\label{def: base slope}
+\begin{definition}[Base and slope]\label{def:base-slope}\lean{base}\uses{def:distinct-partitions}
   Consider a nonempty partition $S \subseteq \{1, \ldots, n\}$ of $n$ into different parts. We define the \emph{base} $b \in S$ as the smallest element of the partition, $b = \min(S)$. Let $\max(S)$ denote the largest element of $S$. We define the \emph{slope} $s$ as:
   \begin{equation*}
       s = \max\{k \geq 1 : \max(S), \max(S)-1, \max(S)-2, \ldots, \max(S)-k + 1 \in S\}.
@@ -258,7 +258,7 @@ Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into dif
 \end{definition}
 
 
-\begin{definition}\label{def: P alpha beta special} Let $n \mathbb{N}_{\geq 1}$  be a positive integerand $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{definition}\label{def:P-alpha-beta-special}\uses{def:base-slope, def:distinct-partitions} Let $n \in \mathbb{N}_{\geq 1}$ be a positive integer and $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
 \mathcal{P}_{\alpha}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b \leq s \text{ and } b \notin D) \text{ or } b \leq s - 1\bigr] \right\}, \\
 \mathcal{P}_{\beta}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b > s \text{ and } b \notin D) \text{ or } b \geq s + 2\bigr] \right\}, \\
@@ -268,7 +268,7 @@ By convention $\emptyset \in \mathcal{P}_{\mathrm{special}}(0)$ (and $\mathcal{P
 \end{definition}
 
 
-\begin{lemma}\label{lemma: alpha beta special disjoint}
+\begin{lemma}\label{lemma:alpha-beta-special-disjoint}\uses{def:P-alpha-beta-special}
   For all positive natural numbers $n\in \mathbb{N}_{\geq 1}$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
 
 \end{lemma}
@@ -300,14 +300,15 @@ Suppose $S \in \mathcal{P}_{\mathrm{special}}$, so $b \in D$ and $b \leq s + 1$.
 Hence $S \notin \mathcal{P}_\beta$.
 \end{proof}
 
-\begin{lemma} \label{lemma: alpha beta special}For all positive integer numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
+\begin{lemma}\label{lemma:alpha-beta-special}\uses{def:P-alpha-beta-special, def:distinct-partitions}
+For all positive integer numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
 \end{lemma}
-\begin{proof}
-By Lemma~\ref{lemma: alpha beta special disjoint} the three sets are pairwise disjoint, so it suffices to show that every $S \in \mathcal{P}(n)$ belongs to at least one of them.
+\begin{proof}\uses{lemma:alpha-beta-special-disjoint}
+By Lemma~\ref{lemma:alpha-beta-special-disjoint} the three sets are pairwise disjoint, so it suffices to show that every $S \in \mathcal{P}(n)$ belongs to at least one of them.
 
 
 \textbf{Step 1: Edge case $S = \emptyset$.}
-This occurs only when $n = 0$. By Definition~\ref{def: P alpha beta special}, $\emptyset \in \mathcal{P}_{\mathrm{special}}(0)$.
+This occurs only when $n = 0$. By Definition~\ref{def:P-alpha-beta-special}, $\emptyset \in \mathcal{P}_{\mathrm{special}}(0)$.
 
 
 \textbf{Step 2: Main case ($S \neq \emptyset$).}
@@ -335,12 +336,13 @@ These four cases cover all possibilities.
 \end{proof}
 
 
-\begin{definition}\label{def: staircase sets}
+\begin{definition}\label{def:staircase-sets}
 For $k \in \mathbb{N}_{\geq 1}$ define $ S_{-k}=\{k, k+1, \ldots, 2k-1\}$ (a set of $k$ elements summing to $(3k^2-k)/2$).\\
 For $k\in\mathbb{N}_{\geq 1}$ define $S_{k}=\{k+1, k+2, \ldots, 2k\}$ (a set of $k$ elements summing to $(3k^2+k)/2$).
 \end{definition}
 
-\begin{lemma}\label{lemma: special} For $n\in \mathbb{N}_{\geq 1}$:
+\begin{lemma}\label{lemma:special}\uses{def:P-alpha-beta-special, def:staircase-sets, def:base-slope}
+For $n\in \mathbb{N}_{\geq 1}$:
 \begin{itemize}
 \item If $n$ is not a pentagonal number, then $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$.
 \item If $n = \frac{3k^2 - k}{2}$ for some $k \in \mathbb{Z}_{\geq 1}$, then $\mathcal{P}_{\mathrm{special}}(n) = \{S_{-k}\}$.
@@ -349,7 +351,7 @@ For $k\in\mathbb{N}_{\geq 1}$ define $S_{k}=\{k+1, k+2, \ldots, 2k\}$ (a set of 
 For $n = 0$, $\mathcal{P}_{\mathrm{special}}(0) = \{\emptyset\}$ by convention.
 \end{lemma}
 \begin{proof}
-The case $n = 0$ holds by Definition~\ref{def: P alpha beta special}. Assume $n \geq 1$, so any $S \in \mathcal{P}_{\mathrm{special}}(n)$ is nonempty.
+The case $n = 0$ holds by Definition~\ref{def:P-alpha-beta-special}. Assume $n \geq 1$, so any $S \in \mathcal{P}_{\mathrm{special}}(n)$ is nonempty.
 
 \textbf{Step 1: Structure of a special partition.}
 Let $S \in \mathcal{P}_{\mathrm{special}}(n)$ with base $b$, slope $s$, slope set $D$. By definition, $b \in D$ and either $b = s$ or $b = s + 1$.
@@ -384,7 +386,7 @@ The case analysis in Steps 2--3 shows that for each pentagonal $n$, there is at 
 If $n$ is not pentagonal of either form, then by Steps 2--3 no $b \geq 1$ produces a special partition with $\sum = n$, so $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$.
 \end{proof}
 
-\begin{definition} [Operations $\alpha$ and $\beta$]\label{def: alpha beta ops}
+\begin{definition} [Operations $\alpha$ and $\beta$]\label{def:alpha-beta-ops}\uses{def:P-alpha-beta-special, def:base-slope}
 Let $S \subseteq \{1, \ldots, n\}$ be a nonempty partition of $n$ into different parts with base $b$, slope $s$, max $m = \max(S)$, and slope set $D$. We define:
 
 $\alpha$: For $S \in \mathcal{P}_\alpha(n)$ (equivalently, $b \leq s$ and $b \notin D$, or $b \leq s - 1$):
@@ -506,7 +508,7 @@ $\beta$: For $S \in \mathcal{P}_\beta(n)$ (equivalently, $b > s$ and $b \notin D
 \end{tikzpicture}
 \end{center}
 
-\begin{lemma}\label{lemma: alpha lands in beta}
+\begin{lemma}\label{lemma:alpha-lands-in-beta}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
  If $S\in \mathcal{P}_\alpha(n)$ then $\alpha (S)\in \mathcal{P}_\beta(n)$.
 \end{lemma}
 \begin{proof}
@@ -556,7 +558,7 @@ In both subcases, $\alpha(S) \in \mathcal{P}_\beta(n)$.
 
 \end{proof}
 
-\begin{lemma}\label{lemma: beta lands in alpha}
+\begin{lemma}\label{lemma:beta-lands-in-alpha}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
  If $S\in \mathcal{P}_\beta(n)$ then $\beta (S)\in \mathcal{P}_\alpha(n)$.
 \end{lemma}
 \begin{proof}
@@ -636,16 +638,16 @@ Hence $\beta(S) \in \mathcal{P}_\alpha(n)$.
 In both cases, $\beta(S) \in \mathcal{P}_\alpha(n)$.
 \end{proof}
 
-\begin{lemma}\label{lemma: beta after alpha}
+\begin{lemma}\label{lemma:beta-after-alpha}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
   The composition of maps $\beta\circ\alpha$ is equal to the identity map on  $\mathcal{P}_\alpha(n)$. Equivalently, if $S\in \mathcal{P}_\alpha(n)$ then $\beta(\alpha(S))=S$.
 \end{lemma}
-\begin{proof}
+\begin{proof}\uses{lemma:alpha-lands-in-beta}
 Let $S \in \mathcal{P}_\alpha(n)$ with base $b$, slope $s$, max $m$, slope set $D$.
 
 \textbf{Step 1: Compute $\alpha(S)$.}
 By definition,
 $$\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}.$$
-By Lemma~\ref{lemma: alpha lands in beta}, $\alpha(S) \in \mathcal{P}_\beta(n)$. From the proof of that lemma, the data of $\alpha(S)$ is:
+By Lemma~\ref{lemma:alpha-lands-in-beta}, $\alpha(S) \in \mathcal{P}_\beta(n)$. From the proof of that lemma, the data of $\alpha(S)$ is:
 \begin{itemize}
 \item new max $m^\alpha = m + 1$,
 \item new slope $s^\alpha = b$ (the run $\{m - b + 2, \ldots, m + 1\}$),
@@ -668,15 +670,15 @@ Substituting $\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}$:
 where we used that $b$ and $m - b + 1$ are in $S$ (so re-adding them after removal recovers $S$), and that $m + 1 \notin S \setminus \{b, m - b + 1\}$ (since $m + 1 > m \geq$ every element of $S$).
 \end{proof}
 
-\begin{lemma}\label{lemma: alpha after beta}
+\begin{lemma}\label{lemma:alpha-after-beta}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
   The composition of maps $\alpha\circ\beta$ is equal to the identity map on  $\mathcal{P}_\beta(n)$. Equivalently, if $S\in \mathcal{P}_\beta(n)$ then $\alpha(\beta(S))=S$.
 \end{lemma}
-\begin{proof}
+\begin{proof}\uses{lemma:beta-lands-in-alpha}
 Let $S \in \mathcal{P}_\beta(n)$ with base $b$, slope $s$, max $m$, slope set $D$.
 
 \textbf{Step 1: Compute $\beta(S)$.}
 $$\beta(S) = (S \cup \{s, m - s\}) \setminus \{m\}.$$
-By Lemma~\ref{lemma: beta lands in alpha}, $\beta(S) \in \mathcal{P}_\alpha(n)$. From the proof of that lemma (Case (a), the generic situation $m \geq 2s + 2$), the data of $\beta(S)$ is:
+By Lemma~\ref{lemma:beta-lands-in-alpha}, $\beta(S) \in \mathcal{P}_\alpha(n)$. From the proof of that lemma (Case (a), the generic situation $m \geq 2s + 2$), the data of $\beta(S)$ is:
 \begin{itemize}
 \item new max $m^\beta = m - 1$,
 \item new base $b^\beta = s$,
@@ -696,31 +698,31 @@ Substituting $\beta(S) = (S \cup \{s, m - s\}) \setminus \{m\}$:
 &= \bigl[\bigl((S \cup \{s, m - s\}) \setminus \{m\}\bigr) \setminus \{s, m - s\}\bigr] \cup \{m\} \\
 &= \bigl[(S \setminus \{m\}) \setminus \{s, m - s\}\bigr] \cup \{m\}.
 \end{align*}
-Since $s \notin S$ and $m - s \notin S$ (verified in the proof of Lemma~\ref{lemma: beta lands in alpha}), removing them from $S \setminus \{m\}$ has no effect:
+Since $s \notin S$ and $m - s \notin S$ (verified in the proof of Lemma~\ref{lemma:beta-lands-in-alpha}), removing them from $S \setminus \{m\}$ has no effect:
 $$\alpha(\beta(S)) = (S \setminus \{m\}) \cup \{m\} = S,$$
 since $m \in S$.
 \end{proof}
 
-\begin{lemma}\label{lemma: alpha beta bijection}
+\begin{lemma}\label{lemma:alpha-beta-bijection}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
 The map $\alpha: \mathcal{P}_\alpha(n)\to \mathcal{P}_\beta(n)$ is a bijection. \\
 The map $\beta: \mathcal{P}_\beta(n)\to \mathcal{P}_\alpha(n)$ is a bijection.
 \end{lemma}
-\begin{proof}
-Lemma~\ref{lemma: alpha lands in beta} shows $\alpha$ is well-defined as a map $\mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$, and Lemma~\ref{lemma: beta lands in alpha} shows $\beta$ is well-defined as a map $\mathcal{P}_\beta(n) \to \mathcal{P}_\alpha(n)$.
+\begin{proof}\uses{lemma:alpha-lands-in-beta, lemma:beta-lands-in-alpha, lemma:beta-after-alpha, lemma:alpha-after-beta}
+Lemma~\ref{lemma:alpha-lands-in-beta} shows $\alpha$ is well-defined as a map $\mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$, and Lemma~\ref{lemma:beta-lands-in-alpha} shows $\beta$ is well-defined as a map $\mathcal{P}_\beta(n) \to \mathcal{P}_\alpha(n)$.
 
-Lemma~\ref{lemma: beta after alpha} gives $\beta \circ \alpha = \mathrm{id}_{\mathcal{P}_\alpha(n)}$, and Lemma~\ref{lemma: alpha after beta} gives $\alpha \circ \beta = \mathrm{id}_{\mathcal{P}_\beta(n)}$.
+Lemma~\ref{lemma:beta-after-alpha} gives $\beta \circ \alpha = \mathrm{id}_{\mathcal{P}_\alpha(n)}$, and Lemma~\ref{lemma:alpha-after-beta} gives $\alpha \circ \beta = \mathrm{id}_{\mathcal{P}_\beta(n)}$.
 
 Hence $\alpha$ and $\beta$ are mutually inverse bijections.
 \end{proof}
 
-\begin{lemma}\label{lemma: P alpha card eq P beta card}
+\begin{lemma}\label{lemma:P-alpha-card-eq-P-beta-card}\uses{def:P-alpha-beta-special}
 $$\left| \mathcal{P}_\alpha(n)\right|=\left|\mathcal{P}_\beta(n) \right|.$$
 \end{lemma}
-\begin{proof}
-A bijection between finite sets implies equal cardinality. Apply this to the bijection $\alpha: \mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$ from Lemma~\ref{lemma: alpha beta bijection}.
+\begin{proof}\uses{lemma:alpha-beta-bijection}
+A bijection between finite sets implies equal cardinality. Apply this to the bijection $\alpha: \mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$ from Lemma~\ref{lemma:alpha-beta-bijection}.
 \end{proof}
 
-\begin{lemma}\label{lemma: alpha beta change parity}
+\begin{lemma}\label{lemma:alpha-beta-change-parity}\uses{def:alpha-beta-ops, def:P-alpha-beta-special, def:distinct-partitions}
 The operations $\alpha$ and $\beta$ change the parity of the number of parts of a partition. More precisely,
 \begin{itemize}
 \item If $S\in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $ then  $\alpha(S) \in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $;
@@ -729,13 +731,13 @@ The operations $\alpha$ and $\beta$ change the parity of the number of parts of 
 \item If $S\in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $ then  $\beta(S) \in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $.
 \end{itemize}
 \end{lemma}
-\begin{proof}
-Membership in $\mathcal{P}_\beta$ for $\alpha(S)$ (and in $\mathcal{P}_\alpha$ for $\beta(S)$) is supplied by Lemmas~\ref{lemma: alpha lands in beta} and~\ref{lemma: beta lands in alpha}. It remains to show that the parity of the number of parts is flipped.
+\begin{proof}\uses{lemma:alpha-lands-in-beta, lemma:beta-lands-in-alpha}
+Membership in $\mathcal{P}_\beta$ for $\alpha(S)$ (and in $\mathcal{P}_\alpha$ for $\beta(S)$) is supplied by Lemmas~\ref{lemma:alpha-lands-in-beta} and~\ref{lemma:beta-lands-in-alpha}. It remains to show that the parity of the number of parts is flipped.
 
 \textbf{Step 1: $|\alpha(S)| = |S| - 1$.}
 By the definition $\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}$:
 \begin{itemize}
-\item we remove two distinct elements ($b$ and $m - b + 1$, distinct as shown in the proof of Lemma~\ref{lemma: alpha lands in beta}), reducing the size by $2$;
+\item we remove two distinct elements ($b$ and $m - b + 1$, distinct as shown in the proof of Lemma~\ref{lemma:alpha-lands-in-beta}), reducing the size by $2$;
 \item we add one element ($m + 1$), which is not in $S \setminus \{b, m - b + 1\}$ since $m + 1 > \max(S)$.
 \end{itemize}
 Net change: $-2 + 1 = -1$. So $|\alpha(S)| = |S| - 1$, flipping parity.
@@ -743,7 +745,7 @@ Net change: $-2 + 1 = -1$. So $|\alpha(S)| = |S| - 1$, flipping parity.
 \textbf{Step 2: $|\beta(S)| = |S| + 1$.}
 By the definition $\beta(S) = (S \cup \{s, m - s\}) \setminus \{m\}$:
 \begin{itemize}
-\item we add two distinct new elements $s$ and $m - s$ (distinct, and not in $S$, as verified in the proof of Lemma~\ref{lemma: beta lands in alpha}), increasing the size by $2$;
+\item we add two distinct new elements $s$ and $m - s$ (distinct, and not in $S$, as verified in the proof of Lemma~\ref{lemma:beta-lands-in-alpha}), increasing the size by $2$;
 \item we remove one element ($m \in S$), reducing by $1$.
 \end{itemize}
 Net change: $+2 - 1 = +1$. So $|\beta(S)| = |S| + 1$, flipping parity.
@@ -756,48 +758,48 @@ Net change: $+2 - 1 = +1$. So $|\beta(S)| = |S| + 1$, flipping parity.
 \end{itemize}
 \end{proof}
 
-\begin{lemma}\label{lemma: alpha odd eq beta even}
+\begin{lemma}\label{lemma:alpha-odd-eq-beta-even}\uses{def:P-alpha-beta-special, def:distinct-partitions}
 $$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|,$$
 $$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|.$$
 \end{lemma}
-\begin{proof}
-Lemma~\ref{lemma: alpha beta change parity} shows that $\alpha$ restricts to bijections
+\begin{proof}\uses{lemma:alpha-beta-change-parity, lemma:alpha-beta-bijection}
+Lemma~\ref{lemma:alpha-beta-change-parity} shows that $\alpha$ restricts to bijections
 $\mathcal{P}_\alpha(n) \cap \mathcal{P}_{\mathrm{odd}}(n) \to \mathcal{P}_\beta(n) \cap \mathcal{P}_{\mathrm{even}}(n)$
 and
 $\mathcal{P}_\alpha(n) \cap \mathcal{P}_{\mathrm{even}}(n) \to \mathcal{P}_\beta(n) \cap \mathcal{P}_{\mathrm{odd}}(n)$
-(with inverse $\beta$, by Lemma~\ref{lemma: alpha beta bijection}). Equal cardinalities follow.
+(with inverse $\beta$, by Lemma~\ref{lemma:alpha-beta-bijection}). Equal cardinalities follow.
 \end{proof}
 
-\begin{lemma}\label{lemma: pe minus po closed form}
+\begin{lemma}\label{lemma:pe-minus-po-closed-form}\uses{def:distinct-partitions}
 $$p_e(n)-p_o(n)=
 \begin{cases}(-1)^k,&\mbox{ if } n= \frac{3k^2\pm k}{2} \text{ for some } k \in \mathbb{Z}_{\geq 1},\\
 1, & \mbox{ if } n = 0,\\
 0, & \mbox{otherwise.}\end{cases}$$
 \end{lemma}
-\begin{proof}
+\begin{proof}\uses{lemma:alpha-beta-special, lemma:alpha-odd-eq-beta-even, lemma:special}
 \textbf{Step 0: $n = 0$.} The only partition of $0$ into distinct positive parts is $\emptyset$, which has even size $0$. So $p_e(0) = 1$, $p_o(0) = 0$, and $p_e(0) - p_o(0) = 1 = (-1)^0$.
 
 \textbf{Step 1: Reduction to special partitions.} For $n \geq 1$,
-\begin{equation}\label{eqn: pe minus po}p_e(n)-p_o(n)=\left|\mathcal{P}_{\mathrm{even}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\right|.\end{equation}
-By Lemma~\ref{lemma: alpha beta special} we have
+\begin{equation}\label{eqn:pe-minus-po}p_e(n)-p_o(n)=\left|\mathcal{P}_{\mathrm{even}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\right|.\end{equation}
+By Lemma~\ref{lemma:alpha-beta-special} we have
 $$\left|\mathcal{P}_{\mathrm{even}}(n)\right|=\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\alpha}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n) \cap \mathcal{P}_{\beta}(n)\right|+\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|$$
 and
 $$\left|\mathcal{P}_{\mathrm{odd}}(n)\right|=\left|\mathcal{P}_{\mathrm{odd}}(n)\cap \mathcal{P}_{\alpha}(n)\right|+\left|\mathcal{P}_{\mathrm{odd}}(n) \cap \mathcal{P}_{\beta}(n)\right|+\left|\mathcal{P}_{\mathrm{odd}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.$$
-By Lemma~\ref{lemma: alpha odd eq beta even}, $|\mathcal{P}_{\mathrm{even}} \cap \mathcal{P}_\alpha| = |\mathcal{P}_{\mathrm{odd}} \cap \mathcal{P}_\beta|$ and $|\mathcal{P}_{\mathrm{odd}} \cap \mathcal{P}_\alpha| = |\mathcal{P}_{\mathrm{even}} \cap \mathcal{P}_\beta|$. Subtracting the two displayed equations, the $\alpha$ and $\beta$ contributions cancel:
-\begin{equation}\label{eqn: Peven minus Podd is Special}\left|\mathcal{P}_{\mathrm{even}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\right| =\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.\end{equation}
+By Lemma~\ref{lemma:alpha-odd-eq-beta-even}, $|\mathcal{P}_{\mathrm{even}} \cap \mathcal{P}_\alpha| = |\mathcal{P}_{\mathrm{odd}} \cap \mathcal{P}_\beta|$ and $|\mathcal{P}_{\mathrm{odd}} \cap \mathcal{P}_\alpha| = |\mathcal{P}_{\mathrm{even}} \cap \mathcal{P}_\beta|$. Subtracting the two displayed equations, the $\alpha$ and $\beta$ contributions cancel:
+\begin{equation}\label{eqn:Peven-minus-Podd-is-Special}\left|\mathcal{P}_{\mathrm{even}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\right| =\left|\mathcal{P}_{\mathrm{even}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|-\left|\mathcal{P}_{\mathrm{odd}}(n)\cap \mathcal{P}_{\mathrm{special}}(n)\right|.\end{equation}
 
-\textbf{Step 2: Compute the special contribution.} By Lemma~\ref{lemma: special}, for $n \geq 1$:
+\textbf{Step 2: Compute the special contribution.} By Lemma~\ref{lemma:special}, for $n \geq 1$:
 \begin{itemize}
-\item If $n$ is not pentagonal, $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$ and the RHS of \eqref{eqn: Peven minus Podd is Special} is $0$.
-\item If $n = (3k^2 - k)/2$ with $k \geq 1$, then $\mathcal{P}_{\mathrm{special}}(n) = \{S_{-k}\}$ with $|S_{-k}| = k$. So the unique special partition contributes $+1$ to $|\mathcal{P}_{\mathrm{even}} \cap \mathcal{P}_{\mathrm{special}}| - |\mathcal{P}_{\mathrm{odd}} \cap \mathcal{P}_{\mathrm{special}}|$ if $k$ is even, and $-1$ if $k$ is odd. Hence the RHS of \eqref{eqn: Peven minus Podd is Special} equals $(-1)^k$.
+\item If $n$ is not pentagonal, $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$ and the RHS of \eqref{eqn:Peven-minus-Podd-is-Special} is $0$.
+\item If $n = (3k^2 - k)/2$ with $k \geq 1$, then $\mathcal{P}_{\mathrm{special}}(n) = \{S_{-k}\}$ with $|S_{-k}| = k$. So the unique special partition contributes $+1$ to $|\mathcal{P}_{\mathrm{even}} \cap \mathcal{P}_{\mathrm{special}}| - |\mathcal{P}_{\mathrm{odd}} \cap \mathcal{P}_{\mathrm{special}}|$ if $k$ is even, and $-1$ if $k$ is odd. Hence the RHS of \eqref{eqn:Peven-minus-Podd-is-Special} equals $(-1)^k$.
 \item If $n = (3k^2 + k)/2$ with $k \geq 1$, then $\mathcal{P}_{\mathrm{special}}(n) = \{S_{k}\}$ with $|S_{k}| = k$. Same computation: RHS equals $(-1)^k$.
 \end{itemize}
 
-Combining with \eqref{eqn: pe minus po}, the lemma follows.
+Combining with \eqref{eqn:pe-minus-po}, the lemma follows.
 \end{proof}
 
 \section{Jacobi triple product}
-\begin{theorem}
+\begin{theorem}\label{thm:jacobi-triple-product}
 For all $w\neq 0$ and $q$ with $|q|<1$:
 $$\prod_{k=1}^\infty (1-q^{2k})\,(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2})=\sum_{k=-\infty}^\infty (-1)^k\,w^{2k}\,q^{k^2}.$$
 \end{theorem}
@@ -809,28 +811,28 @@ $
 \phi_n(w,q):=\prod_{k=1}^n(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2}).
 $
 We have
-\begin{equation}\label{eqn: 1}\phi_n(qw,q)\,=\,\phi_n(w,q)\,\frac{(1-q^{2n+1}\,w^2)\,(1-q^{-1}w^{-2})}
+\begin{equation}\label{eqn:1}\phi_n(qw,q)\,=\,\phi_n(w,q)\,\frac{(1-q^{2n+1}\,w^2)\,(1-q^{-1}w^{-2})}
 {(1-qw^2)\,(1-q^{2n-1}w^{-2})}\,=\,\phi_n(w,q)\,\frac{1-q^{2n+1}\,w^2}{-qw^2+q^{2n}}.
 \end{equation}
 We consider the following expansion
-\begin{equation}\label{eqn: 2}
+\begin{equation}\label{eqn:2}
 \phi_n(w,q)=\sum_{k=-n}^nA_{n,k}(q)\,w^{2k},
 \end{equation}
 where $A_{n,k}(q)$ is a polynomial in $q$. We have a symmetry $A_{n,k}(q)=A_{n,-k}(q)$.
 We find
-\begin{equation}\label{eqn: 3}
+\begin{equation}\label{eqn:3}
 A_{n,n}(q)=q^{1+3+5+\ldots+(2n-1)}=q^{n^2}.
 \end{equation}
-We substitute \eqref{eqn: 2} into \eqref{eqn: 1} and obtain
-\begin{equation}\label{eqn: 4}
+We substitute \eqref{eqn:2} into \eqref{eqn:1} and obtain
+\begin{equation}\label{eqn:4}
 A_{n,k}(q)=A_{n,k-1}(q)\,q^{2k-1}\,\frac{1-q^{2n-2k+2}}{1-q^{2n+2k}}.
 \end{equation}
 
-From \eqref{eqn: 3} and \eqref{eqn: 4} we find
-\begin{equation}\label{eqn: 5}
+From \eqref{eqn:3} and \eqref{eqn:4} we find
+\begin{equation}\label{eqn:5}
 A_{n,k}=\frac{q^{k^2}}{(1-q^2)\cdots(1-q^{2n})}\,\prod_{s=n-k+1}^n(1-q^{2s})\,\prod_{s=n+k+1}^{2n}(1-q^{2s}).
 \end{equation}
-From \eqref{eqn: 5} we obtain
+From \eqref{eqn:5} we obtain
 $$\prod_{k=1}^n (1-q^{2k})\,(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2})=\sum_{k=-n}^n(-1)^k w^{2k}\,q^{k^2}\,B_{n,k}(q).$$
 where
 $$B_{n,k}(q)=\prod_{s=n-k+1}^n(1-q^{2s})\,\prod_{s=n+k+1}^{2n}(1-q^{2s}).$$
