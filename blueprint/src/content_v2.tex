@@ -557,10 +557,39 @@ We need $b' > s'$ (and $b' \notin D'$) or $b' \geq s' + 2$. We have $s' = b$ fro
 \textit{Sub-case (i): $b \leq s - 1$ (the second clause of $\mathcal{P}_\alpha$).}
 The slope of $S$ has length $s \geq b + 1$, so its top $b$ elements $\{m - b + 1, \ldots, m\}$ are a strict subset of $D$. The element $m - s + 1 \in D$ satisfies $m - s + 1 < m - b + 1$, so $m - s + 1$ is in $S$ and below the part removed. After applying $\alpha$, this element remains, and its value $m - s + 1$ may or may not be the new minimum.
 
-\textcolor{red}{TODO: Case analysis on the location of the new base $b'$ relative to $D'$. The careful analysis (matching the Lean lemma \texttt{alpha\_gives\_beta\_crit}) shows: the new base $b' \geq b + 1$ (since the second-smallest element of $S$ is $\geq b + 1$; in fact $\geq b + 1$ because elements are distinct), and one verifies that $b' \geq s' + 2$ or $b' > s' \wedge b' \notin D'$. The detailed bookkeeping requires distinguishing whether the second-smallest of $S$ is in the slope or below it.}
+\textbf{Step 4: Verify $\alpha(S) \in \mathcal{P}_\beta(n)$.}
+We need to show that the new base $b'$, new slope $s'$, and new slope set $D'$ satisfy
+$$(b' > s' \text{ and } b' \notin D') \quad \text{or} \quad b' \geq s' + 2.$$
+From Step 3, we know that $s'=b$ and $D'=\{m-b+2,\ldots,m+1\}$.
 
-\textit{Sub-case (ii): $b = s$ and $b \notin D$ (first clause of $\mathcal{P}_\alpha$).}
-\textcolor{red}{TODO: Symmetric analysis. The conclusion is again that the resulting partition satisfies the $\beta$-criterion.}
+We first prove the auxiliary inequality $m+1>2b$. Since $S\in\mathcal{P}_\alpha(n)$, there are two cases.
+
+If $b\leq s-1$, then $s\geq b+1$. Also $m-s+1\in D\subseteq S$, so since $b$ is the smallest element of $S$, we have $b\leq m-s+1$. Hence
+$$m+1=(m-s+1)+s\geq b+(b+1)=2b+1,$$
+so $m+1>2b$.
+
+It remains to consider the case where $b\leq s$ and $b\notin D$. Since $b\in S$, we have $b\leq m$. Since $D=\{m-s+1,\ldots,m\}$ and $b\notin D$, it follows that $b<m-s+1$. Hence $m-s+1\geq b+1$. Also $s\geq b$. Therefore
+$$m+1=(m-s+1)+s\geq (b+1)+b=2b+1,$$
+so again $m+1>2b$.
+
+Thus in all cases we have
+$$m+1>2b.$$
+
+Next observe that $b'\geq b+1$. Indeed, the operation $\alpha$ removes the old base $b$. Since $b$ was the smallest element of $S$, every element of $S\setminus\{b\}$ is strictly larger than $b$. The only new element added is $m+1$, which is also strictly larger than $b$. Hence every element of $\alpha(S)$ is strictly larger than $b$, so its base satisfies $b'\geq b+1$.
+
+We now split into two cases.
+
+\textit{Sub-case (i): $b'\geq b+2$.}
+Since $s'=b$, we have $b'\geq b+2=s'+2$. Therefore the second clause in the definition of $\mathcal{P}_\beta(n)$ holds, and hence $\alpha(S)\in\mathcal{P}_\beta(n)$.
+
+\textit{Sub-case (ii): $b'<b+2$.}
+Together with $b'\geq b+1$, this implies $b'=b+1$. Since $s'=b$, we get $b'=b+1>b=s'$.
+
+It remains to show that $b'\notin D'$. Since $m+1>2b$ and all quantities are integers, we have $m+1\geq 2b+1$, and hence $m-b+2\geq b+2$. But $D'=\{m-b+2,\ldots,m+1\}$, so every element of $D'$ is at least $b+2$. Since $b'=b+1$, we conclude that $b'\notin D'$.
+
+Thus in this sub-case we have $b'>s'$ and $b'\notin D'$, so the first clause in the definition of $\mathcal{P}_\beta(n)$ holds. Hence again $\alpha(S)\in\mathcal{P}_\beta(n)$.
+
+In both sub-cases, $\alpha(S)$ satisfies one of the defining conditions of $\mathcal{P}_\beta(n)$. This completes the proof.
 \end{proof}
 
 \begin{lemma}\label{lemma: beta lands in alpha}
