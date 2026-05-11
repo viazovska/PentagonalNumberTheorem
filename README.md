@@ -86,8 +86,6 @@ The blueprint is the proof; Lean fills it in. To contribute a formalization:
 4. Add `\leanok` to mark the statement (or proof) as formalized.
 5. Open a pull request.
 
-Coordination happens on the [Lean Zulip](https://leanprover.zulipchat.com/).
-
 ## Authors
 
 JC, PM, MV.

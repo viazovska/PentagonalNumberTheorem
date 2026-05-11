@@ -50,12 +50,10 @@ the Lean formalization is partial. Declarations currently in Lean:
 
 ## Contributing
 
-The project is coordinated on the
-[Lean Zulip](https://leanprover.zulipchat.com/). Open an issue on GitHub for
-typos / mathematical errors in the blueprint, or send a pull request with a Lean
-proof attached to one of the blueprint lemmas. See the
-[repository README](https://github.com/{{ site.repository }}#readme) for build
-instructions.
+Open an issue on GitHub for typos / mathematical errors in the blueprint, or
+send a pull request with a Lean proof attached to one of the blueprint lemmas.
+See the [repository README](https://github.com/{{ site.repository }}#readme) for
+build instructions.
 
 ## Authors
 
