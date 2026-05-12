@@ -54,7 +54,7 @@ $$\prod_k x^{j_k \cdot k} = x^{\sum_k j_k \cdot k}.$$
 \textbf{Step 4.} Such a tuple corresponds bijectively to a partition of $n$: $j_k$ is the multiplicity of the part $k$. Hence the coefficient of $x^n$ equals $p(n)$, and the first equality follows.
 \end{proof}
 
-\begin{definition}[Partitions of $n$ into distinct parts]\label{def:distinct-partitions}\lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions, DP, DPeven, DPodd, pe, po}\uses{def:partition}
+\begin{definition}[Partitions of $n$ into distinct parts]\label{def:distinct-partitions}\lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions, DP, DPeven, DPodd, pe, po}\uses{def:partition}\leanok
 
 Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
@@ -249,7 +249,7 @@ Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into dif
 \end{tikzpicture}
 \end{center}
 
-\begin{definition}[Base and slope]\label{def:base-slope}\lean{base, partBase, partMax, partSlope, partSlopeSet}\uses{def:distinct-partitions}
+\begin{definition}[Base and slope]\label{def:base-slope}\lean{base, partBase, partMax, partSlope, partSlopeSet}\uses{def:distinct-partitions}\leanok
   Consider a nonempty partition $S \subseteq \{1, \ldots, n\}$ of $n$ into different parts. We define the \emph{base} $b \in S$ as the smallest element of the partition, $b = \min(S)$. Let $\max(S)$ denote the largest element of $S$. We define the \emph{slope} $s$ as:
   \begin{equation*}
       s = \max\{k \geq 1 : \max(S), \max(S)-1, \max(S)-2, \ldots, \max(S)-k + 1 \in S\}.
@@ -258,7 +258,7 @@ Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into dif
 \end{definition}
 
 
-\begin{definition}\label{def:P-alpha-beta-special}\lean{DPalpha, DPbeta, DPspecial}\uses{def:base-slope, def:distinct-partitions} Let $n \in \mathbb{N}_{\geq 1}$ be a positive integer and $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{definition}\label{def:P-alpha-beta-special}\lean{DPalpha, DPbeta, DPspecial}\uses{def:base-slope, def:distinct-partitions}\leanok Let $n \in \mathbb{N}_{\geq 1}$ be a positive integer and $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
 \mathcal{P}_{\alpha}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b \leq s \text{ and } b \notin D) \text{ or } b \leq s - 1\bigr] \right\}, \\
 \mathcal{P}_{\beta}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b > s \text{ and } b \notin D) \text{ or } b \geq s + 2\bigr] \right\}, \\
@@ -268,11 +268,11 @@ By convention $\emptyset \in \mathcal{P}_{\mathrm{special}}(0)$ (and $\mathcal{P
 \end{definition}
 
 
-\begin{lemma}\label{lemma:alpha-beta-special-disjoint}\lean{DPalpha_inter_DPbeta, DPalpha_inter_DPspecial, DPbeta_inter_DPspecial}\uses{def:P-alpha-beta-special}
+\begin{lemma}\label{lemma:alpha-beta-special-disjoint}\lean{DPalpha_inter_DPbeta, DPalpha_inter_DPspecial, DPbeta_inter_DPspecial}\uses{def:P-alpha-beta-special}\leanok
   For all positive natural numbers $n\in \mathbb{N}_{\geq 1}$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
 
 \end{lemma}
-\begin{proof}
+\begin{proof}\leanok
 The empty partition belongs only to $\mathcal{P}_{\mathrm{special}}(0)$ by definition. For nonempty $S \in \mathcal{P}(n)$ with base $b$, slope $s$, slope set $D$, recall the membership criteria:
 \begin{itemize}
 \item $S \in \mathcal{P}_\alpha$ iff ($b \leq s$ and $b \notin D$) or $b \leq s - 1$;
@@ -300,10 +300,10 @@ Suppose $S \in \mathcal{P}_{\mathrm{special}}$, so $b \in D$ and $b \leq s + 1$.
 Hence $S \notin \mathcal{P}_\beta$.
 \end{proof}
 
-\begin{lemma}\label{lemma:alpha-beta-special}\lean{DP_eq_union}\uses{def:P-alpha-beta-special, def:distinct-partitions}
+\begin{lemma}\label{lemma:alpha-beta-special}\lean{DP_eq_union}\uses{def:P-alpha-beta-special, def:distinct-partitions}\leanok
 For all positive integer numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
 \end{lemma}
-\begin{proof}\uses{lemma:alpha-beta-special-disjoint}
+\begin{proof}\uses{lemma:alpha-beta-special-disjoint}\leanok
 By Lemma~\ref{lemma:alpha-beta-special-disjoint} the three sets are pairwise disjoint, so it suffices to show that every $S \in \mathcal{P}(n)$ belongs to at least one of them.
 
 
@@ -336,12 +336,12 @@ These four cases cover all possibilities.
 \end{proof}
 
 
-\begin{definition}\label{def:staircase-sets}\lean{SmkSet, SpkSet}
+\begin{definition}\label{def:staircase-sets}\lean{SmkSet, SpkSet}\leanok
 For $k \in \mathbb{N}_{\geq 1}$ define $ S_{-k}=\{k, k+1, \ldots, 2k-1\}$ (a set of $k$ elements summing to $(3k^2-k)/2$).\\
 For $k\in\mathbb{N}_{\geq 1}$ define $S_{k}=\{k+1, k+2, \ldots, 2k\}$ (a set of $k$ elements summing to $(3k^2+k)/2$).
 \end{definition}
 
-\begin{lemma}\label{lemma:special}\lean{DPspecial_empty_of_nonpent, DPspecial_pent_minus, DPspecial_pent_plus, SmkSet_card, SmkSet_sum, SpkSet_card, SpkSet_sum}\uses{def:P-alpha-beta-special, def:staircase-sets, def:base-slope}
+\begin{lemma}\label{lemma:special}\lean{DPspecial_empty_of_nonpent, DPspecial_pent_minus, DPspecial_pent_plus, SmkSet_card, SmkSet_sum, SpkSet_card, SpkSet_sum}\uses{def:P-alpha-beta-special, def:staircase-sets, def:base-slope}\leanok
 For $n\in \mathbb{N}_{\geq 1}$:
 \begin{itemize}
 \item If $n$ is not a pentagonal number, then $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$.
@@ -350,7 +350,7 @@ For $n\in \mathbb{N}_{\geq 1}$:
 \end{itemize}
 For $n = 0$, $\mathcal{P}_{\mathrm{special}}(0) = \{\emptyset\}$ by convention.
 \end{lemma}
-\begin{proof}
+\begin{proof}\leanok
 The case $n = 0$ holds by Definition~\ref{def:P-alpha-beta-special}. Assume $n \geq 1$, so any $S \in \mathcal{P}_{\mathrm{special}}(n)$ is nonempty.
 
 \textbf{Step 1: Structure of a special partition.}
@@ -386,7 +386,7 @@ The case analysis in Steps 2--3 shows that for each pentagonal $n$, there is at 
 If $n$ is not pentagonal of either form, then by Steps 2--3 no $b \geq 1$ produces a special partition with $\sum = n$, so $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$.
 \end{proof}
 
-\begin{definition} [Operations $\alpha$ and $\beta$]\label{def:alpha-beta-ops}\lean{alphaOp, betaOp}\uses{def:P-alpha-beta-special, def:base-slope}
+\begin{definition} [Operations $\alpha$ and $\beta$]\label{def:alpha-beta-ops}\lean{alphaOp, betaOp}\uses{def:P-alpha-beta-special, def:base-slope}\leanok
 Let $S \subseteq \{1, \ldots, n\}$ be a nonempty partition of $n$ into different parts with base $b$, slope $s$, max $m = \max(S)$, and slope set $D$. We define:
 
 $\alpha$: For $S \in \mathcal{P}_\alpha(n)$ (equivalently, $b \leq s$ and $b \notin D$, or $b \leq s - 1$):
@@ -508,10 +508,10 @@ $\beta$: For $S \in \mathcal{P}_\beta(n)$ (equivalently, $b > s$ and $b \notin D
 \end{tikzpicture}
 \end{center}
 
-\begin{lemma}\label{lemma:alpha-lands-in-beta}\lean{alphaOp_mem_DPbeta}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
+\begin{lemma}\label{lemma:alpha-lands-in-beta}\lean{alphaOp_mem_DPbeta}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}\leanok
  If $S\in \mathcal{P}_\alpha(n)$ then $\alpha (S)\in \mathcal{P}_\beta(n)$.
 \end{lemma}
-\begin{proof}
+\begin{proof}\leanok
 Let $S \in \mathcal{P}_\alpha(n)$ with base $b$, slope $s$, max $m = \max(S)$, slope set $D = \{m - s + 1, \ldots, m\}$. The $\alpha$-condition says $b \leq s$ and, in the boundary case $b = s$, additionally $b \notin D$. Recall
 $$\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}.$$
 
@@ -558,10 +558,10 @@ In both subcases, $\alpha(S) \in \mathcal{P}_\beta(n)$.
 
 \end{proof}
 
-\begin{lemma}\label{lemma:beta-lands-in-alpha}\lean{betaOp_mem_DPalpha}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
+\begin{lemma}\label{lemma:beta-lands-in-alpha}\lean{betaOp_mem_DPalpha}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}\leanok
  If $S\in \mathcal{P}_\beta(n)$ then $\beta (S)\in \mathcal{P}_\alpha(n)$.
 \end{lemma}
-\begin{proof}
+\begin{proof}\leanok
 Let $S \in \mathcal{P}_\beta(n)$ with base $b$, slope $s$, max $m$, slope set
 $D = \{m-s+1, \ldots, m\}$. Recall the $\beta$-condition: either $b > s$ with
 $b \notin D$ (first clause), or $b \geq s+2$ (second clause), and
@@ -638,10 +638,10 @@ Hence $\beta(S) \in \mathcal{P}_\alpha(n)$.
 In both cases, $\beta(S) \in \mathcal{P}_\alpha(n)$.
 \end{proof}
 
-\begin{lemma}\label{lemma:beta-after-alpha}\lean{betaOp_alphaOp}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
+\begin{lemma}\label{lemma:beta-after-alpha}\lean{betaOp_alphaOp}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}\leanok
   The composition of maps $\beta\circ\alpha$ is equal to the identity map on  $\mathcal{P}_\alpha(n)$. Equivalently, if $S\in \mathcal{P}_\alpha(n)$ then $\beta(\alpha(S))=S$.
 \end{lemma}
-\begin{proof}\uses{lemma:alpha-lands-in-beta}
+\begin{proof}\uses{lemma:alpha-lands-in-beta}\leanok
 Let $S \in \mathcal{P}_\alpha(n)$ with base $b$, slope $s$, max $m$, slope set $D$.
 
 \textbf{Step 1: Compute $\alpha(S)$.}
@@ -670,10 +670,10 @@ Substituting $\alpha(S) = (S \setminus \{b, m - b + 1\}) \cup \{m + 1\}$:
 where we used that $b$ and $m - b + 1$ are in $S$ (so re-adding them after removal recovers $S$), and that $m + 1 \notin S \setminus \{b, m - b + 1\}$ (since $m + 1 > m \geq$ every element of $S$).
 \end{proof}
 
-\begin{lemma}\label{lemma:alpha-after-beta}\lean{alphaOp_betaOp}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
+\begin{lemma}\label{lemma:alpha-after-beta}\lean{alphaOp_betaOp}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}\leanok
   The composition of maps $\alpha\circ\beta$ is equal to the identity map on  $\mathcal{P}_\beta(n)$. Equivalently, if $S\in \mathcal{P}_\beta(n)$ then $\alpha(\beta(S))=S$.
 \end{lemma}
-\begin{proof}\uses{lemma:beta-lands-in-alpha}
+\begin{proof}\uses{lemma:beta-lands-in-alpha}\leanok
 Let $S \in \mathcal{P}_\beta(n)$ with base $b$, slope $s$, max $m$, slope set $D$.
 
 \textbf{Step 1: Compute $\beta(S)$.}
@@ -703,11 +703,11 @@ $$\alpha(\beta(S)) = (S \setminus \{m\}) \cup \{m\} = S,$$
 since $m \in S$.
 \end{proof}
 
-\begin{lemma}\label{lemma:alpha-beta-bijection}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}
+\begin{lemma}\label{lemma:alpha-beta-bijection}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}\leanok
 The map $\alpha: \mathcal{P}_\alpha(n)\to \mathcal{P}_\beta(n)$ is a bijection. \\
 The map $\beta: \mathcal{P}_\beta(n)\to \mathcal{P}_\alpha(n)$ is a bijection.
 \end{lemma}
-\begin{proof}\uses{lemma:alpha-lands-in-beta, lemma:beta-lands-in-alpha, lemma:beta-after-alpha, lemma:alpha-after-beta}
+\begin{proof}\uses{lemma:alpha-lands-in-beta, lemma:beta-lands-in-alpha, lemma:beta-after-alpha, lemma:alpha-after-beta}\leanok
 Lemma~\ref{lemma:alpha-lands-in-beta} shows $\alpha$ is well-defined as a map $\mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$, and Lemma~\ref{lemma:beta-lands-in-alpha} shows $\beta$ is well-defined as a map $\mathcal{P}_\beta(n) \to \mathcal{P}_\alpha(n)$.
 
 Lemma~\ref{lemma:beta-after-alpha} gives $\beta \circ \alpha = \mathrm{id}_{\mathcal{P}_\alpha(n)}$, and Lemma~\ref{lemma:alpha-after-beta} gives $\alpha \circ \beta = \mathrm{id}_{\mathcal{P}_\beta(n)}$.
@@ -715,14 +715,14 @@ Lemma~\ref{lemma:beta-after-alpha} gives $\beta \circ \alpha = \mathrm{id}_{\mat
 Hence $\alpha$ and $\beta$ are mutually inverse bijections.
 \end{proof}
 
-\begin{lemma}\label{lemma:P-alpha-card-eq-P-beta-card}\lean{DPalpha_card_eq_DPbeta_card}\uses{def:P-alpha-beta-special}
+\begin{lemma}\label{lemma:P-alpha-card-eq-P-beta-card}\lean{DPalpha_card_eq_DPbeta_card}\uses{def:P-alpha-beta-special}\leanok
 $$\left| \mathcal{P}_\alpha(n)\right|=\left|\mathcal{P}_\beta(n) \right|.$$
 \end{lemma}
-\begin{proof}\uses{lemma:alpha-beta-bijection}
+\begin{proof}\uses{lemma:alpha-beta-bijection}\leanok
 A bijection between finite sets implies equal cardinality. Apply this to the bijection $\alpha: \mathcal{P}_\alpha(n) \to \mathcal{P}_\beta(n)$ from Lemma~\ref{lemma:alpha-beta-bijection}.
 \end{proof}
 
-\begin{lemma}\label{lemma:alpha-beta-change-parity}\lean{alphaOp_card, betaOp_card}\uses{def:alpha-beta-ops, def:P-alpha-beta-special, def:distinct-partitions}
+\begin{lemma}\label{lemma:alpha-beta-change-parity}\lean{alphaOp_card, betaOp_card}\uses{def:alpha-beta-ops, def:P-alpha-beta-special, def:distinct-partitions}\leanok
 The operations $\alpha$ and $\beta$ change the parity of the number of parts of a partition. More precisely,
 \begin{itemize}
 \item If $S\in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $ then  $\alpha(S) \in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $;
@@ -731,7 +731,7 @@ The operations $\alpha$ and $\beta$ change the parity of the number of parts of 
 \item If $S\in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $ then  $\beta(S) \in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $.
 \end{itemize}
 \end{lemma}
-\begin{proof}\uses{lemma:alpha-lands-in-beta, lemma:beta-lands-in-alpha}
+\begin{proof}\uses{lemma:alpha-lands-in-beta, lemma:beta-lands-in-alpha}\leanok
 Membership in $\mathcal{P}_\beta$ for $\alpha(S)$ (and in $\mathcal{P}_\alpha$ for $\beta(S)$) is supplied by Lemmas~\ref{lemma:alpha-lands-in-beta} and~\ref{lemma:beta-lands-in-alpha}. It remains to show that the parity of the number of parts is flipped.
 
 \textbf{Step 1: $|\alpha(S)| = |S| - 1$.}
@@ -758,11 +758,11 @@ Net change: $+2 - 1 = +1$. So $|\beta(S)| = |S| + 1$, flipping parity.
 \end{itemize}
 \end{proof}
 
-\begin{lemma}\label{lemma:alpha-odd-eq-beta-even}\lean{DPalpha_odd_card_eq_DPbeta_even_card, DPalpha_even_card_eq_DPbeta_odd_card}\uses{def:P-alpha-beta-special, def:distinct-partitions}
+\begin{lemma}\label{lemma:alpha-odd-eq-beta-even}\lean{DPalpha_odd_card_eq_DPbeta_even_card, DPalpha_even_card_eq_DPbeta_odd_card}\uses{def:P-alpha-beta-special, def:distinct-partitions}\leanok
 $$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|,$$
 $$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|.$$
 \end{lemma}
-\begin{proof}\uses{lemma:alpha-beta-change-parity, lemma:alpha-beta-bijection}
+\begin{proof}\uses{lemma:alpha-beta-change-parity, lemma:alpha-beta-bijection}\leanok
 Lemma~\ref{lemma:alpha-beta-change-parity} shows that $\alpha$ restricts to bijections
 $\mathcal{P}_\alpha(n) \cap \mathcal{P}_{\mathrm{odd}}(n) \to \mathcal{P}_\beta(n) \cap \mathcal{P}_{\mathrm{even}}(n)$
 and
@@ -770,13 +770,13 @@ $\mathcal{P}_\alpha(n) \cap \mathcal{P}_{\mathrm{even}}(n) \to \mathcal{P}_\beta
 (with inverse $\beta$, by Lemma~\ref{lemma:alpha-beta-bijection}). Equal cardinalities follow.
 \end{proof}
 
-\begin{lemma}\label{lemma:pe-minus-po-closed-form}\lean{pe_minus_po_eq_special, pe_minus_po_zero, pe_minus_po_nonpent, pe_minus_po_pent_minus, pe_minus_po_pent_plus}\uses{def:distinct-partitions}
+\begin{lemma}\label{lemma:pe-minus-po-closed-form}\lean{pe_minus_po_eq_special, pe_minus_po_zero, pe_minus_po_nonpent, pe_minus_po_pent_minus, pe_minus_po_pent_plus}\uses{def:distinct-partitions}\leanok
 $$p_e(n)-p_o(n)=
 \begin{cases}(-1)^k,&\mbox{ if } n= \frac{3k^2\pm k}{2} \text{ for some } k \in \mathbb{Z}_{\geq 1},\\
 1, & \mbox{ if } n = 0,\\
 0, & \mbox{otherwise.}\end{cases}$$
 \end{lemma}
-\begin{proof}\uses{lemma:alpha-beta-special, lemma:alpha-odd-eq-beta-even, lemma:special}
+\begin{proof}\uses{lemma:alpha-beta-special, lemma:alpha-odd-eq-beta-even, lemma:special}\leanok
 \textbf{Step 0: $n = 0$.} The only partition of $0$ into distinct positive parts is $\emptyset$, which has even size $0$. So $p_e(0) = 1$, $p_o(0) = 0$, and $p_e(0) - p_o(0) = 1 = (-1)^0$.
 
 \textbf{Step 1: Reduction to special partitions.} For $n \geq 1$,
