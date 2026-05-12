@@ -117,18 +117,61 @@ coefficient because factors with `k > n` are `≡ 1 mod X^{n+1}`.)
 theorem coeff_prod_eq_pe_sub_po (n : ℕ) :
     (coeff n) (∏ k ∈ Finset.Icc 1 n, (1 - X^k : ℤ⟦X⟧)) = (pe n : ℤ) - po n := by
   rw [coeff_prod_eq_signed_partition_sum, signed_partition_sum_eq_pe_sub_po]
-/-! ## Section 2: Pentagonal Number Theorem (Theorem 7) -/
-/-- **Theorem 7, Euler's Pentagonal Number Theorem (Source)**:
-`∏_{i≥1} (1 - xⁱ) = 1 + ∑_{k≥1} (-1)^k (x^{(3k²-k)/2} + x^{(3k²+k)/2})`
-              `= ∑_{k∈ℤ} (-1)^k x^{(3k²-k)/2}`.
-This follows from Lemma 5 (the coefficient of `xⁿ` in `∏(1-xⁱ)` is `pe(n)-po(n)`)
-combined with Lemma 24 (the closed form for `pe(n)-po(n)` via Franklin's involution).
-Both ingredients are fully proved in `Lemmas.lean`.
-The formal power series formulation would be:
-`∏_{k=1}^∞ (1 - X^k) = ∑_{n} cₙ X^n` in `ℤ[[X]]` where the coefficients `cₙ`
-are as determined by `pe_minus_po_zero`, `pe_minus_po_nonpent`,
-`pe_minus_po_pent_minus`, `pe_minus_po_pent_plus`. -/
-theorem pentagonal_number_theorem_informal : True := trivial
+/-! ## Section 2: Pentagonal Number Theorem (Theorem 7)
+
+Euler's Pentagonal Number Theorem in formal-power-series form:
+$$
+  \prod_{i=1}^{\infty}(1 - X^i)
+  \;=\; \sum_{k \in \mathbb{Z}} (-1)^k\, X^{(3k ^ 2 - k)/2}
+  \;=\; 1 + \sum_{k \geq 1} (-1)^k\bigl(X^{(3k ^ 2-k)/2} + X^{(3k ^ 2+k)/2}\bigr).
+$$
+For the coefficient of `X^n`, only factors `(1 - X^k)` with `k ≤ n` matter
+(those with `k > n` are `≡ 1 mod X^{n+1}`), so we work with the truncated
+product `∏_{k=1}^{n}(1 - X^k)`.
+
+The coefficient-by-coefficient identity is the conjunction of four cases
+matching Aristotle's `pe_minus_po_*` lemmas. Each case is a one-line
+composition: Lemma 5 (`coeff_prod_eq_pe_sub_po`) turns the coefficient into
+`p_e(n) - p_o(n)`, which the matching `pe_minus_po_*` lemma evaluates.
+-/
+
+/--
+**PNT (Euler), zero case.** `[X^0] ∏_{k=1}^{0}(1 - X^k) = 1`.
+(The product is empty, so this is just `coeff 0 1 = 1`; we state it via
+`coeff_prod_eq_pe_sub_po` for uniformity with the other cases.)
+-/
+theorem coeff_prod_pentagonal_zero :
+    (coeff 0) (∏ k ∈ Finset.Icc 1 0, (1 - X^k : ℤ⟦X⟧)) = 1 := by
+  rw [coeff_prod_eq_pe_sub_po]; exact pe_minus_po_zero
+
+/--
+**PNT (Euler), non-pentagonal case.** For `n ≥ 1` with `2n` not of the
+form `3k² - k` nor `3k² + k` for any `k ≥ 1`,
+`[X^n] ∏_{k=1}^{n}(1 - X^k) = 0`.
+-/
+theorem coeff_prod_pentagonal_nonpent (n : ℕ) (hn : 1 ≤ n)
+    (h1 : ∀ k, 1 ≤ k → 2 * n ≠ 3 * k ^ 2 - k)
+    (h2 : ∀ k, 1 ≤ k → 2 * n ≠ 3 * k ^ 2 + k) :
+    (coeff n) (∏ k ∈ Finset.Icc 1 n, (1 - X^k : ℤ⟦X⟧)) = 0 := by
+  rw [coeff_prod_eq_pe_sub_po]; exact pe_minus_po_nonpent n hn h1 h2
+
+/--
+**PNT (Euler), pentagonal `(3k²-k)/2` case.** If `2n = 3k² - k` for some
+`k ≥ 1` (equivalently, `n = (3k²-k)/2`), then
+`[X^n] ∏_{k'=1}^{n}(1 - X^{k'}) = (-1)^k`.
+-/
+theorem coeff_prod_pentagonal_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 - k) :
+    (coeff n) (∏ k' ∈ Finset.Icc 1 n, (1 - X^k' : ℤ⟦X⟧)) = (-1)^k := by
+  rw [coeff_prod_eq_pe_sub_po]; exact pe_minus_po_pent_minus n k hk hn
+
+/--
+**PNT (Euler), pentagonal `(3k²+k)/2` case.** If `2n = 3k² + k` for some
+`k ≥ 1` (equivalently, `n = (3k²+k)/2`), then
+`[X^n] ∏_{k'=1}^{n}(1 - X^{k'}) = (-1)^k`.
+-/
+theorem coeff_prod_pentagonal_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 + k) :
+    (coeff n) (∏ k' ∈ Finset.Icc 1 n, (1 - X^k' : ℤ⟦X⟧)) = (-1)^k := by
+  rw [coeff_prod_eq_pe_sub_po]; exact pe_minus_po_pent_plus n k hk hn
 /-! ## Remark 8: Pentagonal numbers table -/
 /-- **Remark 8 (Source)**: Table of generalized pentagonal numbers `(3k²-k)/2`:
 k = -3: 15, k = -2: 7, k = -1: 2, k = 0: 0, k = 1: 1, k = 2: 5, k = 3: 12. -/

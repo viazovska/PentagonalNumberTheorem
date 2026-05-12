@@ -115,11 +115,11 @@ $7$&$7=6+1=5+2=4+3=4+2+1$&$2$&$3$\\
 
 \section{Pentagonal number theorem}
 
-\begin{theorem}[Euler]\label{thm:euler-pentagonal}\lean{euler_pentagonal_number_theorem}\uses{def:distinct-partitions}
+\begin{theorem}[Euler]\label{thm:euler-pentagonal}\lean{coeff_prod_pentagonal_zero, coeff_prod_pentagonal_nonpent, coeff_prod_pentagonal_minus, coeff_prod_pentagonal_plus}\leanok\uses{def:distinct-partitions}
 $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\,=\,
 \sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
 \end{theorem}
-\begin{proof}\uses{lemma:expansion-product, lemma:pe-minus-po-closed-form}
+\begin{proof}\leanok\uses{lemma:expansion-product, lemma:pe-minus-po-closed-form}
 The proof combines the previous expansion lemma with the closed-form computation of $p_e(n) - p_o(n)$ via Franklin's involution.
 
 \textbf{Step 1: Coefficient identification.}
