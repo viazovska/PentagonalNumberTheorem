@@ -66,12 +66,12 @@ We further define the number of even and odd partitions of $n$ as $p_e(n) = |\ma
 \end{definition}
 
 
-\begin{lemma}\label{lemma:expansion-product}\uses{def:distinct-partitions}
+\begin{lemma}\label{lemma:expansion-product}\lean{coeff_prod_eq_pe_sub_po, coeff_prod_eq_signed_partition_sum, signed_partition_sum_eq_pe_sub_po}\leanok\uses{def:distinct-partitions}
 We have
 $$\prod_{k=1}^{\infty}(1-x^k)\,=\,\sum_{s=0}^\infty\,\sum_{k_1<k_2<\cdots<k_s}(-1)^s\,x^{k_1+k_2+\ldots+k_s}\,=\,\sum_{n=0}^\infty c_n\, x^n$$
 where $c_0=1$ and $c_n=p_e(n)-p_o(n)$ for $n\geq 1$.
 \end{lemma}
-\begin{proof}
+\begin{proof}\leanok
 We expand the infinite product as a formal power series.
 
 \textbf{Step 1: Expansion as a sum over finite subsets.}

@@ -6,6 +6,9 @@ DPeven
 DPodd
 pe
 po
+coeff_prod_eq_pe_sub_po
+coeff_prod_eq_signed_partition_sum
+signed_partition_sum_eq_pe_sub_po
 euler_pentagonal_number_theorem
 base
 partBase
