@@ -618,4 +618,7 @@ then `p_e(n) − p_o(n) = (−1)^k`.
 theorem pe_minus_po_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 + k) :
     (pe n : ℤ) - po n = (-1) ^ k := by
       rw [ pe_minus_po_eq_special, DPspecial_pent_plus n k hk hn ];
-      rw [ Finset.filter_singleton, Finset.filter_singleton ] ; rcases Nat.even_or_odd' k with ⟨ c, rfl | rfl ⟩ <;> norm_num [ Nat.add_mod, Nat.mul_mod, SpkSet_card _ hk ]
+      rw [ Finset.filter_singleton, Finset.filter_singleton ]
+      rcases Nat.even_or_odd' k with ⟨ c, rfl | rfl ⟩ <;>
+        norm_num [ Nat.add_mod, Nat.mul_mod, SpkSet_card _ hk ]
+      exact (Odd.neg_one_pow ⟨c, rfl⟩).symm

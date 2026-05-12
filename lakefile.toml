@@ -1,7 +1,7 @@
 name = "my_project"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["MyProject", "PentagonalNumberTheorem"]
+defaultTargets = ["MyProject", "PentagonalNumberTheorem", "Aristotle"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
