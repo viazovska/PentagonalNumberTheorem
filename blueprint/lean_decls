@@ -1,3 +1,7 @@
+p_count
+pGenFun
+coeff_pGenFun_eq_p_count
+pGenFun_eq_prod
 all_distinct_partitions
 even_distinct_partitions
 odd_distinct_partitions

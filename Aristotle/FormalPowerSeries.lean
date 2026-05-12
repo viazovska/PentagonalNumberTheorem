@@ -3,6 +3,7 @@ import Aristotle.Defs
 import Aristotle.Helpers
 import Aristotle.Lemmas
 open Finset PowerSeries
+open scoped PowerSeries.WithPiTopology
 set_option maxHeartbeats 4000000
 /-! # Pentagonal Number Theorem — Formal Power Series Statements
 This file contains the formal power series identities from the source document
@@ -10,15 +11,45 @@ This file contains the formal power series identities from the source document
 These results connect the combinatorial content (proved in `Lemmas.lean`)
 to the algebraic identities involving generating functions.
 -/
-/-! ## Section 1: Generating function for p(n) -/
--- **Definition 1 (Source)**: The partition function `p(n)` counts the number of partitions
--- of `n` (with repetition allowed). The key results of this formalization concern partitions
--- into *distinct* parts (Definition 4), which are fully formalized in `Defs.lean`.
-/-- **Lemma 3 (Source)**: The generating function for `p(n)` satisfies
-`∑ p(n) xⁿ = ∏_{k≥1} (1 - x^k)⁻¹` as a formal power series identity in `ℤ[[x]]`.
-This is stated informally; the combinatorial core of the pentagonal number theorem
-(Lemma 24) is fully proved in `Lemmas.lean`. -/
-theorem lemma3_informal : True := trivial
+/-! ## Section 1: Generating function for p(n)
+
+The partition function `p(n)` counts the partitions of `n` with repetition
+allowed. Mathlib provides the structure `Nat.Partition n` together with a
+`Fintype` instance, so we identify `p(n) := Fintype.card (Nat.Partition n)`.
+
+Mathlib's `Nat.Partition.genFun` constructs, for any character `f`, the
+power series whose `n`-th coefficient is `∑_{p ∈ n.Partition} ∏_{i ∈ p} f i #i`.
+For `f = (fun _ _ => 1)` (the trivial character), each partition contributes
+`1`, so the `n`-th coefficient is exactly the count `p(n)`. The product
+representation comes from `Nat.Partition.genFun_eq_tprod`.
+-/
+
+/-- The unrestricted partition count `p(n)`: the number of ways to write
+`n` as a sum of positive integers (with repetition allowed, order ignored). -/
+noncomputable def p_count (n : ℕ) : ℕ := Fintype.card n.Partition
+
+/-- The generating function for `p_count`: a formal power series in `ℤ⟦X⟧`
+whose coefficients are the partition counts. -/
+noncomputable def pGenFun : ℤ⟦X⟧ := Nat.Partition.genFun fun _ _ => (1 : ℤ)
+
+/--
+**Lemma 3 (combinatorial side).** The `n`-th coefficient of the partition
+generating function is `p(n)`.
+-/
+theorem coeff_pGenFun_eq_p_count (n : ℕ) :
+    (coeff n) pGenFun = (p_count n : ℤ) := by
+  simp [pGenFun, Nat.Partition.coeff_genFun, p_count, Finsupp.prod_fun_one]
+
+/--
+**Lemma 3 (product side).** The generating function equals the formal product
+`∏_{k≥1} (1 + X^k + X^{2k} + ...)` (the geometric series expansion of each
+`(1 - X^k)^{-1}`). The product is taken in the X-adic topology on `ℤ⟦X⟧`,
+where it converges (each `[X^n]` only sees finitely many factors).
+-/
+theorem pGenFun_eq_prod :
+    pGenFun
+      = ∏' i, ((1 : ℤ⟦X⟧) + ∑' j, (1 : ℤ) • X^((i+1)*(j+1))) :=
+  Nat.Partition.genFun_eq_tprod (fun _ _ => (1 : ℤ))
 /-! ## Section 1: Product expansion (Lemma 5)
 
 The coefficient of `X^n` in the infinite product `∏_{k≥1}(1 - X^k)` equals
