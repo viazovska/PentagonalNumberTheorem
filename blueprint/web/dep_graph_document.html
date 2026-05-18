@@ -63,6 +63,39 @@
 <div id="statements">
 
     
+    <div class="dep-modal-container" id="a0000000098_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="a0000000098" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">26</span><span class="theorem_thmtitle">Euler</span></div>
+    <div class="thm_thmcontent"><p> For \(|q| {\lt} 1\), </p>
+<div class="displaymath" id="a0000000100">
+  \[  \prod _{n=1}^\infty (1 - q^n) = \sum _{k = -\infty }^\infty (-1)^k q^{k(3k-1)/2} = 1 + \sum _{k=1}^\infty (-1)^k \left( q^{k(3k-1)/2} + q^{k(3k+1)/2} \right).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#a0000000098">LaTeX</a>
+    
+    
+  
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
     <div class="dep-modal-container" id="def:alpha-beta-ops_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
@@ -291,6 +324,108 @@
 
 
     
+    <div class="dep-modal-container" id="def:qBinom_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:qBinom" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">33</span><span class="definition_thmtitle">Gaussian binomial coefficient</span></div>
+    <div class="thm_thmcontent"><p>The Gaussian binomial coefficient \(\binom {n}{k}_q \in R\) is defined by recursion on \(n\) and \(k\): </p>
+<div class="displaymath" id="a0000000141">
+  \[  \begin{aligned}  \binom {0}{0}_q & = 1, &  \binom {0}{k+1}_q & = 0, \\ \binom {n+1}{0}_q & = 1, &  \binom {n+1}{k+1}_q & = \binom {n}{k+1}_q + q^{n-k}\, \binom {n}{k}_q. \end{aligned}  \]
+</div>
+<p> This is the \(q\)-Pascal recurrence in the form stated in Lemma&#160;<a href="index.html#lem:qpascal">29</a> (with the index shift \(k \mapsto k+1\)). By construction \(\binom {n}{k}_q\) is a polynomial in \(q\) with integer coefficients, defined for every pair \((n, k) \in \mathbb {N}^2\) (no division, no roots-of-unity exclusion). </p>
+</div>
+
+    <a class="latex_link" href="index.html#def:qBinom">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:qPochhammer_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:qPochhammer" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">30</span><span class="definition_thmtitle">Finite \(q\)-Pochhammer symbol</span></div>
+    <div class="thm_thmcontent"><p>For \(n \in \mathbb {N}\), the finite \(q\)-Pochhammer symbol is </p>
+<div class="displaymath" id="a0000000136">
+  \[  (a; q)_n \; :=\;  \prod _{k = 0}^{n - 1} \bigl(1 - a\,  q^k\bigr).  \]
+</div>
+<p> In Lean, this is implemented as <span class="ttfamily">\(\prod \) k \(\in \) Finset.range n, (1 - a * q^k)</span>, specialising to \((a; q)_0 = 1\) (the empty product). </p>
+</div>
+
+    <a class="latex_link" href="index.html#def:qPochhammer">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:qPochhammerInf_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:qPochhammerInf" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">37</span><span class="definition_thmtitle">Infinite \(q\)-Pochhammer symbol</span></div>
+    <div class="thm_thmcontent">
+<div class="displaymath" id="a0000000149">
+  \[  (a; q)_\infty \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\,  q^k\bigr) \; \in \;  \mathbb {C},  \]
+</div>
+<p> defined unconditionally via <span class="ttfamily">tprod</span>. The value is mathematically meaningful (and the product is convergent) under the hypothesis \(\| q\|  {\lt} 1\) provided by Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">38</a>. </p>
+</div>
+
+    <a class="latex_link" href="index.html#def:qPochhammerInf">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammerInf">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
     <div class="dep-modal-container" id="def:staircase-sets_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
@@ -319,6 +454,226 @@
         
       </ul>
   </div>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:multipliable-one-sub-smul-qpow_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:multipliable-one-sub-smul-qpow" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">38</span><span class="lemma_thmtitle">Multipliability</span></div>
+    <div class="thm_thmcontent"><p> For \(a, q \in \mathbb {C}\) with \(\| q\|  {\lt} 1\), the family \(k \mapsto 1 - a\,  q^k\) is multipliable; in particular the partial products converge to \((a; q)_\infty \). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:multipliable-one-sub-smul-qpow">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.multipliable_one_sub_smul_qpow">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:qBinom-closed-form_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:qBinom-closed-form" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">36</span><span class="lemma_thmtitle">Closed form for \(\binom {n}{k}_q\)</span></div>
+    <div class="thm_thmcontent"><p> For all \(k \leq n\), </p>
+<div class="displaymath" id="a0000000146">
+  \[  \binom {n}{k}_q \cdot (q; q)_k \cdot (q; q)_{n - k} \; =\;  (q; q)_n.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#lem:qBinom-closed-form">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_mul_qPochhammer_mul_qPochhammer">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:qBinom-eq-zero-of-lt_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:qBinom-eq-zero-of-lt" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">34</span><span class="lemma_thmtitle">Vanishing above the diagonal</span></div>
+    <div class="thm_thmcontent"><p> If \(n {\lt} k\), then \(\binom {n}{k}_q = 0\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:qBinom-eq-zero-of-lt">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_eq_zero_of_lt">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:qBinom-self_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:qBinom-self" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">35</span><span class="lemma_thmtitle">Diagonal</span></div>
+    <div class="thm_thmcontent"><p> \(\binom {n}{n}_q = 1\) for every \(n \in \mathbb {N}\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:qBinom-self">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_self">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:qpascal_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:qpascal" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">29</span><span class="lemma_thmtitle">\(q\)-Pascal</span></div>
+    <div class="thm_thmcontent"><p> For all \(n, k \in \mathbb {N}\), </p>
+<div class="displaymath" id="a0000000114">
+  \[  \binom {n+1}{k+1}_q \; =\;  \binom {n}{k+1}_q + q^{n - k}\, \binom {n}{k}_q.  \]
+</div>
+<p> (Equivalently, with \(k \geq 1\): \(\binom {n+1}{k}_q = \binom {n}{k}_q + q^{n - k + 1}\binom {n}{k-1}_q\). A symmetric form \(\binom {n+1}{k+1}_q = q^{k+1}\binom {n}{k+1}_q + \binom {n}{k}_q\) also holds; we use the first.) </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:qpascal">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_succ_succ">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:qPochhammer-succ_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:qPochhammer-succ" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">32</span><span class="lemma_thmtitle">Recurrence</span></div>
+    <div class="thm_thmcontent"><p> For all \(n \in \mathbb {N}\), </p>
+<div class="displaymath" id="a0000000139">
+  \[  (a; q)_{n+1} \; =\;  (a; q)_n \cdot \bigl(1 - a\,  q^n\bigr).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#lem:qPochhammer-succ">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer_succ">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:qPochhammer-zero_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:qPochhammer-zero" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">31</span><span class="lemma_thmtitle">Base case</span></div>
+    <div class="thm_thmcontent"><p> \((a; q)_0 = 1\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:qPochhammer-zero">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer_zero">Lean</a>
     
     
   
@@ -924,28 +1279,128 @@
 
 
     
-    <div class="dep-modal-container" id="thm:jacobi-triple-product_modal">
+    <div class="dep-modal-container" id="thm:jtp_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
 <svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
 </button>
         
-  <div class="thm" id="thm:jacobi-triple-product" style="display: none">
+  <div class="thm" id="thm:jtp" style="display: none">
     <div class="thm_thmheading">
       <span class="theorem_thmcaption">
       Theorem
       </span>
-      <span class="theorem_thmlabel">25</span></div>
-    <div class="thm_thmcontent"><p> For all \(w\neq 0\) and \(q\) with \(|q|{\lt}1\): </p>
+      <span class="theorem_thmlabel">25</span><span class="theorem_thmtitle">Jacobi triple product</span></div>
+    <div class="thm_thmcontent"><p> For all \(w \in \mathbb {C}^\times \) and \(q \in \mathbb {C}\) with \(|q| {\lt} 1\): </p>
 <div class="displaymath" id="a0000000075">
-  \[ \prod _{k=1}^\infty (1-q^{2k})\, (1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2})=\sum _{k=-\infty }^\infty (-1)^k\, w^{2k}\, q^{k^2}. \]
+  \[  \prod _{k=1}^{\infty } (1 - q^{2k})(1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2}) \; =\;  \sum _{k=-\infty }^{\infty } (-1)^k w^{2k} q^{k^2}.  \]
 </div>
 </div>
 
-    <a class="latex_link" href="index.html#thm:jacobi-triple-product">LaTeX</a>
+    <a class="latex_link" href="index.html#thm:jtp">LaTeX</a>
     
     
   
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:qbin-finite_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:qbin-finite" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">27</span><span class="theorem_thmtitle">Finite \(q\)-binomial theorem</span></div>
+    <div class="thm_thmcontent"><p> In \(\mathbb {Z}[q, z]\), for every \(n \geq 0\), </p>
+<div class="displaymath" id="a0000000110">
+  \[  \prod _{k=0}^{n-1} (1 + z q^k) = \sum _{k=0}^n q^{\binom {k}{2}} \binom {n}{k}_q z^k.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:qbin-finite">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_finite_thm">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:qbin-infinite_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:qbin-infinite" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">28</span><span class="theorem_thmtitle">Infinite \(q\)-binomial / Cauchy identity</span></div>
+    <div class="thm_thmcontent"><p> For \(|q| {\lt} 1\) and any \(a, z \in \mathbb {C}\) with \(|z| {\lt} 1\), </p>
+<div class="displaymath" id="a0000000111">
+  \[  \sum _{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(a z; q)_\infty }{(z; q)_\infty }.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:qbin-infinite">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_infinite_thm">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:qbin-infinite-formalized_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:qbin-infinite-formalized" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">39</span><span class="theorem_thmtitle">Infinite \(q\)-binomial / Cauchy identity, restated for the formal development</span></div>
+    <div class="thm_thmcontent"><p> For \(a, z, q \in \mathbb {C}\) with \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
+<div class="displaymath" id="a0000000151">
+  \[  \mathrm{HasSum}\Bigl(n \mapsto \tfrac {(a; q)_n}{(q; q)_n}\,  z^n,\;  \tfrac {(a z; q)_\infty }{(z; q)_\infty }\Bigr).  \]
+</div>
+<p> (Equivalent to Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a>.) The Lean statement is <span class="ttfamily">qSeries.qBinom_infinite_thm</span> in <span class="ttfamily">Series/qSeries.lean</span>; the proof is currently a stub (<span class="ttfamily">sorry</span>). The standard route is to take \(n \to \infty \) in the finite identity (a Cauchy-type analog of Theorem&#160;<a href="index.html#thm:qbin-finite">27</a>), applying dominated convergence on the summable side and multipliability (Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">38</a>) on the product side. </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:qbin-infinite-formalized">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_infinite_thm">Lean</a>
     
     
   
@@ -973,7 +1428,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lemma:alpha-after-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-after-beta",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-bijection",		shape=ellipse,		style=filled];	"lemma:alpha-after-beta" -> "lemma:alpha-beta-bijection";	"lemma:P-alpha-card-eq-P-beta-card"	[color=green,		fillcolor="#1CAC78",		label="P-alpha-card-eq-P-beta-card",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:P-alpha-card-eq-P-beta-card";	"lemma:alpha-odd-eq-beta-even"	[color=green,		fillcolor="#1CAC78",		label="alpha-odd-eq-beta-even",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:alpha-odd-eq-beta-even";	"lemma:pe-minus-po-closed-form"	[color=green,		fillcolor="#1CAC78",		label="pe-minus-po-closed-form",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even" -> "lemma:pe-minus-po-closed-form";	"thm:euler-pentagonal"	[color=green,		fillcolor="#1CAC78",		label="euler-pentagonal",		shape=ellipse,		style=filled];	"lemma:pe-minus-po-closed-form" -> "thm:euler-pentagonal";	"lemma:alpha-beta-change-parity"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-change-parity",		shape=ellipse,		style=filled];	"lemma:alpha-beta-change-parity" -> "lemma:alpha-odd-eq-beta-even";	"lemma:beta-lands-in-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-lands-in-alpha",		shape=ellipse,		style=filled];	"lemma:beta-lands-in-alpha" -> "lemma:alpha-after-beta";	"lemma:beta-lands-in-alpha" -> "lemma:alpha-beta-change-parity";	"def:alpha-beta-ops"	[color=green,		fillcolor="#B0ECA3",		label="alpha-beta-ops",		shape=box,		style=filled];	"def:alpha-beta-ops" -> "lemma:beta-lands-in-alpha"	[style=dashed];	"lemma:alpha-lands-in-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-lands-in-beta",		shape=ellipse,		style=filled];	"def:alpha-beta-ops" -> "lemma:alpha-lands-in-beta"	[style=dashed];	"lemma:alpha-lands-in-beta" -> "lemma:alpha-beta-change-parity";	"lemma:beta-after-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-after-alpha",		shape=ellipse,		style=filled];	"lemma:alpha-lands-in-beta" -> "lemma:beta-after-alpha";	"lemma:beta-after-alpha" -> "lemma:alpha-beta-bijection";	"lemma:gen-func-p"	[color=green,		fillcolor="#1CAC78",		label="gen-func-p",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special" -> "lemma:pe-minus-po-closed-form";	"def:partition"	[color=blue,		fillcolor="#A3D6FF",		label=partition,		shape=box,		style=filled];	"def:partition" -> "lemma:gen-func-p"	[style=dashed];	"def:distinct-partitions"	[color=green,		fillcolor="#B0ECA3",		label="distinct-partitions",		shape=box,		style=filled];	"def:partition" -> "def:distinct-partitions"	[style=dashed];	"def:base-slope"	[color=green,		fillcolor="#B0ECA3",		label="base-slope",		shape=box,		style=filled];	"def:distinct-partitions" -> "def:base-slope"	[style=dashed];	"lemma:expansion-product"	[color=green,		fillcolor="#1CAC78",		label="expansion-product",		shape=ellipse,		style=filled];	"def:distinct-partitions" -> "lemma:expansion-product"	[style=dashed];	"def:P-alpha-beta-special"	[color=green,		fillcolor="#B0ECA3",		label="P-alpha-beta-special",		shape=box,		style=filled];	"def:base-slope" -> "def:P-alpha-beta-special"	[style=dashed];	"lemma:expansion-product" -> "thm:euler-pentagonal";	"def:P-alpha-beta-special" -> "def:alpha-beta-ops"	[style=dashed];	"lemma:alpha-beta-special-disjoint"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special-disjoint",		shape=ellipse,		style=filled];	"def:P-alpha-beta-special" -> "lemma:alpha-beta-special-disjoint"	[style=dashed];	"lemma:special"	[color=green,		fillcolor="#1CAC78",		label=special,		shape=ellipse,		style=filled];	"def:P-alpha-beta-special" -> "lemma:special"	[style=dashed];	"lemma:alpha-beta-special-disjoint" -> "lemma:alpha-beta-special";	"lemma:special" -> "lemma:pe-minus-po-closed-form";	"def:staircase-sets"	[color=green,		fillcolor="#B0ECA3",		label="staircase-sets",		shape=box,		style=filled];	"def:staircase-sets" -> "lemma:special"	[style=dashed];	"thm:jacobi-triple-product"	[color=blue,		label="jacobi-triple-product",		shape=ellipse];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lem:qPochhammer-zero"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-zero",		shape=ellipse,		style=filled];	"thm:jtp"	[color=blue,		label=jtp,		shape=ellipse];	"thm:qbin-infinite-formalized"	[color=blue,		label="qbin-infinite-formalized",		shape=ellipse];	"lemma:alpha-after-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-after-beta",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-bijection",		shape=ellipse,		style=filled];	"lemma:alpha-after-beta" -> "lemma:alpha-beta-bijection";	"lemma:P-alpha-card-eq-P-beta-card"	[color=green,		fillcolor="#1CAC78",		label="P-alpha-card-eq-P-beta-card",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:P-alpha-card-eq-P-beta-card";	"lemma:alpha-odd-eq-beta-even"	[color=green,		fillcolor="#1CAC78",		label="alpha-odd-eq-beta-even",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:alpha-odd-eq-beta-even";	"lemma:pe-minus-po-closed-form"	[color=green,		fillcolor="#1CAC78",		label="pe-minus-po-closed-form",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even" -> "lemma:pe-minus-po-closed-form";	"thm:euler-pentagonal"	[color=green,		fillcolor="#1CAC78",		label="euler-pentagonal",		shape=ellipse,		style=filled];	"lemma:pe-minus-po-closed-form" -> "thm:euler-pentagonal";	"lemma:expansion-product"	[color=green,		fillcolor="#1CAC78",		label="expansion-product",		shape=ellipse,		style=filled];	"lemma:expansion-product" -> "thm:euler-pentagonal";	"lemma:beta-after-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-after-alpha",		shape=ellipse,		style=filled];	"lemma:beta-after-alpha" -> "lemma:alpha-beta-bijection";	"lemma:alpha-lands-in-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-lands-in-beta",		shape=ellipse,		style=filled];	"lemma:alpha-lands-in-beta" -> "lemma:beta-after-alpha";	"lemma:alpha-beta-change-parity"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-change-parity",		shape=ellipse,		style=filled];	"lemma:alpha-lands-in-beta" -> "lemma:alpha-beta-change-parity";	"lemma:alpha-beta-change-parity" -> "lemma:alpha-odd-eq-beta-even";	"def:staircase-sets"	[color=green,		fillcolor="#B0ECA3",		label="staircase-sets",		shape=box,		style=filled];	"lemma:special"	[color=green,		fillcolor="#1CAC78",		label=special,		shape=ellipse,		style=filled];	"def:staircase-sets" -> "lemma:special"	[style=dashed];	"lemma:special" -> "lemma:pe-minus-po-closed-form";	"def:alpha-beta-ops"	[color=green,		fillcolor="#B0ECA3",		label="alpha-beta-ops",		shape=box,		style=filled];	"def:alpha-beta-ops" -> "lemma:alpha-lands-in-beta"	[style=dashed];	"lemma:beta-lands-in-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-lands-in-alpha",		shape=ellipse,		style=filled];	"def:alpha-beta-ops" -> "lemma:beta-lands-in-alpha"	[style=dashed];	"lemma:beta-lands-in-alpha" -> "lemma:alpha-after-beta";	"lemma:beta-lands-in-alpha" -> "lemma:alpha-beta-change-parity";	"def:qBinom"	[color=green,		fillcolor="#B0ECA3",		label=qBinom,		shape=box,		style=filled];	"lem:qBinom-eq-zero-of-lt"	[color=green,		fillcolor="#1CAC78",		label="qBinom-eq-zero-of-lt",		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qBinom-eq-zero-of-lt"	[style=dashed];	"lem:qpascal"	[color=green,		fillcolor="#1CAC78",		label=qpascal,		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qpascal"	[style=dashed];	"lem:qBinom-self"	[color=green,		fillcolor="#1CAC78",		label="qBinom-self",		shape=ellipse,		style=filled];	"lem:qBinom-eq-zero-of-lt" -> "lem:qBinom-self"	[style=dashed];	"thm:qbin-finite"	[color=green,		fillcolor="#1CAC78",		label="qbin-finite",		shape=ellipse,		style=filled];	"lem:qBinom-eq-zero-of-lt" -> "thm:qbin-finite";	"lem:qpascal" -> "thm:qbin-finite";	"lem:qBinom-closed-form"	[color=green,		fillcolor="#1CAC78",		label="qBinom-closed-form",		shape=ellipse,		style=filled];	"lem:qBinom-self" -> "lem:qBinom-closed-form"	[style=dashed];	"def:qPochhammerInf"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammerInf,		shape=box,		style=filled];	"thm:qbin-infinite"	[color=blue,		label="qbin-infinite",		shape=ellipse];	"def:qPochhammerInf" -> "thm:qbin-infinite"	[style=dashed];	"lem:multipliable-one-sub-smul-qpow"	[color=green,		fillcolor="#1CAC78",		label="multipliable-one-sub-smul-qpow",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:multipliable-one-sub-smul-qpow"	[style=dashed];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite-formalized"	[style=dashed];	"lemma:gen-func-p"	[color=green,		fillcolor="#1CAC78",		label="gen-func-p",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special" -> "lemma:pe-minus-po-closed-form";	"lemma:alpha-beta-special-disjoint"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special-disjoint",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special-disjoint" -> "lemma:alpha-beta-special";	"def:partition"	[color=blue,		fillcolor="#A3D6FF",		label=partition,		shape=box,		style=filled];	"def:partition" -> "lemma:gen-func-p"	[style=dashed];	"def:distinct-partitions"	[color=green,		fillcolor="#B0ECA3",		label="distinct-partitions",		shape=box,		style=filled];	"def:partition" -> "def:distinct-partitions"	[style=dashed];	"def:distinct-partitions" -> "lemma:expansion-product"	[style=dashed];	"def:base-slope"	[color=green,		fillcolor="#B0ECA3",		label="base-slope",		shape=box,		style=filled];	"def:distinct-partitions" -> "def:base-slope"	[style=dashed];	"def:P-alpha-beta-special"	[color=green,		fillcolor="#B0ECA3",		label="P-alpha-beta-special",		shape=box,		style=filled];	"def:base-slope" -> "def:P-alpha-beta-special"	[style=dashed];	"def:P-alpha-beta-special" -> "lemma:special"	[style=dashed];	"def:P-alpha-beta-special" -> "def:alpha-beta-ops"	[style=dashed];	"def:P-alpha-beta-special" -> "lemma:alpha-beta-special-disjoint"	[style=dashed];	"def:qPochhammer"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammer,		shape=box,		style=filled];	"def:qPochhammer" -> "lem:qPochhammer-zero"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite-formalized"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-finite"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite"	[style=dashed];	"lem:qPochhammer-succ"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-succ",		shape=ellipse,		style=filled];	"def:qPochhammer" -> "lem:qPochhammer-succ"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:qBinom-closed-form"	[style=dashed];	a0000000098	[color=blue,		fillcolor="#A3D6FF",		label=a0000000098,		shape=ellipse,		style=filled];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {

@@ -1,0 +1,573 @@
+\section{Jacobi triple product}
+
+\begin{theorem}[Jacobi triple product]\label{thm:jtp}
+For all $w \in \mathbb{C}^\times$ and $q \in \mathbb{C}$ with $|q| < 1$:
+\[
+\prod_{k=1}^{\infty} (1 - q^{2k})(1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})
+\;=\; \sum_{k=-\infty}^{\infty} (-1)^k w^{2k} q^{k^2}.
+\]
+\end{theorem}
+
+In $q$-Pochhammer notation (with $z = -w^2$):
+\[
+(q^2; q^2)_\infty \, (q z; q^2)_\infty \, (q/z; q^2)_\infty
+\;=\; \sum_{k \in \mathbb{Z}} (-z)^k q^{k^2}.
+\]
+Many references use $(q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum_k z^k q^{k(k-1)/2}$, which is equivalent under $q \mapsto q^2$, $z \mapsto -qw^2$.
+
+\section{Proof 1: Hermite-style coefficient recurrence}
+\label{sec:hermite}
+
+This is the proof in the original outline. The skeleton:
+
+\begin{enumerate}\item Define the partial product $\phi_n(w, q) = \prod_{k=1}^n (1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})$.
+\item Derive the functional equation $\phi_n(qw, q) = \phi_n(w, q) \cdot \frac{1 - q^{2n+1} w^2}{q^{2n} - q w^2}$.
+\item Expand $\phi_n(w, q) = \sum_{k=-n}^n A_{n,k}(q) w^{2k}$ as a Laurent polynomial.
+\item Read off the boundary condition $A_{n,n}(q) = q^{n^2}$ and the recurrence
+\[
+A_{n,k}(q) = A_{n, k-1}(q) \, q^{2k-1} \, \frac{1 - q^{2n - 2k + 2}}{1 - q^{2n + 2k}}.
+\]
+\item Solve in closed form:
+\[
+A_{n,k} = \frac{q^{k^2}}{(q^2; q^2)_n} \prod_{s = n - k + 1}^n (1 - q^{2s}) \prod_{s = n + k + 1}^{2n} (1 - q^{2s}).
+\]
+\item Multiply through by $(q^2; q^2)_n$ and pull out signs to get
+\[
+\prod_{k=1}^n (1 - q^{2k})(1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})
+= \sum_{k=-n}^n (-1)^k w^{2k} q^{k^2} B_{n,k}(q),
+\]
+where $B_{n,k}(q) = 1 + O(q^{n-k+1})$.
+\item Take $n \to \infty$ via dominated convergence on $\mathbb{Z}$.
+\end{enumerate}
+
+\paragraph{Reference.} This is essentially Jacobi's original argument, written up cleanly by many authors; see e.g. Hardy--Wright, \emph{Theory of Numbers}, \S 19.8, or the lecture notes referenced in the outline.
+
+\paragraph{Cost in Lean.} High. The bookkeeping with $A_{n,k}, B_{n,k}$, two interleaved finite products of $1 - q^{2s}$ with $s$ ranges depending on $|k|$, the recurrence with denominators, and the dominated-convergence step on $\mathbb{Z}$ are all individually formalizable but together generate hundreds of small lemmas. Estimate: $\sim 1500$--$2000$ lines.
+
+\section{Proof 2: Euler / $q$-binomial theorem}
+\label{sec:qbin}
+
+\paragraph{The $q$-binomial theorem.} For $|q| < 1$ and $|z| < 1$,
+\[
+\sum_{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(az; q)_\infty}{(z; q)_\infty}.
+\]
+Two specializations due to Euler (the ``$q$-exponentials''):
+\[
+(-z; q)_\infty = \sum_{n=0}^\infty \frac{q^{n(n-1)/2}}{(q; q)_n} z^n, \qquad
+\frac{1}{(z; q)_\infty} = \sum_{n=0}^\infty \frac{z^n}{(q; q)_n} \quad (|z| < 1).
+\]
+
+\paragraph{Andrews' proof (1965).} Combine both Euler identities, multiply, and rearrange so the diagonal terms produce $z^k q^{k(k-1)/2}$. A particularly clean modern version is Zhu's \emph{semi-finite} proof (arXiv:2106.16156, 2 pages): for any $m \geq 0$ and $z \neq 0$,
+\[
+\sum_{n=-m}^\infty \frac{q^{n(n-1)/2} z^n}{(q^{m+1}; q)_n} = (q; q)_m (-q/z; q)_m (-z; q)_\infty,
+\]
+proved by reindexing and applying \emph{only} the first Euler identity. Letting $m \to \infty$ (with $z$ in a compact subset of $\mathbb{C}^\times$) gives Jacobi's identity directly.
+
+\paragraph{References.}
+\begin{itemize}\item G.\,E.\ Andrews, \emph{A simple proof of Jacobi's triple product identity}, Proc.~Amer.~Math.~Soc.\ \textbf{16} (1965), 333--334.
+\item G.\,E.\ Andrews, \emph{The Theory of Partitions}, Cambridge, 1976, Ch.\ 2.
+\item G.\,E.\ Andrews, R.\ Askey, R.\ Roy, \emph{Special Functions}, Cambridge, 1999, Ch.\ 10.
+\item J.-M.\ Zhu, \emph{A semi-finite proof of Jacobi's triple product identity}, arXiv:2106.16156.
+\item A.\,B.\ Shukla, \emph{Tiling proofs of Jacobi triple product and Rogers--Ramanujan identities}, arXiv:2006.03878 (gives a combinatorial proof via the $q$-binomial theorem).
+\end{itemize}
+
+\paragraph{Cost in Lean.} High \emph{up front}, low marginal. You must first develop a small theory of $q$-Pochhammer symbols and prove the $q$-binomial theorem. After that, the Jacobi triple product is a few-line corollary (modulo handling convergence of bilateral series). The infrastructure pays for itself if you later want Euler's pentagonal number theorem, Rogers--Ramanujan, or any other classical $q$-identity.
+
+\section{Proof 3: Complex analysis via quasi-periodicity}
+\label{sec:complex}
+
+This is the proof in Stein--Shakarchi, \emph{Complex Analysis}, Ch.\ 10, \S 1. View both sides as functions of $w$ for $|q| < 1$ fixed; equivalently, view both sides as functions of $z \in \mathbb{C}$ where $w = e^{\pi i z}$ and $q = e^{\pi i \tau}$, $\operatorname{Im} \tau > 0$.
+
+\paragraph{The argument.}
+\begin{enumerate}\item Define $\Theta(z \mid \tau) = \sum_{n \in \mathbb{Z}} e^{\pi i n^2 \tau + 2\pi i n z}$ (the RHS) and
+$\Pi(z \mid \tau) = \prod_{m \geq 1} (1 - q^{2m})(1 + q^{2m-1} e^{2\pi i z})(1 + q^{2m-1} e^{-2\pi i z})$ (the LHS, up to $w \mapsto i w$ to match signs).
+\item Show both are entire in $z$ (uniform convergence on compact sets; for $\Theta$ this is Gaussian decay, for $\Pi$ this is the $\sum \|1 - a_k\| < \infty$ criterion).
+\item Verify both satisfy the \emph{same} two functional equations:
+\[
+F(z+1) = F(z), \qquad F(z + \tau) = e^{-\pi i \tau - 2\pi i z} F(z).
+\]
+\item Show both have the \emph{same simple zeros}, located at $z = \tfrac{1}{2} + \tfrac{\tau}{2} + \mathbb{Z} + \tau \mathbb{Z}$. For $\Pi$ this is direct; for $\Theta$ it follows from the functional equations plus the fact that the quotient $\Theta/\Pi$ is doubly quasi-periodic and entire, hence constant.
+\item Compute the constant by evaluating at one point (e.g., $z = \tfrac{1}{2}$).
+\end{enumerate}
+
+\paragraph{Reference.} E.\,M.\ Stein, R.\ Shakarchi, \emph{Complex Analysis}, Princeton, 2003, Chapter 10, \S 1.1 (``Product formula for the Jacobi theta function''). See also Wikipedia, \emph{Theta function}, and the survey at \texttt{metaphor.ethz.ch/x/2019/fs/401-4110-19L/sc/talk4.pdf}.
+
+\paragraph{Cost in Lean.} Moderate. The argument leans on Mathlib's existing complex analysis (locally uniform convergence implies holomorphic limit, Liouville-style uniqueness from doubly periodic entire functions). The hardest formal step is establishing local uniform convergence of the LHS product, plus identifying zero sets. No combinatorial coefficient bookkeeping.
+
+\section{Mathlib infrastructure useful for any of the three}
+
+\paragraph{Infinite sums and products.}
+\begin{itemize}\item \texttt{Mathlib.Topology.Algebra.InfiniteSum.Defs} -- \texttt{Summable}, \texttt{Multipliable}, \texttt{tsum} ($\sum'$), \texttt{tprod} ($\prod'$).
+\item \texttt{Mathlib.Topology.Algebra.InfiniteSum.NatInt} -- relating $\mathbb{Z}$-indexed sums to $\mathbb{N}$-indexed sums (essential for the RHS of the Jacobi identity).
+\item \texttt{Mathlib.Analysis.Normed.Field.InfiniteSum} -- \texttt{Summable.mul\_norm}, Cauchy products in normed rings, dominated convergence for series.
+\item \texttt{Mathlib.Analysis.SpecificLimits.Normed} -- \texttt{summable\_geometric\_of\_norm\_lt\_one}, the workhorse for proving $\sum \|q^k\|$ converges.
+\end{itemize}
+
+\paragraph{Infinite products via logarithms (for Proofs 1 and 3).}
+\begin{itemize}\item \texttt{Multipliable.of\_summable\_log} and friends -- a product $\prod a_k$ converges iff $\sum \log a_k$ converges (in a suitable region). Useful when each factor $a_k = 1 - b_k$ with $\sum \|b_k\| < \infty$.
+\item For each factor of the form $1 - q^{2k-1} w^{\pm 2}$, summability of $\sum \|q^{2k-1}\|$ is geometric.
+\end{itemize}
+
+\paragraph{Complex analysis (for Proof 3).}
+\begin{itemize}\item \texttt{Mathlib.Analysis.Complex.LocallyUniformLimit} -- \texttt{TendstoLocallyUniformlyOn.differentiableOn}: a locally uniform limit of holomorphic functions is holomorphic. Exactly the tool you need to transport holomorphy from finite partial products to the infinite product.
+\item \texttt{Mathlib.Analysis.Complex.Liouville} -- bounded entire is constant; doubly periodic entire is constant.
+\item \texttt{Mathlib.Analysis.Calculus.UniformLimitsDeriv} -- derivative of a uniform limit is the limit of derivatives, useful for zero-counting via the argument principle.
+\end{itemize}
+
+\paragraph{What is \emph{not} yet in Mathlib (as of early 2026).}
+\begin{itemize}\item No $q$-Pochhammer symbol $(a;q)_n$, $(a;q)_\infty$. (The existing \texttt{pochhammer} in Mathlib is the rising factorial, a different object.)
+\item No $q$-binomial coefficients or $q$-binomial theorem.
+\item No Jacobi theta functions $\vartheta_1, \ldots, \vartheta_4$.
+\item No general theory of doubly periodic / elliptic functions beyond the basics. The Weierstrass $\wp$-function is partially developed but not the full machinery one would want.
+\end{itemize}
+
+
+\section{Euler's pentagonal number theorem from Jacobi}
+\label{sec:pentagonal}
+
+\begin{theorem}[Euler]
+For $|q| < 1$,
+\[
+\prod_{n=1}^\infty (1 - q^n) = \sum_{k = -\infty}^\infty (-1)^k q^{k(3k-1)/2}
+= 1 + \sum_{k=1}^\infty (-1)^k \left( q^{k(3k-1)/2} + q^{k(3k+1)/2} \right).
+\]
+\end{theorem}
+
+\begin{proof}
+Use Jacobi's triple product in the symmetric two-variable form
+\[
+\prod_{n=1}^\infty (1 - x^n)(1 - x^{n-1} z)(1 - x^n z^{-1}) = \sum_{k \in \mathbb{Z}} (-1)^k z^k x^{k(k-1)/2},
+\tag{$\star$}
+\]
+valid for $|x| < 1$ and $z \in \mathbb{C}^\times$. (This is equivalent to Theorem~\ref{thm:jtp} via $x = q^2$, $z = q w^2$; we use this form because it avoids the $w^{-2}$ asymmetry of the original statement.)
+
+Substitute $x = q^3$ and $z = q$. The three factors on the left become
+\[
+\prod_{n=1}^\infty (1 - q^{3n})(1 - q^{3n - 3} \cdot q)(1 - q^{3n} \cdot q^{-1})
+= \prod_{n=1}^\infty (1 - q^{3n})(1 - q^{3n-2})(1 - q^{3n-1}).
+\]
+The three index sets $\{3n : n \geq 1\}$, $\{3n - 2 : n \geq 1\}$, $\{3n - 1 : n \geq 1\}$ partition $\mathbb{Z}_{\geq 1}$ (they are the residue classes $0, 1, 2 \pmod 3$), so the product collapses to
+\[
+\prod_{m=1}^\infty (1 - q^m).
+\]
+The right side becomes
+\[
+\sum_{k \in \mathbb{Z}} (-1)^k q^k \cdot q^{3k(k-1)/2}
+= \sum_{k \in \mathbb{Z}} (-1)^k q^{k + 3k(k-1)/2}
+= \sum_{k \in \mathbb{Z}} (-1)^k q^{k(3k-1)/2},
+\]
+since $k + 3k(k-1)/2 = k(3k-1)/2$. Splitting the sum into $k \geq 1$, $k = 0$, $k \leq -1$ and using $(-k)(3(-k)-1)/2 = k(3k+1)/2$ gives the second form.
+\end{proof}
+
+\paragraph{Formalization in Lean.} Given Jacobi's triple product in the two-variable form ($\star$), this is a short proof:
+
+\begin{enumerate}\item \textbf{Substitution} ($\sim 10$ lines): apply Jacobi with $x := q^3, z := q$. The hypothesis $|x| < 1$ follows from $|q| < 1$ by $\|q^3\| = \|q\|^3 < 1$.
+\item \textbf{Index partitioning} ($\sim 30$ lines): prove the bijection $\mathbb{N}_{>0} \times \{0, 1, 2\} \to \mathbb{N}_{>0}$ sending $(n, r) \mapsto 3n - r$ (suitably offset), then use \texttt{Multipliable.tprod\_eq\_of\_hasProd} or rewrite the three products as one via a \texttt{tprod} change of variables. Mathlib's \texttt{tprod\_sigma}-style lemmas handle this.
+\item \textbf{Exponent arithmetic} ($\sim 20$ lines): show $k + 3k(k-1)/2 = k(3k-1)/2$ for $k \in \mathbb{Z}$. Since $k(3k-1)$ is always even (one of $k, 3k-1$ is), use \texttt{Int.ediv} and prove the identity via \texttt{omega} or \texttt{ring} after multiplying through by 2.
+\end{enumerate}
+
+Total: $\sim 60$ lines once Jacobi is available.
+
+\section{The $q$-binomial theorem: statement and proof}
+\label{sec:qbin-proof}
+
+\subsection{Statement}
+
+Define the \emph{finite} $q$-Pochhammer symbol
+\[
+(a; q)_n = \prod_{k=0}^{n-1} (1 - a q^k), \qquad (a; q)_0 = 1,
+\]
+the \emph{$q$-factorial} $[n]_q! = (q;q)_n / (1-q)^n$, and the \emph{Gaussian binomial coefficient}
+\[
+\binom{n}{k}_q = \frac{(q; q)_n}{(q; q)_k \, (q; q)_{n-k}} \qquad (0 \leq k \leq n).
+\]
+By convention $\binom{n}{k}_q = 0$ for $k < 0$ or $k > n$. These are polynomials in $q$ with integer coefficients (this is part of what needs to be proved).
+
+\begin{theorem}[Finite $q$-binomial theorem]\label{thm:qbin-finite}\lean{qSeries.qBinom_finite_thm}\leanok\uses{def:qBinom, def:qPochhammer}
+In $\mathbb{Z}[q, z]$, for every $n \geq 0$,
+\[
+\prod_{k=0}^{n-1} (1 + z q^k) = \sum_{k=0}^n q^{\binom{k}{2}} \binom{n}{k}_q z^k.
+\]
+\end{theorem}
+
+\begin{theorem}[Infinite $q$-binomial / Cauchy identity]\label{thm:qbin-infinite}\lean{qSeries.qBinom_infinite_thm}\uses{def:qPochhammer, def:qPochhammerInf}
+For $|q| < 1$ and any $a, z \in \mathbb{C}$ with $|z| < 1$,
+\[
+\sum_{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(a z; q)_\infty}{(z; q)_\infty}.
+\]
+\end{theorem}
+
+The two Euler identities follow from Theorem~\ref{thm:qbin-infinite} by specializing $a = 0$ (gives $1/(z;q)_\infty = \sum z^n / (q;q)_n$) and by sending $a \to \infty$ along $a = -y/q^N$ with $N \to \infty$, then renaming (gives $(-z;q)_\infty = \sum q^{\binom{n}{2}} z^n / (q;q)_n$).
+
+\subsection{Proof of the finite $q$-binomial theorem}
+
+This proof is purely algebraic (no analysis) and is the version best suited for Lean. It uses only induction on $n$ and the $q$-Pascal identity.
+
+\begin{lemma}[$q$-Pascal]\label{lem:qpascal}\lean{qSeries.qBinom_succ_succ}\leanok\uses{def:qBinom}
+For all $n, k \in \mathbb{N}$,
+\[
+  \binom{n+1}{k+1}_q \;=\; \binom{n}{k+1}_q + q^{n - k}\,\binom{n}{k}_q.
+\]
+(Equivalently, with $k \geq 1$:
+$\binom{n+1}{k}_q = \binom{n}{k}_q + q^{n - k + 1}\binom{n}{k-1}_q$.
+A symmetric form $\binom{n+1}{k+1}_q = q^{k+1}\binom{n}{k+1}_q + \binom{n}{k}_q$
+also holds; we use the first.)
+\end{lemma}
+
+\begin{proof}\leanok
+This is the recursive defining equation of $\binom{n}{k}_q$ in
+Definition~\ref{def:qBinom}, hence \texttt{rfl} in Lean. Equivalently, by
+direct computation from the quotient form
+$\binom{n}{k}_q = (q;q)_n / \bigl((q;q)_k(q;q)_{n-k}\bigr)$
+(valid when $k \leq n$ and the denominators are nonzero):
+$\binom{n}{k}_q + q^{n-k+1}\binom{n}{k-1}_q
+  = \binom{n}{k-1}_q \cdot \tfrac{(1 - q^{n-k+1}) + q^{n-k+1}(1 - q^k)}{1 - q^k}
+  = \binom{n}{k-1}_q \cdot \tfrac{1 - q^{n+1}}{1 - q^k}
+  = \binom{n+1}{k}_q$,
+recovering the off-by-one form.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:qbin-finite}]\proves{thm:qbin-finite}\leanok\uses{lem:qpascal, lem:qBinom-eq-zero-of-lt, def:qBinom}
+Induction on $n$, following the Lean proof
+\texttt{qSeries.qBinom\_finite\_thm} in \texttt{Series/qSeries.lean}.
+The case $n = 0$ gives $1 = 1$.
+
+For the inductive step, set
+$P_n(z) := \prod_{k=0}^{n-1}(1 + z q^k)$ and
+$Q_n(z) := \sum_{k=0}^{n} q^{\binom{k}{2}}\binom{n}{k}_q z^k$,
+so the theorem reads $P_n = Q_n$. By \texttt{Finset.prod\_range\_succ}
+and the inductive hypothesis $P_n = Q_n$,
+\[
+  P_{n+1}(z) \;=\; P_n(z)\,(1 + z q^n) \;=\; Q_n(z)\,(1 + z q^n),
+\]
+so it suffices to show $Q_{n+1}(z) = Q_n(z)\,(1 + z q^n)$. We decompose
+$Q_{n+1}(z) = \sum_{k=0}^{n+1} q^{\binom{k}{2}}\binom{n+1}{k}_q z^k$ in
+four explicit steps (mirroring \texttt{stepB}--\texttt{stepD} of the
+Lean proof).
+
+\emph{Step A (peel off $k = 0$ via \texttt{Finset.sum\_range\_succ'}).}
+Using $\binom{n+1}{0}_q = 1$,
+\[
+  Q_{n+1}(z) \;=\; 1 \;+\; \sum_{k=0}^{n} q^{\binom{k+1}{2}}\,\binom{n+1}{k+1}_q\,z^{k+1}.
+\]
+
+\emph{Step B ($q$-Pascal split).} Apply Lemma~\ref{lem:qpascal}
+inside the sum and split via \texttt{Finset.sum\_add\_distrib}:
+\[
+  \sum_{k=0}^{n} q^{\binom{k+1}{2}}\binom{n+1}{k+1}_q z^{k+1}
+    \;=\; \underbrace{\sum_{k=0}^{n} q^{\binom{k+1}{2}}\binom{n}{k+1}_q z^{k+1}}_{S_1}
+       \;+\; \underbrace{\sum_{k=0}^{n} q^{\binom{k+1}{2}+n-k}\binom{n}{k}_q z^{k+1}}_{S_2}.
+\]
+
+\emph{Step C ($S_2 = z q^n\, Q_n(z)$).} The identity
+$\binom{k+1}{2} = \binom{k}{2} + k$ (helper
+\texttt{choose\_two\_succ}) and $k + (n - k) = n$ (valid because
+$k \leq n$, by \texttt{Nat.sub\_add\_cancel}) give
+$q^{\binom{k+1}{2}+n-k}\, z^{k+1} = z\, q^n \cdot q^{\binom{k}{2}}\, z^k$, hence
+\[
+  S_2 \;=\; z\, q^n \sum_{k=0}^{n} q^{\binom{k}{2}}\binom{n}{k}_q z^k \;=\; z\, q^n\, Q_n(z).
+\]
+
+\emph{Step D ($1 + S_1 = Q_n(z)$).} Reindex $j = k+1$ to identify
+$S_1 = \sum_{j=1}^{n+1} q^{\binom{j}{2}}\binom{n}{j}_q z^j$, then
+adjoin the $j = 0$ term $1$ (using \texttt{Finset.sum\_range\_succ'}
+in reverse):
+\[
+  1 + S_1 \;=\; \sum_{j=0}^{n+1} q^{\binom{j}{2}}\binom{n}{j}_q z^j.
+\]
+The $j = n+1$ term vanishes by Lemma~\ref{lem:qBinom-eq-zero-of-lt}
+($\binom{n}{n+1}_q = 0$), reducing this to $Q_n(z)$.
+
+Combining the four steps,
+$Q_{n+1}(z) = (1 + S_1) + S_2 = Q_n(z) + z q^n Q_n(z) = Q_n(z)\,(1 + z q^n)$.
+The final algebraic identity is closed in Lean by
+\texttt{linear\_combination}. \qedhere
+\end{proof}
+
+\subsection{Passing to the infinite case}
+
+\begin{proof}[Proof sketch of Theorem~\ref{thm:qbin-infinite}]
+The finite form of Theorem~\ref{thm:qbin-infinite} is the analogous identity
+\[
+\sum_{k=0}^n \frac{(a; q)_k}{(q; q)_k} z^k \cdot \frac{(q^{n-k+1}; q)_k}{(q^{n-k+1}; q)_k} \;=\; \frac{(az; q)_n}{(z; q)_n} \cdot (\text{correction})
+\]
+--- one needs to be careful here; the cleanest finite version is due to Cauchy and reads, for $|z| < 1$,
+\[
+\sum_{k=0}^n \binom{n}{k}_q \frac{(a;q)_k}{(q;q)_k} z^k \, \xrightarrow{n \to \infty} \, \sum_{k=0}^\infty \frac{(a;q)_k}{(q;q)_k} z^k.
+\]
+The classical route is:
+\begin{enumerate}\item Prove the finite identity $(az; q)_n = \sum_{k=0}^n \binom{n}{k}_q (-a)^k q^{\binom{k}{2}} z^k \cdot (\text{telescope})$ --- a polynomial identity provable by the same induction as Theorem~\ref{thm:qbin-finite}.
+\item Pass to the limit $n \to \infty$ using $(q;q)_k / (q;q)_n \to 1/(q^{k+1};q)_\infty$ and dominated convergence (each $|q^{\binom{k}{2}} z^k| \leq |z|^k$ is summable when $|z| < 1$).
+\end{enumerate}
+\end{proof}
+
+\paragraph{Avoiding the infinite version entirely.}
+For Jacobi's triple product via Zhu's semi-finite proof, you do not actually need Theorem~\ref{thm:qbin-infinite}. You only need the \emph{first Euler identity}
+\[
+(-z; q)_\infty = \sum_{n=0}^\infty \frac{q^{\binom{n}{2}}}{(q; q)_n} z^n,
+\]
+which is the $n \to \infty$ limit of Theorem~\ref{thm:qbin-finite} after rewriting $\prod_{k=0}^{n-1}(1 + zq^k)$ as $(-z; q)_n$ and dividing by suitable factors. This limit is gentler than the full Cauchy identity.
+
+\subsection{Formalization plan in Lean}
+
+\paragraph{Definitions.}
+\begin{itemize}\item \texttt{qPochhammer (a q : R) : $\mathbb{N} \to$ R}, defined recursively: \\
+\texttt{qPochhammer a q 0 = 1}, \\
+\texttt{qPochhammer a q (n+1) = qPochhammer a q n * (1 - a * q\^{}n)}. \\
+Use \texttt{Polynomial.eval} for the abstract version in $R[X]$, or work directly in $\mathbb{C}$.
+\item \texttt{qBinom (n k : $\mathbb{N}$) (q : R) : R} as \texttt{qPochhammer q q n / (qPochhammer q q k * qPochhammer q q (n - k))} when $k \leq n$, else 0. To stay in $\mathbb{Z}[q]$, define instead as a polynomial via the $q$-Pascal recurrence and prove the closed form is well-defined.
+\end{itemize}
+
+\paragraph{Recommended approach: define $q$-binomial coefficients via the recurrence, not the quotient.}
+The quotient definition introduces division-by-zero conditions (the denominator $(q;q)_k$ vanishes at roots of unity). The recurrence-based definition avoids this entirely:
+\begin{quote}
+\texttt{qBinom 0 0 q = 1}; \texttt{qBinom 0 (k+1) q = 0}; \texttt{qBinom (n+1) 0 q = 1}; \\
+\texttt{qBinom (n+1) (k+1) q = qBinom n (k+1) q + q\^{}(n-k) * qBinom n k q}.
+\end{quote}
+Then \texttt{qBinom n k} is a polynomial in $q$ with integer coefficients by construction. The closed-form equality with $(q;q)_n / ((q;q)_k (q;q)_{n-k})$ becomes a \emph{theorem} provable for $q$ outside the relevant roots of unity (or as an identity of rational functions).
+
+\paragraph{Step-by-step Lean roadmap.}
+
+\begin{enumerate}\item Define \texttt{qPochhammer} (Mathlib's \texttt{Finset.prod\_range} suffices: \texttt{qPochhammer a q n := $\prod$ k $\in$ range n, (1 - a * q\^{}k)}). \textbf{$\sim 30$ lines.}
+
+\item Prove basic identities: \texttt{qPochhammer a q (n+1) = qPochhammer a q n * (1 - a * q\^{}n)} (this is \texttt{Finset.prod\_range\_succ}); the recursion the other way; multiplicativity. \textbf{$\sim 50$ lines.}
+
+\item Define \texttt{qBinom} by recursion as above; prove symmetry $\binom{n}{k}_q = \binom{n}{n-k}_q$ by induction. \textbf{$\sim 100$ lines.}
+
+\item Prove the closed-form formula $\binom{n}{k}_q \cdot (q;q)_k \cdot (q;q)_{n-k} = (q;q)_n$ as an identity of polynomials. This is the bridge between the recursive definition and the quotient definition. \textbf{$\sim 100$ lines.}
+
+\item Prove the finite $q$-binomial theorem (Theorem~\ref{thm:qbin-finite}) by induction, following the proof above. \textbf{$\sim 80$ lines.}
+
+\item Define \texttt{qPochhammerInf} as a \texttt{tprod}; prove \texttt{Multipliable} for $|q| < 1$ using $\sum \|q^k\| < \infty$. \textbf{$\sim 100$ lines.}
+
+\item Prove the first Euler identity $(-z; q)_\infty = \sum q^{\binom{n}{2}} z^n / (q;q)_n$ for $|q| < 1$ and $z$ in any bounded set, by taking $n \to \infty$ in Theorem~\ref{thm:qbin-finite}. The convergence step uses dominated convergence with the bound $|q^{\binom{n}{2}}| \leq |q|^{n(n-1)/2}$. \textbf{$\sim 200$ lines.}
+
+\item (Optional) Prove the full Cauchy identity (Theorem~\ref{thm:qbin-infinite}). \textbf{$\sim 150$ extra lines.}
+\end{enumerate}
+
+\textbf{Total for steps 1--7 (sufficient for Zhu's proof of Jacobi):} $\sim 650$ lines. Adding Zhu's argument ($\sim 100$ lines) plus the pentagonal corollary ($\sim 60$ lines) brings the total Jacobi-via-q-binomial route to $\sim 800$ lines plus whatever scaffolding the bilateral series on the RHS requires.
+
+\subsection{Existing Mathlib infrastructure}
+
+\paragraph{Algebraic foundations.}
+\begin{itemize}\item \texttt{Mathlib.Algebra.BigOperators.Basic}, \texttt{Mathlib.Algebra.BigOperators.Ring} -- the \texttt{$\prod$ k $\in$ s, f k} and \texttt{$\sum$ k $\in$ s, f k} machinery, including \texttt{Finset.prod\_range\_succ}, \texttt{Finset.prod\_range\_succ'}, \texttt{Finset.prod\_Ico\_consecutive}, \texttt{Finset.prod\_bij}.
+\item \texttt{Mathlib.Algebra.Polynomial.Basic} -- if you want to formalize $q$-binomials as elements of $\mathbb{Z}[q]$ rather than as functions of $q$, this gives \texttt{Polynomial}, \texttt{Polynomial.coeff}, \texttt{Polynomial.eval}.
+\item \texttt{Mathlib.Algebra.Polynomial.Induction} -- \texttt{Polynomial.induction\_on'} for proving polynomial identities by reducing to monomials.
+\item \texttt{Mathlib.Combinatorics.Choose.Basic} -- ordinary binomial coefficients \texttt{Nat.choose}, useful as a guide and for the $q \to 1$ limit (not needed for the proof itself).
+\end{itemize}
+
+\paragraph{Analytic foundations (for the infinite case).}
+\begin{itemize}\item \texttt{Mathlib.Topology.Algebra.InfiniteSum.Defs} -- \texttt{Summable}, \texttt{Multipliable}, \texttt{tsum} ($\sum'$), \texttt{tprod} ($\prod'$).
+\item \texttt{Mathlib.Analysis.Normed.Field.InfiniteSum} -- \texttt{Summable.mul\_norm}, Cauchy products, dominated convergence for sums.
+\item \texttt{Mathlib.Analysis.SpecificLimits.Normed} -- \texttt{summable\_geometric\_of\_norm\_lt\_one}, the workhorse summability lemma.
+\item \texttt{Mathlib.Analysis.Normed.Group.InfiniteSum} -- \texttt{tsum\_geometric\_of\_norm\_lt\_one} and friends.
+\end{itemize}
+
+\paragraph{What is missing (as of early 2026).}
+\begin{itemize}\item No \texttt{qPochhammer} or \texttt{qPochhammerInf}.
+\item No \texttt{qBinom} or Gaussian binomial coefficient. (Mathlib's existing \texttt{pochhammer} is the \emph{rising factorial} $x(x+1)\cdots(x+n-1)$, a different and unrelated object despite the name.)
+\item No $q$-Pascal recurrence, no finite or infinite $q$-binomial theorem, no Euler identities.
+\end{itemize}
+
+This means the entire $q$-series scaffold needs to be developed from scratch. The good news is that there are no foundational gaps: every step rests on Mathlib infrastructure that already exists. The work is purely additive.
+
+\subsection{Why this is worth it}
+
+Once the $\sim 650$ lines of $q$-series infrastructure are in place, the following all become short corollaries:
+\begin{itemize}\item Jacobi's triple product (Zhu's proof: $\sim 100$ lines).
+\item Euler's pentagonal number theorem (specialization: $\sim 60$ lines).
+\item Gauss's identities for $\sum q^{n(n+1)/2}$ and $\sum (-1)^n q^{n^2}$ (specializations: $\sim 50$ lines each).
+\item The generating function for partitions $\sum p(n) q^n = 1/(q;q)_\infty$ (immediate).
+\item Generating functions for partitions into distinct parts, odd parts, etc.\ (Euler's theorem: $\sim 100$ lines).
+\end{itemize}
+By contrast, formalizing any one of these via a bespoke proof would cost $\sim 1000$--$2000$ lines and produce no reusable infrastructure. The $q$-series route amortizes the cost.
+
+\section{The $q$-Pochhammer symbol and Gaussian binomial coefficient (formalized)}
+\label{sec:qPochhammer-formalized}
+
+This section records the foundational definitions and lemmas that have been
+formalized in Lean for the $q$-series approach to Jacobi's triple product.
+The corresponding source file is \texttt{Series/qSeries.lean} in the
+\texttt{Series} Lean library, under the namespace \texttt{qSeries}.
+Throughout this section $R$ is a commutative ring and $a, q \in R$.
+
+\subsection{The $q$-Pochhammer symbol}
+
+\begin{definition}[Finite $q$-Pochhammer symbol]\label{def:qPochhammer}\lean{qSeries.qPochhammer}\leanok
+For $n \in \mathbb{N}$, the finite $q$-Pochhammer symbol is
+\[
+  (a; q)_n \;:=\; \prod_{k = 0}^{n - 1} \bigl(1 - a\, q^k\bigr).
+\]
+In Lean, this is implemented as \texttt{$\prod$ k $\in$ Finset.range n, (1 - a * q\^{}k)},
+specialising to $(a; q)_0 = 1$ (the empty product).
+\end{definition}
+
+\begin{lemma}[Base case]\label{lem:qPochhammer-zero}\lean{qSeries.qPochhammer_zero}\leanok\uses{def:qPochhammer}
+$(a; q)_0 = 1$.
+\end{lemma}
+
+\begin{proof}\leanok
+The empty product is $1$ (\texttt{Finset.prod\_range\_zero}).
+\end{proof}
+
+\begin{lemma}[Recurrence]\label{lem:qPochhammer-succ}\lean{qSeries.qPochhammer_succ}\leanok\uses{def:qPochhammer}
+For all $n \in \mathbb{N}$,
+\[
+  (a; q)_{n+1} \;=\; (a; q)_n \cdot \bigl(1 - a\, q^n\bigr).
+\]
+\end{lemma}
+
+\begin{proof}\leanok
+Immediate from \texttt{Finset.prod\_range\_succ}.
+\end{proof}
+
+\subsection{The Gaussian binomial coefficient}
+
+\begin{definition}[Gaussian binomial coefficient]\label{def:qBinom}\lean{qSeries.qBinom}\leanok
+The Gaussian binomial coefficient $\binom{n}{k}_q \in R$ is defined by
+recursion on $n$ and $k$:
+\[
+\begin{aligned}
+  \binom{0}{0}_q &= 1,
+  & \binom{0}{k+1}_q &= 0, \\
+  \binom{n+1}{0}_q &= 1,
+  & \binom{n+1}{k+1}_q &= \binom{n}{k+1}_q + q^{n-k}\,\binom{n}{k}_q.
+\end{aligned}
+\]
+This is the $q$-Pascal recurrence in the form stated in
+Lemma~\ref{lem:qpascal} (with the index shift $k \mapsto k+1$). By
+construction $\binom{n}{k}_q$ is a polynomial in $q$ with integer
+coefficients, defined for every pair $(n, k) \in \mathbb{N}^2$ (no
+division, no roots-of-unity exclusion).
+\end{definition}
+
+\begin{lemma}[Vanishing above the diagonal]\label{lem:qBinom-eq-zero-of-lt}\lean{qSeries.qBinom_eq_zero_of_lt}\leanok\uses{def:qBinom}
+If $n < k$, then $\binom{n}{k}_q = 0$.
+\end{lemma}
+
+\begin{proof}\leanok
+Induction on $n$ and $k$ following the four-case recursive definition.
+The non-trivial case is $(n+1, k+1)$ with $n < k$: the recurrence gives
+$\binom{n+1}{k+1}_q = \binom{n}{k+1}_q + q^{n-k}\binom{n}{k}_q$, and both
+inductive hypotheses (at $(n, k+1)$ and $(n, k)$, available because
+$n < k + 1$ and $n < k$ respectively) yield $0$.
+\end{proof}
+
+\begin{lemma}[Diagonal]\label{lem:qBinom-self}\lean{qSeries.qBinom_self}\leanok\uses{def:qBinom, lem:qBinom-eq-zero-of-lt}
+$\binom{n}{n}_q = 1$ for every $n \in \mathbb{N}$.
+\end{lemma}
+
+\begin{proof}\leanok
+Induction on $n$. The case $n = 0$ is by definition. For the step,
+\[
+  \binom{n+1}{n+1}_q
+    = \binom{n}{n+1}_q + q^{n-n}\,\binom{n}{n}_q
+    = 0 + 1 \cdot 1 = 1,
+\]
+using Lemma~\ref{lem:qBinom-eq-zero-of-lt} for the first term and the
+inductive hypothesis for the second.
+\end{proof}
+
+\begin{lemma}[Closed form for $\binom{n}{k}_q$]\label{lem:qBinom-closed-form}\lean{qSeries.qBinom_mul_qPochhammer_mul_qPochhammer}\leanok\uses{def:qBinom, def:qPochhammer, lem:qPochhammer-succ, lem:qBinom-self, lem:qBinom-eq-zero-of-lt}
+For all $k \leq n$,
+\[
+  \binom{n}{k}_q \cdot (q; q)_k \cdot (q; q)_{n - k} \;=\; (q; q)_n.
+\]
+\end{lemma}
+
+\begin{proof}\leanok
+Induction on $n$.
+
+\emph{Base case $n = 0$.} Forces $k = 0$ and the identity is $1 \cdot 1 \cdot 1 = 1$.
+
+\emph{Boundary $k = 0$.} Reduces to $1 \cdot 1 \cdot (q; q)_n = (q; q)_n$.
+
+\emph{Boundary $k = n + 1$.} By Lemma~\ref{lem:qBinom-self} we have
+$\binom{n+1}{n+1}_q = 1$, and $(q; q)_0 = 1$, so both sides equal
+$(q; q)_{n+1}$.
+
+\emph{Inductive step $k + 1 \leq n$.} Apply the $q$-Pascal recurrence
+\[
+  \binom{n+1}{k+1}_q = \binom{n}{k+1}_q + q^{n-k}\,\binom{n}{k}_q
+\]
+and the factorisations
+\[
+  (q; q)_{n - k} \;=\; (q; q)_{n - (k+1)} \cdot \bigl(1 - q\,q^{n-(k+1)}\bigr),
+  \qquad
+  (q; q)_{k + 1} \;=\; (q; q)_k \cdot \bigl(1 - q\,q^k\bigr),
+\]
+together with the power identities $q \cdot q^{n-(k+1)} = q^{n-k}$ and
+$q^{n-k} \cdot (q \cdot q^k) = q \cdot q^n$, which use $k \leq n$ via
+\texttt{Nat.sub\_add\_cancel}. The two inductive hypotheses at $(n, k+1)$
+and $(n, k)$ then combine into the required identity, dispatched in Lean
+by \texttt{linear\_combination}.
+\end{proof}
+
+\subsection{The finite $q$-binomial theorem (step 5)}\label{subsec:qbin-finite-formalized}
+
+Theorem~\ref{thm:qbin-finite} is formalised as
+\texttt{qSeries.qBinom\_finite\_thm} in \texttt{Series/qSeries.lean}.
+The Lean proof follows exactly the four-step strategy spelled out in
+the proof attached to Theorem~\ref{thm:qbin-finite} above:
+peel off $k = 0$, apply the $q$-Pascal recurrence
+(Lemma~\ref{lem:qpascal}) inside the sum, simplify the second piece
+to $z q^n\, Q_n$, and recombine the first piece via
+$\binom{n}{n+1}_q = 0$ (Lemma~\ref{lem:qBinom-eq-zero-of-lt}).
+
+\subsection{The infinite $q$-Pochhammer symbol and Cauchy identity (steps 6, 8)}\label{subsec:qbin-infinite-formalized}
+
+Working in $\mathbb{C}$ for the analytic part of the development.
+
+\begin{definition}[Infinite $q$-Pochhammer symbol]\label{def:qPochhammerInf}\lean{qSeries.qPochhammerInf}\leanok
+\[
+  (a; q)_\infty \;:=\; \prod_{k=0}^{\infty}\bigl(1 - a\, q^k\bigr) \;\in\; \mathbb{C},
+\]
+defined unconditionally via \texttt{tprod}. The value is mathematically
+meaningful (and the product is convergent) under the hypothesis $\|q\| < 1$
+provided by Lemma~\ref{lem:multipliable-one-sub-smul-qpow}.
+\end{definition}
+
+\begin{lemma}[Multipliability]\label{lem:multipliable-one-sub-smul-qpow}\lean{qSeries.multipliable_one_sub_smul_qpow}\leanok\uses{def:qPochhammerInf}
+For $a, q \in \mathbb{C}$ with $\|q\| < 1$, the family
+$k \mapsto 1 - a\, q^k$ is multipliable; in particular the partial
+products converge to $(a; q)_\infty$.
+\end{lemma}
+
+\begin{proof}\leanok
+Reduce multipliability to summability of $\sum_k \|a q^k\|$ via Mathlib's
+\texttt{multipliable\_one\_add\_of\_summable} (which works in any complete
+normed ring), then bound $\|a q^k\| = \|a\|\, \|q\|^k$ and conclude by the
+geometric series $\sum_k \|q\|^k < \infty$
+(\texttt{summable\_geometric\_of\_lt\_one}).
+\end{proof}
+
+\begin{theorem}[Infinite $q$-binomial / Cauchy identity, restated for the formal development]\label{thm:qbin-infinite-formalized}\lean{qSeries.qBinom_infinite_thm}\uses{def:qPochhammer, def:qPochhammerInf, lem:multipliable-one-sub-smul-qpow}
+For $a, z, q \in \mathbb{C}$ with $\|q\| < 1$ and $\|z\| < 1$,
+\[
+  \mathrm{HasSum}\Bigl(n \mapsto \tfrac{(a; q)_n}{(q; q)_n}\, z^n,\;
+    \tfrac{(a z; q)_\infty}{(z; q)_\infty}\Bigr).
+\]
+(Equivalent to Theorem~\ref{thm:qbin-infinite}.)
+The Lean statement is \texttt{qSeries.qBinom\_infinite\_thm} in
+\texttt{Series/qSeries.lean}; the proof is currently a stub
+(\texttt{sorry}). The standard route is to take $n \to \infty$ in the
+finite identity (a Cauchy-type analog of Theorem~\ref{thm:qbin-finite}),
+applying dominated convergence on the summable side and
+multipliability (Lemma~\ref{lem:multipliable-one-sub-smul-qpow}) on the
+product side.
+\end{theorem}
+
+\paragraph{Remark.} Together with Lemma~\ref{lem:qPochhammer-succ},
+Lemma~\ref{lem:qBinom-eq-zero-of-lt}, and Lemma~\ref{lem:qBinom-closed-form},
+Theorem~\ref{thm:qbin-finite} realises steps 1, 2, 3, 4, and
+5 of the formalisation roadmap in Section~\ref{sec:qbin-proof}
+(``Formalization plan in Lean''). Step 6 is realised by
+Definition~\ref{def:qPochhammerInf} and
+Lemma~\ref{lem:multipliable-one-sub-smul-qpow}. Step 8 (the full Cauchy
+identity, Theorem~\ref{thm:qbin-infinite}) has its statement formalised
+(\texttt{qSeries.qBinom\_infinite\_thm}) but its proof remains as future
+work. Step 3 is partially completed: the recursive definition is in place
+(Definition~\ref{def:qBinom}) and the closed-form bridge to the quotient
+description is established (Lemma~\ref{lem:qBinom-closed-form}); the
+symmetry identity $\binom{n}{k}_q = \binom{n}{n-k}_q$ remains as future
+work, as does step 7 (the first Euler identity).

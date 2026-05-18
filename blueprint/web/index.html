@@ -2600,86 +2600,1359 @@
   </div>
 </div>
 <h1 id="a0000000074">3 Jacobi triple product</h1>
-<div class="theorem_thmwrapper theorem-style-plain" id="thm:jacobi-triple-product">
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:jtp">
   <div class="theorem_thmheading">
     <span class="theorem_thmcaption">
     Theorem
     </span>
     <span class="theorem_thmlabel">25</span>
+    <span class="theorem_thmtitle">Jacobi triple product</span>
     <div class="thm_header_extras">
 
         </div>
     <div class="thm_header_hidden_extras">
 
-    <a class="icon proof" href="index.html#thm:jacobi-triple-product">#</a>
+    <a class="icon proof" href="index.html#thm:jtp">#</a>
     
     
     
         </div>
   </div>
   <div class="theorem_thmcontent">
-  <p> For all \(w\neq 0\) and \(q\) with \(|q|{\lt}1\): </p>
+  <p> For all \(w \in \mathbb {C}^\times \) and \(q \in \mathbb {C}\) with \(|q| {\lt} 1\): </p>
 <div class="displaymath" id="a0000000075">
-  \[ \prod _{k=1}^\infty (1-q^{2k})\, (1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2})=\sum _{k=-\infty }^\infty (-1)^k\, w^{2k}\, q^{k^2}. \]
+  \[  \prod _{k=1}^{\infty } (1 - q^{2k})(1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2}) \; =\;  \sum _{k=-\infty }^{\infty } (-1)^k w^{2k} q^{k^2}.  \]
 </div>
 
   </div>
 </div>
-<h2 id="a0000000076">3.1 Proof</h2>
-<p> Set \( \phi _n(w,q):=\prod _{k=1}^n(1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2}). \) We have </p>
-<div class="equation" id="eqn:1">
-<p>
-  <div class="equation_content">
-    \begin{equation} \label{eqn:1}\phi _n(qw,q)\, =\, \phi _n(w,q)\, \frac{(1-q^{2n+1}\, w^2)\, (1-q^{-1}w^{-2})}{(1-qw^2)\, (1-q^{2n-1}w^{-2})}\, =\, \phi _n(w,q)\, \frac{1-q^{2n+1}\, w^2}{-qw^2+q^{2n}}. \end{equation}
-  </div>
-  <span class="equation_label">9</span>
-</p>
+<p>In \(q\)-Pochhammer notation (with \(z = -w^2\)): </p>
+<div class="displaymath" id="a0000000076">
+  \[  (q^2; q^2)_\infty \,  (q z; q^2)_\infty \,  (q/z; q^2)_\infty \; =\;  \sum _{k \in \mathbb {Z}} (-z)^k q^{k^2}.  \]
 </div>
-<p> We consider the following expansion </p>
-<div class="equation" id="eqn:2">
-<p>
-  <div class="equation_content">
-    \begin{equation} \label{eqn:2} \phi _n(w,q)=\sum _{k=-n}^nA_{n,k}(q)\, w^{2k}, \end{equation}
-  </div>
-  <span class="equation_label">10</span>
-</p>
-</div>
-<p> where \(A_{n,k}(q)\) is a polynomial in \(q\). We have a symmetry \(A_{n,k}(q)=A_{n,-k}(q)\). We find </p>
-<div class="equation" id="eqn:3">
-<p>
-  <div class="equation_content">
-    \begin{equation} \label{eqn:3} A_{n,n}(q)=q^{1+3+5+\ldots +(2n-1)}=q^{n^2}. \end{equation}
-  </div>
-  <span class="equation_label">11</span>
-</p>
-</div>
-<p> We substitute <a href="index.html#eqn:2" class="eqref">10</a> into <a href="index.html#eqn:1" class="eqref">9</a> and obtain </p>
-<div class="equation" id="eqn:4">
-<p>
-  <div class="equation_content">
-    \begin{equation} \label{eqn:4} A_{n,k}(q)=A_{n,k-1}(q)\, q^{2k-1}\, \frac{1-q^{2n-2k+2}}{1-q^{2n+2k}}. \end{equation}
-  </div>
-  <span class="equation_label">12</span>
-</p>
-</div>
-<p>From <a href="index.html#eqn:3" class="eqref">11</a> and <a href="index.html#eqn:4" class="eqref">12</a> we find </p>
-<div class="equation" id="eqn:5">
-<p>
-  <div class="equation_content">
-    \begin{equation} \label{eqn:5} A_{n,k}=\frac{q^{k^2}}{(1-q^2)\cdots (1-q^{2n})}\, \prod _{s=n-k+1}^n(1-q^{2s})\, \prod _{s=n+k+1}^{2n}(1-q^{2s}). \end{equation}
-  </div>
-  <span class="equation_label">13</span>
-</p>
-</div>
-<p> From <a href="index.html#eqn:5" class="eqref">13</a> we obtain </p>
+<p> Many references use \((q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum _k z^k q^{k(k-1)/2}\), which is equivalent under \(q \mapsto q^2\), \(z \mapsto -qw^2\). </p>
+<h1 id="sec:hermite">4 Proof 1: Hermite-style coefficient recurrence</h1>
+
+<p>This is the proof in the original outline. The skeleton: </p>
+<ol class="enumerate">
+  <li><p>Define the partial product \(\phi _n(w, q) = \prod _{k=1}^n (1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})\). </p>
+</li>
+  <li><p>Derive the functional equation \(\phi _n(qw, q) = \phi _n(w, q) \cdot \frac{1 - q^{2n+1} w^2}{q^{2n} - q w^2}\). </p>
+</li>
+  <li><p>Expand \(\phi _n(w, q) = \sum _{k=-n}^n A_{n,k}(q) w^{2k}\) as a Laurent polynomial. </p>
+</li>
+  <li><p>Read off the boundary condition \(A_{n,n}(q) = q^{n^2}\) and the recurrence </p>
 <div class="displaymath" id="a0000000077">
-  \[ \prod _{k=1}^n (1-q^{2k})\, (1-q^{2k-1}\, w^2)\, (1-q^{2k-1}\, w^{-2})=\sum _{k=-n}^n(-1)^k w^{2k}\, q^{k^2}\, B_{n,k}(q). \]
+  \[  A_{n,k}(q) = A_{n, k-1}(q) \,  q^{2k-1} \,  \frac{1 - q^{2n - 2k + 2}}{1 - q^{2n + 2k}}.  \]
 </div>
-<p> where </p>
+</li>
+  <li><p>Solve in closed form: </p>
 <div class="displaymath" id="a0000000078">
-  \[ B_{n,k}(q)=\prod _{s=n-k+1}^n(1-q^{2s})\, \prod _{s=n+k+1}^{2n}(1-q^{2s}). \]
+  \[  A_{n,k} = \frac{q^{k^2}}{(q^2; q^2)_n} \prod _{s = n - k + 1}^n (1 - q^{2s}) \prod _{s = n + k + 1}^{2n} (1 - q^{2s}).  \]
 </div>
-<p> We have \(B_{n,k}=1+O(q^{n-k+1})\). We take the limit \(n\to \infty \) and finish the proof. </p>
+</li>
+  <li><p>Multiply through by \((q^2; q^2)_n\) and pull out signs to get </p>
+<div class="displaymath" id="a0000000079">
+  \[  \prod _{k=1}^n (1 - q^{2k})(1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2}) = \sum _{k=-n}^n (-1)^k w^{2k} q^{k^2} B_{n,k}(q),  \]
+</div>
+<p> where \(B_{n,k}(q) = 1 + O(q^{n-k+1})\). </p>
+</li>
+  <li><p>Take \(n \to \infty \) via dominated convergence on \(\mathbb {Z}\). </p>
+</li>
+</ol>
+<h4 id="a0000000080">Reference.</h4>
+<p> This is essentially Jacobi’s original argument, written up cleanly by many authors; see e.g. Hardy–Wright, <em>Theory of Numbers</em>, §19.8, or the lecture notes referenced in the outline. </p>
+<h4 id="a0000000081">Cost in Lean.</h4>
+<p> High. The bookkeeping with \(A_{n,k}, B_{n,k}\), two interleaved finite products of \(1 - q^{2s}\) with \(s\) ranges depending on \(|k|\), the recurrence with denominators, and the dominated-convergence step on \(\mathbb {Z}\) are all individually formalizable but together generate hundreds of small lemmas. Estimate: \(\sim 1500\)–\(2000\) lines. </p>
+<h1 id="sec:qbin">5 Proof 2: Euler / \(q\)-binomial theorem</h1>
+
+<h4 id="a0000000082">The \(q\)-binomial theorem.</h4>
+<p> For \(|q| {\lt} 1\) and \(|z| {\lt} 1\), </p>
+<div class="displaymath" id="a0000000083">
+  \[  \sum _{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(az; q)_\infty }{(z; q)_\infty }.  \]
+</div>
+<p> Two specializations due to Euler (the “\(q\)-exponentials”): </p>
+<div class="displaymath" id="a0000000084">
+  \[  (-z; q)_\infty = \sum _{n=0}^\infty \frac{q^{n(n-1)/2}}{(q; q)_n} z^n, \qquad \frac{1}{(z; q)_\infty } = \sum _{n=0}^\infty \frac{z^n}{(q; q)_n} \quad (|z| {\lt} 1).  \]
+</div>
+<h4 id="a0000000085">Andrews’ proof (1965).</h4>
+<p> Combine both Euler identities, multiply, and rearrange so the diagonal terms produce \(z^k q^{k(k-1)/2}\). A particularly clean modern version is Zhu’s <em>semi-finite</em> proof (arXiv:2106.16156, 2 pages): for any \(m \geq 0\) and \(z \neq 0\), </p>
+<div class="displaymath" id="a0000000086">
+  \[  \sum _{n=-m}^\infty \frac{q^{n(n-1)/2} z^n}{(q^{m+1}; q)_n} = (q; q)_m (-q/z; q)_m (-z; q)_\infty ,  \]
+</div>
+<p> proved by reindexing and applying <em>only</em> the first Euler identity. Letting \(m \to \infty \) (with \(z\) in a compact subset of \(\mathbb {C}^\times \)) gives Jacobi’s identity directly. </p>
+<h4 id="a0000000087">References.</h4>
+<ul class="itemize">
+  <li><p>G. E. Andrews, <em>A simple proof of Jacobi’s triple product identity</em>, Proc.&#160;Amer.&#160;Math.&#160;Soc. <b class="bfseries">16</b> (1965), 333–334. </p>
+</li>
+  <li><p>G. E. Andrews, <em>The Theory of Partitions</em>, Cambridge, 1976, Ch. 2. </p>
+</li>
+  <li><p>G. E. Andrews, R. Askey, R. Roy, <em>Special Functions</em>, Cambridge, 1999, Ch. 10. </p>
+</li>
+  <li><p>J.-M. Zhu, <em>A semi-finite proof of Jacobi’s triple product identity</em>, arXiv:2106.16156. </p>
+</li>
+  <li><p>A. B. Shukla, <em>Tiling proofs of Jacobi triple product and Rogers–Ramanujan identities</em>, arXiv:2006.03878 (gives a combinatorial proof via the \(q\)-binomial theorem). </p>
+</li>
+</ul>
+<h4 id="a0000000088">Cost in Lean.</h4>
+<p> High <em>up front</em>, low marginal. You must first develop a small theory of \(q\)-Pochhammer symbols and prove the \(q\)-binomial theorem. After that, the Jacobi triple product is a few-line corollary (modulo handling convergence of bilateral series). The infrastructure pays for itself if you later want Euler’s pentagonal number theorem, Rogers–Ramanujan, or any other classical \(q\)-identity. </p>
+<h1 id="sec:complex">6 Proof 3: Complex analysis via quasi-periodicity</h1>
+
+<p>This is the proof in Stein–Shakarchi, <em>Complex Analysis</em>, Ch. 10, §1. View both sides as functions of \(w\) for \(|q| {\lt} 1\) fixed; equivalently, view both sides as functions of \(z \in \mathbb {C}\) where \(w = e^{\pi i z}\) and \(q = e^{\pi i \tau }\), \(\operatorname {Im} \tau {\gt} 0\). </p>
+<h4 id="a0000000089">The argument.</h4>
+<ol class="enumerate">
+  <li><p>Define \(\Theta (z \mid \tau ) = \sum _{n \in \mathbb {Z}} e^{\pi i n^2 \tau + 2\pi i n z}\) (the RHS) and \(\Pi (z \mid \tau ) = \prod _{m \geq 1} (1 - q^{2m})(1 + q^{2m-1} e^{2\pi i z})(1 + q^{2m-1} e^{-2\pi i z})\) (the LHS, up to \(w \mapsto i w\) to match signs). </p>
+</li>
+  <li><p>Show both are entire in \(z\) (uniform convergence on compact sets; for \(\Theta \) this is Gaussian decay, for \(\Pi \) this is the \(\sum \| 1 - a_k\|  {\lt} \infty \) criterion). </p>
+</li>
+  <li><p>Verify both satisfy the <em>same</em> two functional equations: </p>
+<div class="displaymath" id="a0000000090">
+  \[  F(z+1) = F(z), \qquad F(z + \tau ) = e^{-\pi i \tau - 2\pi i z} F(z).  \]
+</div>
+</li>
+  <li><p>Show both have the <em>same simple zeros</em>, located at \(z = \tfrac {1}{2} + \tfrac {\tau }{2} + \mathbb {Z} + \tau \mathbb {Z}\). For \(\Pi \) this is direct; for \(\Theta \) it follows from the functional equations plus the fact that the quotient \(\Theta /\Pi \) is doubly quasi-periodic and entire, hence constant. </p>
+</li>
+  <li><p>Compute the constant by evaluating at one point (e.g., \(z = \tfrac {1}{2}\)). </p>
+</li>
+</ol>
+<h4 id="a0000000091">Reference.</h4>
+<p> E. M. Stein, R. Shakarchi, <em>Complex Analysis</em>, Princeton, 2003, Chapter 10, §1.1 (“Product formula for the Jacobi theta function”). See also Wikipedia, <em>Theta function</em>, and the survey at <span class="ttfamily">metaphor.ethz.ch/x/2019/fs/401-4110-19L/sc/talk4.pdf</span>. </p>
+<h4 id="a0000000092">Cost in Lean.</h4>
+<p> Moderate. The argument leans on Mathlib’s existing complex analysis (locally uniform convergence implies holomorphic limit, Liouville-style uniqueness from doubly periodic entire functions). The hardest formal step is establishing local uniform convergence of the LHS product, plus identifying zero sets. No combinatorial coefficient bookkeeping. </p>
+<h1 id="a0000000093">7 Mathlib infrastructure useful for any of the three</h1>
+<h4 id="a0000000094">Infinite sums and products.</h4>
+<ul class="itemize">
+  <li><p><span class="ttfamily">Mathlib.Topology.Algebra.InfiniteSum.Defs</span> – <span class="ttfamily">Summable</span>, <span class="ttfamily">Multipliable</span>, <span class="ttfamily">tsum</span> (\(\sum '\)), <span class="ttfamily">tprod</span> (\(\prod '\)). </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Topology.Algebra.InfiniteSum.NatInt</span> – relating \(\mathbb {Z}\)-indexed sums to \(\mathbb {N}\)-indexed sums (essential for the RHS of the Jacobi identity). </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Analysis.Normed.Field.InfiniteSum</span> – <span class="ttfamily">Summable.mul_norm</span>, Cauchy products in normed rings, dominated convergence for series. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Analysis.SpecificLimits.Normed</span> – <span class="ttfamily">summable_geometric_of_norm_lt_one</span>, the workhorse for proving \(\sum \| q^k\| \) converges. </p>
+</li>
+</ul>
+<h4 id="a0000000095">Infinite products via logarithms (for Proofs 1 and 3).</h4>
+<ul class="itemize">
+  <li><p><span class="ttfamily">Multipliable.of_summable_log</span> and friends – a product \(\prod a_k\) converges iff \(\sum \log a_k\) converges (in a suitable region). Useful when each factor \(a_k = 1 - b_k\) with \(\sum \| b_k\|  {\lt} \infty \). </p>
+</li>
+  <li><p>For each factor of the form \(1 - q^{2k-1} w^{\pm 2}\), summability of \(\sum \| q^{2k-1}\| \) is geometric. </p>
+</li>
+</ul>
+<h4 id="a0000000096">Complex analysis (for Proof 3).</h4>
+<ul class="itemize">
+  <li><p><span class="ttfamily">Mathlib.Analysis.Complex.LocallyUniformLimit</span> – <span class="ttfamily">TendstoLocallyUniformlyOn.differentiableOn</span>: a locally uniform limit of holomorphic functions is holomorphic. Exactly the tool you need to transport holomorphy from finite partial products to the infinite product. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Analysis.Complex.Liouville</span> – bounded entire is constant; doubly periodic entire is constant. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Analysis.Calculus.UniformLimitsDeriv</span> – derivative of a uniform limit is the limit of derivatives, useful for zero-counting via the argument principle. </p>
+</li>
+</ul>
+<h4 id="a0000000097">What is <em>not</em> yet in Mathlib (as of early 2026).</h4>
+<ul class="itemize">
+  <li><p>No \(q\)-Pochhammer symbol \((a;q)_n\), \((a;q)_\infty \). (The existing <span class="ttfamily">pochhammer</span> in Mathlib is the rising factorial, a different object.) </p>
+</li>
+  <li><p>No \(q\)-binomial coefficients or \(q\)-binomial theorem. </p>
+</li>
+  <li><p>No Jacobi theta functions \(\vartheta _1, \ldots , \vartheta _4\). </p>
+</li>
+  <li><p>No general theory of doubly periodic / elliptic functions beyond the basics. The Weierstrass \(\wp \)-function is partially developed but not the full machinery one would want. </p>
+</li>
+</ul>
+<h1 id="sec:pentagonal">8 Euler’s pentagonal number theorem from Jacobi</h1>
+
+<div class="theorem_thmwrapper theorem-style-plain" id="a0000000098">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">26</span>
+    <span class="theorem_thmtitle">Euler</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#a0000000098">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000099"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> For \(|q| {\lt} 1\), </p>
+<div class="displaymath" id="a0000000100">
+  \[  \prod _{n=1}^\infty (1 - q^n) = \sum _{k = -\infty }^\infty (-1)^k q^{k(3k-1)/2} = 1 + \sum _{k=1}^\infty (-1)^k \left( q^{k(3k-1)/2} + q^{k(3k+1)/2} \right).  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000099">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Use Jacobi’s triple product in the symmetric two-variable form </p>
+<div class="displaymath" id="a0000000101">
+  \[  \prod _{n=1}^\infty (1 - x^n)(1 - x^{n-1} z)(1 - x^n z^{-1}) = \sum _{k \in \mathbb {Z}} (-1)^k z^k x^{k(k-1)/2}, \tag {$\star $}  \]
+</div>
+<p> valid for \(|x| {\lt} 1\) and \(z \in \mathbb {C}^\times \). (This is equivalent to Theorem&#160;<a href="index.html#thm:jtp">25</a> via \(x = q^2\), \(z = q w^2\); we use this form because it avoids the \(w^{-2}\) asymmetry of the original statement.) </p>
+<p>Substitute \(x = q^3\) and \(z = q\). The three factors on the left become </p>
+<div class="displaymath" id="a0000000102">
+  \[  \prod _{n=1}^\infty (1 - q^{3n})(1 - q^{3n - 3} \cdot q)(1 - q^{3n} \cdot q^{-1}) = \prod _{n=1}^\infty (1 - q^{3n})(1 - q^{3n-2})(1 - q^{3n-1}).  \]
+</div>
+<p> The three index sets \(\{ 3n : n \geq 1\} \), \(\{ 3n - 2 : n \geq 1\} \), \(\{ 3n - 1 : n \geq 1\} \) partition \(\mathbb {Z}_{\geq 1}\) (they are the residue classes \(0, 1, 2 \pmod3\)), so the product collapses to </p>
+<div class="displaymath" id="a0000000103">
+  \[  \prod _{m=1}^\infty (1 - q^m).  \]
+</div>
+<p> The right side becomes </p>
+<div class="displaymath" id="a0000000104">
+  \[  \sum _{k \in \mathbb {Z}} (-1)^k q^k \cdot q^{3k(k-1)/2} = \sum _{k \in \mathbb {Z}} (-1)^k q^{k + 3k(k-1)/2} = \sum _{k \in \mathbb {Z}} (-1)^k q^{k(3k-1)/2},  \]
+</div>
+<p> since \(k + 3k(k-1)/2 = k(3k-1)/2\). Splitting the sum into \(k \geq 1\), \(k = 0\), \(k \leq -1\) and using \((-k)(3(-k)-1)/2 = k(3k+1)/2\) gives the second form. </p>
+
+  </div>
+</div>
+<h4 id="a0000000105">Formalization in Lean.</h4>
+<p> Given Jacobi’s triple product in the two-variable form (\(\star \)), this is a short proof: </p>
+<ol class="enumerate">
+  <li><p><b class="bfseries">Substitution</b> (\(\sim 10\) lines): apply Jacobi with \(x := q^3, z := q\). The hypothesis \(|x| {\lt} 1\) follows from \(|q| {\lt} 1\) by \(\| q^3\|  = \| q\| ^3 {\lt} 1\). </p>
+</li>
+  <li><p><b class="bfseries">Index partitioning</b> (\(\sim 30\) lines): prove the bijection \(\mathbb {N}_{{\gt}0} \times \{ 0, 1, 2\}  \to \mathbb {N}_{{\gt}0}\) sending \((n, r) \mapsto 3n - r\) (suitably offset), then use <span class="ttfamily">Multipliable.tprod_eq_of_hasProd</span> or rewrite the three products as one via a <span class="ttfamily">tprod</span> change of variables. Mathlib’s <span class="ttfamily">tprod_sigma</span>-style lemmas handle this. </p>
+</li>
+  <li><p><b class="bfseries">Exponent arithmetic</b> (\(\sim 20\) lines): show \(k + 3k(k-1)/2 = k(3k-1)/2\) for \(k \in \mathbb {Z}\). Since \(k(3k-1)\) is always even (one of \(k, 3k-1\) is), use <span class="ttfamily">Int.ediv</span> and prove the identity via <span class="ttfamily">omega</span> or <span class="ttfamily">ring</span> after multiplying through by 2. </p>
+</li>
+</ol>
+<p>Total: \(\sim 60\) lines once Jacobi is available. </p>
+<h1 id="sec:qbin-proof">9 The \(q\)-binomial theorem: statement and proof</h1>
+
+<h2 id="a0000000106">9.1 Statement</h2>
+<p>Define the <em>finite</em> \(q\)-Pochhammer symbol </p>
+<div class="displaymath" id="a0000000107">
+  \[  (a; q)_n = \prod _{k=0}^{n-1} (1 - a q^k), \qquad (a; q)_0 = 1,  \]
+</div>
+<p> the <em>\(q\)-factorial</em> \([n]_q! = (q;q)_n / (1-q)^n\), and the <em>Gaussian binomial coefficient</em> </p>
+<div class="displaymath" id="a0000000108">
+  \[  \binom {n}{k}_q = \frac{(q; q)_n}{(q; q)_k \,  (q; q)_{n-k}} \qquad (0 \leq k \leq n).  \]
+</div>
+<p> By convention \(\binom {n}{k}_q = 0\) for \(k {\lt} 0\) or \(k {\gt} n\). These are polynomials in \(q\) with integer coefficients (this is part of what needs to be proved). </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:qbin-finite">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">27</span>
+    <span class="theorem_thmtitle">Finite \(q\)-binomial theorem</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#thm:qbin-finite">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000109"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qBinom">Definition 33</a></li>
+          
+          <li><a href="index.html#def:qPochhammer">Definition 30</a></li>
+          
+          <li><a href="index.html#lem:qpascal">Lemma 29</a></li>
+          
+          <li><a href="index.html#lem:qBinom-eq-zero-of-lt">Lemma 34</a></li>
+          
+          <li><a href="index.html#def:qBinom">Definition 33</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_finite_thm" class="lean_decl">qSeries.qBinom_finite_thm</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> In \(\mathbb {Z}[q, z]\), for every \(n \geq 0\), </p>
+<div class="displaymath" id="a0000000110">
+  \[  \prod _{k=0}^{n-1} (1 + z q^k) = \sum _{k=0}^n q^{\binom {k}{2}} \binom {n}{k}_q z^k.  \]
+</div>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:qbin-infinite">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">28</span>
+    <span class="theorem_thmtitle">Infinite \(q\)-binomial / Cauchy identity</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#thm:qbin-infinite">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qPochhammer">Definition 30</a></li>
+          
+          <li><a href="index.html#def:qPochhammerInf">Definition 37</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_infinite_thm" class="lean_decl">qSeries.qBinom_infinite_thm</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> For \(|q| {\lt} 1\) and any \(a, z \in \mathbb {C}\) with \(|z| {\lt} 1\), </p>
+<div class="displaymath" id="a0000000111">
+  \[  \sum _{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(a z; q)_\infty }{(z; q)_\infty }.  \]
+</div>
+
+  </div>
+</div>
+<p>The two Euler identities follow from Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a> by specializing \(a = 0\) (gives \(1/(z;q)_\infty = \sum z^n / (q;q)_n\)) and by sending \(a \to \infty \) along \(a = -y/q^N\) with \(N \to \infty \), then renaming (gives \((-z;q)_\infty = \sum q^{\binom {n}{2}} z^n / (q;q)_n\)). </p>
+<h2 id="a0000000112">9.2 Proof of the finite \(q\)-binomial theorem</h2>
+<p>This proof is purely algebraic (no analysis) and is the version best suited for Lean. It uses only induction on \(n\) and the \(q\)-Pascal identity. </p>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:qpascal">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">29</span>
+    <span class="lemma_thmtitle">\(q\)-Pascal</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lem:qpascal">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000113"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qBinom">Definition 33</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_succ_succ" class="lean_decl">qSeries.qBinom_succ_succ</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For all \(n, k \in \mathbb {N}\), </p>
+<div class="displaymath" id="a0000000114">
+  \[  \binom {n+1}{k+1}_q \; =\;  \binom {n}{k+1}_q + q^{n - k}\, \binom {n}{k}_q.  \]
+</div>
+<p> (Equivalently, with \(k \geq 1\): \(\binom {n+1}{k}_q = \binom {n}{k}_q + q^{n - k + 1}\binom {n}{k-1}_q\). A symmetric form \(\binom {n+1}{k+1}_q = q^{k+1}\binom {n}{k+1}_q + \binom {n}{k}_q\) also holds; we use the first.) </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000113">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>This is the recursive defining equation of \(\binom {n}{k}_q\) in Definition&#160;<a href="index.html#def:qBinom">33</a>, hence <span class="ttfamily">rfl</span> in Lean. Equivalently, by direct computation from the quotient form \(\binom {n}{k}_q = (q;q)_n / \bigl((q;q)_k(q;q)_{n-k}\bigr)\) (valid when \(k \leq n\) and the denominators are nonzero): \(\binom {n}{k}_q + q^{n-k+1}\binom {n}{k-1}_q = \binom {n}{k-1}_q \cdot \tfrac {(1 - q^{n-k+1}) + q^{n-k+1}(1 - q^k)}{1 - q^k} = \binom {n}{k-1}_q \cdot \tfrac {1 - q^{n+1}}{1 - q^k} = \binom {n+1}{k}_q\), recovering the off-by-one form. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000109">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof of Theorem&#160;<a href="index.html#thm:qbin-finite">27</a>
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> Induction on \(n\), following the Lean proof <span class="ttfamily">qSeries.qBinom_finite_thm</span> in <span class="ttfamily">Series/qSeries.lean</span>. The case \(n = 0\) gives \(1 = 1\). </p>
+<p>For the inductive step, set \(P_n(z) := \prod _{k=0}^{n-1}(1 + z q^k)\) and \(Q_n(z) := \sum _{k=0}^{n} q^{\binom {k}{2}}\binom {n}{k}_q z^k\), so the theorem reads \(P_n = Q_n\). By <span class="ttfamily">Finset.prod_range_succ</span> and the inductive hypothesis \(P_n = Q_n\), </p>
+<div class="displaymath" id="a0000000115">
+  \[  P_{n+1}(z) \; =\;  P_n(z)\, (1 + z q^n) \; =\;  Q_n(z)\, (1 + z q^n),  \]
+</div>
+<p> so it suffices to show \(Q_{n+1}(z) = Q_n(z)\, (1 + z q^n)\). We decompose \(Q_{n+1}(z) = \sum _{k=0}^{n+1} q^{\binom {k}{2}}\binom {n+1}{k}_q z^k\) in four explicit steps (mirroring <span class="ttfamily">stepB</span>–<span class="ttfamily">stepD</span> of the Lean proof). </p>
+<p><em>Step A (peel off \(k = 0\) via <span class="ttfamily">Finset.sum_range_succ’</span>).</em> Using \(\binom {n+1}{0}_q = 1\), </p>
+<div class="displaymath" id="a0000000116">
+  \[  Q_{n+1}(z) \; =\;  1 \; +\;  \sum _{k=0}^{n} q^{\binom {k+1}{2}}\, \binom {n+1}{k+1}_q\, z^{k+1}.  \]
+</div>
+<p><em>Step B (\(q\)-Pascal split).</em> Apply Lemma&#160;<a href="index.html#lem:qpascal">29</a> inside the sum and split via <span class="ttfamily">Finset.sum_add_distrib</span>: </p>
+<div class="displaymath" id="a0000000117">
+  \[  \sum _{k=0}^{n} q^{\binom {k+1}{2}}\binom {n+1}{k+1}_q z^{k+1} \; =\;  \underbrace{\sum _{k=0}^{n} q^{\binom {k+1}{2}}\binom {n}{k+1}_q z^{k+1}}_{S_1} \; +\;  \underbrace{\sum _{k=0}^{n} q^{\binom {k+1}{2}+n-k}\binom {n}{k}_q z^{k+1}}_{S_2}.  \]
+</div>
+<p><em>Step C (\(S_2 = z q^n\,  Q_n(z)\)).</em> The identity \(\binom {k+1}{2} = \binom {k}{2} + k\) (helper <span class="ttfamily">choose_two_succ</span>) and \(k + (n - k) = n\) (valid because \(k \leq n\), by <span class="ttfamily">Nat.sub_add_cancel</span>) give \(q^{\binom {k+1}{2}+n-k}\,  z^{k+1} = z\,  q^n \cdot q^{\binom {k}{2}}\,  z^k\), hence </p>
+<div class="displaymath" id="a0000000118">
+  \[  S_2 \; =\;  z\,  q^n \sum _{k=0}^{n} q^{\binom {k}{2}}\binom {n}{k}_q z^k \; =\;  z\,  q^n\,  Q_n(z).  \]
+</div>
+<p><em>Step D (\(1 + S_1 = Q_n(z)\)).</em> Reindex \(j = k+1\) to identify \(S_1 = \sum _{j=1}^{n+1} q^{\binom {j}{2}}\binom {n}{j}_q z^j\), then adjoin the \(j = 0\) term \(1\) (using <span class="ttfamily">Finset.sum_range_succ’</span> in reverse): </p>
+<div class="displaymath" id="a0000000119">
+  \[  1 + S_1 \; =\;  \sum _{j=0}^{n+1} q^{\binom {j}{2}}\binom {n}{j}_q z^j.  \]
+</div>
+<p> The \(j = n+1\) term vanishes by Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">34</a> (\(\binom {n}{n+1}_q = 0\)), reducing this to \(Q_n(z)\). </p>
+<p>Combining the four steps, \(Q_{n+1}(z) = (1 + S_1) + S_2 = Q_n(z) + z q^n Q_n(z) = Q_n(z)\, (1 + z q^n)\). The final algebraic identity is closed in Lean by <span class="ttfamily">linear_combination</span>. <span class="qed">□</span></p>
+
+  </div>
+</div>
+<h2 id="a0000000120">9.3 Passing to the infinite case</h2>
+<div class="proof_wrapper" id="a0000000121">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof sketch of Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a>
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> The finite form of Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a> is the analogous identity </p>
+<div class="displaymath" id="a0000000122">
+  \[  \sum _{k=0}^n \frac{(a; q)_k}{(q; q)_k} z^k \cdot \frac{(q^{n-k+1}; q)_k}{(q^{n-k+1}; q)_k} \; =\;  \frac{(az; q)_n}{(z; q)_n} \cdot (\text{correction})  \]
+</div>
+<p> — one needs to be careful here; the cleanest finite version is due to Cauchy and reads, for \(|z| {\lt} 1\), </p>
+<div class="displaymath" id="a0000000123">
+  \[  \sum _{k=0}^n \binom {n}{k}_q \frac{(a;q)_k}{(q;q)_k} z^k \,  \xrightarrow {n \to \infty } \,  \sum _{k=0}^\infty \frac{(a;q)_k}{(q;q)_k} z^k.  \]
+</div>
+<p> The classical route is: </p>
+<ol class="enumerate">
+  <li><p>Prove the finite identity \((az; q)_n = \sum _{k=0}^n \binom {n}{k}_q (-a)^k q^{\binom {k}{2}} z^k \cdot (\text{telescope})\) — a polynomial identity provable by the same induction as Theorem&#160;<a href="index.html#thm:qbin-finite">27</a>. </p>
+</li>
+  <li><p>Pass to the limit \(n \to \infty \) using \((q;q)_k / (q;q)_n \to 1/(q^{k+1};q)_\infty \) and dominated convergence (each \(|q^{\binom {k}{2}} z^k| \leq |z|^k\) is summable when \(|z| {\lt} 1\)). </p>
+</li>
+</ol>
+
+  </div>
+</div>
+<h4 id="a0000000124">Avoiding the infinite version entirely.</h4>
+<p> For Jacobi’s triple product via Zhu’s semi-finite proof, you do not actually need Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a>. You only need the <em>first Euler identity</em> </p>
+<div class="displaymath" id="a0000000125">
+  \[  (-z; q)_\infty = \sum _{n=0}^\infty \frac{q^{\binom {n}{2}}}{(q; q)_n} z^n,  \]
+</div>
+<p> which is the \(n \to \infty \) limit of Theorem&#160;<a href="index.html#thm:qbin-finite">27</a> after rewriting \(\prod _{k=0}^{n-1}(1 + zq^k)\) as \((-z; q)_n\) and dividing by suitable factors. This limit is gentler than the full Cauchy identity. </p>
+<h2 id="a0000000126">9.4 Formalization plan in Lean</h2>
+<h4 id="a0000000127">Definitions.</h4>
+<ul class="itemize">
+  <li><p><span class="ttfamily">qPochhammer (a q : R) : \(\mathbb {N} \to \) R</span>, defined recursively: <br /><span class="ttfamily">qPochhammer a q 0 = 1</span>, <br /><span class="ttfamily">qPochhammer a q (n+1) = qPochhammer a q n * (1 - a * q^n)</span>. <br />Use <span class="ttfamily">Polynomial.eval</span> for the abstract version in \(R[X]\), or work directly in \(\mathbb {C}\). </p>
+</li>
+  <li><p><span class="ttfamily">qBinom (n k : \(\mathbb {N}\)) (q : R) : R</span> as <span class="ttfamily">qPochhammer q q n / (qPochhammer q q k * qPochhammer q q (n - k))</span> when \(k \leq n\), else 0. To stay in \(\mathbb {Z}[q]\), define instead as a polynomial via the \(q\)-Pascal recurrence and prove the closed form is well-defined. </p>
+</li>
+</ul>
+<h4 id="a0000000128">Recommended approach: define \(q\)-binomial coefficients via the recurrence, not the quotient.</h4>
+<p> The quotient definition introduces division-by-zero conditions (the denominator \((q;q)_k\) vanishes at roots of unity). The recurrence-based definition avoids this entirely: </p>
+<blockquote class="quote"> <span class="ttfamily">qBinom 0 0 q = 1</span>; <span class="ttfamily">qBinom 0 (k+1) q = 0</span>; <span class="ttfamily">qBinom (n+1) 0 q = 1</span>; <br /><span class="ttfamily">qBinom (n+1) (k+1) q = qBinom n (k+1) q + q^(n-k) * qBinom n k q</span>. </blockquote>
+<p> Then <span class="ttfamily">qBinom n k</span> is a polynomial in \(q\) with integer coefficients by construction. The closed-form equality with \((q;q)_n / ((q;q)_k (q;q)_{n-k})\) becomes a <em>theorem</em> provable for \(q\) outside the relevant roots of unity (or as an identity of rational functions). </p>
+<h4 id="a0000000129">Step-by-step Lean roadmap.</h4>
+<ol class="enumerate">
+  <li><p>Define <span class="ttfamily">qPochhammer</span> (Mathlib’s <span class="ttfamily">Finset.prod_range</span> suffices: <span class="ttfamily">qPochhammer a q n := \(\prod \) k \(\in \) range n, (1 - a * q^k)</span>). <b class="bfseries">\(\sim 30\) lines.</b> </p>
+</li>
+  <li><p>Prove basic identities: <span class="ttfamily">qPochhammer a q (n+1) = qPochhammer a q n * (1 - a * q^n)</span> (this is <span class="ttfamily">Finset.prod_range_succ</span>); the recursion the other way; multiplicativity. <b class="bfseries">\(\sim 50\) lines.</b> </p>
+</li>
+  <li><p>Define <span class="ttfamily">qBinom</span> by recursion as above; prove symmetry \(\binom {n}{k}_q = \binom {n}{n-k}_q\) by induction. <b class="bfseries">\(\sim 100\) lines.</b> </p>
+</li>
+  <li><p>Prove the closed-form formula \(\binom {n}{k}_q \cdot (q;q)_k \cdot (q;q)_{n-k} = (q;q)_n\) as an identity of polynomials. This is the bridge between the recursive definition and the quotient definition. <b class="bfseries">\(\sim 100\) lines.</b> </p>
+</li>
+  <li><p>Prove the finite \(q\)-binomial theorem (Theorem&#160;<a href="index.html#thm:qbin-finite">27</a>) by induction, following the proof above. <b class="bfseries">\(\sim 80\) lines.</b> </p>
+</li>
+  <li><p>Define <span class="ttfamily">qPochhammerInf</span> as a <span class="ttfamily">tprod</span>; prove <span class="ttfamily">Multipliable</span> for \(|q| {\lt} 1\) using \(\sum \| q^k\|  {\lt} \infty \). <b class="bfseries">\(\sim 100\) lines.</b> </p>
+</li>
+  <li><p>Prove the first Euler identity \((-z; q)_\infty = \sum q^{\binom {n}{2}} z^n / (q;q)_n\) for \(|q| {\lt} 1\) and \(z\) in any bounded set, by taking \(n \to \infty \) in Theorem&#160;<a href="index.html#thm:qbin-finite">27</a>. The convergence step uses dominated convergence with the bound \(|q^{\binom {n}{2}}| \leq |q|^{n(n-1)/2}\). <b class="bfseries">\(\sim 200\) lines.</b> </p>
+</li>
+  <li><p>(Optional) Prove the full Cauchy identity (Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a>). <b class="bfseries">\(\sim 150\) extra lines.</b> </p>
+</li>
+</ol>
+<p><b class="bfseries">Total for steps 1–7 (sufficient for Zhu’s proof of Jacobi):</b> \(\sim 650\) lines. Adding Zhu’s argument (\(\sim 100\) lines) plus the pentagonal corollary (\(\sim 60\) lines) brings the total Jacobi-via-q-binomial route to \(\sim 800\) lines plus whatever scaffolding the bilateral series on the RHS requires. </p>
+<h2 id="a0000000130">9.5 Existing Mathlib infrastructure</h2>
+<h4 id="a0000000131">Algebraic foundations.</h4>
+<ul class="itemize">
+  <li><p><span class="ttfamily">Mathlib.Algebra.BigOperators.Basic</span>, <span class="ttfamily">Mathlib.Algebra.BigOperators.Ring</span> – the <span class="ttfamily">\(\prod \) k \(\in \) s, f k</span> and <span class="ttfamily">\(\sum \) k \(\in \) s, f k</span> machinery, including <span class="ttfamily">Finset.prod_range_succ</span>, <span class="ttfamily">Finset.prod_range_succ’</span>, <span class="ttfamily">Finset.prod_Ico_consecutive</span>, <span class="ttfamily">Finset.prod_bij</span>. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Algebra.Polynomial.Basic</span> – if you want to formalize \(q\)-binomials as elements of \(\mathbb {Z}[q]\) rather than as functions of \(q\), this gives <span class="ttfamily">Polynomial</span>, <span class="ttfamily">Polynomial.coeff</span>, <span class="ttfamily">Polynomial.eval</span>. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Algebra.Polynomial.Induction</span> – <span class="ttfamily">Polynomial.induction_on’</span> for proving polynomial identities by reducing to monomials. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Combinatorics.Choose.Basic</span> – ordinary binomial coefficients <span class="ttfamily">Nat.choose</span>, useful as a guide and for the \(q \to 1\) limit (not needed for the proof itself). </p>
+</li>
+</ul>
+<h4 id="a0000000132">Analytic foundations (for the infinite case).</h4>
+<ul class="itemize">
+  <li><p><span class="ttfamily">Mathlib.Topology.Algebra.InfiniteSum.Defs</span> – <span class="ttfamily">Summable</span>, <span class="ttfamily">Multipliable</span>, <span class="ttfamily">tsum</span> (\(\sum '\)), <span class="ttfamily">tprod</span> (\(\prod '\)). </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Analysis.Normed.Field.InfiniteSum</span> – <span class="ttfamily">Summable.mul_norm</span>, Cauchy products, dominated convergence for sums. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Analysis.SpecificLimits.Normed</span> – <span class="ttfamily">summable_geometric_of_norm_lt_one</span>, the workhorse summability lemma. </p>
+</li>
+  <li><p><span class="ttfamily">Mathlib.Analysis.Normed.Group.InfiniteSum</span> – <span class="ttfamily">tsum_geometric_of_norm_lt_one</span> and friends. </p>
+</li>
+</ul>
+<h4 id="a0000000133">What is missing (as of early 2026).</h4>
+<ul class="itemize">
+  <li><p>No <span class="ttfamily">qPochhammer</span> or <span class="ttfamily">qPochhammerInf</span>. </p>
+</li>
+  <li><p>No <span class="ttfamily">qBinom</span> or Gaussian binomial coefficient. (Mathlib’s existing <span class="ttfamily">pochhammer</span> is the <em>rising factorial</em> \(x(x+1)\cdots (x+n-1)\), a different and unrelated object despite the name.) </p>
+</li>
+  <li><p>No \(q\)-Pascal recurrence, no finite or infinite \(q\)-binomial theorem, no Euler identities. </p>
+</li>
+</ul>
+<p>This means the entire \(q\)-series scaffold needs to be developed from scratch. The good news is that there are no foundational gaps: every step rests on Mathlib infrastructure that already exists. The work is purely additive. </p>
+<h2 id="a0000000134">9.6 Why this is worth it</h2>
+<p>Once the \(\sim 650\) lines of \(q\)-series infrastructure are in place, the following all become short corollaries: </p>
+<ul class="itemize">
+  <li><p>Jacobi’s triple product (Zhu’s proof: \(\sim 100\) lines). </p>
+</li>
+  <li><p>Euler’s pentagonal number theorem (specialization: \(\sim 60\) lines). </p>
+</li>
+  <li><p>Gauss’s identities for \(\sum q^{n(n+1)/2}\) and \(\sum (-1)^n q^{n^2}\) (specializations: \(\sim 50\) lines each). </p>
+</li>
+  <li><p>The generating function for partitions \(\sum p(n) q^n = 1/(q;q)_\infty \) (immediate). </p>
+</li>
+  <li><p>Generating functions for partitions into distinct parts, odd parts, etc. (Euler’s theorem: \(\sim 100\) lines). </p>
+</li>
+</ul>
+<p> By contrast, formalizing any one of these via a bespoke proof would cost \(\sim 1000\)–\(2000\) lines and produce no reusable infrastructure. The \(q\)-series route amortizes the cost. </p>
+<h1 id="sec:qPochhammer-formalized">10 The \(q\)-Pochhammer symbol and Gaussian binomial coefficient (formalized)</h1>
+
+<p>This section records the foundational definitions and lemmas that have been formalized in Lean for the \(q\)-series approach to Jacobi’s triple product. The corresponding source file is <span class="ttfamily">Series/qSeries.lean</span> in the <span class="ttfamily">Series</span> Lean library, under the namespace <span class="ttfamily">qSeries</span>. Throughout this section \(R\) is a commutative ring and \(a, q \in R\). </p>
+<h2 id="a0000000135">10.1 The \(q\)-Pochhammer symbol</h2>
+<div class="definition_thmwrapper theorem-style-definition" id="def:qPochhammer">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">30</span>
+    <span class="definition_thmtitle">Finite \(q\)-Pochhammer symbol</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def:qPochhammer">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer" class="lean_decl">qSeries.qPochhammer</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>For \(n \in \mathbb {N}\), the finite \(q\)-Pochhammer symbol is </p>
+<div class="displaymath" id="a0000000136">
+  \[  (a; q)_n \; :=\;  \prod _{k = 0}^{n - 1} \bigl(1 - a\,  q^k\bigr).  \]
+</div>
+<p> In Lean, this is implemented as <span class="ttfamily">\(\prod \) k \(\in \) Finset.range n, (1 - a * q^k)</span>, specialising to \((a; q)_0 = 1\) (the empty product). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:qPochhammer-zero">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">31</span>
+    <span class="lemma_thmtitle">Base case</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lem:qPochhammer-zero">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000137"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qPochhammer">Definition 30</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer_zero" class="lean_decl">qSeries.qPochhammer_zero</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> \((a; q)_0 = 1\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000137">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>The empty product is \(1\) (<span class="ttfamily">Finset.prod_range_zero</span>). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:qPochhammer-succ">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">32</span>
+    <span class="lemma_thmtitle">Recurrence</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lem:qPochhammer-succ">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000138"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qPochhammer">Definition 30</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer_succ" class="lean_decl">qSeries.qPochhammer_succ</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For all \(n \in \mathbb {N}\), </p>
+<div class="displaymath" id="a0000000139">
+  \[  (a; q)_{n+1} \; =\;  (a; q)_n \cdot \bigl(1 - a\,  q^n\bigr).  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000138">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Immediate from <span class="ttfamily">Finset.prod_range_succ</span>. </p>
+
+  </div>
+</div>
+<h2 id="a0000000140">10.2 The Gaussian binomial coefficient</h2>
+<div class="definition_thmwrapper theorem-style-definition" id="def:qBinom">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">33</span>
+    <span class="definition_thmtitle">Gaussian binomial coefficient</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def:qBinom">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom" class="lean_decl">qSeries.qBinom</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>The Gaussian binomial coefficient \(\binom {n}{k}_q \in R\) is defined by recursion on \(n\) and \(k\): </p>
+<div class="displaymath" id="a0000000141">
+  \[  \begin{aligned}  \binom {0}{0}_q & = 1, &  \binom {0}{k+1}_q & = 0, \\ \binom {n+1}{0}_q & = 1, &  \binom {n+1}{k+1}_q & = \binom {n}{k+1}_q + q^{n-k}\, \binom {n}{k}_q. \end{aligned}  \]
+</div>
+<p> This is the \(q\)-Pascal recurrence in the form stated in Lemma&#160;<a href="index.html#lem:qpascal">29</a> (with the index shift \(k \mapsto k+1\)). By construction \(\binom {n}{k}_q\) is a polynomial in \(q\) with integer coefficients, defined for every pair \((n, k) \in \mathbb {N}^2\) (no division, no roots-of-unity exclusion). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:qBinom-eq-zero-of-lt">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">34</span>
+    <span class="lemma_thmtitle">Vanishing above the diagonal</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lem:qBinom-eq-zero-of-lt">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000142"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qBinom">Definition 33</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_eq_zero_of_lt" class="lean_decl">qSeries.qBinom_eq_zero_of_lt</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> If \(n {\lt} k\), then \(\binom {n}{k}_q = 0\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000142">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Induction on \(n\) and \(k\) following the four-case recursive definition. The non-trivial case is \((n+1, k+1)\) with \(n {\lt} k\): the recurrence gives \(\binom {n+1}{k+1}_q = \binom {n}{k+1}_q + q^{n-k}\binom {n}{k}_q\), and both inductive hypotheses (at \((n, k+1)\) and \((n, k)\), available because \(n {\lt} k + 1\) and \(n {\lt} k\) respectively) yield \(0\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:qBinom-self">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">35</span>
+    <span class="lemma_thmtitle">Diagonal</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lem:qBinom-self">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000143"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qBinom">Definition 33</a></li>
+          
+          <li><a href="index.html#lem:qBinom-eq-zero-of-lt">Lemma 34</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_self" class="lean_decl">qSeries.qBinom_self</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> \(\binom {n}{n}_q = 1\) for every \(n \in \mathbb {N}\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000143">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Induction on \(n\). The case \(n = 0\) is by definition. For the step, </p>
+<div class="displaymath" id="a0000000144">
+  \[  \binom {n+1}{n+1}_q = \binom {n}{n+1}_q + q^{n-n}\, \binom {n}{n}_q = 0 + 1 \cdot 1 = 1,  \]
+</div>
+<p> using Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">34</a> for the first term and the inductive hypothesis for the second. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:qBinom-closed-form">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">36</span>
+    <span class="lemma_thmtitle">Closed form for \(\binom {n}{k}_q\)</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lem:qBinom-closed-form">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000145"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qBinom">Definition 33</a></li>
+          
+          <li><a href="index.html#def:qPochhammer">Definition 30</a></li>
+          
+          <li><a href="index.html#lem:qPochhammer-succ">Lemma 32</a></li>
+          
+          <li><a href="index.html#lem:qBinom-self">Lemma 35</a></li>
+          
+          <li><a href="index.html#lem:qBinom-eq-zero-of-lt">Lemma 34</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_mul_qPochhammer_mul_qPochhammer" class="lean_decl">qSeries.qBinom_mul_qPochhammer_mul_qPochhammer</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For all \(k \leq n\), </p>
+<div class="displaymath" id="a0000000146">
+  \[  \binom {n}{k}_q \cdot (q; q)_k \cdot (q; q)_{n - k} \; =\;  (q; q)_n.  \]
+</div>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000145">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Induction on \(n\). </p>
+<p><em>Base case \(n = 0\).</em> Forces \(k = 0\) and the identity is \(1 \cdot 1 \cdot 1 = 1\). </p>
+<p><em>Boundary \(k = 0\).</em> Reduces to \(1 \cdot 1 \cdot (q; q)_n = (q; q)_n\). </p>
+<p><em>Boundary \(k = n + 1\).</em> By Lemma&#160;<a href="index.html#lem:qBinom-self">35</a> we have \(\binom {n+1}{n+1}_q = 1\), and \((q; q)_0 = 1\), so both sides equal \((q; q)_{n+1}\). </p>
+<p><em>Inductive step \(k + 1 \leq n\).</em> Apply the \(q\)-Pascal recurrence </p>
+<div class="displaymath" id="a0000000147">
+  \[  \binom {n+1}{k+1}_q = \binom {n}{k+1}_q + q^{n-k}\, \binom {n}{k}_q  \]
+</div>
+<p> and the factorisations </p>
+<div class="displaymath" id="a0000000148">
+  \[  (q; q)_{n - k} \; =\;  (q; q)_{n - (k+1)} \cdot \bigl(1 - q\, q^{n-(k+1)}\bigr), \qquad (q; q)_{k + 1} \; =\;  (q; q)_k \cdot \bigl(1 - q\, q^k\bigr),  \]
+</div>
+<p> together with the power identities \(q \cdot q^{n-(k+1)} = q^{n-k}\) and \(q^{n-k} \cdot (q \cdot q^k) = q \cdot q^n\), which use \(k \leq n\) via <span class="ttfamily">Nat.sub_add_cancel</span>. The two inductive hypotheses at \((n, k+1)\) and \((n, k)\) then combine into the required identity, dispatched in Lean by <span class="ttfamily">linear_combination</span>. </p>
+
+  </div>
+</div>
+<h2 id="subsec:qbin-finite-formalized">10.3 The finite \(q\)-binomial theorem (step 5)</h2>
+
+<p>Theorem&#160;<a href="index.html#thm:qbin-finite">27</a> is formalised as <span class="ttfamily">qSeries.qBinom_finite_thm</span> in <span class="ttfamily">Series/qSeries.lean</span>. The Lean proof follows exactly the four-step strategy spelled out in the proof attached to Theorem&#160;<a href="index.html#thm:qbin-finite">27</a> above: peel off \(k = 0\), apply the \(q\)-Pascal recurrence (Lemma&#160;<a href="index.html#lem:qpascal">29</a>) inside the sum, simplify the second piece to \(z q^n\,  Q_n\), and recombine the first piece via \(\binom {n}{n+1}_q = 0\) (Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">34</a>). </p>
+<h2 id="subsec:qbin-infinite-formalized">10.4 The infinite \(q\)-Pochhammer symbol and Cauchy identity (steps 6, 8)</h2>
+
+<p>Working in \(\mathbb {C}\) for the analytic part of the development. </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:qPochhammerInf">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">37</span>
+    <span class="definition_thmtitle">Infinite \(q\)-Pochhammer symbol</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#def:qPochhammerInf">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammerInf" class="lean_decl">qSeries.qPochhammerInf</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  
+<div class="displaymath" id="a0000000149">
+  \[  (a; q)_\infty \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\,  q^k\bigr) \; \in \;  \mathbb {C},  \]
+</div>
+<p> defined unconditionally via <span class="ttfamily">tprod</span>. The value is mathematically meaningful (and the product is convergent) under the hypothesis \(\| q\|  {\lt} 1\) provided by Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">38</a>. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:multipliable-one-sub-smul-qpow">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">38</span>
+    <span class="lemma_thmtitle">Multipliability</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#lem:multipliable-one-sub-smul-qpow">#</a>
+    
+    <a class="icon proof" href="index.html#a0000000150"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qPochhammerInf">Definition 37</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.multipliable_one_sub_smul_qpow" class="lean_decl">qSeries.multipliable_one_sub_smul_qpow</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> For \(a, q \in \mathbb {C}\) with \(\| q\|  {\lt} 1\), the family \(k \mapsto 1 - a\,  q^k\) is multipliable; in particular the partial products converge to \((a; q)_\infty \). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000150">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p>Reduce multipliability to summability of \(\sum _k \| a q^k\| \) via Mathlib’s <span class="ttfamily">multipliable_one_add_of_summable</span> (which works in any complete normed ring), then bound \(\| a q^k\|  = \| a\| \,  \| q\| ^k\) and conclude by the geometric series \(\sum _k \| q\| ^k {\lt} \infty \) (<span class="ttfamily">summable_geometric_of_lt_one</span>). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:qbin-infinite-formalized">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">39</span>
+    <span class="theorem_thmtitle">Infinite \(q\)-binomial / Cauchy identity, restated for the formal development</span>
+    <div class="thm_header_extras">
+
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="index.html#thm:qbin-infinite-formalized">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="index.html#def:qPochhammer">Definition 30</a></li>
+          
+          <li><a href="index.html#def:qPochhammerInf">Definition 37</a></li>
+          
+          <li><a href="index.html#lem:multipliable-one-sub-smul-qpow">Lemma 38</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_infinite_thm" class="lean_decl">qSeries.qBinom_infinite_thm</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> For \(a, z, q \in \mathbb {C}\) with \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
+<div class="displaymath" id="a0000000151">
+  \[  \mathrm{HasSum}\Bigl(n \mapsto \tfrac {(a; q)_n}{(q; q)_n}\,  z^n,\;  \tfrac {(a z; q)_\infty }{(z; q)_\infty }\Bigr).  \]
+</div>
+<p> (Equivalent to Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a>.) The Lean statement is <span class="ttfamily">qSeries.qBinom_infinite_thm</span> in <span class="ttfamily">Series/qSeries.lean</span>; the proof is currently a stub (<span class="ttfamily">sorry</span>). The standard route is to take \(n \to \infty \) in the finite identity (a Cauchy-type analog of Theorem&#160;<a href="index.html#thm:qbin-finite">27</a>), applying dominated convergence on the summable side and multipliability (Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">38</a>) on the product side. </p>
+
+  </div>
+</div>
+<h4 id="a0000000152">Remark.</h4>
+<p> Together with Lemma&#160;<a href="index.html#lem:qPochhammer-succ">32</a>, Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">34</a>, and Lemma&#160;<a href="index.html#lem:qBinom-closed-form">36</a>, Theorem&#160;<a href="index.html#thm:qbin-finite">27</a> realises steps 1, 2, 3, 4, and 5 of the formalisation roadmap in Section&#160;<a href="index.html#sec:qbin-proof">9</a> (“Formalization plan in Lean”). Step 6 is realised by Definition&#160;<a href="index.html#def:qPochhammerInf">37</a> and Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">38</a>. Step 8 (the full Cauchy identity, Theorem&#160;<a href="index.html#thm:qbin-infinite">28</a>) has its statement formalised (<span class="ttfamily">qSeries.qBinom_infinite_thm</span>) but its proof remains as future work. Step 3 is partially completed: the recursive definition is in place (Definition&#160;<a href="index.html#def:qBinom">33</a>) and the closed-form bridge to the quotient description is established (Lemma&#160;<a href="index.html#lem:qBinom-closed-form">36</a>); the symmetry identity \(\binom {n}{k}_q = \binom {n}{n-k}_q\) remains as future work, as does step 7 (the first Euler identity).  </p>
 
 </div> <!--main-text -->
 </div> <!-- content-wrapper -->

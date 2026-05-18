@@ -54,3 +54,16 @@ pe_minus_po_zero
 pe_minus_po_nonpent
 pe_minus_po_pent_minus
 pe_minus_po_pent_plus
+qSeries.qBinom_finite_thm
+qSeries.qBinom_infinite_thm
+qSeries.qBinom_succ_succ
+qSeries.qPochhammer
+qSeries.qPochhammer_zero
+qSeries.qPochhammer_succ
+qSeries.qBinom
+qSeries.qBinom_eq_zero_of_lt
+qSeries.qBinom_self
+qSeries.qBinom_mul_qPochhammer_mul_qPochhammer
+qSeries.qPochhammerInf
+qSeries.multipliable_one_sub_smul_qpow
+qSeries.qBinom_infinite_thm

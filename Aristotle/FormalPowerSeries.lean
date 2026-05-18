@@ -5,6 +5,9 @@ import Aristotle.Lemmas
 open Finset PowerSeries
 open scoped PowerSeries.WithPiTopology
 set_option maxHeartbeats 4000000
+
+
+
 /-! # Pentagonal Number Theorem — Formal Power Series Statements
 This file contains the formal power series identities from the source document
 "Pentagonal Number Theorem" by JC, PM, MV (May 11, 2026).
@@ -212,15 +215,3 @@ example : (3 * 1 ^ 2 + 1) / 2 = 2  := by norm_num  -- k = -1
 example : (3 * 1 ^ 2 - 1) / 2 = 1  := by norm_num  -- k = 1
 example : (3 * 2 ^ 2 - 2) / 2 = 5  := by norm_num  -- k = 2
 example : (3 * 3 ^ 2 - 3) / 2 = 12 := by norm_num  -- k = 3
-/-! ## Section 3: Jacobi Triple Product (Theorem 25) -/
-/-- **Theorem 25, Jacobi Triple Product (Source)**: For all `w ≠ 0` and `|q| < 1`:
-`∏_{k≥1} (1 - q^{2k})(1 - q^{2k-1}w²)(1 - q^{2k-1}w⁻²) = ∑_{k=-∞}^{∞} (-1)^k w^{2k} q^{k²}`.
-The source document outlines a proof via the auxiliary function
-`φₙ(w,q) = ∏_{k=1}^n (1-q^{2k-1}w²)(1-q^{2k-1}w⁻²)` and a functional equation
-`φₙ(qw,q) = φₙ(w,q) · (1-q^{2n+1}w²)/(-qw²+q^{2n})`, then analyzes the Laurent
-coefficients `Aₙ,ₖ(q)` satisfying a recurrence and takes `n → ∞`.
-This analytic result generalizes the Pentagonal Number Theorem (which is the special
-case `w = 1`, `q = x^{1/2}`). Its full formalization would require convergence
-analysis of infinite products, which is beyond the scope of this combinatorial
-formalization. -/
-theorem jacobi_triple_product_informal : True := trivial
