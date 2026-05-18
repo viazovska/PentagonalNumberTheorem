@@ -401,10 +401,10 @@ theorem cauchyCoeff_bounded {q : ℂ} (hq : ‖q‖ < 1) (a : ℂ) :
     have hineq : ‖qPochhammer a q n‖ / ‖qPochhammer q q n‖ ≤ M / ε := by
       apply div_le_div₀ (le_trans (norm_nonneg _) (hM n)) (hM n) hε_pos hd_lt.le
     exact le_trans hineq (le_max_left _ _)
-  · push_neg at hn
+  · have hn' : n < N := Nat.lt_of_not_le hn
     apply le_trans _ (le_max_right (M / ε) _)
     exact Finset.le_sup' (fun k => ‖cauchyCoeff a q k‖)
-      (Finset.mem_range.mpr (Nat.lt_succ_of_lt hn))
+      (Finset.mem_range.mpr (Nat.lt_succ_of_lt hn'))
 
 /-! ### Summability of the Cauchy series -/
 
@@ -422,21 +422,32 @@ theorem cauchy_summable {a q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
 /-! ### Functional equation for $G$ -/
 
 /-- **Telescoping recursion for $(z;q)_\infty$.**
-$(z; q)_\infty = (1 - z) \cdot (z q; q)_\infty$. -/
+$(z; q)_\infty = (1 - z) \cdot (z q; q)_\infty$. Proof: partial products satisfy
+`qPochhammer z q (n+1) = (1 - z) * qPochhammer (z*q) q n`; take `n → ∞`. -/
 theorem qPochhammerInf_recursion {z q : ℂ} (hq : ‖q‖ < 1) :
     qPochhammerInf z q = (1 - z) * qPochhammerInf (z * q) q := by
-  have hmul : Multipliable (fun k : ℕ => 1 - z * q ^ k) :=
-    multipliable_one_sub_smul_qpow hq
-  have hkey : qPochhammerInf z q
-              = (1 - z * q ^ 0) * ∏' k : ℕ, ((1 : ℂ) - z * q ^ (k + 1)) :=
-    hmul.tprod_eq_zero_mul
-  have hshift : (∏' k : ℕ, ((1 : ℂ) - z * q ^ (k + 1))) = qPochhammerInf (z * q) q := by
-    show (∏' k : ℕ, ((1 : ℂ) - z * q ^ (k + 1)))
-        = ∏' k : ℕ, ((1 : ℂ) - (z * q) * q ^ k)
-    apply tprod_congr
-    intro k
-    rw [pow_succ]; ring
-  rw [hkey, hshift, pow_zero, mul_one]
+  have h_fin : ∀ n : ℕ,
+      qPochhammer z q (n + 1) = (1 - z) * qPochhammer (z * q) q n := by
+    intro n
+    induction n with
+    | zero => simp [qPochhammer_succ, qPochhammer_zero]
+    | succ n ih =>
+        rw [qPochhammer_succ z q (n + 1), ih, qPochhammer_succ (z * q) q n,
+            show (z * q) * q ^ n = z * q ^ (n + 1) from by ring]
+        ring
+  -- LHS limit: qPochhammer z q at indices n+1 still tends to qPochhammerInf z q.
+  have hLHS : Tendsto (fun n => qPochhammer z q (n + 1)) atTop
+                (𝓝 (qPochhammerInf z q)) :=
+    (tendsto_add_atTop_iff_nat 1).mpr (tendsto_qPochhammer hq)
+  -- RHS limit:
+  have hRHS : Tendsto (fun n => (1 - z) * qPochhammer (z * q) q n) atTop
+                (𝓝 ((1 - z) * qPochhammerInf (z * q) q)) :=
+    (tendsto_qPochhammer (a := z * q) hq).const_mul (1 - z)
+  -- The two functions agree pointwise by `h_fin`.
+  have heq : (fun n => qPochhammer z q (n + 1))
+              = (fun n => (1 - z) * qPochhammer (z * q) q n) := funext h_fin
+  rw [heq] at hLHS
+  exact tendsto_nhds_unique hLHS hRHS
 
 /-- **Functional equation for $G$.**
 $(1-z)\, G(z) = (1 - a z)\, G(q z)$, where $G(z) = (a z; q)_\infty / (z; q)_\infty$. -/
@@ -491,7 +502,7 @@ private theorem hasSum_one_sub_mul_F {a q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z
     have h1 : HasSum (fun n => g (n + 1)) (z * F) := by
       rw [hg_succ_eq]; exact hshifted
     have h2 : (z * F) = (z * F) - ∑ i ∈ Finset.range 1, g i := by
-      simp [Finset.sum_range_one, hg_zero]
+      simp [hg_zero]
     rw [h2] at h1
     exact (hasSum_nat_add_iff' (f := g) 1).mp h1
   have hdiff : HasSum (fun n => cauchyCoeff a q n * z ^ n - g n) (F - z * F) :=
@@ -540,7 +551,7 @@ private theorem hasSum_one_sub_az_mul_F_qz {a q z : ℂ} (hq : ‖q‖ < 1) (hz 
     have h1 : HasSum (fun n => g (n + 1)) (a * z * Fqz) := by
       rw [hg_succ_eq]; exact hshifted
     have h2 : (a * z * Fqz) = (a * z * Fqz) - ∑ i ∈ Finset.range 1, g i := by
-      simp [Finset.sum_range_one, hg_zero]
+      simp [hg_zero]
     rw [h2] at h1
     exact (hasSum_nat_add_iff' (f := g) 1).mp h1
   have hdiff : HasSum (fun n => cauchyCoeff a q n * q ^ n * z ^ n - g n)

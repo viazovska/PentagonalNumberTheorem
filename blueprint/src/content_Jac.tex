@@ -190,7 +190,7 @@ In $\mathbb{Z}[q, z]$, for every $n \geq 0$,
 \]
 \end{theorem}
 
-\begin{theorem}[Infinite $q$-binomial / Cauchy identity]\label{thm:qbin-infinite}\lean{qSeries.qBinom_infinite_thm}\uses{def:qPochhammer, def:qPochhammerInf}
+\begin{theorem}[Infinite $q$-binomial / Cauchy identity]\label{thm:qbin-infinite}\lean{qSeries.qBinom_infinite_thm}\leanok\uses{def:qPochhammer, def:qPochhammerInf}
 For $|q| < 1$ and any $a, z \in \mathbb{C}$ with $|z| < 1$,
 \[
 \sum_{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(a z; q)_\infty}{(z; q)_\infty}.
@@ -286,20 +286,67 @@ The final algebraic identity is closed in Lean by
 
 \subsection{Passing to the infinite case}
 
-\begin{proof}[Proof sketch of Theorem~\ref{thm:qbin-infinite}]
-The finite form of Theorem~\ref{thm:qbin-infinite} is the analogous identity
+\begin{proof}[Proof of Theorem~\ref{thm:qbin-infinite}]
+\proves{thm:qbin-infinite}
+\uses{def:qPochhammer, def:qPochhammerInf, lem:multipliable-one-sub-smul-qpow}
+We follow Heine's classical functional-equation argument, which is the route
+realised in Lean (\texttt{qSeries.qBinom\_infinite\_thm}). Define
 \[
-\sum_{k=0}^n \frac{(a; q)_k}{(q; q)_k} z^k \cdot \frac{(q^{n-k+1}; q)_k}{(q^{n-k+1}; q)_k} \;=\; \frac{(az; q)_n}{(z; q)_n} \cdot (\text{correction})
+  c_n \;:=\; \frac{(a;q)_n}{(q;q)_n}, \qquad
+  F(z) \;:=\; \sum_{n \ge 0} c_n\, z^n, \qquad
+  G(z) \;:=\; \frac{(a z;q)_\infty}{(z;q)_\infty}.
 \]
---- one needs to be careful here; the cleanest finite version is due to Cauchy and reads, for $|z| < 1$,
+The argument has three pieces.
+
+\emph{(i) Coefficient recurrence.} From $(a;q)_{n+1} = (a;q)_n(1 - a q^n)$ and
+$(q;q)_{n+1} = (q;q)_n(1 - q^{n+1})$,
 \[
-\sum_{k=0}^n \binom{n}{k}_q \frac{(a;q)_k}{(q;q)_k} z^k \, \xrightarrow{n \to \infty} \, \sum_{k=0}^\infty \frac{(a;q)_k}{(q;q)_k} z^k.
+  c_{n+1}\,(1 - q^{n+1}) \;=\; c_n\,(1 - a q^n).
 \]
-The classical route is:
-\begin{enumerate}\item Prove the finite identity $(az; q)_n = \sum_{k=0}^n \binom{n}{k}_q (-a)^k q^{\binom{k}{2}} z^k \cdot (\text{telescope})$ --- a polynomial identity provable by the same induction as Theorem~\ref{thm:qbin-finite}.
-\item Pass to the limit $n \to \infty$ using $(q;q)_k / (q;q)_n \to 1/(q^{k+1};q)_\infty$ and dominated convergence (each $|q^{\binom{k}{2}} z^k| \leq |z|^k$ is summable when $|z| < 1$).
-\end{enumerate}
+(Note that $|q| < 1$ forces $1 - q^{n+1} \neq 0$, so $c_n$ is well-defined.)
+
+\emph{(ii) Functional equation $(1-z)\,H(z) = (1-az)\,H(qz)$ for $H \in \{F, G\}$.}
+For $F$: expand both sides as power series; the coefficient identity in (i)
+shows the series of $(1-z) F(z)$ and $(1-az) F(qz)$ agree term-by-term. The
+sum $F(z)$ converges absolutely on $\|z\| < 1$ because the coefficient
+sequence $c_n$ is bounded (its numerator $\|(a;q)_n\|$ converges by
+Lemma~\ref{lem:multipliable-one-sub-smul-qpow} and its denominator $\|(q;q)_n\|$
+is eventually bounded below by a positive constant).
+For $G$: from the telescoping identity $(z;q)_\infty = (1-z)\,(zq;q)_\infty$
+(an instance of $\prod_{k\ge 0} f_k = f_0 \cdot \prod_{k\ge 1} f_k$) applied
+to both $(z;q)_\infty$ and $(az;q)_\infty$.
+
+\emph{(iii) Iteration and passage to the limit.} Iterating the functional
+equation $n$ times on the open unit disc gives
+\[
+  F(z) \cdot (z;q)_n \;=\; F(q^n z) \cdot (a z;q)_n
+\]
+for every $n \ge 0$. As $n \to \infty$:
+\begin{itemize}
+  \item $(z;q)_n \to (z;q)_\infty$ and $(az;q)_n \to (az;q)_\infty$ by
+    Lemma~\ref{lem:multipliable-one-sub-smul-qpow} (the partial products of a
+    multipliable family converge to its \texttt{tprod});
+  \item $F(q^n z) \to F(0) = c_0 = 1$: this is Tannery's theorem
+    (\texttt{tendsto\_tsum\_of\_dominated\_convergence}) applied summand-by-summand,
+    with the dominating bound $\|c_k (q^n z)^k\| \le C\,\|z\|^k$ (summable in
+    $k$, uniformly in $n$).
+\end{itemize}
+Therefore $F(z) \cdot (z;q)_\infty = (a z;q)_\infty$. Since $\|z\| < 1$
+implies $(z;q)_\infty \neq 0$ (no factor $1 - z q^k$ can be zero, by the
+norm estimate; combined with multipliability this gives non-vanishing of the
+\texttt{tprod}), we may divide to conclude $F(z) = G(z)$. \qedhere
 \end{proof}
+
+\paragraph{Remark (alternative route).} A different classical route passes
+$n \to \infty$ in a Cauchy-type \emph{finite} analog
+\[
+  \sum_{k=0}^n \binom{n}{k}_q \frac{(a;q)_k}{(q;q)_k} z^k
+  \;\xrightarrow{n \to \infty}\;
+  \sum_{k=0}^\infty \frac{(a;q)_k}{(q;q)_k} z^k,
+\]
+using $(q;q)_k / (q;q)_n \to 1/(q^{k+1};q)_\infty$ and dominated convergence.
+The Heine route used above avoids the bookkeeping of a separate finite identity
+and is the one matched by the Lean formalisation.
 
 \paragraph{Avoiding the infinite version entirely.}
 For Jacobi's triple product via Zhu's semi-finite proof, you do not actually need Theorem~\ref{thm:qbin-infinite}. You only need the \emph{first Euler identity}
