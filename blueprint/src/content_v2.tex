@@ -119,6 +119,13 @@ $7$&$7=6+1=5+2=4+3=4+2+1$&$2$&$3$\\
 $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\,=\,
 \sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
 \end{theorem}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{PentNumbers.png}\\
+{\small The generalized pentagonal numbers $\tfrac{3k^2-k}{2}$, $k\in\Z$:
+$0,1,2,5,7,12,15,\dots$; the nested pentagons depict the figurate
+pentagonal numbers $1,5,12,\dots$ ($k\ge 1$).}
+\end{center}
 \begin{proof}\leanok\uses{lemma:expansion-product, lemma:pe-minus-po-closed-form}
 The proof combines the previous expansion lemma with the closed-form computation of $p_e(n) - p_o(n)$ via Franklin's involution.
 
@@ -258,7 +265,7 @@ Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into dif
 \end{definition}
 
 
-\begin{definition}\label{def:P-alpha-beta-special}\lean{DPalpha, DPbeta, DPspecial}\uses{def:base-slope, def:distinct-partitions}\leanok Let $n \in \mathbb{N}_{\geq 1}$ be a positive integer and $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{definition}\label{def:P-alpha-beta-special}\lean{DPalpha, DPbeta, DPspecial}\uses{def:base-slope, def:distinct-partitions}\leanok Let $n \in \mathbb{N}_{\geq 1}$ be a positive integer. Consider $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
 \mathcal{P}_{\alpha}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b \leq s \text{ and } b \notin D) \text{ or } b \leq s - 1\bigr] \right\}, \\
 \mathcal{P}_{\beta}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b > s \text{ and } b \notin D) \text{ or } b \geq s + 2\bigr] \right\}, \\

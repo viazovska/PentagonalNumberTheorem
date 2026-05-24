@@ -8,6 +8,8 @@ the actual Lean source on GitHub instead of a docs site that may not be deployed
 Run after `leanblueprint web` (or `leanblueprint all`).
 """
 
+from __future__ import annotations
+
 import re
 import sys
 from pathlib import Path
