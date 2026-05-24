@@ -131,9 +131,9 @@ structure is spelled out, the size of the input prompt, and whether the proof cl
 \toprule
  & \texttt{Aristotle} & \texttt{SlidesInput} & \texttt{OnlyWordsInput} \\
 \midrule
-Total lines        & \textbf{1{,}350}      & \textbf{728}        & \textbf{460} \\
+Total lines        & \textbf{1{,}350}      & \textbf{728}        & \textbf{854} \\
 Files              & 5                     & 3                   & 3 \\
-Status             & \alert{\texttt{sorry}-free} & \alert{\texttt{sorry}-free} & 2 \texttt{sorry}s \\
+Status             & \alert{\texttt{sorry}-free} & \alert{\texttt{sorry}-free} & 1 \texttt{sorry} \\
 \bottomrule
 \end{tabular}
 \medskip
@@ -148,13 +148,16 @@ Status             & \alert{\texttt{sorry}-free} & \alert{\texttt{sorry}-free} &
       via a staircase length \texttt{stairLen}); non-fixed points cancel, fixed points
       characterized as the two staircases $\{k..2k{-}1\}$, $\{k{+}1..2k\}$. Same content,
       tighter packaging.
-\item \textbf{\texttt{OnlyWordsInput} (460):} leanest --- rides mathlib's
-      \texttt{Finset.sum\_involution} and a \texttt{topRun} helper. Closes the cancellation
-      argument but leaves the involutivity and fixed-point lemmas as \texttt{sorry}.
+\item \textbf{\texttt{OnlyWordsInput} (854, was 460):} word-only prompt; rides mathlib's
+      \texttt{Finset.sum\_involution} and a \texttt{topRun} helper. A 2nd run discharged the
+      \emph{involutivity} lemma (\texttt{franklinInv\_invol}, $+\sim$400\,ln of helpers),
+      leaving \emph{one} \texttt{sorry}: the fixed-point sum $=\texttt{pentagonalCoeff}$.
 \end{itemize}
 \medskip
-\footnotesize\emph{Same mathematics, $\sim$3$\times$ length spread: more guidance / more library
-reuse $\Rightarrow$ shorter code, but the shortest run did not fully close.}
+\footnotesize\emph{Same mathematics, now a $\sim$1.85$\times$ length spread. Pushing the once-leanest
+run (OnlyWordsInput, $460\!\to\!854$ over a 2nd run) to close the involution lemma made it
+\emph{longer} than the one-shot SlidesInput (728) --- discharging \texttt{sorry}s costs lines,
+and one still remains.}
 \end{frame}
 
 % ======================================================================
@@ -263,7 +266,7 @@ Sonnet 4.6  & 1.02\,M & 0.6\,K  & 2.76\,M & 21.4\,M \\
 \midrule
 \textbf{Total (interactive, est.)} & \textbf{5.1\,M} & \textbf{62\,K} & \textbf{28\,M} & \textbf{477\,M} \\
 \midrule
-Aristotle (\emph{est.}) & \multicolumn{4}{c}{$\approx$\,50--130\,M total --- \alert{$\sim$8--12 runs} total} \\
+Aristotle (\emph{est.}) & \multicolumn{4}{c}{$\approx$\,55--145\,M total --- \alert{$\sim$9--13 runs} total} \\
 \bottomrule
 \end{tabular}
 \medskip
@@ -279,15 +282,16 @@ Aristotle (\emph{est.}) & \multicolumn{4}{c}{$\approx$\,50--130\,M total --- \al
       cache-read \$685, cache-write \$470), $\sim$15\,kWh compute / $\sim$19\,kWh with datacenter
       overhead --- $\approx$ driving an EV $\sim$110\,km, or a fridge for $\sim$2 weeks.
 \item \textbf{Aristotle (est.\ --- no token logs; from run counts):}
-      OnlyWordsInput 1 run / 460\,ln / 2 \texttt{sorry}s; SlidesInput 1 run / 728\,ln / closed;
+      OnlyWordsInput \alert{2 runs} / 854\,ln / 1 \texttt{sorry}; SlidesInput 1 run / 728\,ln / closed;
       qSeries+JTP \alert{6 documented runs} (2 spent only on feasibility/cost analysis) / 1.7\,k\,ln / closed.
-      Total $\sim$8--12 runs, $\approx$50--130\,M tok, $\approx\$200$--$800$, $\approx$4--20\,kWh.
+      Total $\sim$9--13 runs, $\approx$55--145\,M tok, $\approx\$220$--$880$, $\approx$4.5--22\,kWh.
 % \item \emph{Energy assumptions:} $\sim$3\,J per output token, $\sim$0.5\,J per prefill
 %       (input $+$ cache-write) token, $\sim$0.05\,J per cache-read token (cheap KV reuse),
 %       $\times$1.3 datacenter PUE. Per-run Aristotle: $\sim$5--15\,M tok, $\sim\$20$--$80$, $\sim$0.5--2\,kWh.
-\item \textbf{Punchline:} the \emph{bijective} PNT closed in \emph{one} Aristotle run each (cheap,
-      one-shot); the \emph{analytic} JTP route needed $\sim$6 iterative runs --- two spent only
-      \emph{planning} --- yet the whole Aristotle effort ($\approx\$200$--$800$) still came in
+\item \textbf{Punchline:} the \emph{bijective} PNT closed one-shot where it was guided
+      (SlidesInput, 1 run); the leaner word-only OnlyWordsInput took a 2nd run and still carries
+      1 \texttt{sorry}; the \emph{analytic} JTP route needed $\sim$6 iterative runs --- two spent
+      only \emph{planning} --- yet the whole Aristotle effort ($\approx\$220$--$880$) still came in
       \emph{below} the interactive exploration around it ($\approx\$1{,}500$). Easy proofs are
       one-shot; hard ones iterate --- but generating proofs stays cheaper than talking about them.
 \end{itemize}

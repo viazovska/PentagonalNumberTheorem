@@ -64,8 +64,7 @@ The argument has two clean halves:
 
 * **5a** (`coeff_prod_eq_signed_partition_sum`) — Expanding the product
   identifies `[X^n] ∏_{k=1}^{n}(1 - X^k)` with the signed count
-  `∑_{S ∈ DP n} (-1)^|S|`. *(Combinatorial expansion; currently `sorry`,
-  proof sketch below.)*
+  `∑_{S ∈ DP n} (-1)^|S|`. *(Combinatorial expansion; proved below.)*
 
 * **5b** (`signed_partition_sum_eq_pe_sub_po`) — That signed count equals
   `p_e(n) - p_o(n)` by splitting partitions by the parity of their length.

@@ -187,6 +187,19 @@ theorem card_operationB {S : Finset ℕ} (h : S.Nonempty) (hpos : ∀ x ∈ S, 0
     grind +suggestions
 
 /-
+General characterization of topRun: if the first k elements from the top are in S
+and the (k+1)-th is not, then topRun S = k.
+-/
+theorem topRun_eq_of {S : Finset ℕ} (hne : S.Nonempty) (k : ℕ)
+    (hk_le : k ≤ S.max' hne)
+    (h_mem : ∀ j, j < k → S.max' hne - j ∈ S)
+    (h_not : S.max' hne - k ∉ S) :
+    topRun S = k := by
+      convert Nat.find_eq_iff ?_ |>.2 ?_;
+      convert topRun_def hne;
+      grind
+
+/-
 Sum of operation B result equals sum of S.
 -/
 theorem sum_operationB {S : Finset ℕ} (h : S.Nonempty) (hpos : ∀ x ∈ S, 0 < x)
