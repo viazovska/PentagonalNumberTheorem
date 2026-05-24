@@ -1,0 +1,9 @@
+import QSeries.Defs
+import QSeries.FiniteBinomial
+import QSeries.InfPochhammer
+import QSeries.CauchyIdentity
+import QSeries.EulerIdentities
+import QSeries.JTP_Core
+import QSeries.JTP_KeyIdentity
+import QSeries.JacobiTripleProduct
+import QSeries.PentagonalNumber

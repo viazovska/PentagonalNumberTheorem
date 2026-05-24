@@ -679,6 +679,7 @@
 
   </div>
 </div>
+<div class="centered"> [width=0.6PentNumbers.png<br /><small class="small">The generalized pentagonal numbers \(\tfrac {3k^2-k}{2}\), \(k\in \mathbb {Z}\): \(0,1,2,5,7,12,15,\dots \); the nested pentagons depict the figurate pentagonal numbers \(1,5,12,\dots \) (\(k\ge 1\)).</small> </div>
 <div class="proof_wrapper" id="a0000000017">
   <div class="proof_heading">
     <span class="proof_caption">
@@ -3771,7 +3772,7 @@
 <ol class="enumerate">
   <li><p>expands \((q;q)_\infty (-z;q)_\infty \) and \((-q/z;q)_\infty \) by the <em>second</em> Euler identity and forms their full Cauchy product on \(\mathbb {N}\times \mathbb {N}\); </p>
 </li>
-  <li><p>evaluates every diagonal coefficient through a <em>novel key identity</em> \(S_k(q) = 1/(q;q)_\infty \), proved by a contraction recurrence on the differences \(S_k - S_{k+1}\) rather than by any combinatorial closed form; </p>
+  <li><p>evaluates every diagonal coefficient through the classical <em>Durfee rectangle identity</em> \(S_k(q) = 1/(q;q)_\infty \), here proved <em>analytically</em> by a contraction recurrence on the differences \(S_k - S_{k+1}\) rather than by the usual Young-diagram bijection; </p>
 </li>
   <li><p>removes the convergence (annulus) restriction by proving an <em>extended</em> second Euler identity valid for <em>all</em> \(z\in \mathbb {C}\), so the Cauchy-product argument runs directly on the punctured disc; and </p>
 </li>
@@ -4125,11 +4126,11 @@
   </div>
 </div>
 <h2 id="a0000000144">7.3 The key identity \(S_k = 1/(q;q)_\infty \)</h2>
-<p>This is the novel core of the formalisation: it replaces both the coefficient-recurrence bookkeeping of Proof&#160;1 and the complex analysis of Proof&#160;3. After the Cauchy product is rearranged by diagonals, each diagonal coefficient is exactly one of the sums </p>
+<p>This is the core of the formalisation, replacing both the coefficient-recurrence bookkeeping of Proof&#160;1 and the complex analysis of Proof&#160;3. After the Cauchy product is rearranged by diagonals, each diagonal coefficient is exactly one of the sums </p>
 <div class="displaymath" id="a0000000145">
   \[  S_k(q) \; :=\;  \sum _{m=0}^{\infty } \frac{q^{\, m(m+k)}}{(q;q)_m\, (q;q)_{m+k}},  \]
 </div>
-<p> and all of them collapse to \(1/(q;q)_\infty \). </p>
+<p> and all of them collapse to \(1/(q;q)_\infty \). This is the classical <em>Durfee rectangle identity</em>: combinatorially, \(m\times (m+k)\) is the Durfee rectangle of a partition, contributing \(q^{m(m+k)}\), with the regions to its right and below contributing \(1/(q;q)_m\) and \(1/(q;q)_{m+k}\); the \(k=0\) case is the classical Durfee square identity. (See Andrews, <em>The Theory of Partitions</em>, 1976, and Gessel, <em>Some generalized Durfee square identities</em>, Discrete Math. <b class="bfseries">50</b> (1984).) What is specific to this formalisation is the proof: rather than the Young-diagram bijection, the identity is established <em>analytically</em> through the contraction recurrence below, which is convenient to formalise in Lean. </p>
 <div class="definition_thmwrapper theorem-style-definition" id="def:S-sum">
   <div class="definition_thmheading">
     <span class="definition_thmcaption">
@@ -5089,7 +5090,7 @@
   </div>
 </div>
 <h4 id="a0000000165">Remark (divergence from the outline).</h4>
-<p> Compared with Section&#160;<a href="index.html#sec:qbin">4</a>: the formalisation uses a <em>genuine Cauchy product</em> of two second-Euler expansions, not Zhu’s semi-finite truncation; the diagonal coefficients are evaluated through the key identity Theorem&#160;<a href="index.html#thm:S-sum-eq">46</a>, whose contraction-recurrence proof has no analogue in any of the three sketches; and the argument is carried out directly on the whole punctured disc by strengthening the Euler identity to all \(z\) (Theorem&#160;<a href="index.html#thm:euler-second-all">50</a>), so it needs neither an annulus restriction with a separate extension step, the Liouville-type complex analysis of Proof&#160;3, nor the coefficient bookkeeping of Proof&#160;1. </p>
+<p> Compared with Section&#160;<a href="index.html#sec:qbin">4</a>: the formalisation uses a <em>genuine Cauchy product</em> of two second-Euler expansions, not Zhu’s semi-finite truncation; the diagonal coefficients are evaluated through the classical Durfee rectangle identity (Theorem&#160;<a href="index.html#thm:S-sum-eq">46</a>), but via its analytic contraction-recurrence proof rather than the usual Young-diagram bijection; and the argument is carried out directly on the whole punctured disc by strengthening the Euler identity to all \(z\) (Theorem&#160;<a href="index.html#thm:euler-second-all">50</a>), so it needs neither an annulus restriction with a separate extension step, the Liouville-type complex analysis of Proof&#160;3, nor the coefficient bookkeeping of Proof&#160;1. (Using Durfee rectangles to reach the Jacobi triple product is itself known; see W. Chu, <em>Durfee rectangles and the Jacobi triple product identity</em>, Acta Math. Sinica <b class="bfseries">9</b> (1993), 24–26.) </p>
 <h2 id="a0000000166">7.7 Euler’s pentagonal number theorem</h2>
 <div class="definition_thmwrapper theorem-style-definition" id="def:pentagonal">
   <div class="definition_thmheading">

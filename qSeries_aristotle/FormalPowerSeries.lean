@@ -206,83 +206,12 @@ theorem coeff_prod_pentagonal_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 *
 theorem coeff_prod_pentagonal_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 + k) :
     (coeff n) (∏ k' ∈ Finset.Icc 1 n, (1 - X^k' : ℤ⟦X⟧)) = (-1)^k := by
   rw [coeff_prod_eq_pe_sub_po]; exact pe_minus_po_pent_plus n k hk hn
-
-/--
-**PNT (Euler), Maryna's unified form.** For every `n`, either `n` is a
-generalized pentagonal number `k(3k-1)/2` for some `k ∈ ℤ` — in which case
-`p_e(n) - p_o(n) = (-1)^|k|` — or it is not, in which case the difference
-vanishes.
-
-This repackages the four cases (`pe_minus_po_zero`, `pe_minus_po_pent_minus`,
-`pe_minus_po_pent_plus`, `pe_minus_po_nonpent`) under a single integer index:
-`k = 0` gives `n = 0`, `k ≥ 1` gives the `(3k²-k)/2` family, and `k ≤ -1`
-(with `m = |k|`) gives the `(3m²+m)/2` family.
--/
-theorem euler_pentagonal_number_theorem_packaged (n : ℕ) :
-  (∃ k : ℤ, (n = (k * (3 * k - 1)) / 2) ∧
-  ((pe n : ℤ) - (po n : ℤ) = (-1 : ℤ) ^ (Int.natAbs k) )) ∨
-  ((¬ ∃ k : ℤ, n = (k * (3 * k - 1)) / 2 ) ∧
-    ((pe n : ℤ) - (po n : ℤ) = 0 )) := by
-  -- `n = k(3k-1)/2` ↔ `2n = k(3k-1)`, since `k(3k-1)` is always even.
-  have key : ∀ k : ℤ, ((n : ℤ) = k * (3 * k - 1) / 2) ↔ (2 * (n : ℤ) = k * (3 * k - 1)) := by
-    intro k
-    have hdvd : (2 : ℤ) ∣ k * (3 * k - 1) := by
-      rcases Int.even_or_odd k with ⟨m, rfl⟩ | ⟨m, rfl⟩
-      · exact ⟨m * (3 * (m + m) - 1), by ring⟩
-      · exact ⟨(2 * m + 1) * (3 * m + 1), by ring⟩
-    constructor
-    · intro h; rw [h, mul_comm]; exact Int.ediv_mul_cancel hdvd
-    · intro h; rw [← h, Int.mul_ediv_cancel_left _ (by norm_num : (2 : ℤ) ≠ 0)]
-  by_cases hP : ∃ k : ℤ, (n : ℤ) = k * (3 * k - 1) / 2
-  · -- Pentagonal case: produce the witnessing `k` and evaluate the sign.
-    left
-    obtain ⟨k, hk⟩ := hP
-    refine ⟨k, hk, ?_⟩
-    rw [key] at hk  -- hk : 2 * ↑n = k * (3 * k - 1)
-    rcases lt_trichotomy k 0 with hneg | hzero | hpos
-    · -- k < 0 : set j = |k|, then 2n = 3j² + j (the "plus" family).
-      set j := k.natAbs with hj
-      have hkj : k = -(j : ℤ) := by rw [hj, Int.ofNat_natAbs_of_nonpos hneg.le]; ring
-      have hj1 : 1 ≤ j := Int.natAbs_pos.mpr (ne_of_lt hneg)
-      have hnat : 2 * n = 3 * j ^ 2 + j := by
-        have : (2 * (n : ℤ)) = 3 * (j : ℤ) ^ 2 + (j : ℤ) := by rw [hk, hkj]; ring
-        exact_mod_cast this
-      exact pe_minus_po_pent_plus n j hj1 hnat
-    · -- k = 0 : then n = 0.
-      subst hzero
-      have hn0 : n = 0 := by simpa using hk
-      subst hn0
-      simpa using pe_minus_po_zero
-    · -- k > 0 : set j = k, then 2n = 3j² - j (the "minus" family).
-      set j := k.natAbs with hj
-      have hkj : k = (j : ℤ) := (Int.natAbs_of_nonneg hpos.le).symm
-      have hj1 : 1 ≤ j := Int.natAbs_pos.mpr (ne_of_gt hpos)
-      have hnat : 2 * n = 3 * j ^ 2 - j := by
-        have hz : 2 * n + j = 3 * j ^ 2 := by
-          have : (2 * (n : ℤ)) + (j : ℤ) = 3 * (j : ℤ) ^ 2 := by rw [hk, hkj]; ring
-          exact_mod_cast this
-        omega
-      exact pe_minus_po_pent_minus n j hj1 hnat
-  · -- Non-pentagonal case: discharge `nonpent`'s hypotheses by contraposition.
-    right
-    refine ⟨hP, ?_⟩
-    have hn1 : 1 ≤ n := by
-      rcases Nat.eq_zero_or_pos n with h | h
-      · exact absurd ⟨0, by simp [h]⟩ hP
-      · exact h
-    apply pe_minus_po_nonpent n hn1
-    · intro k hk hcontra
-      apply hP
-      refine ⟨(k : ℤ), ?_⟩
-      rw [key]
-      have hle : k ≤ 3 * k ^ 2 := by nlinarith [hk]
-      have : (2 * (n : ℤ)) = 3 * (k : ℤ) ^ 2 - (k : ℤ) := by
-        have := hcontra; zify [hle] at this; linarith
-      rw [this]; ring
-    · intro k hk hcontra
-      apply hP
-      refine ⟨-(k : ℤ), ?_⟩
-      rw [key]
-      have : (2 * (n : ℤ)) = 3 * (k : ℤ) ^ 2 + (k : ℤ) := by
-        have := hcontra; zify at this; linarith
-      rw [this]; ring
+/-! ## Remark 8: Pentagonal numbers table -/
+/-- **Remark 8 (Source)**: Table of generalized pentagonal numbers `(3k²-k)/2`:
+k = -3: 15, k = -2: 7, k = -1: 2, k = 0: 0, k = 1: 1, k = 2: 5, k = 3: 12. -/
+example : (3 * 3 ^ 2 + 3) / 2 = 15 := by norm_num  -- k = -3 corresponds to (3*9+3)/2
+example : (3 * 2 ^ 2 + 2) / 2 = 7  := by norm_num  -- k = -2
+example : (3 * 1 ^ 2 + 1) / 2 = 2  := by norm_num  -- k = -1
+example : (3 * 1 ^ 2 - 1) / 2 = 1  := by norm_num  -- k = 1
+example : (3 * 2 ^ 2 - 2) / 2 = 5  := by norm_num  -- k = 2
+example : (3 * 3 ^ 2 - 3) / 2 = 12 := by norm_num  -- k = 3
