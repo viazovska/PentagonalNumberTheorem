@@ -99,29 +99,29 @@ Define $F=\alpha$ on $\PP_\alpha$, $\;\beta$ on $\PP_\beta$, and the identity on
 \]
 \end{frame}
 
-\begin{frame}{Lean formalization (\texttt{Aristotle/}) --- $\approx$ 1{,}036 lines, \texttt{sorry}-free}
-\centering\small
-\begin{tabular}{@{}llcl@{}}
-\toprule
-Component (file) & Lemmas & Lines & Effort \\
-\midrule
-Definitions (\texttt{Defs}) & $\PP_\alpha,\PP_\beta,\PP_{\mathrm{spec}}$, base/slope & 90 & Low \\
-Helpers (\texttt{Helpers}) & run/slope, $b\le m$, $m\ge 2b$ & 322 & \alert{High -- manual induction} \\
-Disjoint + trichotomy & Lem.\ 11--12 & $\sim$26 & Low -- \texttt{grind}/\texttt{simp} \\
-Special $=$ pentagonal & Lem.\ 13--14 & $\sim$230 & Med.\ -- arithmetic \\
-Franklin involution & Lem.\ 16--19 & $\sim$120 & \alert{High -- very manual} \\
-Bijection \& counting & Lem.\ 20--24 & $\sim$135 & Med.\ -- \texttt{Finset.card} \\
-\bottomrule
-\end{tabular}
-\medskip
+% \begin{frame}{Lean formalization (\texttt{Aristotle/}) --- $\approx$ 1{,}036 lines, \texttt{sorry}-free}
+% \centering\small
+% \begin{tabular}{@{}llcl@{}}
+% \toprule
+% Component (file) & Lemmas & Lines & Effort \\
+% \midrule
+% Definitions (\texttt{Defs}) & $\PP_\alpha,\PP_\beta,\PP_{\mathrm{spec}}$, base/slope & 90 & Low \\
+% Helpers (\texttt{Helpers}) & run/slope, $b\le m$, $m\ge 2b$ & 322 & \alert{High -- manual induction} \\
+% Disjoint + trichotomy & Lem.\ 11--12 & $\sim$26 & Low -- \texttt{grind}/\texttt{simp} \\
+% Special $=$ pentagonal & Lem.\ 13--14 & $\sim$230 & Med.\ -- arithmetic \\
+% Franklin involution & Lem.\ 16--19 & $\sim$120 & \alert{High -- very manual} \\
+% Bijection \& counting & Lem.\ 20--24 & $\sim$135 & Med.\ -- \texttt{Finset.card} \\
+% \bottomrule
+% \end{tabular}
+% \medskip
 
-\footnotesize
-\textbf{Easy:} definitions, disjointness/trichotomy (one \texttt{grind} each), final assembly.\\
-\textbf{Hard / very manual:} reasoning about \emph{slope} (a recursive top-run) and \emph{base/max}
-under $\cup/\setminus$; the four involution lemmas $\alpha\!\in\!\PP_\beta$, $\beta\!\in\!\PP_\alpha$,
-$\beta\!\circ\!\alpha=\mathrm{id}$, $\alpha\!\circ\!\beta=\mathrm{id}$.\\
-\textbf{Library-assisted:} cardinality/bijection step rides on mathlib's \texttt{Finset}.
-\end{frame}
+% \footnotesize
+% \textbf{Easy:} definitions, disjointness/trichotomy (one \texttt{grind} each), final assembly.\\
+% \textbf{Hard / very manual:} reasoning about \emph{slope} (a recursive top-run) and \emph{base/max}
+% under $\cup/\setminus$; the four involution lemmas $\alpha\!\in\!\PP_\beta$, $\beta\!\in\!\PP_\alpha$,
+% $\beta\!\circ\!\alpha=\mathrm{id}$, $\alpha\!\circ\!\beta=\mathrm{id}$.\\
+% \textbf{Library-assisted:} cardinality/bijection step rides on mathlib's \texttt{Finset}.
+% \end{frame}
 
 \begin{frame}{Three formalizations of the \emph{same} bijective proof}
 All three prove Euler's PNT via Franklin's involution; they differ in how much
@@ -154,10 +154,10 @@ Status             & \alert{\texttt{sorry}-free} & \alert{\texttt{sorry}-free} &
       leaving \emph{one} \texttt{sorry}: the fixed-point sum $=\texttt{pentagonalCoeff}$.
 \end{itemize}
 \medskip
-\footnotesize\emph{Same mathematics, now a $\sim$1.85$\times$ length spread. Pushing the once-leanest
-run (OnlyWordsInput, $460\!\to\!854$ over a 2nd run) to close the involution lemma made it
-\emph{longer} than the one-shot SlidesInput (728) --- discharging \texttt{sorry}s costs lines,
-and one still remains.}
+% \footnotesize\emph{Same mathematics, now a $\sim$1.85$\times$ length spread. Pushing the once-leanest
+% run (OnlyWordsInput, $460\!\to\!854$ over a 2nd run) to close the involution lemma made it
+% \emph{longer} than the one-shot SlidesInput (728) --- discharging \texttt{sorry}s costs lines,
+% and one still remains.}
 \end{frame}
 
 % ======================================================================
@@ -288,12 +288,7 @@ Aristotle (\emph{est.}) & \multicolumn{4}{c}{$\approx$\,55--145\,M total --- \al
 % \item \emph{Energy assumptions:} $\sim$3\,J per output token, $\sim$0.5\,J per prefill
 %       (input $+$ cache-write) token, $\sim$0.05\,J per cache-read token (cheap KV reuse),
 %       $\times$1.3 datacenter PUE. Per-run Aristotle: $\sim$5--15\,M tok, $\sim\$20$--$80$, $\sim$0.5--2\,kWh.
-\item \textbf{Punchline:} the \emph{bijective} PNT closed one-shot where it was guided
-      (SlidesInput, 1 run); the leaner word-only OnlyWordsInput took a 2nd run and still carries
-      1 \texttt{sorry}; the \emph{analytic} JTP route needed $\sim$6 iterative runs --- two spent
-      only \emph{planning} --- yet the whole Aristotle effort ($\approx\$220$--$880$) still came in
-      \emph{below} the interactive exploration around it ($\approx\$1{,}500$). Easy proofs are
-      one-shot; hard ones iterate --- but generating proofs stays cheaper than talking about them.
+\item \textbf{Summary:} Generating proofs is cheaper than talking about them.
 \end{itemize}
 \end{frame}
 

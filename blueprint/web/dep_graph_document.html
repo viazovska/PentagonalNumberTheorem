@@ -215,6 +215,139 @@
 
 
     
+    <div class="dep-modal-container" id="def:fps-jtp_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-jtp" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">81</span><span class="definition_thmtitle">FPS JTP objects</span></div>
+    <div class="thm_thmcontent"><p> Let \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\), \(z = T(1)\), \(z^{-1} = T(-1)\) viewed as constant power series in \(A[\! [ X]\! ]\). Define: </p>
+<div class="displaymath" id="a0000000203">
+  \begin{align*}  \texttt{jtpProd} & \; :=\;  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-z)\cdot \texttt{qPochInf}(-X\cdot z^{-1}) \; \in \;  A[\! [ X]\! ], \\ \texttt{jtpSeries} & \; :=\;  \Bigl(\sum _{n\ge 0} T(n)\cdot X^{n\text{.choose}\, 2}\Bigr) + \Bigl(\sum _{m\ge 0} T(-(m+1))\cdot X^{(m+2)\text{.choose}\, 2}\Bigr) \; \in \;  A[\! [ X]\! ]. \end{align*}
+</div>
+<p> Here \(T(k)\) is the degree-\(k\) monomial in the Laurent polynomial ring \(A\), so \(T(n) = z^n\) and \(T(-(m+1)) = z^{-(m+1)}\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-jtp">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.jtpProd">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:fps-qPoch_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-qPoch" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">60</span><span class="definition_thmtitle">FPS finite \(q\)-Pochhammer symbol</span></div>
+    <div class="thm_thmcontent"><p>For \(a \in R[\! [ X]\! ]\) and \(n \in \mathbb {N}\), </p>
+<div class="displaymath" id="a0000000175">
+  \[  \texttt{qPoch}\, a\, n \; :=\;  \prod _{k=0}^{n-1}\bigl(1 - a\cdot X^k\bigr) \; \in \;  R[\! [ X]\! ].  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-qPoch">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qPoch">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:fps-qPochInf_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-qPochInf" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">67</span><span class="definition_thmtitle">FPS infinite \(q\)-Pochhammer symbol</span></div>
+    <div class="thm_thmcontent">
+<div class="displaymath" id="a0000000182">
+  \[  \texttt{qPochInf}\, a \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\cdot X^k\bigr) \; =\;  \tprod _{k:\mathbb {N}}\, (1 - a\cdot X^k) \; \in \;  R[\! [ X]\! ].  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-qPochInf">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qPochInf">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:fps-S_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-S" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">73</span><span class="definition_thmtitle">FPS key sum</span></div>
+    <div class="thm_thmcontent"><p> For \(k \in \mathbb {N}\), define </p>
+<div class="displaymath" id="a0000000189">
+  \[  S^{\mathrm{fps}}_k \; :=\;  \sum _{m=0}^{\infty } X^{m(m+k)} \cdot \bigl(\texttt{qPoch}(X,m)\bigr)^{-1} \cdot \bigl(\texttt{qPoch}(X,m+k)\bigr)^{-1} \; \in \;  R[\! [ X]\! ].  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-S">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.S_fps">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
     <div class="dep-modal-container" id="def:jacobiProd_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
@@ -706,6 +839,372 @@
     
     
   <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.euler_second_series_recursion">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-coeff-qPochInf_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-coeff-qPochInf" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">68</span><span class="lemma_thmtitle">Coefficient formula</span></div>
+    <div class="thm_thmcontent"><p> \([X^d]\, \texttt{qPochInf}\, a = [X^d]\, \texttt{qPoch}\, a\, (d+1)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-coeff-qPochInf">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.coeff_qPochInf">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-coeff-stable_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-coeff-stable" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">64</span><span class="lemma_thmtitle">Coefficient stabilisation</span></div>
+    <div class="thm_thmcontent"><p> If \(d {\lt} n\) then \([X^d]\, \texttt{qPoch}\, a\, (n+1) = [X^d]\, \texttt{qPoch}\, a\, n\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-coeff-stable">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.coeff_qPoch_stable">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-constantCoeff-qPoch-X_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-constantCoeff-qPoch-X" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">65</span><span class="lemma_thmtitle">Constant coefficient</span></div>
+    <div class="thm_thmcontent"><p> The constant term of \(\texttt{qPoch}\, (X : R[\! [ X]\! ])\, n\) is \(1\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-constantCoeff-qPoch-X">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.constantCoeff_qPoch_X">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-isUnit-qPochInf_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-isUnit-qPochInf" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">71</span><span class="lemma_thmtitle">FPS unit</span></div>
+    <div class="thm_thmcontent"><p> If \(1 - [X^0]\, a\) is a unit of \(R\), then \(\texttt{qPochInf}\, a\) is a unit of \(R[\! [ X]\! ]\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-isUnit-qPochInf">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.isUnit_qPochInf">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPoch-shift_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPoch-shift" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">63</span><span class="lemma_thmtitle">FPS shift identity</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPoch}\, a\, (n+1) = (1-a)\cdot \texttt{qPoch}\, (aX)\, n\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPoch-shift">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qPoch_eq_mul_qPoch_shift">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPoch-succ_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPoch-succ" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">62</span><span class="lemma_thmtitle">FPS recurrence</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPoch}\, a\, (n+1) = \texttt{qPoch}\, a\, n \cdot (1 - a\cdot X^n)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPoch-succ">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qPoch_succ">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPoch-zero_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPoch-zero" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">61</span><span class="lemma_thmtitle">Base case</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPoch}\, a\, 0 = 1\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPoch-zero">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qPoch_zero">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPochInf-eq-qPoch-mul_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPochInf-eq-qPoch-mul" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">70</span><span class="lemma_thmtitle">Iterated telescoping</span></div>
+    <div class="thm_thmcontent"><p> For every \(n \in \mathbb {N}\): \(\texttt{qPochInf}\, a = \texttt{qPoch}\, a\, n \cdot \texttt{qPochInf}\, (a\cdot X^n)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPochInf-eq-qPoch-mul">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qPochInf_eq_qPoch_mul">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPochInf-recursion_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPochInf-recursion" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">69</span><span class="lemma_thmtitle">FPS recursion</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPochInf}\, a = (1-a)\cdot \texttt{qPochInf}\, (a\cdot X)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPochInf-recursion">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qPochInf_recursion">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qqInf-euler2_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qqInf-euler2" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">78</span><span class="lemma_thmtitle">FPS product expansion</span></div>
+    <div class="thm_thmcontent"><p> In \(R[\! [ X]\! ]\): </p>
+<div class="displaymath" id="a0000000198">
+  \[  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-a) \; =\;  \sum _{n=0}^{\infty } X^{\binom {n}{2}}\, a^n\,  \texttt{qPochInf}(X \cdot X^n).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qqInf-euler2">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.qqInf_mul_euler2">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-S-recurrence_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-S-recurrence" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">75</span><span class="lemma_thmtitle">FPS key sum recurrence</span></div>
+    <div class="thm_thmcontent"><p> For every \(k\): </p>
+<div class="displaymath" id="a0000000192">
+  \[  S^{\mathrm{fps}}_k - S^{\mathrm{fps}}_{k+1} \; =\;  X^{k+1}\cdot \bigl(S^{\mathrm{fps}}_{k+2} - S^{\mathrm{fps}}_{k+1}\bigr).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-S-recurrence">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.S_fps_recurrence">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-summable-S_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-summable-S" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">74</span><span class="lemma_thmtitle">FPS key sum is summable</span></div>
+    <div class="thm_thmcontent"><p> The summand of \(S^{\mathrm{fps}}_k\) is summable in \(R[\! [ X]\! ]\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-summable-S">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.summable_S_fps">Lean</a>
     
     
   
@@ -1723,6 +2222,329 @@
 
 
     
+    <div class="dep-modal-container" id="thm:fps-cauchy-neg_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-cauchy-neg" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">80</span><span class="theorem_thmtitle">FPS Cauchy coefficient – negative diagonal</span></div>
+    <div class="thm_thmcontent"><p> For every \(l \ge 0\): </p>
+<div class="displaymath" id="a0000000202">
+  \[  \sum _{n=0}^{\infty } \bigl[X^{n\text{.choose}\, 2}\cdot \texttt{qPochInf}(X\cdot X^n)\bigr] \cdot \bigl[X^{(n+l+1)\text{.choose}\, 2}\cdot X^{n+l+1} \cdot (\texttt{qPoch}(X,n+l+1))^{-1}\bigr] \; =\;  X^{(l+2)\text{.choose}\, 2}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-cauchy-neg">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.cauchy_coeff_neg">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-cauchy-nonneg_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-cauchy-nonneg" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">79</span><span class="theorem_thmtitle">FPS Cauchy coefficient – non-negative diagonal</span></div>
+    <div class="thm_thmcontent"><p> For every \(k \ge 0\): </p>
+<div class="displaymath" id="a0000000200">
+  \[  \sum _{m=0}^{\infty } \bigl[X^{(m+k)\text{.choose}\, 2}\cdot \texttt{qPochInf}(X\cdot X^{m+k})\bigr] \cdot \bigl[X^{m\text{.choose}\, 2}\cdot X^m \cdot (\texttt{qPoch}(X,m))^{-1}\bigr] \; =\;  X^{k\text{.choose}\, 2}.  \]
+</div>
+<p> That is, the \(k\)-th diagonal sum of the Cauchy product equals \(X^{\binom {k}{2}}\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-cauchy-nonneg">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.cauchy_coeff_nonneg">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-euler-second_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-euler-second" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">72</span><span class="theorem_thmtitle">FPS Euler second identity</span></div>
+    <div class="thm_thmcontent"><p> In \(R[\! [ X]\! ]\) (for any commutative ring \(R\) with discrete topology), </p>
+<div class="displaymath" id="a0000000188">
+  \[  \texttt{qPochInf}(-a) \; =\;  \sum _{k=0}^{\infty } X^{\binom {k}{2}}\cdot a^k \cdot \bigl(\texttt{qPoch}\, (X : R[\! [ X]\! ])\, k\bigr)^{-1}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-euler-second">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.fps_euler_second">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-jtp_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-jtp" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">82</span><span class="theorem_thmtitle">FPS Jacobi triple product</span></div>
+    <div class="thm_thmcontent"><p> In \(A[\! [ X]\! ]\) (with \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\)): </p>
+<div class="displaymath" id="a0000000205">
+  \[  \texttt{jtpProd} \; =\;  \texttt{jtpSeries},  \]
+</div>
+<p> that is, </p>
+<div class="displaymath" id="a0000000206">
+  \[  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-z)\cdot \texttt{qPochInf}(-X/z) \; =\;  \sum _{k \ge 0} z^k X^{\binom {k}{2}} \; +\;  \sum _{m \ge 0} z^{-(m+1)} X^{\binom {m+2}{2}}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-jtp">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.jacobiTripleProduct_fps">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-key_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-key" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">77</span><span class="theorem_thmtitle">FPS key identity</span></div>
+    <div class="thm_thmcontent"><p> For every \(k\), </p>
+<div class="displaymath" id="a0000000195">
+  \[  S^{\mathrm{fps}}_k \; =\;  \bigl(\texttt{qPochInf}(X)\bigr)^{-1} \; =:\;  \texttt{qqInv}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-key">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.fps_key_identity">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-multipliable_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-multipliable" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">66</span><span class="theorem_thmtitle">FPS multipliability in pi topology</span></div>
+    <div class="thm_thmcontent"><p> The family \(k \mapsto 1 - a\cdot X^k\) is multipliable in \(R[\! [ X]\! ]\) (with the pi / \(X\)-adic topology). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-multipliable">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.multipliable_qPoch">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-S-const_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-S-const" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">76</span><span class="theorem_thmtitle">FPS: all \(S_k\) are equal</span></div>
+    <div class="thm_thmcontent"><p> \(S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0\) for all \(k \in \mathbb {N}\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-S-const">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.FPS.S_fps_const">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:jacobi-prod-luc_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:jacobi-prod-luc" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">57</span><span class="theorem_thmtitle">Locally uniform convergence of the product side</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\), the partial products \(\prod _{k {\lt} N}(1 - q^{2k})(1 + zq^{2k-1})(1 + q^{2k-1}/z)\) converge <em>locally uniformly</em> on \(\{ z \neq 0\} \) to \(\mathrm{jacobiProd}(q,z)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:jacobi-prod-luc">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.jacobiProd_tendstoLocallyUniformlyOn">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:jacobi-series-luc_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:jacobi-series-luc" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">58</span><span class="theorem_thmtitle">Locally uniform convergence of the series side</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\), the bilateral partial sums \(\sum _{|k| {\lt} N} z^k\,  q^{\binom {k}{2}}\) converge <em>locally uniformly</em> on \(\{ z \neq 0\} \) to \(\mathrm{jacobiBilateral}(q,z)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:jacobi-series-luc">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.jacobiBilateral_tendstoLocallyUniformlyOn">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:jtp-analytic_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:jtp-analytic" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">59</span><span class="theorem_thmtitle">Analytic Jacobi triple product</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and every \(z \neq 0\), </p>
+<div class="displaymath" id="a0000000173">
+  \[  (q;q)_\infty \, (-z;q)_\infty \, (-q/z;q)_\infty = \sum _{k \ge 0} z^k\,  q^{\binom {k}{2}} + \sum _{m \ge 0} z^{-(m+1)}\,  q^{\binom {m+2}{2}}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:jtp-analytic">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.jacobiTripleProduct_analytic">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
     <div class="dep-modal-container" id="thm:jtp-full_modal">
       <div class="dep-modal-content">
           <button class="dep-closebtn">
@@ -1871,7 +2693,7 @@
 <div class="displaymath" id="a0000000131">
   \[  \sum _{n=0}^{\infty } \frac{(a; q)_n}{(q; q)_n}\,  z^n = \frac{(a z; q)_\infty }{(z; q)_\infty }.  \]
 </div>
-<p> (Equivalent to Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>.) The Lean theorem is <span class="ttfamily">qSeries.qBinom_infinite_thm</span> in <span class="ttfamily">Series/qSeries.lean</span>. The proof realised in Lean follows Heine’s functional-equation argument spelled out in the proof of Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a> above, organised under <span class="ttfamily">section CauchyIdentity</span>: non-vanishing of \((z;q)_\infty \) (<span class="ttfamily">qPochhammerInf_z_q_ne_zero</span>), the telescoping recursion \((z;q)_\infty = (1-z)\, (zq;q)_\infty \) (<span class="ttfamily">qPochhammerInf_recursion</span>), the coefficient recurrence \(c_{n+1}(1-q^{n+1}) = c_n(1 - a q^n)\) (<span class="ttfamily">cauchyCoeff_succ_mul</span>), the functional equations for \(F\) and \(G\) (<span class="ttfamily">cauchy_functional_eq_F</span>, <span class="ttfamily">cauchy_functional_eq_G</span>), iteration on the disc (<span class="ttfamily">iterated_functional_eq_disc</span>), and the Tannery-based limit \(F(q^n z) \to 1\) (<span class="ttfamily">tendsto_F_qpow</span>). The alternative route via a finite Cauchy-type analog of Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> is not formalised. </p>
+<p> (Equivalent to Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>.) The Lean theorem is <span class="ttfamily">qSeries.qBinom_infinite_thm</span> in <span class="ttfamily">QSeries/CauchyIdentity.lean</span> (in <span class="ttfamily">Qseries_Aristotle_new</span>). The proof realised in Lean follows Heine’s functional-equation argument spelled out in the proof of Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a> above, organised under <span class="ttfamily">section CauchyIdentity</span>: non-vanishing of \((z;q)_\infty \) (<span class="ttfamily">qPochhammerInf_z_q_ne_zero</span>), the telescoping recursion \((z;q)_\infty = (1-z)\, (zq;q)_\infty \) (<span class="ttfamily">qPochhammerInf_recursion</span>), the coefficient recurrence \(c_{n+1}(1-q^{n+1}) = c_n(1 - a q^n)\) (<span class="ttfamily">cauchyCoeff_succ_mul</span>), the functional equations for \(F\) and \(G\) (<span class="ttfamily">cauchy_functional_eq_F</span>, <span class="ttfamily">cauchy_functional_eq_G</span>), iteration on the disc (<span class="ttfamily">iterated_functional_eq_disc</span>), and the Tannery-based limit \(F(q^n z) \to 1\) (<span class="ttfamily">tendsto_F_qpow</span>). The alternative route via a finite Cauchy-type analog of Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> is not formalised. </p>
 </div>
 
     <a class="latex_link" href="index.html#thm:qbin-infinite-formalized">LaTeX</a>
@@ -1916,6 +2738,36 @@
     
       </div>
     </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:summable-nonneg-all_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:summable-nonneg-all" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">56</span><span class="theorem_thmtitle">Summability of bilateral series for all \(z\)</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and <em>every</em> \(z \in \mathbb {C}\), the non-negative part \(\sum _{k \ge 0} z^k\,  q^{\binom {k}{2}}\) is summable. </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:summable-nonneg-all">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.summable_jacobi_nonneg_all">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
 </div>
 </div> <!-- content -->
 </div> <!-- wrapper -->
@@ -1935,7 +2787,7 @@ graphContainer.graphviz({useWorker: true})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lemma:alpha-beta-change-parity"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-change-parity",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even"	[color=green,		fillcolor="#1CAC78",		label="alpha-odd-eq-beta-even",		shape=ellipse,		style=filled];	"lemma:alpha-beta-change-parity" -> "lemma:alpha-odd-eq-beta-even";	"lemma:pe-minus-po-closed-form"	[color=green,		fillcolor="#1CAC78",		label="pe-minus-po-closed-form",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even" -> "lemma:pe-minus-po-closed-form";	"thm:euler-pentagonal"	[color=green,		fillcolor="#1CAC78",		label="euler-pentagonal",		shape=ellipse,		style=filled];	"lemma:pe-minus-po-closed-form" -> "thm:euler-pentagonal";	"lem:cauchy-coeff-neg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-neg",		shape=ellipse,		style=filled];	"thm:jtp-full"	[color=green,		fillcolor="#1CAC78",		label="jtp-full",		shape=ellipse,		style=filled];	"lem:cauchy-coeff-neg" -> "thm:jtp-full"	[style=dashed];	"thm:pentagonal-impl"	[color=green,		fillcolor="#1CAC78",		label="pentagonal-impl",		shape=ellipse,		style=filled];	"thm:jtp-full" -> "thm:pentagonal-impl"	[style=dashed];	"lemma:special"	[color=green,		fillcolor="#1CAC78",		label=special,		shape=ellipse,		style=filled];	"lemma:special" -> "lemma:pe-minus-po-closed-form";	"lemma:alpha-lands-in-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-lands-in-beta",		shape=ellipse,		style=filled];	"lemma:alpha-lands-in-beta" -> "lemma:alpha-beta-change-parity";	"lemma:beta-after-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-after-alpha",		shape=ellipse,		style=filled];	"lemma:alpha-lands-in-beta" -> "lemma:beta-after-alpha";	"lemma:alpha-beta-bijection"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-bijection",		shape=ellipse,		style=filled];	"lemma:beta-after-alpha" -> "lemma:alpha-beta-bijection";	"lemma:alpha-beta-bijection" -> "lemma:alpha-odd-eq-beta-even";	"lemma:P-alpha-card-eq-P-beta-card"	[color=green,		fillcolor="#1CAC78",		label="P-alpha-card-eq-P-beta-card",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:P-alpha-card-eq-P-beta-card";	"lemma:alpha-beta-special-disjoint"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special-disjoint",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special-disjoint" -> "lemma:alpha-beta-special";	"lemma:alpha-beta-special" -> "lemma:pe-minus-po-closed-form";	"lemma:expansion-product"	[color=green,		fillcolor="#1CAC78",		label="expansion-product",		shape=ellipse,		style=filled];	"lemma:expansion-product" -> "thm:euler-pentagonal";	"def:jacobiProd"	[color=green,		fillcolor="#B0ECA3",		label=jacobiProd,		shape=box,		style=filled];	"def:jacobiProd" -> "thm:jtp-full"	[style=dashed];	"def:staircase-sets"	[color=green,		fillcolor="#B0ECA3",		label="staircase-sets",		shape=box,		style=filled];	"def:staircase-sets" -> "lemma:special"	[style=dashed];	"def:P-alpha-beta-special"	[color=green,		fillcolor="#B0ECA3",		label="P-alpha-beta-special",		shape=box,		style=filled];	"def:P-alpha-beta-special" -> "lemma:special"	[style=dashed];	"def:P-alpha-beta-special" -> "lemma:alpha-beta-special-disjoint"	[style=dashed];	"def:alpha-beta-ops"	[color=green,		fillcolor="#B0ECA3",		label="alpha-beta-ops",		shape=box,		style=filled];	"def:P-alpha-beta-special" -> "def:alpha-beta-ops"	[style=dashed];	"def:alpha-beta-ops" -> "lemma:alpha-lands-in-beta"	[style=dashed];	"lemma:beta-lands-in-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-lands-in-alpha",		shape=ellipse,		style=filled];	"def:alpha-beta-ops" -> "lemma:beta-lands-in-alpha"	[style=dashed];	"lemma:alpha-after-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-after-beta",		shape=ellipse,		style=filled];	"lemma:alpha-after-beta" -> "lemma:alpha-beta-bijection";	"lemma:beta-lands-in-alpha" -> "lemma:alpha-beta-change-parity";	"lemma:beta-lands-in-alpha" -> "lemma:alpha-after-beta";	"def:qPochhammerInf"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammerInf,		shape=box,		style=filled];	"def:qPochhammerInf" -> "def:jacobiProd"	[style=dashed];	"lem:multipliable-one-sub-smul-qpow"	[color=green,		fillcolor="#1CAC78",		label="multipliable-one-sub-smul-qpow",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:multipliable-one-sub-smul-qpow"	[style=dashed];	"lem:S-sum-tendsto"	[color=green,		fillcolor="#1CAC78",		label="S-sum-tendsto",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:S-sum-tendsto"	[style=dashed];	"lem:qPochhammerInf-telescope"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-telescope",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"lem:euler-second"	[color=green,		fillcolor="#1CAC78",		label="euler-second",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:euler-second"	[style=dashed];	"thm:qbin-infinite"	[color=green,		fillcolor="#1CAC78",		label="qbin-infinite",		shape=ellipse,		style=filled];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite";	"thm:qbin-infinite-formalized"	[color=green,		label="qbin-infinite-formalized",		shape=ellipse];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite-formalized"	[style=dashed];	"thm:S-sum-eq"	[color=green,		fillcolor="#1CAC78",		label="S-sum-eq",		shape=ellipse,		style=filled];	"lem:S-sum-tendsto" -> "thm:S-sum-eq"	[style=dashed];	"lem:qPochhammerInf-prod-hassum"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-prod-hassum",		shape=ellipse,		style=filled];	"lem:qPochhammerInf-telescope" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"lem:euler-second" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"thm:euler-second-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-all",		shape=ellipse,		style=filled];	"lem:euler-second" -> "thm:euler-second-all"	[style=dashed];	"lem:euler-first"	[color=green,		fillcolor="#9CEC8B",		label="euler-first",		shape=ellipse,		style=filled];	"thm:qbin-infinite-formalized" -> "lem:euler-first"	[style=dashed];	"thm:S-sum-eq" -> "lem:cauchy-coeff-neg"	[style=dashed];	"lem:cauchy-coeff-nonneg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-nonneg",		shape=ellipse,		style=filled];	"thm:S-sum-eq" -> "lem:cauchy-coeff-nonneg"	[style=dashed];	"lem:qPochhammerInf-prod-hassum" -> "thm:jtp-full"	[style=dashed];	"lem:euler-second-qoz-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-qoz-all",		shape=ellipse,		style=filled];	"thm:euler-second-all" -> "lem:euler-second-qoz-all"	[style=dashed];	"lem:S-sum-recurrence"	[color=green,		fillcolor="#1CAC78",		label="S-sum-recurrence",		shape=ellipse,		style=filled];	"lem:S-sum-recurrence" -> "thm:S-sum-eq"	[style=dashed];	"lem:cauchy-coeff-nonneg" -> "thm:jtp-full"	[style=dashed];	"lem:euler-second-qoz-all" -> "thm:jtp-full"	[style=dashed];	"thm:qbin-finite"	[color=green,		fillcolor="#1CAC78",		label="qbin-finite",		shape=ellipse,		style=filled];	"thm:qbin-finite" -> "lem:euler-second"	[style=dashed];	"lem:euler-second-recursion"	[color=green,		fillcolor="#1CAC78",		label="euler-second-recursion",		shape=ellipse,		style=filled];	"lem:euler-second-recursion" -> "thm:euler-second-all"	[style=dashed];	"lem:summable-S"	[color=green,		fillcolor="#1CAC78",		label="summable-S",		shape=ellipse,		style=filled];	"lem:qBinom-self"	[color=green,		fillcolor="#1CAC78",		label="qBinom-self",		shape=ellipse,		style=filled];	"lem:qBinom-closed-form"	[color=green,		fillcolor="#1CAC78",		label="qBinom-closed-form",		shape=ellipse,		style=filled];	"lem:qBinom-self" -> "lem:qBinom-closed-form"	[style=dashed];	"lem:qBinom-closed-form" -> "lem:euler-second"	[style=dashed];	"lem:qPochhammer-succ"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-succ",		shape=ellipse,		style=filled];	"lem:qPochhammer-succ" -> "lem:S-sum-recurrence"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:euler-second-recursion"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:qBinom-closed-form"	[style=dashed];	"def:partition"	[color=blue,		fillcolor="#A3D6FF",		label=partition,		shape=box,		style=filled];	"def:distinct-partitions"	[color=green,		fillcolor="#B0ECA3",		label="distinct-partitions",		shape=box,		style=filled];	"def:partition" -> "def:distinct-partitions"	[style=dashed];	"lemma:gen-func-p"	[color=green,		fillcolor="#1CAC78",		label="gen-func-p",		shape=ellipse,		style=filled];	"def:partition" -> "lemma:gen-func-p"	[style=dashed];	"def:distinct-partitions" -> "lemma:expansion-product"	[style=dashed];	"def:base-slope"	[color=green,		fillcolor="#B0ECA3",		label="base-slope",		shape=box,		style=filled];	"def:distinct-partitions" -> "def:base-slope"	[style=dashed];	"def:base-slope" -> "def:P-alpha-beta-special"	[style=dashed];	"def:qPochhammer"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammer,		shape=box,		style=filled];	"def:qPochhammer" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite-formalized"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-finite"	[style=dashed];	"def:qPochhammer" -> "lem:qPochhammer-succ"	[style=dashed];	"def:S-sum"	[color=green,		fillcolor="#B0ECA3",		label="S-sum",		shape=box,		style=filled];	"def:qPochhammer" -> "def:S-sum"	[style=dashed];	"lem:qPochhammer-zero"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-zero",		shape=ellipse,		style=filled];	"def:qPochhammer" -> "lem:qPochhammer-zero"	[style=dashed];	"def:S-sum" -> "lem:S-sum-tendsto"	[style=dashed];	"def:S-sum" -> "lem:S-sum-recurrence"	[style=dashed];	"def:S-sum" -> "lem:summable-S"	[style=dashed];	"def:qBinom"	[color=green,		fillcolor="#B0ECA3",		label=qBinom,		shape=box,		style=filled];	"lem:qpascal"	[color=green,		fillcolor="#1CAC78",		label=qpascal,		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qpascal"	[style=dashed];	"lem:qBinom-eq-zero-of-lt"	[color=green,		fillcolor="#1CAC78",		label="qBinom-eq-zero-of-lt",		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qBinom-eq-zero-of-lt"	[style=dashed];	"lem:qpascal" -> "thm:qbin-finite";	"lem:qBinom-eq-zero-of-lt" -> "thm:qbin-finite";	"lem:qBinom-eq-zero-of-lt" -> "lem:qBinom-self"	[style=dashed];	"def:pentagonal"	[color=green,		fillcolor="#B0ECA3",		label=pentagonal,		shape=box,		style=filled];	"def:pentagonal" -> "thm:pentagonal-impl"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"def:fps-qPochInf"	[color=green,		fillcolor="#B0ECA3",		label="fps-qPochInf",		shape=box,		style=filled];	"lem:fps-isUnit-qPochInf"	[color=green,		fillcolor="#1CAC78",		label="fps-isUnit-qPochInf",		shape=ellipse,		style=filled];	"def:fps-qPochInf" -> "lem:fps-isUnit-qPochInf"	[style=dashed];	"def:fps-S"	[color=green,		fillcolor="#B0ECA3",		label="fps-S",		shape=box,		style=filled];	"def:fps-qPochInf" -> "def:fps-S"	[style=dashed];	"lem:fps-coeff-qPochInf"	[color=green,		fillcolor="#1CAC78",		label="fps-coeff-qPochInf",		shape=ellipse,		style=filled];	"def:fps-qPochInf" -> "lem:fps-coeff-qPochInf"	[style=dashed];	"lem:fps-qPochInf-recursion"	[color=green,		fillcolor="#1CAC78",		label="fps-qPochInf-recursion",		shape=ellipse,		style=filled];	"def:fps-qPochInf" -> "lem:fps-qPochInf-recursion"	[style=dashed];	"def:fps-jtp"	[color=green,		fillcolor="#B0ECA3",		label="fps-jtp",		shape=box,		style=filled];	"def:fps-qPochInf" -> "def:fps-jtp"	[style=dashed];	"lem:fps-summable-S"	[color=green,		fillcolor="#1CAC78",		label="fps-summable-S",		shape=ellipse,		style=filled];	"def:fps-S" -> "lem:fps-summable-S"	[style=dashed];	"thm:fps-euler-second"	[color=green,		fillcolor="#1CAC78",		label="fps-euler-second",		shape=ellipse,		style=filled];	"lem:fps-coeff-qPochInf" -> "thm:fps-euler-second"	[style=dashed];	"lem:fps-qPochInf-eq-qPoch-mul"	[color=green,		fillcolor="#1CAC78",		label="fps-qPochInf-eq-qPoch-mul",		shape=ellipse,		style=filled];	"lem:fps-qPochInf-recursion" -> "lem:fps-qPochInf-eq-qPoch-mul"	[style=dashed];	"thm:fps-jtp"	[color=green,		fillcolor="#1CAC78",		label="fps-jtp",		shape=ellipse,		style=filled];	"def:fps-jtp" -> "thm:fps-jtp"	[style=dashed];	"lem:fps-qqInf-euler2"	[color=green,		fillcolor="#1CAC78",		label="fps-qqInf-euler2",		shape=ellipse,		style=filled];	"thm:fps-euler-second" -> "lem:fps-qqInf-euler2"	[style=dashed];	"thm:fps-cauchy-nonneg"	[color=green,		fillcolor="#1CAC78",		label="fps-cauchy-nonneg",		shape=ellipse,		style=filled];	"lem:fps-qqInf-euler2" -> "thm:fps-cauchy-nonneg"	[style=dashed];	"thm:fps-cauchy-neg"	[color=green,		fillcolor="#1CAC78",		label="fps-cauchy-neg",		shape=ellipse,		style=filled];	"lem:fps-qqInf-euler2" -> "thm:fps-cauchy-neg"	[style=dashed];	"lem:fps-S-recurrence"	[color=green,		fillcolor="#1CAC78",		label="fps-S-recurrence",		shape=ellipse,		style=filled];	"lem:fps-summable-S" -> "lem:fps-S-recurrence"	[style=dashed];	"thm:fps-cauchy-nonneg" -> "thm:fps-jtp"	[style=dashed];	"thm:fps-cauchy-neg" -> "thm:fps-jtp"	[style=dashed];	"lem:fps-qPochInf-eq-qPoch-mul" -> "lem:fps-qqInf-euler2"	[style=dashed];	"thm:fps-key"	[color=green,		fillcolor="#1CAC78",		label="fps-key",		shape=ellipse,		style=filled];	"thm:fps-key" -> "thm:fps-cauchy-nonneg"	[style=dashed];	"thm:fps-key" -> "thm:fps-cauchy-neg"	[style=dashed];	"def:partition"	[color=blue,		fillcolor="#A3D6FF",		label=partition,		shape=box,		style=filled];	"def:distinct-partitions"	[color=green,		fillcolor="#B0ECA3",		label="distinct-partitions",		shape=box,		style=filled];	"def:partition" -> "def:distinct-partitions"	[style=dashed];	"lemma:gen-func-p"	[color=green,		fillcolor="#1CAC78",		label="gen-func-p",		shape=ellipse,		style=filled];	"def:partition" -> "lemma:gen-func-p"	[style=dashed];	"lemma:expansion-product"	[color=green,		fillcolor="#1CAC78",		label="expansion-product",		shape=ellipse,		style=filled];	"def:distinct-partitions" -> "lemma:expansion-product"	[style=dashed];	"def:base-slope"	[color=green,		fillcolor="#B0ECA3",		label="base-slope",		shape=box,		style=filled];	"def:distinct-partitions" -> "def:base-slope"	[style=dashed];	"thm:euler-pentagonal"	[color=green,		fillcolor="#1CAC78",		label="euler-pentagonal",		shape=ellipse,		style=filled];	"lemma:expansion-product" -> "thm:euler-pentagonal";	"def:P-alpha-beta-special"	[color=green,		fillcolor="#B0ECA3",		label="P-alpha-beta-special",		shape=box,		style=filled];	"def:base-slope" -> "def:P-alpha-beta-special"	[style=dashed];	"lemma:alpha-after-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-after-beta",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-bijection",		shape=ellipse,		style=filled];	"lemma:alpha-after-beta" -> "lemma:alpha-beta-bijection";	"lemma:alpha-odd-eq-beta-even"	[color=green,		fillcolor="#1CAC78",		label="alpha-odd-eq-beta-even",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:alpha-odd-eq-beta-even";	"lemma:P-alpha-card-eq-P-beta-card"	[color=green,		fillcolor="#1CAC78",		label="P-alpha-card-eq-P-beta-card",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:P-alpha-card-eq-P-beta-card";	"lemma:pe-minus-po-closed-form"	[color=green,		fillcolor="#1CAC78",		label="pe-minus-po-closed-form",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even" -> "lemma:pe-minus-po-closed-form";	"lem:qPochhammerInf-telescope"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-telescope",		shape=ellipse,		style=filled];	"lem:qPochhammerInf-prod-hassum"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-prod-hassum",		shape=ellipse,		style=filled];	"lem:qPochhammerInf-telescope" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"thm:jtp-full"	[color=green,		fillcolor="#1CAC78",		label="jtp-full",		shape=ellipse,		style=filled];	"lem:qPochhammerInf-prod-hassum" -> "thm:jtp-full"	[style=dashed];	"thm:jtp-analytic"	[color=green,		fillcolor="#1CAC78",		label="jtp-analytic",		shape=ellipse,		style=filled];	"thm:jtp-full" -> "thm:jtp-analytic"	[style=dashed];	"thm:pentagonal-impl"	[color=green,		fillcolor="#1CAC78",		label="pentagonal-impl",		shape=ellipse,		style=filled];	"thm:jtp-full" -> "thm:pentagonal-impl"	[style=dashed];	"lem:euler-second"	[color=green,		fillcolor="#1CAC78",		label="euler-second",		shape=ellipse,		style=filled];	"lem:euler-second" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"thm:euler-second-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-all",		shape=ellipse,		style=filled];	"lem:euler-second" -> "thm:euler-second-all"	[style=dashed];	"lem:euler-second-qoz-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-qoz-all",		shape=ellipse,		style=filled];	"thm:euler-second-all" -> "lem:euler-second-qoz-all"	[style=dashed];	"lem:euler-second-qoz-all" -> "thm:jtp-full"	[style=dashed];	"lem:fps-coeff-stable"	[color=green,		fillcolor="#1CAC78",		label="fps-coeff-stable",		shape=ellipse,		style=filled];	"lem:fps-coeff-stable" -> "lem:fps-coeff-qPochInf"	[style=dashed];	"lemma:alpha-beta-change-parity"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-change-parity",		shape=ellipse,		style=filled];	"lemma:alpha-beta-change-parity" -> "lemma:alpha-odd-eq-beta-even";	"lemma:pe-minus-po-closed-form" -> "thm:euler-pentagonal";	"thm:qbin-infinite-formalized"	[color=green,		label="qbin-infinite-formalized",		shape=ellipse];	"lem:euler-first"	[color=green,		fillcolor="#9CEC8B",		label="euler-first",		shape=ellipse,		style=filled];	"thm:qbin-infinite-formalized" -> "lem:euler-first"	[style=dashed];	"lem:qBinom-self"	[color=green,		fillcolor="#1CAC78",		label="qBinom-self",		shape=ellipse,		style=filled];	"lem:qBinom-closed-form"	[color=green,		fillcolor="#1CAC78",		label="qBinom-closed-form",		shape=ellipse,		style=filled];	"lem:qBinom-self" -> "lem:qBinom-closed-form"	[style=dashed];	"lem:qBinom-closed-form" -> "lem:euler-second"	[style=dashed];	"lem:euler-second-recursion"	[color=green,		fillcolor="#1CAC78",		label="euler-second-recursion",		shape=ellipse,		style=filled];	"lem:euler-second-recursion" -> "thm:euler-second-all"	[style=dashed];	"lem:fps-constantCoeff-qPoch-X"	[color=green,		fillcolor="#1CAC78",		label="fps-constantCoeff-qPoch-X",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special" -> "lemma:pe-minus-po-closed-form";	"thm:fps-S-const"	[color=green,		fillcolor="#1CAC78",		label="fps-S-const",		shape=ellipse,		style=filled];	"lem:fps-S-recurrence" -> "thm:fps-S-const"	[style=dashed];	"thm:fps-S-const" -> "thm:fps-key"	[style=dashed];	"def:jacobiProd"	[color=green,		fillcolor="#B0ECA3",		label=jacobiProd,		shape=box,		style=filled];	"def:jacobiProd" -> "thm:jtp-full"	[style=dashed];	"thm:summable-nonneg-all"	[color=green,		fillcolor="#1CAC78",		label="summable-nonneg-all",		shape=ellipse,		style=filled];	"def:jacobiProd" -> "thm:summable-nonneg-all"	[style=dashed];	"thm:jacobi-series-luc"	[color=green,		fillcolor="#1CAC78",		label="jacobi-series-luc",		shape=ellipse,		style=filled];	"def:jacobiProd" -> "thm:jacobi-series-luc"	[style=dashed];	"thm:jacobi-prod-luc"	[color=green,		fillcolor="#1CAC78",		label="jacobi-prod-luc",		shape=ellipse,		style=filled];	"def:jacobiProd" -> "thm:jacobi-prod-luc"	[style=dashed];	"thm:summable-nonneg-all" -> "thm:jtp-analytic"	[style=dashed];	"thm:jacobi-series-luc" -> "thm:jtp-analytic"	[style=dashed];	"thm:jacobi-prod-luc" -> "thm:jtp-analytic"	[style=dashed];	"def:pentagonal"	[color=green,		fillcolor="#B0ECA3",		label=pentagonal,		shape=box,		style=filled];	"def:pentagonal" -> "thm:pentagonal-impl"	[style=dashed];	"lem:fps-qPoch-succ"	[color=green,		fillcolor="#1CAC78",		label="fps-qPoch-succ",		shape=ellipse,		style=filled];	"thm:S-sum-eq"	[color=green,		fillcolor="#1CAC78",		label="S-sum-eq",		shape=ellipse,		style=filled];	"lem:cauchy-coeff-nonneg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-nonneg",		shape=ellipse,		style=filled];	"thm:S-sum-eq" -> "lem:cauchy-coeff-nonneg"	[style=dashed];	"lem:cauchy-coeff-neg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-neg",		shape=ellipse,		style=filled];	"thm:S-sum-eq" -> "lem:cauchy-coeff-neg"	[style=dashed];	"lem:cauchy-coeff-nonneg" -> "thm:jtp-full"	[style=dashed];	"lem:cauchy-coeff-neg" -> "thm:jtp-full"	[style=dashed];	"lem:qpascal"	[color=green,		fillcolor="#1CAC78",		label=qpascal,		shape=ellipse,		style=filled];	"thm:qbin-finite"	[color=green,		fillcolor="#1CAC78",		label="qbin-finite",		shape=ellipse,		style=filled];	"lem:qpascal" -> "thm:qbin-finite";	"thm:qbin-finite" -> "thm:fps-euler-second"	[style=dashed];	"thm:qbin-finite" -> "lem:euler-second"	[style=dashed];	"lemma:beta-lands-in-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-lands-in-alpha",		shape=ellipse,		style=filled];	"lemma:beta-lands-in-alpha" -> "lemma:alpha-after-beta";	"lemma:beta-lands-in-alpha" -> "lemma:alpha-beta-change-parity";	"lemma:beta-after-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-after-alpha",		shape=ellipse,		style=filled];	"lemma:beta-after-alpha" -> "lemma:alpha-beta-bijection";	"lem:multipliable-one-sub-smul-qpow"	[color=green,		fillcolor="#1CAC78",		label="multipliable-one-sub-smul-qpow",		shape=ellipse,		style=filled];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite-formalized"	[style=dashed];	"thm:qbin-infinite"	[color=green,		fillcolor="#1CAC78",		label="qbin-infinite",		shape=ellipse,		style=filled];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite";	"lem:fps-qPoch-shift"	[color=green,		fillcolor="#1CAC78",		label="fps-qPoch-shift",		shape=ellipse,		style=filled];	"lem:fps-qPoch-zero"	[color=green,		fillcolor="#1CAC78",		label="fps-qPoch-zero",		shape=ellipse,		style=filled];	"lemma:special"	[color=green,		fillcolor="#1CAC78",		label=special,		shape=ellipse,		style=filled];	"def:P-alpha-beta-special" -> "lemma:special"	[style=dashed];	"lemma:alpha-beta-special-disjoint"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special-disjoint",		shape=ellipse,		style=filled];	"def:P-alpha-beta-special" -> "lemma:alpha-beta-special-disjoint"	[style=dashed];	"def:alpha-beta-ops"	[color=green,		fillcolor="#B0ECA3",		label="alpha-beta-ops",		shape=box,		style=filled];	"def:P-alpha-beta-special" -> "def:alpha-beta-ops"	[style=dashed];	"lemma:special" -> "lemma:pe-minus-po-closed-form";	"lemma:alpha-beta-special-disjoint" -> "lemma:alpha-beta-special";	"def:alpha-beta-ops" -> "lemma:beta-lands-in-alpha"	[style=dashed];	"lemma:alpha-lands-in-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-lands-in-beta",		shape=ellipse,		style=filled];	"def:alpha-beta-ops" -> "lemma:alpha-lands-in-beta"	[style=dashed];	"thm:fps-multipliable"	[color=green,		fillcolor="#1CAC78",		label="fps-multipliable",		shape=ellipse,		style=filled];	"thm:fps-multipliable" -> "def:fps-qPochInf"	[style=dashed];	"lem:summable-S"	[color=green,		fillcolor="#1CAC78",		label="summable-S",		shape=ellipse,		style=filled];	"def:fps-qPoch"	[color=green,		fillcolor="#B0ECA3",		label="fps-qPoch",		shape=box,		style=filled];	"def:fps-qPoch" -> "lem:fps-coeff-stable"	[style=dashed];	"def:fps-qPoch" -> "lem:fps-constantCoeff-qPoch-X"	[style=dashed];	"def:fps-qPoch" -> "lem:fps-qPoch-succ"	[style=dashed];	"def:fps-qPoch" -> "lem:fps-qPoch-shift"	[style=dashed];	"def:fps-qPoch" -> "lem:fps-qPoch-zero"	[style=dashed];	"def:fps-qPoch" -> "thm:fps-multipliable"	[style=dashed];	"def:qPochhammerInf"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammerInf,		shape=box,		style=filled];	"def:qPochhammerInf" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"def:qPochhammerInf" -> "lem:euler-second"	[style=dashed];	"def:qPochhammerInf" -> "def:jacobiProd"	[style=dashed];	"def:qPochhammerInf" -> "lem:multipliable-one-sub-smul-qpow"	[style=dashed];	"lem:S-sum-tendsto"	[color=green,		fillcolor="#1CAC78",		label="S-sum-tendsto",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:S-sum-tendsto"	[style=dashed];	"lem:S-sum-tendsto" -> "thm:S-sum-eq"	[style=dashed];	"lem:qPochhammer-succ"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-succ",		shape=ellipse,		style=filled];	"lem:qPochhammer-succ" -> "lem:qBinom-closed-form"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:euler-second-recursion"	[style=dashed];	"lem:S-sum-recurrence"	[color=green,		fillcolor="#1CAC78",		label="S-sum-recurrence",		shape=ellipse,		style=filled];	"lem:qPochhammer-succ" -> "lem:S-sum-recurrence"	[style=dashed];	"lem:S-sum-recurrence" -> "thm:S-sum-eq"	[style=dashed];	"lem:qPochhammer-zero"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-zero",		shape=ellipse,		style=filled];	"lem:qBinom-eq-zero-of-lt"	[color=green,		fillcolor="#1CAC78",		label="qBinom-eq-zero-of-lt",		shape=ellipse,		style=filled];	"lem:qBinom-eq-zero-of-lt" -> "lem:qBinom-self"	[style=dashed];	"lem:qBinom-eq-zero-of-lt" -> "thm:qbin-finite";	"def:qPochhammer"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammer,		shape=box,		style=filled];	"def:qPochhammer" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite-formalized"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-finite"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite"	[style=dashed];	"def:qPochhammer" -> "lem:qPochhammer-succ"	[style=dashed];	"def:qPochhammer" -> "lem:qPochhammer-zero"	[style=dashed];	"def:S-sum"	[color=green,		fillcolor="#B0ECA3",		label="S-sum",		shape=box,		style=filled];	"def:qPochhammer" -> "def:S-sum"	[style=dashed];	"def:S-sum" -> "lem:summable-S"	[style=dashed];	"def:S-sum" -> "lem:S-sum-tendsto"	[style=dashed];	"def:S-sum" -> "lem:S-sum-recurrence"	[style=dashed];	"def:qBinom"	[color=green,		fillcolor="#B0ECA3",		label=qBinom,		shape=box,		style=filled];	"def:qBinom" -> "lem:qpascal"	[style=dashed];	"def:qBinom" -> "lem:qBinom-eq-zero-of-lt"	[style=dashed];	"lemma:alpha-lands-in-beta" -> "lemma:alpha-beta-change-parity";	"lemma:alpha-lands-in-beta" -> "lemma:beta-after-alpha";	"def:staircase-sets"	[color=green,		fillcolor="#B0ECA3",		label="staircase-sets",		shape=box,		style=filled];	"def:staircase-sets" -> "lemma:special"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {

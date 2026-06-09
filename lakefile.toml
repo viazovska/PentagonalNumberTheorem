@@ -1,7 +1,7 @@
 name = "my_project"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["MyProject", "PentagonalNumberTheorem", "Aristotle", "QSeries"]
+defaultTargets = ["MyProject", "PentagonalNumberTheorem", "EulerPentagonalNumberTheorem_Franklin", "QSeries"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -25,7 +25,7 @@ name = "MyProject"
 name = "PentagonalNumberTheorem"
 
 [[lean_lib]]
-name = "Aristotle"
+name = "EulerPentagonalNumberTheorem_Franklin"
 
 [[lean_lib]]
 name = "QSeries"

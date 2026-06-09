@@ -40,7 +40,7 @@ For a positive integer $n$ we denote by $p_e(n)$ the number of partitions of $n$
 \end{definition}
 \end{comment}
 
-\begin{definition}[Partitions of $n$ into distinct parts] \lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions}
+\begin{definition}[Partitions of $n$ into distinct parts] \lean{distinctPartitions, distinctPartitionsEven, distinctPartitionsOdd}\leanok
 
 Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
@@ -80,7 +80,7 @@ $7$&$7=6+1=5+2=4+3=4+2+1$&$2$&$3$\\
 
 \section{Pentagonal number theorem}
 
-\begin{theorem}[Euler] \lean{euler_pentagonal_number_theorem}
+\begin{theorem}[Euler] \lean{euler_pentagonal_number_theorem_packaged}\leanok
 $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(3k^2+k)/2})\,=\,
 \sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
 \end{theorem}
@@ -188,7 +188,7 @@ Consider a diagram of a partition of $n$ into different parts.\\
 \end{tikzpicture}
 \end{center}
 
-\begin{definition}[Base and slope]
+\begin{definition}[Base and slope] \lean{partBase, partMax, partSlope, partSlopeSet}\leanok
   Consider a partition $S \subseteq \{1, \ldots, n\}$ of $n$ into different parts. We define the \emph{base} $b \in S$ as the smallest element of the partition. Let $\max(S)$ denote the largest element of $S$. We define the \emph{slope} $s$ as:
   \begin{equation*}
       s = \max\{k \geq 1 : \max(S), \max(S)-1, \max(S)-2, \ldots, \max(S)-k + 1 \in S\}.
@@ -196,7 +196,7 @@ Consider a diagram of a partition of $n$ into different parts.\\
   and the \emph{slope set} $D$ as $\{\max(S), \max(S)-1, \ldots, \max(S)-s + 1\}$.
 \end{definition}
 
-\begin{definition} Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{definition}[Three-way decomposition] \lean{distinctPartitionsAlpha, distinctPartitionsBeta, distinctPartitionsSpecial}\leanok Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
 \mathcal{P}_{\alpha}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\;  b \leq s \mbox{ and } b \notin D, \mbox{ or if } b \leq s - 1\right\}, \\
 \mathcal{P}_{\beta}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; b > s \mbox{ and } b \notin D, \mbox{ or if } b \geq s + 2 \right\}, \\
@@ -204,23 +204,23 @@ Consider a diagram of a partition of $n$ into different parts.\\
 \end{align*}
 \end{definition}
 
-\begin{lemma}For all natural numbers $n$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
+\begin{lemma} \lean{DPalpha_inter_DPbeta, DPalpha_inter_DPspecial, DPbeta_inter_DPspecial}\leanok For all natural numbers $n$ the following holds: The sets $\mathcal{P}_{\alpha}(n)$, $\mathcal{P}_{\beta}(n)$,  $\mathcal{P}_{\mathrm{special}}(n)$ are pairwise disjoint.
 \end{lemma}
 
-\begin{lemma} \label{lemma: alpha beta special}For all natural numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
+\begin{lemma} \label{lemma: alpha beta special} \lean{DP_eq_union}\leanok For all natural numbers $n$ the following holds $$\mathcal{P}(n)=\mathcal{P}_{\alpha}(n)\sqcup\mathcal{P}_{\beta}(n)\sqcup\mathcal{P}_{\mathrm{special}}(n).$$
 \end{lemma}
 
-\begin{definition}
+\begin{definition} \lean{smkSet, spkSet}\leanok
 For $k\in\mathbb{Z}_{\geq 1}$ define $ S_{-k}=\{2k-1 , 2k-2 , \ldots , k\}$.\\
 For $k\in\mathbb{Z}_{\geq 0}$ define $S_{k}=\{2k , 2k-1 , \ldots , k\}$.
 \end{definition}
 
-\begin{lemma}\label{lemma: special} If $n$ is not a pentagonal number, then $ \mathcal{P}_{\mathrm{special}}(n)=\varnothing$.\\
+\begin{lemma}\label{lemma: special} \lean{DPspecial_empty_of_nonpent, DPspecial_pent_minus, DPspecial_pent_plus}\leanok If $n$ is not a pentagonal number, then $ \mathcal{P}_{\mathrm{special}}(n)=\varnothing$.\\
 If $n=\frac{3k^2-k}{2}$ for some $k\in\mathbb{Z}_{\geq 1}$, then $ \mathcal{P}_{\mathrm{special}}(n)=\{S_{-k}\} $.\\
 If $n=\frac{3k^2+k}{2}$ for some $k\in\mathbb{Z}_{\geq 0}$, then $ \mathcal{P}_{\mathrm{special}}(n)=\{S_{k}\}$.
 \end{lemma}
 
-\begin{definition} [Operations $\alpha$ and $\beta$]
+\begin{definition}[Operations $\alpha$ and $\beta$] \lean{alphaOp, betaOp}\leanok
 Let $S \subseteq \{1, \ldots, n\}$ be a partition of $n$ into different parts with base $b$ and slope $s$ and slope set $D$. We define the following operations on $S$:
 
 $\alpha$: If $S\in \mathcal{P_\alpha}$  (equivalently, if $b \leq s$ and $b \notin D$, or if $b \leq s - 1$), then we move $b$ up and turn its points into new slope.
@@ -388,34 +388,34 @@ $$n=(k+1)+\ldots+2k=\frac{3k^2+k}{2}.$$
 \end{lemma}
 \end{comment}
 
-\begin{lemma}
+\begin{lemma} \lean{alphaOp_mem_DPbeta}\leanok
  If $S\in \mathcal{P}_\alpha(n)$ then $\alpha (S)\in \mathcal{P}_\beta(n)$.
 \end{lemma}
-\begin{proof}
+\begin{proof}\leanok
 \end{proof}
 
-\begin{lemma}
+\begin{lemma} \lean{betaOp_mem_DPalpha}\leanok
  If $S\in \mathcal{P}_\beta(n)$ then $\beta (S)\in \mathcal{P}_\alpha(n)$.
 \end{lemma}
 
-\begin{lemma}
+\begin{lemma} \lean{betaOp_alphaOp}\leanok
   The composition of maps $\beta\circ\alpha$ is equal to the identity map on  $\mathcal{P}_\alpha(n)$. Equivalently, if $S\in \mathcal{P}_\alpha(n)$ then $\beta(\alpha(S))=S$.
 \end{lemma}
 
-\begin{lemma}
+\begin{lemma} \lean{alphaOp_betaOp}\leanok
   The composition of maps $\alpha\circ\beta$ is equal to the identity map on  $\mathcal{P}_\beta(n)$. Equivalently, if $S\in \mathcal{P}_\beta(n)$ then $\alpha(\beta(S))=S$.
 \end{lemma}
 
-\begin{lemma}
+\begin{lemma} \lean{alphaOp_mem_DPbeta, betaOp_mem_DPalpha, betaOp_alphaOp, alphaOp_betaOp}\leanok
 The map $\alpha: \mathcal{P}_\alpha(n)\to \mathcal{P}_\beta(n)$ is a bijection. \\
 The map $\beta: \mathcal{P}_\beta(n)\to \mathcal{P}_\alpha(n)$ is a bijection.
 \end{lemma}
 
-\begin{lemma}
+\begin{lemma} \lean{DPalpha_card_eq_DPbeta_card}\leanok
 $$\left| \mathcal{P}_\alpha(n)\right|=\left|\mathcal{P}_\beta(n) \right|.$$
 \end{lemma}
 
-\begin{lemma}
+\begin{lemma} \lean{alphaOp_card, betaOp_card}\leanok
 The operations $\alpha$ and $\beta$ change the parity of the number of parts of a partition. More precisely,
 \begin{itemize}
 \item If $S\in \mathcal{P}_\alpha(n)\cap\mathcal{P}_{\mathrm{odd}}(n) $ then  $\alpha(S) \in \mathcal{P}_\beta(n)\cap\mathcal{P}_{\mathrm{even}}(n) $;
@@ -425,19 +425,19 @@ The operations $\alpha$ and $\beta$ change the parity of the number of parts of 
 \end{itemize}
 \end{lemma}
 
-\begin{lemma}\label{lemma: alpha odd eq beta even}
+\begin{lemma}\label{lemma: alpha odd eq beta even} \lean{DPalpha_odd_card_eq_DPbeta_even_card, DPalpha_even_card_eq_DPbeta_odd_card}\leanok
 $$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|,$$
 $$\left| \mathcal{P}_\alpha(n)\cap \mathcal{P}_{\mathrm{even}}(n)\right|=\left| \mathcal{P}_\beta(n)\cap \mathcal{P}_{\mathrm{odd}}(n)\right|.$$
 \end{lemma}
 
 
 
-\begin{lemma}
+\begin{lemma} \lean{pe_minus_po_zero, pe_minus_po_nonpent, pe_minus_po_pent_minus, pe_minus_po_pent_plus}\leanok
 $$p_e(n)-p_o(n)=
 \begin{cases}(-1)^k,&\mbox{ if } n= \frac{3k^2\pm k}{2}\\
 0, & \mbox{otherwise.}\end{cases}$$
 \end{lemma}
-\begin{proof}
+\begin{proof}\leanok
 We have
 \begin{equation}\label{eqn: pe minus po}p_e(n)-p_o(n)=\left|\mathcal{P}_{even}(n)\right|-\left|\mathcal{P}_{odd}(n)\right|.\end{equation}
 By Lemma~\ref{lemma: alpha beta special} we have
@@ -450,7 +450,7 @@ Finally, the statement of the lemma follows from the equations \eqref{eqn: pe mi
 \end{proof}
 
 \section{Jacobi triple product}
-\begin{theorem}
+\begin{theorem}[Jacobi] \lean{qSeries.jacobiTripleProduct}\leanok
 For all $w\neq 0$ and $q$ with $|q|<1$:
 $$\prod_{k=1}^\infty (1-q^{2k})\,(1-q^{2k-1}\,w^2)\,(1-q^{2k-1}\,w^{-2})=\sum_{k=-\infty}^\infty (-1)^k\,w^{2k}\,q^{k^2}.$$
 \end{theorem}

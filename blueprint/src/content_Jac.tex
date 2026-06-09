@@ -499,7 +499,9 @@ by \texttt{linear\_combination}.
 \subsection{The finite $q$-binomial theorem (step 5)}\label{subsec:qbin-finite-formalized}
 
 Theorem~\ref{thm:qbin-finite} is formalised as
-\texttt{qSeries.qBinom\_finite\_thm} in \texttt{Series/qSeries.lean}.
+\texttt{qSeries.qBinom\_finite\_thm} in \texttt{QSeries/FiniteBinomial.lean}
+(in \texttt{Qseries\_Aristotle\_new}).
+% Old reference: \texttt{Series/qSeries.lean} (monolithic version, superseded).
 The Lean proof follows exactly the four-step strategy spelled out in
 the proof attached to Theorem~\ref{thm:qbin-finite} above:
 peel off $k = 0$, apply the $q$-Pascal recurrence
@@ -542,7 +544,9 @@ For $a, z, q \in \mathbb{C}$ with $\|q\| < 1$ and $\|z\| < 1$,
 \]
 (Equivalent to Theorem~\ref{thm:qbin-infinite}.)
 The Lean theorem is \texttt{qSeries.qBinom\_infinite\_thm} in
-\texttt{Series/qSeries.lean}. The proof realised in Lean follows Heine's
+\texttt{QSeries/CauchyIdentity.lean} (in \texttt{Qseries\_Aristotle\_new}).
+% Old reference: \texttt{Series/qSeries.lean} (monolithic version, superseded).
+The proof realised in Lean follows Heine's
 functional-equation argument spelled out in the proof of
 Theorem~\ref{thm:qbin-infinite} above, organised under
 \texttt{section CauchyIdentity}: non-vanishing of $(z;q)_\infty$
@@ -576,8 +580,11 @@ work, as does step 7 (the first Euler identity).
 \noindent\emph{Update.} Steps 7 and 8 are now fully formalised, and the Jacobi
 triple product and Euler's pentagonal number theorem are proved with no
 \texttt{sorry}. The route actually taken by the formalisation diverges from all
-three textbook sketches above; it is documented in
-Section~\ref{sec:implemented}.
+three textbook sketches above; the analytic proof is documented in
+Section~\ref{sec:implemented} (including an extension to all $z \neq 0$ in
+Section~\ref{subsec:analytic-extension}), and a second, independent algebraic
+proof working entirely in formal power series rings is documented in
+Section~\ref{sec:fps}.
 
 
 \section{Implemented proof strategy}
@@ -607,16 +614,22 @@ truncation or a complex-analytic continuation, the formalisation
 \end{enumerate}
 
 \paragraph{Source files.} The development lives in the Lean library
-\texttt{qSeries\_aristotle}, split into the modules
+\texttt{Qseries\_Aristotle\_new}, split into the modules
 \texttt{QSeries/Defs.lean}, \texttt{QSeries/FiniteBinomial.lean},
 \texttt{QSeries/InfPochhammer.lean}, \texttt{QSeries/CauchyIdentity.lean},
 \texttt{QSeries/EulerIdentities.lean}, \texttt{QSeries/JTP\_KeyIdentity.lean},
-\texttt{QSeries/JTP\_Core.lean},
-\texttt{QSeries/JacobiTripleProduct.lean}, and
-\texttt{QSeries/PentagonalNumber.lean}, all under the namespace
-\texttt{qSeries}. The $q$-Pochhammer / $q$-binomial foundations
-(Section~\ref{sec:qPochhammer-formalized}) are shared with the monolithic
-\texttt{Series/qSeries.lean}; everything below builds on them.
+\texttt{QSeries/JTP\_Core.lean}, \texttt{QSeries/JTP\_Helpers.lean},
+\texttt{QSeries/JacobiTripleProduct.lean},
+\texttt{QSeries/PentagonalNumber.lean}, and
+\texttt{QSeries/JTP\_Analytic.lean} (which extends the identity to all
+$z \neq 0$), all under the namespace \texttt{qSeries}. An independent
+purely algebraic proof of the triple product in the formal power series ring
+$R[\![ X]\!]$ lives in \texttt{QSeries/FPS.lean},
+\texttt{QSeries/FPS\_Euler.lean}, and \texttt{QSeries/FPS\_Algebra.lean}
+under the namespace \texttt{qSeries.FPS}; this is documented in
+Section~\ref{sec:fps}. The $q$-Pochhammer / $q$-binomial foundations
+(Section~\ref{sec:qPochhammer-formalized}) are shared between both
+developments.
 
 \subsection{The two Euler identities}
 
@@ -848,7 +861,7 @@ $q/z$, hence all $z \neq 0$).
 
 \subsection{The triple product and bilateral series}
 
-\begin{definition}[Triple product and bilateral series]\label{def:jacobiProd}\lean{qSeries.jacobiProd}\leanok\uses{def:qPochhammerInf}
+\begin{definition}[Triple product and bilateral series]\label{def:jacobiProd}\lean{qSeries.jacobiProd, qSeries.jacobiBilateral}\leanok\uses{def:qPochhammerInf}
 $\mathrm{jacobiProd}(q,z) := (q;q)_\infty\,(-z;q)_\infty\,(-q/z;q)_\infty$, and
 the bilateral series $\mathrm{jacobiBilateral}(q,z) :=
 \sum_{k\ge0} z^k q^{\binom{k}{2}} + \sum_{m\ge0} z^{-(m+1)} q^{\binom{m+2}{2}}$
@@ -923,3 +936,428 @@ three residue classes $\{3k+1\},\{3k+2\},\{3k+3\}$ modulo $3$. Matching the
 right-hand exponents $k^2$ (with sign $(-1)^k$) against
 $\omega(\pm k)$ gives the pentagonal series.
 \end{proof}
+
+\subsection{Analytic extension to all \texorpdfstring{$z \neq 0$}{z ≠ 0}}
+\label{subsec:analytic-extension}
+
+Theorem~\ref{thm:jtp-full} was proved under the restriction $\|z\| < 1$.
+The module \texttt{QSeries/JTP\_Analytic.lean} removes this restriction using
+locally uniform convergence of both sides on $\{z \neq 0\}$ and the functional
+equation $f(qz) = f(z)/z$ satisfied by both
+$\mathrm{jacobiProd}(q,z)$ and $\mathrm{jacobiBilateral}(q,z)$.
+
+\begin{theorem}[Summability of bilateral series for all $z$]\label{thm:summable-nonneg-all}\lean{qSeries.summable_jacobi_nonneg_all}\leanok\uses{def:jacobiProd}
+For $\|q\| < 1$ and \emph{every} $z \in \mathbb{C}$, the non-negative part
+$\sum_{k \ge 0} z^k\, q^{\binom{k}{2}}$ is summable.
+\end{theorem}
+
+\begin{proof}\leanok
+The ratio of consecutive terms is $|z|\,|q|^n \to 0$, so the ratio test gives
+summability; the Weierstrass $M$-test with $M_k = R^k \|q\|^{\binom{k}{2}}$
+(summable by a further ratio test) gives uniform convergence on
+$|z| \le R$.
+\end{proof}
+
+\begin{theorem}[Locally uniform convergence of the product side]\label{thm:jacobi-prod-luc}\lean{qSeries.jacobiProd_tendstoLocallyUniformlyOn}\leanok\uses{def:jacobiProd}
+For $\|q\| < 1$, the partial products
+$\prod_{k < N}(1 - q^{2k})(1 + zq^{2k-1})(1 + q^{2k-1}/z)$ converge
+\emph{locally uniformly} on $\{z \neq 0\}$ to $\mathrm{jacobiProd}(q,z)$.
+\end{theorem}
+
+\begin{proof}\leanok
+On $\overline{B}(z_0, \|z_0\|/2)$ for any $z_0 \neq 0$: the factor
+$\prod(1 + (-z)q^k)$ is handled by the uniform convergence of
+$\prod(1 + a_k)$ on compacta (Weierstrass $M$-test with
+$\sum \|a_k\| < \infty$), and the factor $\prod(1 + (-q/z)q^k)$ uses the
+bound $\|-q/z\| \le 2\|q\|/\|z_0\|$ on that ball. Products of uniformly
+convergent bounded sequences converge uniformly.
+\end{proof}
+
+\begin{theorem}[Locally uniform convergence of the series side]\label{thm:jacobi-series-luc}\lean{qSeries.jacobiBilateral_tendstoLocallyUniformlyOn}\leanok\uses{def:jacobiProd}
+For $\|q\| < 1$, the bilateral partial sums
+$\sum_{|k| < N} z^k\, q^{\binom{k}{2}}$ converge \emph{locally uniformly}
+on $\{z \neq 0\}$ to $\mathrm{jacobiBilateral}(q,z)$.
+\end{theorem}
+
+\begin{proof}\leanok
+The non-negative half is locally uniformly convergent everywhere by
+Theorem~\ref{thm:summable-nonneg-all} and the $M$-test. The negative half
+$\sum_{m \ge 0} z^{-(m+1)} q^{\binom{m+2}{2}}$ is uniformly convergent on
+$\{\|z^{-1}\| \le R'\}$; near any $z_0 \neq 0$ the ball
+$B(z_0, \|z_0\|/2)$ satisfies $\|z^{-1}\| \le 2/\|z_0\|$.
+\end{proof}
+
+\begin{theorem}[Analytic Jacobi triple product]\label{thm:jtp-analytic}\lean{qSeries.jacobiTripleProduct_analytic}\leanok\uses{thm:jtp-full, def:jacobiProd, thm:summable-nonneg-all, thm:jacobi-prod-luc, thm:jacobi-series-luc}
+For $\|q\| < 1$ and every $z \neq 0$,
+\[
+  (q;q)_\infty\,(-z;q)_\infty\,(-q/z;q)_\infty
+    = \sum_{k \ge 0} z^k\, q^{\binom{k}{2}}
+    + \sum_{m \ge 0} z^{-(m+1)}\, q^{\binom{m+2}{2}}.
+\]
+\end{theorem}
+
+\begin{proof}\leanok\proves{thm:jtp-analytic}
+Both sides are locally uniformly convergent on $\{z \neq 0\}$
+(Theorems~\ref{thm:jacobi-prod-luc} and~\ref{thm:jacobi-series-luc}).
+Both satisfy the functional equation $H(qz) = H(z)/z$ for all $z \neq 0$.
+For any fixed $z \neq 0$, choose $N$ large enough so that $\|q^N z\| < 1$.
+Then Theorem~\ref{thm:jtp-full} (valid at $q^N z$) together with the
+iterated functional equation for both sides yields equality at $z$.
+\end{proof}
+
+
+\section{Formal power series reformulation (algebraic proof)}
+\label{sec:fps}
+
+This section records the second, independent proof of the Jacobi triple product
+that was formalised in \texttt{Qseries\_Aristotle\_new/QSeries/FPS.lean},
+\texttt{QSeries/FPS\_Euler.lean}, and \texttt{QSeries/FPS\_Algebra.lean} under the namespace
+\texttt{qSeries.FPS}. Unlike the analytic proof of Section~\ref{sec:implemented},
+this proof is \emph{entirely algebraic}: no norms, no $\|q\| < 1$ hypothesis, and
+no topological analysis beyond the $X$-adic (pi) topology on $R[\![ X ]\!]$.
+
+\paragraph{Key idea.}
+The variable $q$ becomes the formal power series indeterminate $X \in R[\![ X]\!]$,
+while $z$ lives in the coefficient ring
+$A = \texttt{LaurentPolynomial}\,\mathbb{C}$ (with $z = T(1)$,
+$z^{-1} = T(-1)$). The infinite $q$-Pochhammer symbol $(a; X)_\infty$
+is a well-defined element of $R[\![ X]\!]$ because the factors
+$(1 - a X^k)$ converge to $1$ in the pi topology: each factor affects only
+finitely many coefficients of any fixed degree.
+
+\subsection{FPS q-Pochhammer symbols}
+\label{subsec:fps-qpoch}
+
+Throughout this section $R$ is a commutative ring (with \texttt{DiscreteTopology}).
+
+\begin{definition}[FPS finite $q$-Pochhammer symbol]\label{def:fps-qPoch}\lean{qSeries.FPS.qPoch}\leanok
+For $a \in R[\![ X]\!]$ and $n \in \mathbb{N}$,
+\[
+  \texttt{qPoch}\,a\,n
+  \;:=\; \prod_{k=0}^{n-1}\bigl(1 - a\cdot X^k\bigr)
+  \;\in\; R[\![ X]\!].
+\]
+\end{definition}
+
+\begin{lemma}[Base case]\label{lem:fps-qPoch-zero}\lean{qSeries.FPS.qPoch_zero}\leanok\uses{def:fps-qPoch}
+$\texttt{qPoch}\,a\,0 = 1$.
+\end{lemma}
+
+\begin{proof}\leanok Empty product. \end{proof}
+
+\begin{lemma}[FPS recurrence]\label{lem:fps-qPoch-succ}\lean{qSeries.FPS.qPoch_succ}\leanok\uses{def:fps-qPoch}
+$\texttt{qPoch}\,a\,(n+1) = \texttt{qPoch}\,a\,n \cdot (1 - a\cdot X^n)$.
+\end{lemma}
+
+\begin{proof}\leanok Immediate from \texttt{Finset.prod\_range\_succ}. \end{proof}
+
+\begin{lemma}[FPS shift identity]\label{lem:fps-qPoch-shift}\lean{qSeries.FPS.qPoch_eq_mul_qPoch_shift}\leanok\uses{def:fps-qPoch}
+$\texttt{qPoch}\,a\,(n+1) = (1-a)\cdot\texttt{qPoch}\,(aX)\,n$.
+\end{lemma}
+
+\begin{proof}\leanok Induction on $n$ using the recurrence. \end{proof}
+
+\begin{lemma}[Coefficient stabilisation]\label{lem:fps-coeff-stable}\lean{qSeries.FPS.coeff_qPoch_stable}\leanok\uses{def:fps-qPoch}
+If $d < n$ then $[X^d]\,\texttt{qPoch}\,a\,(n+1) = [X^d]\,\texttt{qPoch}\,a\,n$.
+\end{lemma}
+
+\begin{proof}\leanok
+The new factor $(1 - a X^n)$ only affects monomials of degree $\ge n > d$.
+\end{proof}
+
+\begin{lemma}[Constant coefficient]\label{lem:fps-constantCoeff-qPoch-X}\lean{qSeries.FPS.constantCoeff_qPoch_X}\leanok\uses{def:fps-qPoch}
+The constant term of $\texttt{qPoch}\,(X : R[\![ X]\!])\,n$ is $1$.
+\end{lemma}
+
+\begin{proof}\leanok Induction on $n$; each factor $(1 - X \cdot X^k)$ has constant term $1$. \end{proof}
+
+\begin{theorem}[FPS multipliability in pi topology]\label{thm:fps-multipliable}\lean{qSeries.FPS.multipliable_qPoch}\leanok\uses{def:fps-qPoch}
+The family $k \mapsto 1 - a\cdot X^k$ is multipliable in $R[\![ X]\!]$
+(with the pi / $X$-adic topology).
+\end{theorem}
+
+\begin{proof}\leanok
+Apply \texttt{MvPowerSeries.WithPiTopology.multipliable\_one\_add\_of\_tendsto\_order\_atTop\_nhds\_top}:
+the $X$-adic order of $-(a X^k)$ is $\ge k$ (the factor
+$-(a X^k)$ is divisible by $X^k$), so the orders tend to $\infty$,
+which is the criterion for multipliability in the pi topology.
+No norm hypothesis is needed.
+\end{proof}
+
+\begin{definition}[FPS infinite $q$-Pochhammer symbol]\label{def:fps-qPochInf}\lean{qSeries.FPS.qPochInf}\leanok\uses{thm:fps-multipliable}
+\[
+  \texttt{qPochInf}\,a
+  \;:=\; \prod_{k=0}^{\infty}\bigl(1 - a\cdot X^k\bigr)
+  \;\in\; R[\![ X]\!].
+\]
+\end{definition}
+
+\begin{lemma}[Coefficient formula]\label{lem:fps-coeff-qPochInf}\lean{qSeries.FPS.coeff_qPochInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-stable}
+$[X^d]\,\texttt{qPochInf}\,a = [X^d]\,\texttt{qPoch}\,a\,(d+1)$.
+\end{lemma}
+
+\begin{proof}\leanok
+The partial products stabilise at degree $d$ once $n > d$
+(Lemma~\ref{lem:fps-coeff-stable}), and converge to
+$\texttt{qPochInf}\,a$ in the pi topology; continuity of
+coefficient extraction gives the identity.
+\end{proof}
+
+\begin{lemma}[FPS recursion]\label{lem:fps-qPochInf-recursion}\lean{qSeries.FPS.qPochInf_recursion}\leanok\uses{def:fps-qPochInf}
+$\texttt{qPochInf}\,a = (1-a)\cdot\texttt{qPochInf}\,(a\cdot X)$.
+\end{lemma}
+
+\begin{proof}\leanok
+Extract the $k=0$ factor from the infinite product and shift:
+$\prod_{k\ge 0}(1-a X^k) = (1-a)\cdot\prod_{k\ge 0}(1 - a X^{k+1})
+= (1-a)\cdot\texttt{qPochInf}(aX)$.
+\end{proof}
+
+\begin{lemma}[Iterated telescoping]\label{lem:fps-qPochInf-eq-qPoch-mul}\lean{qSeries.FPS.qPochInf_eq_qPoch_mul}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, lem:fps-qPochInf-recursion}
+For every $n \in \mathbb{N}$:
+$\texttt{qPochInf}\,a = \texttt{qPoch}\,a\,n \cdot \texttt{qPochInf}\,(a\cdot X^n)$.
+\end{lemma}
+
+\begin{proof}\leanok Induction on $n$ using Lemma~\ref{lem:fps-qPochInf-recursion}. \end{proof}
+
+\begin{lemma}[FPS unit]\label{lem:fps-isUnit-qPochInf}\lean{qSeries.FPS.isUnit_qPochInf}\leanok\uses{def:fps-qPochInf}
+If $1 - [X^0]\,a$ is a unit of $R$, then $\texttt{qPochInf}\,a$ is a unit
+of $R[\![ X]\!]$.
+\end{lemma}
+
+\begin{proof}\leanok
+The constant term of $\texttt{qPochInf}\,a$ equals $1 - [X^0]\,a$
+(which is a unit), and a power series with unit constant term is a unit.
+\end{proof}
+
+\subsection{FPS Euler second identity}
+\label{subsec:fps-euler2}
+
+\begin{theorem}[FPS Euler second identity]\label{thm:fps-euler-second}\lean{qSeries.FPS.fps_euler_second}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, def:qBinom, thm:qbin-finite, lem:fps-coeff-qPochInf}
+In $R[\![ X]\!]$ (for any commutative ring $R$ with discrete topology),
+\[
+  \texttt{qPochInf}(-a)
+  \;=\; \sum_{k=0}^{\infty} X^{\binom{k}{2}}\cdot a^k \cdot
+        \bigl(\texttt{qPoch}\,(X : R[\![ X]\!])\,k\bigr)^{-1}.
+\]
+\end{theorem}
+
+\begin{proof}\leanok
+At each degree $d$, only finitely many terms contribute (those with
+$\binom{k}{2} \le d$, i.e.\ $k \le d+1$). The key algebraic step is:
+$[X^j]\,\texttt{qBinom}(N, k, X) = [X^j]\,(\texttt{qPoch}(X,k))^{-1}$
+whenever $j + k \le N$ (\texttt{coeff\_qBinom\_eq\_qPochInv}).
+Then the finite $q$-binomial theorem
+(Theorem~\ref{thm:qbin-finite} with $z = -a$) gives
+$\texttt{qPoch}(-a, N) = \sum_{k=0}^{N} X^{\binom{k}{2}} \texttt{qBinom}(N,k,X) (-a)^k$
+in $R[\![ X]\!]$. Taking $N = d+1$ and extracting the degree-$d$
+coefficient yields the identity at each degree. The sum is summable (each
+degree has finitely many nonzero contributions) and the tsum specialises to
+the tprod as $N \to \infty$ in the pi topology.
+\end{proof}
+
+\subsection{FPS key identity}
+\label{subsec:fps-key}
+
+\begin{definition}[FPS key sum]\label{def:fps-S}\lean{qSeries.FPS.S_fps}\leanok\uses{def:fps-qPochInf, def:fps-qPoch}
+For $k \in \mathbb{N}$, define
+\[
+  S^{\mathrm{fps}}_k
+  \;:=\; \sum_{m=0}^{\infty}
+    X^{m(m+k)} \cdot \bigl(\texttt{qPoch}(X,m)\bigr)^{-1}
+    \cdot \bigl(\texttt{qPoch}(X,m+k)\bigr)^{-1}
+  \;\in\; R[\![ X]\!].
+\]
+\end{definition}
+
+\begin{lemma}[FPS key sum is summable]\label{lem:fps-summable-S}\lean{qSeries.FPS.summable_S_fps}\leanok\uses{def:fps-S}
+The summand of $S^{\mathrm{fps}}_k$ is summable in $R[\![ X]\!]$.
+\end{lemma}
+
+\begin{proof}\leanok
+The monomial $X^{m(m+k)}$ has $X$-adic order $\ge m$; since $m \to \infty$, the
+summand family satisfies the pi-topology criterion for summability.
+\end{proof}
+
+\begin{lemma}[FPS key sum recurrence]\label{lem:fps-S-recurrence}\lean{qSeries.FPS.S_fps_recurrence}\leanok\uses{def:fps-S, lem:fps-summable-S}
+For every $k$:
+\[
+  S^{\mathrm{fps}}_k - S^{\mathrm{fps}}_{k+1}
+  \;=\; X^{k+1}\cdot\bigl(S^{\mathrm{fps}}_{k+2} - S^{\mathrm{fps}}_{k+1}\bigr).
+\]
+\end{lemma}
+
+\begin{proof}\leanok
+Combine the two series term-by-term. Write
+$(\texttt{qPoch}(X, m+k))^{-1} = (1 - X^{m+k+1})\cdot (\texttt{qPoch}(X, m+k+1))^{-1}$
+(\texttt{qPochInv\_succ\_mul}), split the numerator, and reindex
+the $(1-X^m)$-part by $m \mapsto m+1$.
+This is a \emph{purely algebraic} ring identity in $R[\![ X]\!]$;
+no norms are needed.
+\end{proof}
+
+\begin{theorem}[FPS: all $S_k$ are equal]\label{thm:fps-S-const}\lean{qSeries.FPS.S_fps_const}\leanok\uses{lem:fps-S-recurrence, lem:fps-summable-S}
+$S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0$ for all $k \in \mathbb{N}$.
+\end{theorem}
+
+\begin{proof}\leanok
+Let $D_k = S^{\mathrm{fps}}_k - S^{\mathrm{fps}}_{k+1}$.
+By Lemma~\ref{lem:fps-S-recurrence}, $D_k = X^{k+1} D_{k+2} + X^{k+1} D_{k+1}$;
+iterating, $[X^d]\,D_k = 0$ for all $d < k+1$ (directly from the recurrence,
+since $[X^d]\,X^{k+1} = 0$ when $d < k+1$). For $d \ge k+1$, induction on $d$
+using the recurrence (strong induction) yields $[X^d]\,D_k = 0$ as well,
+because the only contributing term $[X^{k+1}]X^{k+1} = 1$ forces
+$[X^{d-(k+1)}]\,D_{k+2} = [X^{d-(k+1)}]\,D_k$ and the argument closes
+by strong induction. Hence $D_k = 0$ for all $k$, giving $S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0$.
+\end{proof}
+
+\begin{theorem}[FPS key identity]\label{thm:fps-key}\lean{qSeries.FPS.fps_key_identity}\leanok\uses{thm:fps-S-const, def:fps-S, def:fps-qPochInf}
+For every $k$,
+\[
+  S^{\mathrm{fps}}_k
+  \;=\; \bigl(\texttt{qPochInf}(X)\bigr)^{-1}
+  \;=:\; \texttt{qqInv}.
+\]
+\end{theorem}
+
+\begin{proof}\leanok
+By Theorem~\ref{thm:fps-S-const}, $S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_{d+1}$ for any $d$.
+For $k = d+1 > d$, the only term contributing to $[X^d]\,S^{\mathrm{fps}}_{d+1}$
+is $m=0$ (the $X^{0}$ monomial), giving $[X^d]\,(\texttt{qPoch}(X,d+1))^{-1}$.
+For $d+1$ steps of the recursion \texttt{qPochInf}$= $\texttt{qPoch}$(X,n)\cdot$\texttt{qPochInf}$(X \cdot X^n)$,
+one shows $[X^d]\,(\texttt{qPoch}(X,k))^{-1} = [X^d]\,\texttt{qqInv}$ for $d < k$
+(Lemma \texttt{coeff\_qPochInv\_eq\_qqInv}). Hence $[X^d]\,S^{\mathrm{fps}}_k = [X^d]\,\texttt{qqInv}$ for all $d$.
+\end{proof}
+
+\paragraph{Comparison with the analytic key identity.}
+The analytic key identity (Theorem~\ref{thm:S-sum-eq}) proves $S_k = 1/(q;q)_\infty$
+using a \emph{norm estimate}: $\|D_k\| \le \|q\|^{n(2k+n+1)/2} \|D_{k+n}\| \to 0$.
+The FPS key identity (Theorem~\ref{thm:fps-key}) proves the same identity
+\emph{coefficient by coefficient} using only ring arithmetic in $R[\![ X ]\!]$,
+requiring no analytic hypotheses whatsoever.
+
+\subsection{FPS Cauchy coefficient identities}
+\label{subsec:fps-cauchy}
+
+\begin{lemma}[FPS product expansion]\label{lem:fps-qqInf-euler2}\lean{qSeries.FPS.qqInf_mul_euler2}\leanok\uses{def:fps-qPochInf, thm:fps-euler-second, lem:fps-qPochInf-eq-qPoch-mul}
+In $R[\![ X]\!]$:
+\[
+  \texttt{qPochInf}(X)\cdot\texttt{qPochInf}(-a)
+  \;=\; \sum_{n=0}^{\infty} X^{\binom{n}{2}}\,a^n\,
+        \texttt{qPochInf}(X \cdot X^n).
+\]
+\end{lemma}
+
+\begin{proof}\leanok
+Expand $\texttt{qPochInf}(-a)$ via Theorem~\ref{thm:fps-euler-second} and distribute
+$\texttt{qPochInf}(X)$ through the tsum. The identity
+$\texttt{qPochInf}(X)\cdot(\texttt{qPoch}(X,n))^{-1} = \texttt{qPochInf}(X\cdot X^n)$
+(Lemma~\ref{lem:fps-qPochInf-eq-qPoch-mul}) converts each term.
+\end{proof}
+
+\begin{theorem}[FPS Cauchy coefficient -- non-negative diagonal]\label{thm:fps-cauchy-nonneg}\lean{qSeries.FPS.cauchy_coeff_nonneg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S}
+For every $k \ge 0$:
+\[
+  \sum_{m=0}^{\infty}
+    \bigl[X^{(m+k)\text{.choose}\,2}\cdot\texttt{qPochInf}(X\cdot X^{m+k})\bigr]
+    \cdot
+    \bigl[X^{m\text{.choose}\,2}\cdot X^m \cdot (\texttt{qPoch}(X,m))^{-1}\bigr]
+  \;=\; X^{k\text{.choose}\,2}.
+\]
+That is, the $k$-th diagonal sum of the Cauchy product equals $X^{\binom{k}{2}}$.
+\end{theorem}
+
+\begin{proof}\leanok
+The diagonal sum equals $X^{\binom{k}{2}}\cdot\texttt{qPochInf}(X)\cdot S^{\mathrm{fps}}_k$
+after applying the arithmetic identity
+$\binom{m+k}{2} + \binom{m}{2} + m = \binom{k}{2} + m(m+k)$
+(\texttt{choose2\_add}) and Lemma~\ref{lem:fps-qPochInf-eq-qPoch-mul}.
+Apply Theorem~\ref{thm:fps-key} and $\texttt{qPochInf}(X)\cdot\texttt{qqInv} = 1$.
+\end{proof}
+
+\begin{theorem}[FPS Cauchy coefficient -- negative diagonal]\label{thm:fps-cauchy-neg}\lean{qSeries.FPS.cauchy_coeff_neg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S}
+For every $l \ge 0$:
+\[
+  \sum_{n=0}^{\infty}
+    \bigl[X^{n\text{.choose}\,2}\cdot\texttt{qPochInf}(X\cdot X^n)\bigr]
+    \cdot
+    \bigl[X^{(n+l+1)\text{.choose}\,2}\cdot X^{n+l+1} \cdot
+          (\texttt{qPoch}(X,n+l+1))^{-1}\bigr]
+  \;=\; X^{(l+2)\text{.choose}\,2}.
+\]
+\end{theorem}
+
+\begin{proof}\leanok
+Analogous to Theorem~\ref{thm:fps-cauchy-nonneg}, using the companion
+arithmetic identity $\binom{n}{2} + \binom{n+l+1}{2} + (n+l+1) = \binom{l+2}{2} + n(n+l+1)$
+(\texttt{choose2\_add'}) and $S^{\mathrm{fps}}_{l+1} = \texttt{qqInv}$.
+\end{proof}
+
+\subsection{FPS Jacobi triple product}
+\label{subsec:fps-jtp}
+
+\begin{definition}[FPS JTP objects]\label{def:fps-jtp}\lean{qSeries.FPS.jtpProd}\leanok\uses{def:fps-qPochInf}
+Let $A = \texttt{LaurentPolynomial}\,\mathbb{C}$, $z = T(1)$,
+$z^{-1} = T(-1)$ viewed as constant power series in $A[\![ X]\!]$.
+Define:
+\begin{align*}
+  \texttt{jtpProd}
+  &\;:=\; \texttt{qPochInf}(X)\cdot\texttt{qPochInf}(-z)\cdot\texttt{qPochInf}(-X\cdot z^{-1})
+          \;\in\; A[\![ X]\!], \\
+  \texttt{jtpSeries}
+  &\;:=\; \Bigl(\sum_{n\ge 0} T(n)\cdot X^{n\text{.choose}\,2}\Bigr)
+          + \Bigl(\sum_{m\ge 0} T(-(m+1))\cdot X^{(m+2)\text{.choose}\,2}\Bigr)
+          \;\in\; A[\![ X]\!].
+\end{align*}
+Here $T(k)$ is the degree-$k$ monomial in the Laurent polynomial ring $A$,
+so $T(n) = z^n$ and $T(-(m+1)) = z^{-(m+1)}$.
+\end{definition}
+
+\begin{theorem}[FPS Jacobi triple product]\label{thm:fps-jtp}\lean{qSeries.FPS.jacobiTripleProduct_fps}\leanok\uses{def:fps-jtp, thm:fps-cauchy-nonneg, thm:fps-cauchy-neg, lem:fps-qqInf-euler2, thm:fps-euler-second}
+In $A[\![ X]\!]$ (with $A = \texttt{LaurentPolynomial}\,\mathbb{C}$):
+\[
+  \texttt{jtpProd} \;=\; \texttt{jtpSeries},
+\]
+that is,
+\[
+  \texttt{qPochInf}(X)\cdot\texttt{qPochInf}(-z)\cdot\texttt{qPochInf}(-X/z)
+  \;=\;
+  \sum_{k \ge 0} z^k X^{\binom{k}{2}}
+  \;+\;
+  \sum_{m \ge 0} z^{-(m+1)} X^{\binom{m+2}{2}}.
+\]
+\end{theorem}
+
+\begin{proof}\leanok\proves{thm:fps-jtp}
+Expand \texttt{jtpProd} using Lemma~\ref{lem:fps-qqInf-euler2} (on the
+$\texttt{qPochInf}(X)\cdot\texttt{qPochInf}(-z)$ factor) and
+Theorem~\ref{thm:fps-euler-second} (on $\texttt{qPochInf}(-X z^{-1})$), forming a
+double tsum over $\mathbb{N}\times\mathbb{N}$. Summability of the double product
+$a_n \cdot b_m$ (where $a_n = X^{\binom{n}{2}} z^n \texttt{qPochInf}(X\cdot X^n)$ and
+$b_m = X^{\binom{m}{2}+m} z^{-m} (\texttt{qPoch}(X,m))^{-1}$) follows from the
+pi-topology structure: each coefficient of $a_n \cdot b_m$ is eventually zero
+in $n$ (once $\binom{n}{2} > d$) and in $m$ (once $\binom{m}{2}+m > d$).
+
+Partition $\mathbb{N}\times\mathbb{N}$ via the bijection
+$\mathtt{diagEquiv} : (n,m) \mapsto \text{inl}(n-m,m)$ if $m \le n$,
+$\text{inr}(m-n-1,n)$ otherwise. The $k$-diagonal $(m \le n, k = n-m)$
+sum equals $z^k X^{\binom{k}{2}}$ by Theorem~\ref{thm:fps-cauchy-nonneg};
+the $l$-diagonal $(m > n, l = m-n-1)$ sum equals $z^{-(l+1)} X^{\binom{l+2}{2}}$
+by Theorem~\ref{thm:fps-cauchy-neg}. Summing over all $k$ and $l$
+gives \texttt{jtpSeries}.
+\end{proof}
+
+\paragraph{Comparison with Section~\ref{sec:implemented}.}
+\begin{itemize}
+\item The FPS proof (Theorem~\ref{thm:fps-jtp}) works over \emph{any} commutative
+ring with discrete topology and needs no $\|q\|<1$ hypothesis; the analytic proof
+(Theorem~\ref{thm:jtp-full}) works in $\mathbb{C}$ with $\|q\| < 1$ and $\|z\| < 1$.
+\item The analytic proof is extended to all $z\neq 0$ by
+Theorem~\ref{thm:jtp-analytic}; the FPS proof is already valid for all
+$z \in A^\times$.
+\item Both use the same algebraic infrastructure
+(Sections~\ref{sec:qPochhammer-formalized}--\ref{subsec:qbin-finite-formalized}).
+The key identity ($S_k = (q;q)_\infty^{-1}$) is proved analytically in
+Theorem~\ref{thm:S-sum-eq} and algebraically (in $R[\![ X]\!]$) in
+Theorem~\ref{thm:fps-key}.
+\end{itemize}
