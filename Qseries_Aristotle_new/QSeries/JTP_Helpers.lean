@@ -24,14 +24,15 @@ theorem fe_propagates_forward {q : ℂ} (hq' : q ≠ 0)
     (hq : ‖q‖ < 1) (hz₀_norm : ‖z₀‖ < 1) :
     ∀ n : ℕ, jacobiProd q (q ^ n * z₀) = jacobiBilateral q (q ^ n * z₀) := by
   intro n
-  induction' n with n ih
-  · grind +splitImp
-  · simp_all +decide [ pow_succ', mul_assoc ]
-    convert congr_arg ( fun x => x / ( q ^ n * z₀ ) ) ih using 1
-    · convert jacobiProd_fe hq hq' ( show q ^ n * z₀ ≠ 0 from mul_ne_zero ( pow_ne_zero _ hq' ) hz₀ ) using 1
-    · convert jacobiBilateral_fe hq hq' _ _ using 1
-      · simpa using lt_of_le_of_lt ( mul_le_of_le_one_left ( by positivity ) ( pow_le_one₀ ( by positivity ) hq.le ) ) hz₀_norm
-      · aesop
+  induction n with
+  | zero => grind +splitImp
+  | succ n ih =>
+      simp_all +decide [ pow_succ', mul_assoc ]
+      convert congr_arg ( fun x => x / ( q ^ n * z₀ ) ) ih using 1
+      · convert jacobiProd_fe hq hq' ( show q ^ n * z₀ ≠ 0 from mul_ne_zero ( pow_ne_zero _ hq' ) hz₀ ) using 1
+      · convert jacobiBilateral_fe hq hq' _ _ using 1
+        · simpa using lt_of_le_of_lt ( mul_le_of_le_one_left ( by positivity ) ( pow_le_one₀ ( by positivity ) hq.le ) ) hz₀_norm
+        · aesop
 
 /-- Extends the Jacobi triple product identity from the annulus $\|q\| < \|z\| < 1$ to the
 full punctured disk $0 < \|z\| < 1$, using forward propagation of the functional equation. -/

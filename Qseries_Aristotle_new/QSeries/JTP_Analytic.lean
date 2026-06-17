@@ -37,9 +37,7 @@ noncomputable section
 for **all** $z \in \mathbb{C}$ when $\|q\| < 1$. -/
 theorem summable_jacobi_nonneg_all {q z : ℂ} (hq : ‖q‖ < 1) :
     Summable (fun k : ℕ => z ^ k * q ^ k.choose 2) := by
-  refine' summable_of_ratio_norm_eventually_le _ _
-  exact 1 / 2
-  · norm_num
+  refine summable_of_ratio_norm_eventually_le (r := 1/2) (by norm_num) ?_
   · have h_lim : Filter.Tendsto (fun n => ‖z‖ * ‖q‖ ^ n) Filter.atTop (nhds 0) := by
       simpa using tendsto_const_nhds.mul
         (tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg q) hq)
@@ -53,9 +51,7 @@ theorem summable_Mtest_nonneg {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     Summable (fun k : ℕ => R ^ k * ‖q‖ ^ k.choose 2) := by
   have h_ratio_test : Filter.Tendsto (fun k : ℕ => ‖R‖ * ‖q‖ ^ k) Filter.atTop (nhds 0) := by
     simpa using tendsto_const_nhds.mul ( tendsto_pow_atTop_nhds_zero_of_lt_one ( norm_nonneg q ) hq )
-  refine' summable_of_ratio_norm_eventually_le _ _
-  exact 1 / 2
-  · norm_num
+  refine summable_of_ratio_norm_eventually_le (r := 1/2) (by norm_num) ?_
   · filter_upwards [ h_ratio_test.eventually ( gt_mem_nhds <| show 0 < 1 / 2 by norm_num ) ] with n hn
     convert mul_le_mul_of_nonneg_right hn.le ( show 0 ≤ ‖R ^ n * ‖q‖ ^ n.choose 2‖ by positivity ) using 1 ; norm_num [ Nat.choose_succ_succ, pow_succ' ] ; ring
 
@@ -64,9 +60,7 @@ theorem summable_Mtest_neg {q : ℂ} (hq : ‖q‖ < 1) (R' : ℝ) :
     Summable (fun m : ℕ => R' ^ (m + 1) * ‖q‖ ^ (m + 2).choose 2) := by
   have h_ratio : Filter.Tendsto (fun m : ℕ => |R'| * ‖q‖ ^ (m + 2)) Filter.atTop (nhds 0) := by
     simpa using tendsto_const_nhds.mul ( tendsto_pow_atTop_nhds_zero_of_lt_one ( by positivity ) hq |> Filter.Tendsto.comp <| Filter.tendsto_add_atTop_nat 2 )
-  refine' summable_of_ratio_norm_eventually_le _ _
-  exact 1 / 2
-  · norm_num
+  refine summable_of_ratio_norm_eventually_le (r := 1/2) (by norm_num) ?_
   · filter_upwards [ h_ratio.eventually ( gt_mem_nhds <| show 0 < 1 / 2 by norm_num ) ] with n hn ; norm_num [ Nat.choose ] at *
     convert mul_le_mul_of_nonneg_right hn.le ( show 0 ≤ |R'| ^ ( n + 1 ) * ‖q‖ ^ ( 1 + n + ( n + n.choose 2 ) ) by positivity ) using 1 ; ring
 
@@ -158,8 +152,8 @@ theorem jacobiBilateral_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
         (∑ k ∈ Finset.range N, z ^ k * q ^ k.choose 2) +
         (∑ m ∈ Finset.range N, z⁻¹ ^ (m + 1) * q ^ (m + 2).choose 2))
       (fun z => jacobiBilateral q z) atTop {z : ℂ | z ≠ 0} := by
-  refine' TendstoLocallyUniformlyOn.add _ _
-  · refine' TendstoLocallyUniformly.tendstoLocallyUniformlyOn _
+  refine TendstoLocallyUniformlyOn.add ?_ ?_
+  · refine TendstoLocallyUniformly.tendstoLocallyUniformlyOn _
     have h_nonneg : ∀ R : ℝ, 0 ≤ R → TendstoUniformlyOn (fun N z => ∑ k ∈ Finset.range N, z ^ k * q ^ k.choose 2) (fun z => ∑' k : ℕ, z ^ k * q ^ k.choose 2) atTop (Metric.closedBall 0 R) := by
       grind +suggestions
     rw [ Metric.tendstoLocallyUniformly_iff ]
@@ -171,7 +165,7 @@ theorem jacobiBilateral_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
       obtain ⟨r, hr_pos, hr⟩ : ∃ r > 0, ∀ z ∈ Metric.ball z₀ r, ‖z⁻¹‖ ≤ 2 / ‖z₀‖ := by
         have := Metric.continuousAt_iff.mp ( show ContinuousAt ( fun z : ℂ => ‖z⁻¹‖ ) z₀ from ContinuousAt.norm <| ContinuousAt.inv₀ continuousAt_id hz₀ )
         obtain ⟨ δ, δ_pos, H ⟩ := this ( ‖z₀⁻¹‖ ) ( norm_pos_iff.mpr <| inv_ne_zero hz₀ ) ; exact ⟨ δ, δ_pos, fun z hz => by have := H hz; norm_num at *; ring_nf at *; linarith [ abs_lt.mp this ] ⟩ 
-      refine' ⟨ r, hr_pos, _ ⟩
+      refine ⟨ r, hr_pos, _ ⟩
       have := @neg_tendstoUniformlyOn_ball q hq ( 2 / ‖z₀‖ ) ( by positivity )
       exact this.mono fun x hx => hr x hx.1
     intro ε hε
@@ -205,8 +199,8 @@ lemma TendstoUniformlyOn.mul_of_bounded {s : Set ℂ}
     obtain ⟨N₂, hN₂⟩ : ∃ N₂, ∀ n ≥ N₂, ∀ z ∈ s, ‖F₂ z - f₂ n z‖ < ε / (2 * (C₁ + 1)) := by
       simpa using h₂ ( ε / ( 2 * ( C₁ + 1 ) ) ) ( div_pos hε ( mul_pos zero_lt_two ( add_pos_of_nonneg_of_pos ( le_trans ( norm_nonneg _ ) ( h_bound₁ 0 _ hs.choose_spec ) ) zero_lt_one ) ) )
     filter_upwards [ Filter.eventually_ge_atTop N₁, Filter.eventually_ge_atTop N₂ ] with n hn₁ hn₂ z hz
-    refine' lt_of_le_of_lt ( h_diff n z hz ) _
-    refine' lt_of_le_of_lt ( add_le_add ( mul_le_mul_of_nonneg_left ( h_bound₂ z hz ) ( norm_nonneg _ ) ) ( mul_le_mul_of_nonneg_right ( h_bound₁ n z hz ) ( norm_nonneg _ ) ) ) _
+    refine lt_of_le_of_lt ( h_diff n z hz ) ?_
+    refine lt_of_le_of_lt ( add_le_add ( mul_le_mul_of_nonneg_left ( h_bound₂ z hz ) ( norm_nonneg _ ) ) ( mul_le_mul_of_nonneg_right ( h_bound₁ n z hz ) ( norm_nonneg _ ) ) ) ?_
     have := hN₁ n hn₁ z hz; have := hN₂ n hn₂ z hz; rw [ lt_div_iff₀ ] at * <;> nlinarith [ norm_nonneg ( F₁ z - f₁ n z ), norm_nonneg ( F₂ z - f₂ n z ), show 0 ≤ C₁ by exact le_trans ( norm_nonneg _ ) ( h_bound₁ 0 z hz ), show 0 ≤ C₂ by exact le_trans ( norm_nonneg _ ) ( h_bound₂ z hz ) ] 
   · simp_all +decide [ Set.not_nonempty_iff_eq_empty.mp hs, TendstoUniformlyOn ]
 
@@ -221,7 +215,7 @@ lemma qPochhammer_bounded_on_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     simpa [ qPochhammer ] using Finset.prod_le_prod ( fun _ _ => norm_nonneg _ ) h_bound
   have h_exp_bound : ∏ k ∈ Finset.range n, (1 + R * ‖q‖ ^ k) ≤ Real.exp (∑ k ∈ Finset.range n, R * ‖q‖ ^ k) := by
     rw [ Real.exp_sum ] ; exact Finset.prod_le_prod ( fun _ _ => by nlinarith [ show 0 ≤ R by exact le_trans ( norm_nonneg a ) ( mem_closedBall_zero_iff.mp ha ), show 0 ≤ ‖q‖ ^ ‹_› by positivity ] ) fun _ _ => by rw [ add_comm ] ; exact Real.add_one_le_exp _
-  refine' le_trans h_prod_le <| h_exp_bound.trans <| Real.exp_le_exp.mpr ?_
+  refine le_trans h_prod_le <| h_exp_bound.trans <| Real.exp_le_exp.mpr ?_
   rw [ ← Finset.mul_sum _ _ _, div_eq_mul_inv ]
   exact mul_le_mul_of_nonneg_left ( by rw [ ← tsum_geometric_of_lt_one ( by positivity ) hq ] ; exact Summable.sum_le_tsum ( Finset.range n ) ( fun _ _ => by positivity ) ( by exact summable_geometric_of_lt_one ( by positivity ) hq ) ) ( by linarith [ norm_nonneg a, mem_closedBall_zero_iff.mp ha ] )
 
@@ -245,7 +239,7 @@ lemma qPochhammerInf_bounded_on_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ
     have := qPochhammer_tendstoUniformlyOn_closedBall hq R
     rw [ Metric.tendstoUniformlyOn_iff ] at this
     simpa using this 1 zero_lt_one
-  intro a ha; specialize hN N le_rfl a ha; specialize hC N a ha; exact le_trans ( by simpa using norm_add_le ( qPochhammerInf a q - qPochhammer a q N ) ( qPochhammer a q N ) ) ( by linarith ) 
+  intro a ha; specialize hN N le_rfl a ha; specialize hC N a ha; exact le_trans ( by simpa using norm_add_le ( qPochhammerInf a q - qPochhammer a q N ) ( qPochhammer a q N ) ) ( by linarith )
 
 /-- For `z` in the closed ball of radius `‖z₀‖ / 2` around `z₀ ≠ 0`,
 `-q / z` lies in the closed ball of radius `2 * ‖q‖ / ‖z₀‖` around `0`. -/
@@ -256,7 +250,7 @@ lemma neg_q_div_mem_closedBall {q z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
   rw [ div_le_div_iff₀ ] <;> try positivity
   · have := norm_sub_norm_le z₀ z; rw [ dist_eq_norm' ] at hz; nlinarith [ norm_nonneg q, norm_nonneg z, norm_nonneg z₀ ] 
   · contrapose! hz₀; simp_all +decide [ dist_eq_norm ]
-    exact norm_le_zero_iff.mp ( by linarith )
+    exact norm_le_zero_iff.mp ( by omega )
 
 /-- The Pochhammer products `qPochhammer (-z) q n` converge uniformly to
 `qPochhammerInf (-z) q` on any `Metric.closedBall z₀ r` when `‖q‖ < 1`. -/
@@ -320,7 +314,7 @@ theorem jacobiProd_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
         intro z hz
         have hz₁ : ‖-z‖ ≤ R₁ := by
           simp +zetaDelta at *
-          exact le_trans ( norm_le_of_mem_closedBall hz ) ( by linarith )
+          exact le_trans ( norm_le_of_mem_closedBall hz ) ( by omega )
         have hz₂ : ‖-q / z‖ ≤ R₂ := by
           exact neg_q_div_mem_closedBall hz₀ hz |> fun h => by simpa using h.out
         exact (by
@@ -328,7 +322,7 @@ theorem jacobiProd_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
     simpa only [ ← mul_assoc, jacobiProd ] using h_ABC
   intro ε hε
   intro z₀ hz₀
-  refine' ⟨ Metric.closedBall z₀ ( ‖z₀‖ / 2 ) ∩ { z | z ≠ 0 }, _, _ ⟩
+  refine ⟨ Metric.closedBall z₀ ( ‖z₀‖ / 2 ) ∩ { z | z ≠ 0 }, _, _ ⟩
   · exact mem_nhdsWithin_of_mem_nhds ( Filter.inter_mem ( Metric.closedBall_mem_nhds _ <| half_pos <| norm_pos_iff.mpr hz₀ ) <| isOpen_ne.mem_nhds hz₀ )
   · have := h_suff z₀ hz₀ ε hε
     exact this.mono fun n hn y hy => hn y hy.1
@@ -369,32 +363,34 @@ theorem jacobiBilateral_fe_all {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
 theorem jacobiProd_iterate {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
     (hz : z ≠ 0) (N : ℕ) :
     jacobiProd q z = z ^ N * q ^ N.choose 2 * jacobiProd q (q ^ N * z) := by
-  induction' N with N ih
-  · norm_num
-  · rw [ih, pow_succ']
-    rw [show jacobiProd q (q ^ N * z) =
-          jacobiProd q (q * (q ^ N * z)) * (q ^ N * z) by
-      rw [eq_comm, jacobiProd_fe]
-      · rw [div_mul_cancel₀ _ (mul_ne_zero (pow_ne_zero _ hq') hz)]
-      · exact hq
-      · assumption
-      · aesop]; ring
-    rw [show (1 + N).choose 2 = N.choose 2 + N by
-      rw [Nat.add_comm, Nat.choose_succ_succ]; norm_num; ring]; ring
+  induction N with
+  | zero => norm_num
+  | succ N ih =>
+      rw [ih, pow_succ']
+      rw [show jacobiProd q (q ^ N * z) =
+            jacobiProd q (q * (q ^ N * z)) * (q ^ N * z) by
+        rw [eq_comm, jacobiProd_fe]
+        · rw [div_mul_cancel₀ _ (mul_ne_zero (pow_ne_zero _ hq') hz)]
+        · exact hq
+        · assumption
+        · aesop]; ring
+      rw [show (1 + N).choose 2 = N.choose 2 + N by
+        rw [Nat.add_comm, Nat.choose_succ_succ]; norm_num; ring]; ring
 
 /-- Iterating the series-side FE $N$ times. -/
 theorem jacobiBilateral_iterate {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
     (hz : z ≠ 0) (N : ℕ) :
     jacobiBilateral q z =
       z ^ N * q ^ N.choose 2 * jacobiBilateral q (q ^ N * z) := by
-  induction' N with N ih
-  · norm_num
-  · have h_fe : jacobiBilateral q (q * (q ^ N * z)) =
-        jacobiBilateral q (q ^ N * z) / (q ^ N * z) :=
-      jacobiBilateral_fe_all hq hq' (mul_ne_zero (pow_ne_zero _ hq') hz)
-    simp_all +decide [Nat.choose_succ_succ, pow_succ', mul_assoc, mul_comm,
-                       mul_left_comm, div_eq_mul_inv]
-    simp +decide [pow_add, mul_assoc, mul_left_comm, hq']
+  induction N with
+  | zero => norm_num
+  | succ N ih =>
+      have h_fe : jacobiBilateral q (q * (q ^ N * z)) =
+          jacobiBilateral q (q ^ N * z) / (q ^ N * z) :=
+        jacobiBilateral_fe_all hq hq' (mul_ne_zero (pow_ne_zero _ hq') hz)
+      simp_all +decide [Nat.choose_succ_succ, pow_succ', mul_assoc, mul_comm,
+                         mul_left_comm, div_eq_mul_inv]
+      simp +decide [pow_add, mul_assoc, mul_left_comm, hq']
 
 /-- **Analytic Jacobi triple product identity.**
 For $\|q\| < 1$ and $z \neq 0$:

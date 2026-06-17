@@ -28,30 +28,36 @@ lemma ctr_succ (S : Finset ℕ) (m : ℕ) :
   simp [consecutiveTopRun]
 /-- If `m ∉ S` then `consecutiveTopRun S m = 0`. -/
 lemma ctr_not_mem (S : Finset ℕ) (m : ℕ) (h : m ∉ S) : consecutiveTopRun S m = 0 := by
-  induction' m with m ih <;> simp_all +arith +decide
+  induction m <;> simp_all +arith +decide
 /-- If `m ∈ S` then `consecutiveTopRun S m > 0`. -/
 lemma ctr_pos_of_mem (S : Finset ℕ) (m : ℕ) (h : m ∈ S) : 0 < consecutiveTopRun S m := by
   cases m <;> simp_all +decide [ Nat.succ_ne_zero, consecutiveTopRun ]
 /-- If `0 ∉ S` then `consecutiveTopRun S m ≤ m`. -/
 lemma ctr_le (S : Finset ℕ) (m : ℕ) (h : (0 : ℕ) ∉ S) : consecutiveTopRun S m ≤ m := by
-  induction' m with m ih
-  · aesop
-  · rw [ consecutiveTopRun ] ; split_ifs <;> simp_all +arith +decide
+  induction m with
+  | zero => aesop
+  | succ m ih => rw [ consecutiveTopRun ] ; split_ifs <;> simp_all +arith +decide
 /-- If `j < consecutiveTopRun S m` then `m - j ∈ S`. -/
 lemma ctr_mem_of_lt (S : Finset ℕ) (m j : ℕ) (hj : j < consecutiveTopRun S m) :
     m - j ∈ S := by
-      induction' m with m ih generalizing j
-      · unfold consecutiveTopRun at hj; aesop
-      · by_cases h : m + 1 ∈ S <;> simp_all +decide [ Nat.sub_add_comm ]
-        rcases j with ( _ | j ) <;> simp_all +decide [ Nat.sub_add_comm ]
-        exact ih _ ( by linarith )
+      revert hj
+      induction m generalizing j with
+      | zero => intro hj; unfold consecutiveTopRun at hj; aesop
+      | succ m ih =>
+          intro hj
+          by_cases h : m + 1 ∈ S <;> simp_all +decide [ Nat.sub_add_comm ]
+          rcases j with ( _ | j ) <;> simp_all +decide [ Nat.sub_add_comm ]
+          exact ih _ ( by omega )
 /-- If `0 ∉ S` and `m ∈ S` then `m - consecutiveTopRun S m ∉ S`. -/
 lemma ctr_not_mem_boundary (S : Finset ℕ) (m : ℕ) (h0 : (0 : ℕ) ∉ S) (hm : m ∈ S) :
     m - consecutiveTopRun S m ∉ S := by
-      induction' m with m ih
-      · contradiction
-      · by_cases h : m ∈ S <;> simp_all +decide [ Nat.sub_sub, add_comm ]
-        rw [ ctr_not_mem ] <;> aesop
+      revert hm
+      induction m with
+      | zero => intro hm; contradiction
+      | succ m ih =>
+          intro hm
+          by_cases h : m ∈ S <;> simp_all +decide [ Nat.sub_sub, add_comm ]
+          rw [ ctr_not_mem ] <;> aesop
 /-- `S ∈ distinctPartitions n` iff `S ⊆ Icc 1 n` and `S.sum id = n`. -/
 lemma mem_DP (n : ℕ) (S : Finset ℕ) :
     S ∈ distinctPartitions n ↔ S ⊆ Icc 1 n ∧ S.sum id = n := by
@@ -66,7 +72,7 @@ lemma DP_le_mem (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitions n) {x 
       exact Finset.mem_Icc.mp ( Finset.mem_powerset.mp ( Finset.mem_filter.mp hS |>.1 ) hx ) |>.2
 /-- `0` is not in any distinct partition. -/
 lemma DP_zero_not_mem (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitions n) : (0 : ℕ) ∉ S := by
-  exact fun h => by have := DP_pos_mem n S hS h; linarith
+  exact fun h => by have := DP_pos_mem n S hS h; omega
 /-- The sum of a distinct partition of n equals n. -/
 lemma DP_sum (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitions n) : S.sum id = n := by
   exact Finset.mem_filter.mp hS |>.2
@@ -157,7 +163,7 @@ lemma DPalpha_m_sub_b_add_1_mem (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctP
       · rw [ tsub_tsub_assoc ]
         · exact partBase_le_partMax S ( DPalpha_nonempty n S hS )
         · exact DP_pos_mem n S ( DPalpha_mem_DP n S hS ) ( partBase_mem S ( DPalpha_nonempty n S hS ) )
-      · refine' lt_of_lt_of_le ( Nat.sub_lt _ _ ) _
+      · refine lt_of_lt_of_le ( Nat.sub_lt ?_ ?_ ) ?_
         · exact DP_pos_mem n S ( DPalpha_mem_DP n S hS ) ( partBase_mem S ( DPalpha_nonempty n S hS ) )
         · norm_num
         · convert DPalpha_base_le_slope n S hS using 1
@@ -182,7 +188,7 @@ lemma alphaOp_sum (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsAlpha
 /-- For S ∈ α(n), `partMax (αOp S) = partMax S + 1`. -/
 lemma alphaOp_partMax (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsAlpha n) :
     partMax (alphaOp S) = partMax S + 1 := by
-      refine' le_antisymm _ _
+      refine le_antisymm ?_ ?_
       · unfold partMax; simp +decide [ alphaOp ] 
         unfold partMax; split_ifs <;> simp_all +decide [ Finset.le_max' ] 
         exact fun a ha₁ ha₂ ha₃ => Nat.le_succ_of_le ( Finset.le_max' _ _ ha₃ )
@@ -218,14 +224,13 @@ lemma alphaOp_partSlope (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartition
           exact absurd ( h ( DPalpha_nonempty n S hS ) ▸ Finset.max'_mem _ ( DPalpha_nonempty n S hS ) ) ( by have := DP_pos_mem n S ( DPalpha_mem_DP n S hS ) ( Finset.max'_mem _ ( DPalpha_nonempty n S hS ) ) ; aesop ) ) ) ( Nat.pos_of_ne_zero ( by
           exact Nat.ne_of_gt ( DP_pos_mem n S ( DPalpha_mem_DP n S hS ) ( partBase_mem S ( DPalpha_nonempty n S hS ) ) ) ) ) )
       have h_consecutiveTopRun_eq : ∀ m, consecutiveTopRun (alphaOp S) m = if m ∈ alphaOp S then 1 + consecutiveTopRun (alphaOp S) (m - 1) else 0 := by
-        intro m; induction' m with m ih <;> simp_all +decide [ Nat.succ_eq_add_one ] 
+        intro m; induction m <;> simp_all +decide [ Nat.succ_eq_add_one ]
         split_ifs <;> simp_all +decide [ alphaOp ]
         exact absurd ( DP_zero_not_mem n S ( DPalpha_mem_DP n S hS ) ) ( by tauto )
       have h_consecutiveTopRun_eq : ∀ j ≤ partBase S, consecutiveTopRun (alphaOp S) (partMax S + 1 - j) = partBase S - j := by
         intro j hj
-        induction' hj : partBase S - j with k hk generalizing j
-        · grind
-        · grind
+        generalize hk : partBase S - j = k
+        induction k generalizing j <;> grind
       convert h_consecutiveTopRun_eq 0 bot_le using 1
       exact h_partMax.symm ▸ rfl
 /-- For S ∈ β(n), `partSlope S ∉ S`. -/
@@ -261,7 +266,7 @@ lemma betaOp_sum (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsBeta n
 /-- For S ∈ β(n), `partMax (βOp S) = partMax S - 1`. -/
 lemma betaOp_partMax (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsBeta n) :
     partMax (betaOp S) = partMax S - 1 := by
-      refine' le_antisymm _ _
+      refine le_antisymm ?_ ?_
       · have h_max_betaOp : ∀ x ∈ betaOp S, x ≤ partMax S - 1 := by
           unfold betaOp; simp +decide 
           rintro x hx ( rfl | rfl | hx )
@@ -271,18 +276,18 @@ lemma betaOp_partMax (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsBe
         by_cases h : ( betaOp S ).Nonempty <;> simp_all +decide [ partMax ]
       · have h_mem : partMax S - 1 ∈ betaOp S := by
           unfold betaOp; simp +decide [ *, Finset.mem_erase, Finset.mem_union, Finset.mem_singleton ] 
-          refine' ⟨ Nat.ne_of_lt ( Nat.sub_lt _ _ ), _ ⟩
+          refine ⟨ Nat.ne_of_lt ( Nat.sub_lt ?_ ?_ ), ?_ ⟩
           · exact Nat.pos_of_ne_zero fun h => by have := partMax_mem S ( DPbeta_nonempty n S hS ) ; have := DP_zero_not_mem n S ( DPbeta_mem_DP n S hS ) ; aesop
           · norm_num
           · by_cases h : partSlope S = 1
             · aesop
-            · refine' Or.inr <| Or.inr <| ctr_mem_of_lt _ _ _ _
+            · refine Or.inr <| Or.inr <| ctr_mem_of_lt _ _ _ ?_
               exact lt_of_le_of_ne ( Nat.succ_le_of_lt ( partSlope_pos S ( DPbeta_nonempty n S hS ) ( DP_zero_not_mem n S ( DPbeta_mem_DP n S hS ) ) ) ) ( Ne.symm h )
         exact le_partMax _ ( Finset.nonempty_of_ne_empty ( by aesop_cat ) ) h_mem
 /-- For S ∈ β(n), `partBase (βOp S) = partSlope S`. -/
 lemma betaOp_partBase (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsBeta n) :
     partBase (betaOp S) = partSlope S := by
-      refine' le_antisymm _ _ <;> simp_all +decide [ partBase, partSlope ]
+      refine le_antisymm ?_ ?_ <;> simp_all +decide [ partBase, partSlope ]
       · split_ifs <;> simp_all +decide [ Finset.min', betaOp ]
         exact ⟨ partSlope S, ⟨ by linarith [ DPbeta_slope_lt_base n S hS, partBase_le S ( DPbeta_nonempty n S hS ) ( partMax_mem S ( DPbeta_nonempty n S hS ) ) ], Or.inl rfl ⟩, le_rfl ⟩
       · have h_all_ge_slope : ∀ x ∈ S.erase (partMax S), partSlope S ≤ x := by

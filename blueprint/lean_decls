@@ -50,7 +50,6 @@ pe_minus_po_zero
 pe_minus_po_nonpent
 pe_minus_po_pent_minus
 pe_minus_po_pent_plus
-euler_pentagonal_number_theorem_packaged
 qSeries.qBinom_finite_thm
 qSeries.qBinom_infinite_thm
 qSeries.qBinom_succ_succ
@@ -63,6 +62,7 @@ qSeries.qBinom_self
 qSeries.qBinom_mul_qPochhammer_mul_qPochhammer
 qSeries.qPochhammerInf
 qSeries.multipliable_one_sub_smul_qpow
+qSeries.qBinom_infinite_thm
 qSeries.euler_first_identity
 qSeries.euler_second_identity
 qSeries.qPochhammerInf_eq_mul

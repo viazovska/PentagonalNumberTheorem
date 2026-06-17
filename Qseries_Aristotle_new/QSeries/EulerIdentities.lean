@@ -126,15 +126,15 @@ theorem euler_second_identity {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) 
             exact mul_le_mul ( h_bounded.choose_spec N ) hC ( by positivity ) ( by exact le_trans ( by positivity ) ( h_bounded.choose_spec 0 ) )
           exact ⟨ h_bounded.choose, fun k => csSup_le ( Set.range_nonempty _ ) ( Set.forall_mem_range.mpr fun N => h_bounded.choose_spec k N ) ⟩
         obtain ⟨ C, hC ⟩ := h_bounded
-        refine' Summable.of_nonneg_of_le ( fun k => mul_nonneg ( norm_nonneg _ ) ( by apply_rules [ Real.sSup_nonneg ] ; rintro x ⟨ N, rfl ⟩ ; positivity ) ) ( fun k => mul_le_mul_of_nonneg_left ( hC k ) ( norm_nonneg _ ) ) _
-        refine' Summable.mul_right _ _
+        refine Summable.of_nonneg_of_le ( fun k => mul_nonneg ( norm_nonneg _ ) ( by apply_rules [ Real.sSup_nonneg ] ; rintro x ⟨ N, rfl ⟩ ; positivity ) ) ( fun k => mul_le_mul_of_nonneg_left ( hC k ) ( norm_nonneg _ ) ) ?_
+        refine Summable.mul_right _ ?_
         convert euler_second_summable hq hz |> Summable.norm using 1
       · intro k
-        rw [ Filter.tendsto_congr' ( by filter_upwards [ Filter.eventually_gt_atTop k ] with N hN using if_pos <| by linarith ) ] ; simpa using tendsto_const_nhds.mul ( h_limit_rewrite k ) 
+        rw [ Filter.tendsto_congr' ( by filter_upwards [ Filter.eventually_gt_atTop k ] with N hN using if_pos <| by omega ) ] ; simpa using tendsto_const_nhds.mul ( h_limit_rewrite k ) 
       · filter_upwards [ Filter.eventually_gt_atTop 0 ] with N hN
         intro k; split_ifs <;> norm_num
         · gcongr
-          refine' le_csSup _ _
+          refine le_csSup ?_ ?_
           · have := h_limit_rewrite k
             exact Filter.Tendsto.bddAbove_range ( by simpa using this.norm )
           · exact ⟨ N, rfl ⟩

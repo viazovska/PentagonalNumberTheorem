@@ -225,12 +225,12 @@ theorem euler_pentagonal_number_theorem_packaged (n : ℕ) :
       rw [key]
       have hle : k ≤ 3 * k ^ 2 := by nlinarith [hk]
       have : (2 * (n : ℤ)) = 3 * (k : ℤ) ^ 2 - (k : ℤ) := by
-        have := hcontra; zify [hle] at this; linarith
+        have := hcontra; zify [hle] at this; omega
       rw [this]; ring
     · intro k hk hcontra
       apply hP
       refine ⟨-(k : ℤ), ?_⟩
       rw [key]
       have : (2 * (n : ℤ)) = 3 * (k : ℤ) ^ 2 + (k : ℤ) := by
-        have := hcontra; zify at this; linarith
+        have := hcontra; zify at this; omega
       rw [this]; ring

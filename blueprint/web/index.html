@@ -230,17 +230,11 @@
         
         <ul class="uses">
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/all_distinct_partitions" class="lean_decl">all_distinct_partitions</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/distinctPartitions" class="lean_decl">distinctPartitions</a></li>
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/even_distinct_partitions" class="lean_decl">even_distinct_partitions</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/distinctPartitionsEven" class="lean_decl">distinctPartitionsEven</a></li>
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/odd_distinct_partitions" class="lean_decl">odd_distinct_partitions</a></li>
-          
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DP" class="lean_decl">DP</a></li>
-          
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPeven" class="lean_decl">DPeven</a></li>
-          
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPodd" class="lean_decl">DPodd</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/distinctPartitionsOdd" class="lean_decl">distinctPartitionsOdd</a></li>
           
           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pe" class="lean_decl">pe</a></li>
           
@@ -979,8 +973,6 @@
         
         <ul class="uses">
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/base" class="lean_decl">base</a></li>
-          
           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/partBase" class="lean_decl">partBase</a></li>
           
           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/partMax" class="lean_decl">partMax</a></li>
@@ -1056,11 +1048,11 @@
         
         <ul class="uses">
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPalpha" class="lean_decl">DPalpha</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/distinctPartitionsAlpha" class="lean_decl">distinctPartitionsAlpha</a></li>
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPbeta" class="lean_decl">DPbeta</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/distinctPartitionsBeta" class="lean_decl">distinctPartitionsBeta</a></li>
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPspecial" class="lean_decl">DPspecial</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/distinctPartitionsSpecial" class="lean_decl">distinctPartitionsSpecial</a></li>
           
         </ul>
     
@@ -1318,9 +1310,9 @@
         
         <ul class="uses">
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SmkSet" class="lean_decl">SmkSet</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/smkSet" class="lean_decl">smkSet</a></li>
           
-          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SpkSet" class="lean_decl">SpkSet</a></li>
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/spkSet" class="lean_decl">spkSet</a></li>
           
         </ul>
     
@@ -4985,6 +4977,8 @@
           
           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.jacobiProd" class="lean_decl">qSeries.jacobiProd</a></li>
           
+          <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.jacobiBilateral" class="lean_decl">qSeries.jacobiBilateral</a></li>
+          
         </ul>
     
       </div>
@@ -5552,7 +5546,7 @@
 </div>
 <h1 id="sec:fps">8 Formal power series reformulation (algebraic proof)</h1>
 
-<p>This section records the second, independent proof of the Jacobi triple product that was formalised in <span class="ttfamily">Qseries_Aristotle_new/QSeries/FPS.lean</span>, <span class="ttfamily">FPS_Euler.lean</span>, and <span class="ttfamily">FPS_Algebra.lean</span> under the namespace <span class="ttfamily">qSeries.FPS</span>. Unlike the analytic proof of Section&#160;<a href="index.html#sec:implemented">7</a>, this proof is <em>entirely algebraic</em>: no norms, no \(\| q\|  {\lt} 1\) hypothesis, and no topological analysis beyond the \(X\)-adic (pi) topology on \(R[\! [ X ]\! ]\). </p>
+<p>This section records the second, independent proof of the Jacobi triple product that was formalised in <span class="ttfamily">Qseries_Aristotle_new/QSeries/FPS.lean</span>, <span class="ttfamily">QSeries/FPS_Euler.lean</span>, and <span class="ttfamily">QSeries/FPS_Algebra.lean</span> under the namespace <span class="ttfamily">qSeries.FPS</span>. Unlike the analytic proof of Section&#160;<a href="index.html#sec:implemented">7</a>, this proof is <em>entirely algebraic</em>: no norms, no \(\| q\|  {\lt} 1\) hypothesis, and no topological analysis beyond the \(X\)-adic (pi) topology on \(R[\! [ X ]\! ]\). </p>
 <h4 id="a0000000174">Key idea.</h4>
 <p> The variable \(q\) becomes the formal power series indeterminate \(X \in R[\! [ X]\! ]\), while \(z\) lives in the coefficient ring \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\) (with \(z = T(1)\), \(z^{-1} = T(-1)\)). The infinite \(q\)-Pochhammer symbol \((a; X)_\infty \) is a well-defined element of \(R[\! [ X]\! ]\) because the factors \((1 - a X^k)\) converge to \(1\) in the pi topology: each factor affects only finitely many coefficients of any fixed degree. </p>
 <h2 id="subsec:fps-qpoch">8.1 FPS q-Pochhammer symbols</h2>
@@ -6141,7 +6135,7 @@
   <div class="definition_thmcontent">
   
 <div class="displaymath" id="a0000000182">
-  \[  \texttt{qPochInf}\, a \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\cdot X^k\bigr) \; =\;  \tprod _{k:\mathbb {N}}\, (1 - a\cdot X^k) \; \in \;  R[\! [ X]\! ].  \]
+  \[  \texttt{qPochInf}\, a \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\cdot X^k\bigr) \; \in \;  R[\! [ X]\! ].  \]
 </div>
 
   </div>
@@ -6302,7 +6296,7 @@
     <span class="expand-proof">▶</span>
   </div>
   <div class="proof_content">
-  <p>Extract the \(k=0\) factor from the tprod and shift: \(\tprod _{k\ge 0}(1-a X^k) = (1-a)\cdot \tprod _{k\ge 0}(1 - a X^{k+1}) = (1-a)\cdot \texttt{qPochInf}(aX)\). </p>
+  <p>Extract the \(k=0\) factor from the infinite product and shift: \(\prod _{k\ge 0}(1-a X^k) = (1-a)\cdot \prod _{k\ge 0}(1 - a X^{k+1}) = (1-a)\cdot \texttt{qPochInf}(aX)\). </p>
 
   </div>
 </div>

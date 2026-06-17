@@ -63,9 +63,11 @@ theorem qPoch_succ (a : R⟦X⟧) (n : ℕ) :
 /-- The shift identity `(a; X)_{n+1} = (1 - a) * (aX; X)_n`. -/
 theorem qPoch_eq_mul_qPoch_shift (a : R⟦X⟧) (n : ℕ) :
     qPoch a (n + 1) = (1 - a) * qPoch (a * X) n := by
-  induction' n with n ih
-  · simp +decide [ qPoch ]
-  · convert congr_arg ( fun x => x * ( 1 - a * X ^ ( n + 1 ) ) ) ih using 1 <;> push_cast [ qPoch_succ ] <;> ring!
+  induction n with
+  | zero => simp +decide [ qPoch ]
+  | succ n ih =>
+      convert congr_arg ( fun x => x * ( 1 - a * X ^ ( n + 1 ) ) ) ih using 1 <;>
+        push_cast [ qPoch_succ ] <;> ring!
 
 end Finite
 
@@ -87,10 +89,11 @@ theorem coeff_qPoch_stable (a : R⟦X⟧) {d n : ℕ} (hdn : d < n) :
 theorem coeff_qPoch_eq_of_ge (a : R⟦X⟧) {d M N : ℕ}
     (hM : d < M) (hN : M ≤ N) :
     coeff d (qPoch a N) = coeff d (qPoch a M) := by
-  induction' hN with N hN ih
-  · rfl
-  · convert coeff_qPoch_stable a (lt_of_lt_of_le hM hN) using 1
-    exact ih.symm
+  induction hN with
+  | refl => rfl
+  | step hN ih =>
+      convert coeff_qPoch_stable a (lt_of_lt_of_le hM hN) using 1
+      exact ih.symm
 
 end Stabilisation
 
@@ -109,7 +112,7 @@ theorem multipliable_qPoch (a : R⟦X⟧) :
       have h_order_f : ∀ m < k, (PowerSeries.coeff m (f k)) = 0 := by
         simp +zetaDelta at *
         simp +decide [ PowerSeries.coeff_mul, PowerSeries.coeff_X_pow ]
-        exact fun m hm => Finset.sum_eq_zero fun x hx => if_neg ( by linarith [ Finset.mem_antidiagonal.mp hx ] )
+        exact fun m hm => Finset.sum_eq_zero fun x hx => if_neg ( by have := Finset.mem_antidiagonal.mp hx; omega )
       simp_all +decide [ MvPowerSeries.order ]
       simp +decide [ MvPowerSeries.weightedOrder ]
       split_ifs <;> simp_all +decide
@@ -159,7 +162,7 @@ theorem qPochInf_recursion (a : R⟦X⟧) :
       have := h.hasProd
       have := this.tendsto_prod_nat
       have h_shift : Filter.Tendsto (fun n => (1 - a) * ∏ i ∈ Finset.range n, (1 - a * X ^ (i + 1))) Filter.atTop (nhds ((1 - a) * ∏' k, (1 - a * X ^ (k + 1)))) := by
-        refine' Filter.Tendsto.mul tendsto_const_nhds _
+        refine Filter.Tendsto.mul tendsto_const_nhds ?_
         convert multipliable_qPoch ( a * X ) |> Multipliable.hasProd |> HasProd.tendsto_prod_nat using 1
         · exact funext fun n => Finset.prod_congr rfl fun _ _ => by ring
         · simp +decide only [pow_succ', mul_assoc]

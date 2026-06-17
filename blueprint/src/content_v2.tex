@@ -54,7 +54,7 @@ $$\prod_k x^{j_k \cdot k} = x^{\sum_k j_k \cdot k}.$$
 \textbf{Step 4.} Such a tuple corresponds bijectively to a partition of $n$: $j_k$ is the multiplicity of the part $k$. Hence the coefficient of $x^n$ equals $p(n)$, and the first equality follows.
 \end{proof}
 
-\begin{definition}[Partitions of $n$ into distinct parts]\label{def:distinct-partitions}\lean{all_distinct_partitions, even_distinct_partitions, odd_distinct_partitions, DP, DPeven, DPodd, pe, po}\uses{def:partition}\leanok
+\begin{definition}[Partitions of $n$ into distinct parts]\label{def:distinct-partitions}\lean{distinctPartitions, distinctPartitionsEven, distinctPartitionsOdd, pe, po}\uses{def:partition}\leanok
 
 Let $n \in \mathbb{N}$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
@@ -256,7 +256,7 @@ Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into dif
 \end{tikzpicture}
 \end{center}
 
-\begin{definition}[Base and slope]\label{def:base-slope}\lean{base, partBase, partMax, partSlope, partSlopeSet}\uses{def:distinct-partitions}\leanok
+\begin{definition}[Base and slope]\label{def:base-slope}\lean{partBase, partMax, partSlope, partSlopeSet}\uses{def:distinct-partitions}\leanok
   Consider a nonempty partition $S \subseteq \{1, \ldots, n\}$ of $n$ into different parts. We define the \emph{base} $b \in S$ as the smallest element of the partition, $b = \min(S)$. Let $\max(S)$ denote the largest element of $S$. We define the \emph{slope} $s$ as:
   \begin{equation*}
       s = \max\{k \geq 1 : \max(S), \max(S)-1, \max(S)-2, \ldots, \max(S)-k + 1 \in S\}.
@@ -265,7 +265,7 @@ Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into dif
 \end{definition}
 
 
-\begin{definition}\label{def:P-alpha-beta-special}\lean{DPalpha, DPbeta, DPspecial}\uses{def:base-slope, def:distinct-partitions}\leanok Let $n \in \mathbb{N}_{\geq 1}$ be a positive integer. Consider $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
+\begin{definition}\label{def:P-alpha-beta-special}\lean{distinctPartitionsAlpha, distinctPartitionsBeta, distinctPartitionsSpecial}\uses{def:base-slope, def:distinct-partitions}\leanok Let $n \in \mathbb{N}_{\geq 1}$ be a positive integer. Consider $S \in \mathcal{P}(n)$ nonempty with base $b$, slope $s$, and slope set $D$. We define the following sets of partitions of $n$ into distinct positive parts:
 \begin{align*}
 \mathcal{P}_{\alpha}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b \leq s \text{ and } b \notin D) \text{ or } b \leq s - 1\bigr] \right\}, \\
 \mathcal{P}_{\beta}(n) &= \left\{ S \in \mathcal{P}(n) \;\middle|\; S \neq \emptyset \text{ and } \bigl[(b > s \text{ and } b \notin D) \text{ or } b \geq s + 2\bigr] \right\}, \\
@@ -343,7 +343,7 @@ These four cases cover all possibilities.
 \end{proof}
 
 
-\begin{definition}\label{def:staircase-sets}\lean{SmkSet, SpkSet}\leanok
+\begin{definition}\label{def:staircase-sets}\lean{smkSet, spkSet}\leanok
 For $k \in \mathbb{N}_{\geq 1}$ define $ S_{-k}=\{k, k+1, \ldots, 2k-1\}$ (a set of $k$ elements summing to $(3k^2-k)/2$).\\
 For $k\in\mathbb{N}_{\geq 1}$ define $S_{k}=\{k+1, k+2, \ldots, 2k\}$ (a set of $k$ elements summing to $(3k^2+k)/2$).
 \end{definition}

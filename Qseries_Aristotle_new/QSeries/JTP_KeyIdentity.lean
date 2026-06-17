@@ -58,15 +58,15 @@ theorem summable_S_summand {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
                   intros x hx
                   have h_exp : Real.exp (-x / (1 - x)) ≤ 1 - x := by
                     rw [ neg_div, Real.exp_neg ]
-                    rw [ inv_eq_one_div, div_le_iff₀ ] <;> nlinarith [ Real.add_one_le_exp ( x / ( 1 - x ) ), mul_div_cancel₀ x ( by linarith : ( 1 - x ) ≠ 0 ) ]
+                    rw [ inv_eq_one_div, div_le_iff₀ ] <;> nlinarith [ Real.add_one_le_exp ( x / ( 1 - x ) ), mul_div_cancel₀ x ( by linarith [hx.2] : ( 1 - x ) ≠ 0 ) ]
                   exact h_exp
-                exact le_trans ( h_exp _ ⟨ by positivity, by simpa using pow_lt_one₀ ( by positivity ) hq ( by linarith ) ⟩ ) ‹‖1 - q ^ ( j + 1 )‖ ≥ 1 - ‖q ^ ( j + 1 )‖›
+                exact le_trans ( h_exp _ ⟨ by positivity, by simpa using pow_lt_one₀ ( by positivity ) hq ( by omega ) ⟩ ) ‹‖1 - q ^ ( j + 1 )‖ ≥ 1 - ‖q ^ ( j + 1 )‖›
               simpa [ neg_div, Real.exp_neg, Real.exp_sum ] using Finset.prod_le_prod ( fun _ _ => by positivity ) h_prod_conv
             exact ⟨ 1, zero_lt_one, h_prod_conv ⟩
           have h_prod_conv : Summable (fun j : ℕ => ‖q ^ (j + 1)‖ / (1 - ‖q ^ (j + 1)‖)) := by
             have h_prod_conv : Summable (fun j : ℕ => ‖q ^ (j + 1)‖ / (1 - ‖q‖)) := by
               exact Summable.mul_right _ ( by simpa using summable_nat_add_iff 1 |>.2 ‹Summable fun j : ℕ => ‖q ^ j‖› )
-            refine' .of_nonneg_of_le ( fun j => div_nonneg ( norm_nonneg _ ) ( sub_nonneg.mpr ( by simpa using pow_le_one₀ ( norm_nonneg q ) hq.le ) ) ) ( fun j => _ ) h_prod_conv
+            refine .of_nonneg_of_le ( fun j => div_nonneg ( norm_nonneg _ ) ( sub_nonneg.mpr ( by simpa using pow_le_one₀ ( norm_nonneg q ) hq.le ) ) ) ( fun j => ?_ ) h_prod_conv
             gcongr
             · linarith
             · simpa using pow_le_of_le_one ( norm_nonneg q ) hq.le ( by norm_num )
@@ -77,11 +77,11 @@ theorem summable_S_summand {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
         simpa only [ pow_succ' ] using hC
       obtain ⟨ C, hC₀, hC ⟩ := h_prod_nonzero; exact ⟨ C ^ 2, sq_pos_of_pos hC₀, fun m => by simpa only [ sq, norm_mul ] using mul_le_mul ( hC m ) ( hC ( m + k ) ) ( by positivity ) ( by positivity ) ⟩ 
     have h_summable : Summable (fun m : ℕ => ‖q ^ (m * (m + k))‖ / h_bound.choose) := by
-      refine' Summable.mul_right _ _
+      refine Summable.mul_right _ ?_
       have h_summable : Summable (fun m : ℕ => ‖q‖ ^ (m ^ 2)) := by
         exact Summable.comp_injective ( summable_geometric_of_lt_one ( norm_nonneg q ) hq ) fun a b h => by simpa using h
       exact Summable.of_nonneg_of_le ( fun m => by positivity ) ( fun m => by simpa using pow_le_pow_of_le_one ( by positivity ) hq.le ( by nlinarith ) ) h_summable
-    refine' .of_norm <| h_summable.of_nonneg_of_le ( fun m => by positivity ) ( fun m => _ )
+    refine .of_norm <| h_summable.of_nonneg_of_le ( fun m => by positivity ) ( fun m => ?_ )
     simpa using div_le_div_of_nonneg_left ( by positivity ) ( by linarith [ h_bound.choose_spec.1 ] ) ( h_bound.choose_spec.2 m )
   convert h_summable using 1
 
@@ -103,10 +103,10 @@ theorem S_sum_tendsto {q : ℂ} (hq : ‖q‖ < 1) :
       exact ⟨ _, Finset.mem_image_of_mem _ ( Finset.mem_range.mpr ( Nat.succ_pos _ ) ) ⟩))
       generalize_proofs at *
       simp_all +decide [ Finset.min' ]
-      refine' ⟨ _, _ ⟩
+      refine ⟨ ?_, ?_ ⟩
       · intro i hi; exact qPochhammer_q_q_ne_zero hq i
       · exact fun m hm => if hm' : m ≤ N then Or.inr ⟨ m, hm', le_rfl ⟩ else Or.inl <| by linarith [ abs_lt.mp ( hN m ( le_of_not_ge hm' ) ) ] 
-    obtain ⟨ C, hC₀, hC ⟩ := h_qPochhammer_bound; use C * C; exact ⟨ mul_pos hC₀ hC₀, fun m hm k => by simpa [ mul_assoc ] using mul_le_mul ( hC m hm ) ( hC ( m + k ) ( by linarith ) ) ( by positivity ) ( by positivity ) ⟩ 
+    obtain ⟨ C, hC₀, hC ⟩ := h_qPochhammer_bound; use C * C; exact ⟨ mul_pos hC₀ hC₀, fun m hm k => by simpa [ mul_assoc ] using mul_le_mul ( hC m hm ) ( hC ( m + k ) ( by omega ) ) ( by positivity ) ( by positivity ) ⟩ 
   have h_sum_zero : Filter.Tendsto (fun k => ∑' m : ℕ, (if m = 0 then 0 else q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)))) Filter.atTop (nhds 0) := by
     have h_dominated : ∀ m ≥ 1, Filter.Tendsto (fun k => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))) Filter.atTop (nhds 0) := by
       intro m hm
@@ -121,9 +121,9 @@ theorem S_sum_tendsto {q : ℂ} (hq : ‖q‖ < 1) :
         exact Summable.mul_right _ <| Summable.of_nonneg_of_le ( fun n => by positivity ) ( fun n => by exact pow_le_pow_of_le_one ( by positivity ) hq.le <| by nlinarith ) <| summable_geometric_of_lt_one ( by positivity ) hq
       · intro k; by_cases hk : k = 0 <;> simp +decide [ hk, h_dominated ] 
         exact h_dominated k ( Nat.pos_of_ne_zero hk )
-      · refine' Filter.Eventually.of_forall fun n k => _
+      · refine Filter.Eventually.of_forall fun n k => ?_
         split_ifs <;> simp_all +decide [ div_eq_mul_inv ]
-        refine' mul_le_mul _ _ _ _
+        refine mul_le_mul ?_ ?_ ?_ ?_
         · exact pow_le_pow_of_le_one ( norm_nonneg _ ) hq.le ( by nlinarith )
         · have := h_bound.choose_spec.2 k ( Nat.pos_of_ne_zero ‹_› ) n
           simpa [ mul_comm ] using inv_anti₀ ( h_bound.choose_spec.1 ) this
@@ -144,7 +144,7 @@ theorem S_sum_recurrence {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     have h_split : ∑' m : ℕ, q ^ (m * (m + k)) * (1 - q ^ m) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) = ∑' m : ℕ, q ^ ((m + 1) * (m + 1 + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 2)) := by
       rw [ Summable.tsum_eq_zero_add ]
       · norm_num [ qPochhammer_succ ]
-        refine' tsum_congr fun m => _
+        refine tsum_congr fun m => ?_
         convert mul_div_mul_right _ _ ( show ( 1 - q ^ ( m + 1 ) ) ≠ 0 from sub_ne_zero_of_ne <| Ne.symm <| by exact ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_lt <| pow_lt_one₀ ( by positivity ) hq <| by positivity ) using 1 ; ring
         rw [ show 1 + m + k = m + k + 1 by ring ] ; rw [ qPochhammer_succ ] ; ring
       · have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 1))) := by
@@ -161,7 +161,7 @@ theorem S_sum_recurrence {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
                 exact ⟨ _, Finset.mem_image_of_mem _ ( Finset.mem_range.mpr ( Nat.succ_pos _ ) ) ⟩))
                 generalize_proofs at *
                 simp +zetaDelta at *
-                exact ⟨ fun m hm => sub_ne_zero_of_ne <| ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_gt <| pow_lt_one₀ ( norm_nonneg q ) hq <| by linarith, fun m => if hm : m ≤ N then Or.inr <| Finset.min'_le _ _ <| Finset.mem_image_of_mem _ <| Finset.mem_range.mpr <| by linarith else Or.inl <| le_of_lt <| hN m <| le_of_not_ge hm ⟩
+                exact ⟨ fun m hm => sub_ne_zero_of_ne <| ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_gt <| pow_lt_one₀ ( norm_nonneg q ) hq <| by omega, fun m => if hm : m ≤ N then Or.inr <| Finset.min'_le _ _ <| Finset.mem_image_of_mem _ <| Finset.mem_range.mpr <| by omega else Or.inl <| le_of_lt <| hN m <| le_of_not_ge hm ⟩
               exact ⟨ 1 / h_summable.choose, one_div_pos.mpr h_summable.choose_spec.1, fun m => by simpa using inv_anti₀ h_summable.choose_spec.1 ( h_summable.choose_spec.2 m ) ⟩
             obtain ⟨ C, hC₀, hC ⟩ := h_summable
             have h_prod_summable : Summable (fun m : ℕ => ‖q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))‖ * C) := by
@@ -183,7 +183,7 @@ theorem S_sum_recurrence {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
           have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))) := by
             convert summable_S_summand hq k using 1
           have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)) * (1 / (1 - q ^ (m + k + 1)))) := by
-            refine' .of_norm _
+            refine .of_norm ?_
             have h_summable : ∃ C > 0, ∀ m : ℕ, ‖1 / (1 - q ^ (m + k + 1))‖ ≤ C := by
               have h_summable : ∃ C > 0, ∀ m : ℕ, ‖1 - q ^ (m + k + 1)‖ ≥ C := by
                 have h_lim : Filter.Tendsto (fun m : ℕ => ‖1 - q ^ (m + k + 1)‖) Filter.atTop (nhds 1) := by
@@ -194,7 +194,7 @@ theorem S_sum_recurrence {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
                 exact ⟨ _, Finset.mem_image_of_mem _ ( Finset.mem_range.mpr ( Nat.succ_pos _ ) ) ⟩))
                 generalize_proofs at *
                 simp +zetaDelta at *
-                exact ⟨ fun m hm => sub_ne_zero_of_ne <| ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_gt <| pow_lt_one₀ ( norm_nonneg q ) hq <| by linarith, fun m => if hm : m ≤ N then Or.inr <| Finset.min'_le _ _ <| Finset.mem_image_of_mem _ <| Finset.mem_range.mpr <| by linarith else Or.inl <| le_of_lt <| hN m <| le_of_not_ge hm ⟩
+                exact ⟨ fun m hm => sub_ne_zero_of_ne <| ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_gt <| pow_lt_one₀ ( norm_nonneg q ) hq <| by omega, fun m => if hm : m ≤ N then Or.inr <| Finset.min'_le _ _ <| Finset.mem_image_of_mem _ <| Finset.mem_range.mpr <| by omega else Or.inl <| le_of_lt <| hN m <| le_of_not_ge hm ⟩
               exact ⟨ 1 / h_summable.choose, one_div_pos.mpr h_summable.choose_spec.1, fun m => by simpa using inv_anti₀ h_summable.choose_spec.1 ( h_summable.choose_spec.2 m ) ⟩
             obtain ⟨ C, hC₀, hC ⟩ := h_summable
             exact Summable.of_nonneg_of_le ( fun m => norm_nonneg _ ) ( fun m => by simpa [ abs_mul, abs_div ] using mul_le_mul_of_nonneg_left ( hC m ) ( by positivity ) ) ( h_summable.norm.mul_right C )
@@ -213,7 +213,7 @@ theorem S_sum_recurrence {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     · unfold S_sum; norm_num [ div_eq_mul_inv, mul_assoc, mul_comm, mul_left_comm, ← tsum_mul_left ] 
       exact tsum_congr fun n => by ring
   rw [ ← h_split, S_sum, S_sum, ← Summable.tsum_sub ]
-  · refine' tsum_congr fun m => _
+  · refine tsum_congr fun m => ?_
     rw [ div_sub_div, div_eq_div_iff ]
     · rw [ show m + ( k + 1 ) = m + k + 1 by ring, qPochhammer_succ ] ; ring
     · simp_all +decide [ qPochhammer_q_q_ne_zero ]
@@ -230,13 +230,14 @@ theorem S_sum_eq {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     intro k
     have h_induction : ∀ n : ℕ, ‖S_sum q k - S_sum q (k + 1)‖ ≤ ‖q‖ ^ (n * (2 * k + n + 1) / 2) * ‖S_sum q (k + n) - S_sum q (k + n + 1)‖ := by
       intro n
-      induction' n with n ih
-      · norm_num
-      · have h_induction_step : ‖S_sum q (k + n) - S_sum q (k + n + 1)‖ ≤ ‖q‖ ^ (k + n + 1) * ‖S_sum q (k + n + 1) - S_sum q (k + n + 2)‖ := by
-          have := S_sum_recurrence hq ( k + n )
-          rw [ this, norm_mul, norm_pow, norm_sub_rev ]
-        convert le_trans ih ( mul_le_mul_of_nonneg_left h_induction_step <| by positivity ) using 1 ; ring
-        rw [ show ( 2 + n * 3 + n * k * 2 + n ^ 2 + k * 2 ) / 2 = n + k + ( n + n * k * 2 + n ^ 2 ) / 2 + 1 by exact Nat.div_eq_of_eq_mul_left zero_lt_two <| by linarith [ Nat.div_mul_cancel ( show 2 ∣ n + n * k * 2 + n ^ 2 from even_iff_two_dvd.mp <| by simp +arith +decide [ parity_simps ] ) ] ] ; ring
+      induction n with
+      | zero => norm_num
+      | succ n ih =>
+          have h_induction_step : ‖S_sum q (k + n) - S_sum q (k + n + 1)‖ ≤ ‖q‖ ^ (k + n + 1) * ‖S_sum q (k + n + 1) - S_sum q (k + n + 2)‖ := by
+            have := S_sum_recurrence hq ( k + n )
+            rw [ this, norm_mul, norm_pow, norm_sub_rev ]
+          convert le_trans ih ( mul_le_mul_of_nonneg_left h_induction_step <| by positivity ) using 1 ; ring
+          rw [ show ( 2 + n * 3 + n * k * 2 + n ^ 2 + k * 2 ) / 2 = n + k + ( n + n * k * 2 + n ^ 2 ) / 2 + 1 by exact Nat.div_eq_of_eq_mul_left zero_lt_two <| by linarith [ Nat.div_mul_cancel ( show 2 ∣ n + n * k * 2 + n ^ 2 from even_iff_two_dvd.mp <| by simp +arith +decide [ parity_simps ] ) ] ] ; ring
     have h_diff_zero : Filter.Tendsto (fun n => S_sum q (k + n) - S_sum q (k + n + 1)) Filter.atTop (nhds 0) := by
       convert Filter.Tendsto.sub ( S_sum_tendsto hq |> Filter.Tendsto.comp <| Filter.tendsto_atTop_mono ( fun n => Nat.le_add_left _ _ ) Filter.tendsto_id ) ( S_sum_tendsto hq |> Filter.Tendsto.comp <| Filter.tendsto_atTop_mono ( fun n => Nat.le_succ_of_le <| Nat.le_add_left _ _ ) Filter.tendsto_id ) using 2 ; norm_num
     have h_exp_zero : Filter.Tendsto (fun n => ‖q‖ ^ (n * (2 * k + n + 1) / 2)) Filter.atTop (nhds 0) := by
@@ -257,7 +258,7 @@ lemma choose2_add (m k : ℕ) :
   | zero => simp
   | succ m ih =>
     rw [show m + 1 + k = (m + k) + 1 from by omega, choose2_step, choose2_step]
-    linarith
+    nlinarith [ih]
 
 /-- Variant: C(n,2) + C(n+l+1,2) + n+l+1 = C(l+2,2) + n*(n+l+1). -/
 lemma choose2_add' (n l : ℕ) :
@@ -267,10 +268,10 @@ lemma choose2_add' (n l : ℕ) :
     simp only [zero_add, Nat.zero_mul, add_zero, Nat.choose_zero_succ]
     have : (l + 2).choose 2 = (l + 1).choose 2 + (l + 1) := by
       rw [show l + 2 = (l + 1) + 1 from by omega]; exact choose2_step (l+1)
-    linarith
+    omega
   | succ n ih =>
     rw [choose2_step, show n + 1 + (l + 1) = (n + (l + 1)) + 1 from by omega, choose2_step]
-    linarith
+    nlinarith [ih]
 
 /-- Telescoping: (q;q)_∞ = (q;q)_n * (q^{n+1};q)_∞. -/
 private lemma qPochhammerInf_eq_mul' {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :

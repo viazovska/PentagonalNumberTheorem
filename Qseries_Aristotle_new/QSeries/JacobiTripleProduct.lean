@@ -45,11 +45,8 @@ theorem summable_jacobi_nonneg {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1)
 /-- Summability of the negative-index part $\sum_{m \geq 0} z^{-(m+1)} q^{\binom{m+2}{2}}$ for $\|q\| < 1$ and $z \neq 0$. -/
 theorem summable_jacobi_neg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z ≠ 0) :
     Summable (fun m : ℕ => (z⁻¹) ^ (m + 1) * q ^ (m + 2).choose 2) := by
-  refine' summable_of_ratio_norm_eventually_le _ _
-  exact ( ‖q‖ + ( 1 - ‖q‖ ) / 2 )
-  · linarith
-  ·
-    have h_eventually : ∃ N, ∀ n ≥ N, ‖q‖ ^ (n + 2) * ‖z⁻¹‖ ≤ (‖q‖ + (1 - ‖q‖) / 2) := by
+  refine summable_of_ratio_norm_eventually_le (r := ‖q‖ + (1 - ‖q‖) / 2) (by linarith) ?_
+  · have h_eventually : ∃ N, ∀ n ≥ N, ‖q‖ ^ (n + 2) * ‖z⁻¹‖ ≤ (‖q‖ + (1 - ‖q‖) / 2) := by
       have h_eventually : Filter.Tendsto (fun n : ℕ => ‖q‖ ^ (n + 2) * ‖z⁻¹‖) Filter.atTop (nhds 0) := by
         simpa using Filter.Tendsto.mul ( tendsto_pow_atTop_nhds_zero_of_lt_one ( norm_nonneg q ) hq |> Filter.Tendsto.comp <| Filter.tendsto_add_atTop_nat 2 ) tendsto_const_nhds
       simpa using h_eventually.eventually ( ge_mem_nhds <| by linarith [ norm_nonneg q ] )
@@ -130,9 +127,9 @@ theorem jacobiBilateral_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : 
             grind
           · have := summable_jacobi_neg hq hz'
             rw [ ← summable_nat_add_iff 1 ] ; convert this using 2 ; norm_num [ Nat.choose_succ_succ, pow_succ' ] ; ring
-        · refine' Summable.of_norm _
+        · refine Summable.of_norm ?_
           norm_num [ pow_add, pow_mul ]
-          refine' Summable.of_nonneg_of_le ( fun n => by positivity ) ( fun n => _ ) ( summable_geometric_of_lt_one ( by positivity ) hz )
+          refine Summable.of_nonneg_of_le ( fun n => by positivity ) ( fun n => ?_ ) ( summable_geometric_of_lt_one ( by positivity ) hz )
           exact le_trans ( mul_le_of_le_one_right ( by positivity ) ( mul_le_one₀ ( pow_le_one₀ ( by positivity ) hq.le ) ( pow_nonneg ( by positivity ) _ ) ( pow_le_one₀ ( by positivity ) hq.le ) ) ) ( mul_le_of_le_one_left ( by positivity ) hz.le )
       · rw [ ← summable_nat_add_iff 1 ]
         convert summable_jacobi_nonneg hq hz |> Summable.comp_injective <| Nat.succ_injective using 1
@@ -141,15 +138,12 @@ theorem jacobiBilateral_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : 
 /-- Summability of the Euler second series $\sum_{n \geq 0} q^{\binom{n}{2}} z^n / (q;q)_n$ for all $z$ when $\|q\| < 1$. -/
 theorem euler_second_summable_all {q z : ℂ} (hq : ‖q‖ < 1) :
     Summable (fun n : ℕ => q ^ n.choose 2 * z ^ n / qPochhammer q q n) := by
-  refine' summable_of_ratio_norm_eventually_le _ _
-  exact ( ‖q‖ + ( 1 - ‖q‖ ) / 2 )
-  · linarith
-  ·
-    have h_eventually : ∃ N, ∀ n ≥ N, ‖q‖ ^ n * ‖z‖ / ‖1 - q ^ (n + 1)‖ ≤ (‖q‖ + (1 - ‖q‖) / 2) := by
+  refine summable_of_ratio_norm_eventually_le (r := ‖q‖ + (1 - ‖q‖) / 2) (by linarith) ?_
+  · have h_eventually : ∃ N, ∀ n ≥ N, ‖q‖ ^ n * ‖z‖ / ‖1 - q ^ (n + 1)‖ ≤ (‖q‖ + (1 - ‖q‖) / 2) := by
       have h_eventually : Filter.Tendsto (fun n : ℕ => ‖q‖ ^ n * ‖z‖ / ‖1 - q ^ (n + 1)‖) Filter.atTop (nhds 0) := by
         simpa using Filter.Tendsto.div ( tendsto_pow_atTop_nhds_zero_of_lt_one ( by positivity ) hq |> Filter.Tendsto.mul_const ‖z‖ ) ( Filter.Tendsto.norm ( tendsto_const_nhds.sub ( tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq |> Filter.Tendsto.comp <| Filter.tendsto_add_atTop_nat 1 ) ) ) ( by norm_num )
       exact Filter.eventually_atTop.mp ( h_eventually.eventually ( ge_mem_nhds <| by linarith [ norm_nonneg q ] ) )
-    obtain ⟨ N, hN ⟩ := h_eventually; filter_upwards [ Filter.eventually_ge_atTop N ] with n hn; specialize hN n hn; simp_all +decide [ Nat.choose_succ_succ, pow_add, mul_assoc, mul_div_mul_comm ] 
+    obtain ⟨ N, hN ⟩ := h_eventually; filter_upwards [ Filter.eventually_ge_atTop N ] with n hn; specialize hN n hn; simp_all +decide [ Nat.choose_succ_succ, pow_add, mul_assoc, mul_div_mul_comm ]
     convert mul_le_mul_of_nonneg_right hN ( show 0 ≤ ‖q‖ ^ n.choose 2 * ‖z‖ ^ n / ‖qPochhammer q q n‖ by positivity ) using 1 ; ring
     rw [ show qPochhammer q q ( 1 + n ) = qPochhammer q q n * ( 1 - q ^ ( n + 1 ) ) by rw [ add_comm, qPochhammer_succ ] ; ring ] ; norm_num ; ring
 
@@ -178,11 +172,12 @@ theorem euler_second_identity_all {q z : ℂ} (hq : ‖q‖ < 1) :
       (qPochhammerInf (-z) q) := by
   have h_ind : ∀ N : ℕ, (∑' n : ℕ, q ^ n.choose 2 * z ^ n / qPochhammer q q n) = (∏ k ∈ Finset.range N, (1 + z * q ^ k)) * (∑' n : ℕ, q ^ n.choose 2 * (z * q ^ N) ^ n / qPochhammer q q n) := by
     intro N
-    induction' N with N ih
-    aesop
-    have h_rec : (∑' n : ℕ, q ^ n.choose 2 * (z * q ^ N) ^ n / qPochhammer q q n) = (1 + z * q ^ N) * (∑' n : ℕ, q ^ n.choose 2 * (z * q ^ (N + 1)) ^ n / qPochhammer q q n) := by
-      convert euler_second_series_recursion hq using 1 ; ring
-    rw [ Finset.prod_range_succ, ih, h_rec, mul_assoc ]
+    induction N with
+    | zero => aesop
+    | succ N ih =>
+        have h_rec : (∑' n : ℕ, q ^ n.choose 2 * (z * q ^ N) ^ n / qPochhammer q q n) = (1 + z * q ^ N) * (∑' n : ℕ, q ^ n.choose 2 * (z * q ^ (N + 1)) ^ n / qPochhammer q q n) := by
+          convert euler_second_series_recursion hq using 1 ; ring
+        rw [ Finset.prod_range_succ, ih, h_rec, mul_assoc ]
   obtain ⟨N, hN⟩ : ∃ N : ℕ, ‖z * q ^ N‖ < 1 := by
     have h_lim : Filter.Tendsto (fun N : ℕ => ‖z * q ^ N‖) Filter.atTop (nhds 0) := by
       simpa using tendsto_const_nhds.mul ( tendsto_pow_atTop_nhds_zero_of_lt_one ( norm_nonneg q ) hq )
@@ -191,8 +186,13 @@ theorem euler_second_identity_all {q z : ℂ} (hq : ‖q‖ < 1) :
     rw [ h_ind N, euler_second_identity hq hN |> HasSum.tsum_eq ]
   have h_ind_step : qPochhammerInf (-z) q = (∏ k ∈ Finset.range N, (1 + z * q ^ k)) * qPochhammerInf (-(z * q ^ N)) q := by
     have h_ind_step : ∀ N : ℕ, qPochhammerInf (-z) q = (∏ k ∈ Finset.range N, (1 + z * q ^ k)) * qPochhammerInf (-(z * q ^ N)) q := by
-      intro N; induction' N with N ih <;> simp_all +decide [ Finset.prod_range_succ, pow_succ' ] ; ring
-      rw [ show qPochhammerInf ( - ( z * q ^ N ) ) q = ( 1 - ( - ( z * q ^ N ) ) ) * qPochhammerInf ( - ( z * q ^ N ) * q ) q from qPochhammerInf_recursion hq ] ; ring
+      intro N
+      induction N with
+      | zero => simp_all +decide [ Finset.prod_range_succ, pow_succ' ]
+      | succ N ih =>
+          simp_all +decide [ Finset.prod_range_succ, pow_succ' ]
+          rw [ show qPochhammerInf ( - ( z * q ^ N ) ) q = ( 1 - ( - ( z * q ^ N ) ) ) * qPochhammerInf ( - ( z * q ^ N ) * q ) q from qPochhammerInf_recursion hq ]
+          ring
     exact h_ind_step N
   convert Summable.hasSum _ using 1
   · grind +qlia
@@ -231,7 +231,7 @@ theorem jacobiTripleProduct {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) (h
             simp +zetaDelta at *
             exact fun a b => ⟨ fun h => ⟨ b - a - 1, by omega ⟩, fun ⟨ x, hx ⟩ => by omega ⟩
           have h_split : ∑' p : ℕ × ℕ, f p = ∑' p : ℕ × ℕ, f p * (if p.1 ≥ p.2 then 1 else 0) + ∑' p : ℕ × ℕ, f p * (if p.1 < p.2 then 1 else 0) := by
-            rw [ ← Summable.tsum_add ] ; congr ; ext p ; split_ifs <;> ring <;> linarith
+            rw [ ← Summable.tsum_add ] ; congr ; ext p ; split_ifs <;> ring <;> omega
             · exact Summable.of_norm <| by simpa using hf.norm.of_nonneg_of_le ( fun p => by positivity ) fun p => by split_ifs <;> norm_num
             · exact Summable.of_norm <| by simpa using hf.norm.of_nonneg_of_le ( fun p => by positivity ) fun p => by split_ifs <;> norm_num
           convert h_split using 2
@@ -244,7 +244,7 @@ theorem jacobiTripleProduct {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) (h
           · rw [ ← tsum_eq_tsum_of_ne_zero_bij ]
             use fun p => ( p.val.1, p.val.1 + p.val.2 + 1 )
             · norm_num [ Function.Injective ]
-              intros; subst_vars; exact ⟨ rfl, by linarith ⟩ 
+              intros; subst_vars; exact ⟨ rfl, by omega ⟩ 
             · intro p hp; specialize h_partition' p; aesop
             · simp +decide [ Nat.lt_succ_iff ]
         convert h_split using 1

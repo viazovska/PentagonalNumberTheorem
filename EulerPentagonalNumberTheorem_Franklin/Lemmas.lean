@@ -60,7 +60,7 @@ theorem SmkSet_card (k : ℕ) (hk : 1 ≤ k) : (smkSet k).card = k := by
 /-- The sum of smkSet(k) equals (3k²-k)/2. -/
 theorem SmkSet_sum (k : ℕ) (hk : 1 ≤ k) : (smkSet k).sum id = (3 * k ^ 2 - k) / 2 := by
   erw [ Finset.sum_Ico_eq_sum_range ]
-  rw [ Nat.sub_add_cancel ( by linarith ), two_mul ]
+  rw [ Nat.sub_add_cancel ( by omega ), two_mul ]
   simp +arith +decide [ Finset.sum_add_distrib ]
   rw [ two_mul, add_tsub_cancel_left, Finset.sum_add_distrib ]
   exact Eq.symm ( Nat.div_eq_of_eq_mul_left zero_lt_two ( Nat.sub_eq_of_eq_add ( by norm_num; exact Nat.recOn k ( by norm_num ) fun n ih => by norm_num [ Finset.sum_range_succ ] at * ; linarith ) ) )
@@ -86,18 +86,18 @@ theorem DPspecial_empty_of_nonpent (n : ℕ) (hn : 1 ≤ n)
       obtain ⟨b, m, s, hb, hm, hs, hD⟩ : ∃ b m s, partBase S = b ∧ partMax S = m ∧ partSlope S = s ∧ partMax S - partSlope S + 1 ≤ partBase S ∧ (partBase S = partSlope S ∨ partBase S = partSlope S + 1) := by
         unfold distinctPartitionsSpecial at hS; aesop
       have hS_eq : S = Finset.Icc b m := by
-        refine' Finset.Subset.antisymm _ _
+        refine Finset.Subset.antisymm ?_ ?_
         · intro x hx; have := Finset.mem_Icc.mpr ⟨ hb ▸ partBase_le S ( Finset.nonempty_of_ne_empty hS.2 ) hx, hm ▸ le_partMax S ( Finset.nonempty_of_ne_empty hS.2 ) hx ⟩ ; aesop
         · intro x hx; have := Finset.mem_Icc.mp hx; simp_all +decide [ partBase, partMax ] 
           have h_consecutive : ∀ j, j < s → m - j ∈ S := by
             exact fun j hj => ctr_mem_of_lt _ _ _ ( by aesop )
           convert h_consecutive ( m - x ) _ using 1
-          · rw [ Nat.sub_sub_self ( by linarith ) ]
+          · rw [ Nat.sub_sub_self ( by omega ) ]
           · omega
       have hm_eq : m = b + s - 1 := by
         have hm_eq : consecutiveTopRun S m = m - b + 1 := by
           have h_consecutiveTopRun : ∀ {k : ℕ}, k ≤ m → consecutiveTopRun (Finset.Icc b m) k = if k < b then 0 else k - b + 1 := by
-            intro k hk; induction' k with k ih <;> simp_all +decide [ Nat.succ_eq_add_one, consecutiveTopRun ] 
+            intro k hk; induction k <;> simp_all +decide [ Nat.succ_eq_add_one, consecutiveTopRun ]
             · grind
             · grind
           grind
@@ -116,8 +116,8 @@ theorem DPspecial_empty_of_nonpent (n : ℕ) (hn : 1 ≤ n)
       · simp_all +decide [ ← two_mul, Nat.mul_div_cancel_left ]
         exact h1 1 le_rfl ( by norm_num; linarith [ show b = 1 from by { unfold distinctPartitionsSpecial at hS; aesop } ] )
       · rcases hD.2 with ( rfl | rfl ) <;> ring_nf at *
-        · exact h1 ( s + 2 ) ( by linarith ) ( by rw [ Nat.sub_eq_of_eq_add ] ; linarith [ Nat.div_mul_cancel ( show 2 ∣ 10 + s * 11 + s ^ 2 * 3 from even_iff_two_dvd.mp ( by simp +arith +decide [ parity_simps ] ) ) ] )
-        · exact h2 ( s + 2 ) ( by linarith ) ( by linarith [ Nat.div_mul_cancel ( show 2 ∣ 14 + s * 13 + s ^ 2 * 3 from even_iff_two_dvd.mp ( by simp +arith +decide [ parity_simps ] ) ) ] )
+        · exact h1 ( s + 2 ) ( by omega ) ( by rw [ Nat.sub_eq_of_eq_add ] ; linarith [ Nat.div_mul_cancel ( show 2 ∣ 10 + s * 11 + s ^ 2 * 3 from even_iff_two_dvd.mp ( by simp +arith +decide [ parity_simps ] ) ) ] )
+        · exact h2 ( s + 2 ) ( by omega ) ( by linarith [ Nat.div_mul_cancel ( show 2 ∣ 14 + s * 13 + s ^ 2 * 3 from even_iff_two_dvd.mp ( by simp +arith +decide [ parity_simps ] ) ) ] )
 /-- For n = (3k²-k)/2 (pentagonal minus), the only special partition is smkSet(k). -/
 theorem DPspecial_pent_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 - k) :
     distinctPartitionsSpecial n = {smkSet k} := by
@@ -130,7 +130,7 @@ theorem DPspecial_pent_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 
         · simp_all +decide [ distinctPartitions ]
           rw [ eq_tsub_iff_add_eq_of_le ] at hn <;> nlinarith
         · have hS_eq_SmkSet : S = Finset.Icc (partBase S) (partMax S) := by
-            refine' Finset.Subset.antisymm _ _
+            refine Finset.Subset.antisymm ?_ ?_
             · exact fun x hx => Finset.mem_Icc.mpr ⟨ partBase_le _ ( by tauto ) hx, le_partMax _ ( by tauto ) hx ⟩
             · intros m hm
               have h_consecutive : ∀ j, j < partSlope S → partMax S - j ∈ S := by
@@ -154,9 +154,10 @@ theorem DPspecial_pent_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 
               have hS_max : partSlope S = partMax S - partBase S + 1 := by
                 have hS_slope : ∀ m ∈ S, consecutiveTopRun S m = m - partBase S + 1 := by
                   intro m hm
-                  induction' m with m ih
-                  · exact absurd ( DP_zero_not_mem n S hS ) ( by simp +decide [ hm ] )
-                  · grind +suggestions
+                  revert hm
+                  induction m with
+                  | zero => intro hm; exact absurd ( DP_zero_not_mem n S hS ) ( by simp +decide [ hm ] )
+                  | succ m ih => intro hm; grind +suggestions
                 exact hS_slope _ ( partMax_mem _ ( by tauto ) )
               grind
             rcases hS_max with h | h <;> rw [ hS_sum, h ] <;> rcases partBase S with ( _ | _ | partBase ) <;> simp +arith +decide [ Nat.mul_succ ] at *
@@ -197,7 +198,7 @@ theorem DPspecial_pent_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 
           · have hk_eq_partBase_minus_1 : k = partBase S - 1 := by
               rw [ Nat.div_eq_iff_eq_mul_left zero_lt_two ] at hS_sum_eq_n
               · rw [ eq_tsub_iff_add_eq_of_le ] at hn
-                · nlinarith only [ hn, hS_sum_eq_n, Nat.sub_add_cancel ( show 1 ≤ partBase S from by linarith ) ]
+                · nlinarith only [ hn, hS_sum_eq_n, Nat.sub_add_cancel ( show 1 ≤ partBase S from by omega ) ]
                 · nlinarith only [ hk ]
               · norm_num [ ← even_iff_two_dvd, parity_simps ]
             grind
@@ -206,13 +207,13 @@ theorem DPspecial_pent_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 
         constructor
         · rw [ mem_DP ]
           constructor
-          · exact Finset.Icc_subset_Icc ( by linarith ) ( Nat.sub_le_of_le_add <| by nlinarith [ Nat.sub_add_cancel ( by nlinarith : k ≤ 3 * k ^ 2 ) ] )
+          · exact Finset.Icc_subset_Icc ( by omega ) ( Nat.sub_le_of_le_add <| by nlinarith [ Nat.sub_add_cancel ( by nlinarith : k ≤ 3 * k ^ 2 ) ] )
           · convert SmkSet_sum k hk using 1
             rw [ ← hn, Nat.mul_div_cancel_left _ ( by decide ) ]
         · have h_base : partBase (smkSet k) = k := by
             unfold partBase smkSet
             split_ifs <;> simp_all +decide [ Finset.min' ]
-            · exact le_antisymm ( Finset.inf'_le _ <| Finset.left_mem_Icc.mpr <| Nat.le_sub_one_of_lt <| by linarith ) ( Finset.le_inf' _ _ fun x hx => Finset.mem_Icc.mp hx |>.1 )
+            · exact le_antisymm ( Finset.inf'_le _ <| Finset.left_mem_Icc.mpr <| Nat.le_sub_one_of_lt <| by omega ) ( Finset.le_inf' _ _ fun x hx => Finset.mem_Icc.mp hx |>.1 )
             · omega
           have h_max : partMax (smkSet k) = 2 * k - 1 := by
             unfold partMax; simp +decide [ smkSet ] 
@@ -221,20 +222,20 @@ theorem DPspecial_pent_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 
             · omega
           have h_slope : partSlope (smkSet k) = k := by
             have h_consecutiveTopRun : ∀ m ∈ smkSet k, consecutiveTopRun (smkSet k) m = m - k + 1 := by
-              intro m hm; induction' m with m ih <;> simp_all +decide [ smkSet ] 
+              intro m hm; induction m <;> simp_all +decide [ smkSet ]
               grind +suggestions
             convert h_consecutiveTopRun ( 2 * k - 1 ) _ using 1
             · exact h_max ▸ rfl
             · omega
-            · exact Finset.mem_Icc.mpr ⟨ Nat.le_sub_one_of_lt ( by linarith ), Nat.sub_le_sub_right ( by linarith ) _ ⟩
+            · exact Finset.mem_Icc.mpr ⟨ Nat.le_sub_one_of_lt ( by omega ), Nat.sub_le_sub_right ( by omega ) _ ⟩
           grind +qlia
 /-- For n = (3k²+k)/2 (pentagonal plus), the only special partition is spkSet(k). -/
 theorem DPspecial_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 + k) :
     distinctPartitionsSpecial n = {spkSet k} := by
       have hSpkSet_in_DPspecial : spkSet k ∈ distinctPartitionsSpecial n := by
-        refine' Finset.mem_filter.mpr ⟨ _, _ ⟩
-        · refine' Finset.mem_filter.mpr ⟨ _, _ ⟩
-          · exact Finset.mem_powerset.mpr ( Finset.Icc_subset_Icc ( by linarith ) ( by nlinarith ) )
+        refine Finset.mem_filter.mpr ⟨ ?_, ?_ ⟩
+        · refine Finset.mem_filter.mpr ⟨ ?_, ?_ ⟩
+          · exact Finset.mem_powerset.mpr ( Finset.Icc_subset_Icc ( by omega ) ( by nlinarith ) )
           · convert SpkSet_sum k hk using 1
             rw [ ← hn, Nat.mul_div_cancel_left _ ( by decide ) ]
         · have h_base : partBase (spkSet k) = k + 1 := by
@@ -244,14 +245,14 @@ theorem DPspecial_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 +
           have h_max : partMax (spkSet k) = 2 * k := by
             unfold partMax spkSet
             split_ifs <;> simp_all +decide [ Finset.max' ]
-            · exact le_antisymm ( Finset.sup'_le _ _ fun x hx => by linarith [ Finset.mem_Icc.mp hx ] ) ( Finset.le_sup' ( fun x => x ) ( Finset.mem_Icc.mpr ⟨ by linarith, by linarith ⟩ ) )
-            · linarith
+            · exact le_antisymm ( Finset.sup'_le _ _ fun x hx => by linarith [ Finset.mem_Icc.mp hx ] ) ( Finset.le_sup' ( fun x => x ) ( Finset.mem_Icc.mpr ⟨ by omega, by omega ⟩ ) )
+            · omega
           have h_slope : partSlope (spkSet k) = k := by
             have h_consecutiveTopRun : ∀ m ∈ Finset.Icc (k + 1) (2 * k), consecutiveTopRun (spkSet k) m = m - k := by
-              intro m hm; induction' m with m ih <;> simp_all +decide [ Nat.mul_succ, Finset.mem_Icc ] 
+              intro m hm; induction m <;> simp_all +decide [ Nat.mul_succ, Finset.mem_Icc ] 
               split_ifs <;> simp_all +decide [ spkSet ]
               grind +suggestions
-            convert h_consecutiveTopRun ( 2 * k ) ( Finset.mem_Icc.mpr ⟨ by linarith, by linarith ⟩ ) using 1
+            convert h_consecutiveTopRun ( 2 * k ) ( Finset.mem_Icc.mpr ⟨ by omega, by omega ⟩ ) using 1
             · exact h_max ▸ rfl
             · rw [ two_mul, Nat.add_sub_cancel ]
           grind
@@ -269,10 +270,10 @@ theorem DPspecial_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 +
               have hx_ge_partMax_minus_partSlope_plus_1 : partMax S - partSlope S + 1 ≤ x := by
                 exact lt_of_lt_of_le hS₂.2.1 ( partBase_le S hS₂.1 hx )
               exact ⟨hx_ge_partMax_minus_partSlope_plus_1, hx_le_partMax⟩
-            refine' Finset.eq_of_subset_of_card_le ( fun x hx => Finset.mem_Icc.mpr ( hS_eq_SpkSet x hx ) ) _
+            refine Finset.eq_of_subset_of_card_le ( fun x hx => Finset.mem_Icc.mpr ( hS_eq_SpkSet x hx ) ) ?_
             have hS_card : S.card ≥ partSlope S := by
               have hS_card : Finset.card (Finset.image (fun j => partMax S - j) (Finset.range (partSlope S))) ≤ Finset.card S := by
-                refine' Finset.card_le_card ?_
+                refine Finset.card_le_card ?_
                 intro x hx
                 obtain ⟨ j, hj, rfl ⟩ := Finset.mem_image.mp hx
                 convert ctr_mem_of_lt S ( partMax S ) j ( Finset.mem_range.mp hj ) using 1
@@ -326,8 +327,8 @@ theorem DPspecial_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 +
               rw [ hS_eq_SpkSet ] at *
               norm_num [ partMax ] at *
               split_ifs <;> simp_all +decide [ Finset.max' ]
-              · exact le_antisymm ( Finset.sup'_le _ _ fun x hx => by linarith [ Finset.mem_Icc.mp hx ] ) ( Finset.le_sup' ( fun x => x ) ( Finset.mem_Icc.mpr ⟨ by linarith, by linarith ⟩ ) )
-              · exact absurd hS_eq_SpkSet ( Ne.symm <| Finset.Nonempty.ne_empty ⟨ k + 1, Finset.mem_Icc.mpr ⟨ by linarith, by linarith ⟩ ⟩ )
+              · exact le_antisymm ( Finset.sup'_le _ _ fun x hx => by linarith [ Finset.mem_Icc.mp hx ] ) ( Finset.le_sup' ( fun x => x ) ( Finset.mem_Icc.mpr ⟨ by omega, by omega ⟩ ) )
+              · exact absurd hS_eq_SpkSet ( Ne.symm <| Finset.Nonempty.ne_empty ⟨ k + 1, Finset.mem_Icc.mpr ⟨ by omega, by omega ⟩ ⟩ )
             · norm_num [ ← even_iff_two_dvd, mul_add, parity_simps ]
               exact Nat.even_or_odd _ |> Or.symm
           rw [ hS_eq_SpkSet, hS_eq_SpkSet_interval.1, hS_eq_SpkSet_interval.2 ]
@@ -336,10 +337,10 @@ theorem DPspecial_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 +
 /-- The Franklin α-operation maps α-partitions into β-partitions. -/
 theorem alphaOp_mem_DPbeta (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsAlpha n) :
     alphaOp S ∈ distinctPartitionsBeta n := by
-      refine' Finset.mem_filter.mpr ⟨ _, _ ⟩
+      refine Finset.mem_filter.mpr ⟨ ?_, ?_ ⟩
       · have h_sum : (alphaOp S).sum id = n := by
           rw [ alphaOp_sum n S hS, DP_sum n S ( DPalpha_mem_DP n S hS ) ]
-        refine' Finset.mem_filter.mpr ⟨ _, _ ⟩
+        refine Finset.mem_filter.mpr ⟨ ?_, ?_ ⟩
         · simp_all +decide [ Finset.subset_iff ]
           intro x hx; have := h_sum ▸ Finset.single_le_sum ( fun x _ => Nat.zero_le x ) hx; simp_all +decide [ alphaOp ] 
           rcases hx with ( rfl | ⟨ hx₁, hx₂, hx₃ ⟩ ) <;> [ exact Nat.succ_pos _; exact DP_pos_mem n S ( DPalpha_mem_DP n S hS ) hx₃ ]
@@ -364,18 +365,18 @@ theorem betaOp_mem_DPalpha (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartit
           unfold betaOp; simp +decide [ *, Finset.subset_iff ] 
           intro x hx hx'
           rcases hx' with ( rfl | rfl | hx' )
-          · refine' ⟨ _, _ ⟩
+          · refine ⟨ ?_, ?_ ⟩
             · apply partSlope_pos
               · exact Finset.nonempty_of_ne_empty ( by rintro rfl; contradiction )
               · exact DP_zero_not_mem n S ( DPbeta_mem_DP n S hS )
-            · refine' le_trans ( partSlope_le_partMax _ _ ) _
+            · refine le_trans ( partSlope_le_partMax _ ?_ ) ?_
               · exact DP_zero_not_mem n S ( DPbeta_mem_DP n S hS )
               · exact DP_le_mem n S ( DPbeta_mem_DP n S hS ) ( partMax_mem S ( DPbeta_nonempty n S hS ) )
           · have h_partMax_le_n : partMax S ≤ n := by
               have h_partMax_le_n : ∀ x ∈ S, x ≤ n := by
                 exact fun x hx => DP_le_mem n S ( DPbeta_mem_DP n S hS ) hx
               unfold partMax; aesop
-            exact ⟨ Nat.sub_pos_of_lt ( by linarith [ DPbeta_max_ge_2slope_add_1 n S hS ] ), Nat.sub_le_of_le_add <| by linarith ⟩
+            exact ⟨ Nat.sub_pos_of_lt ( by linarith [ DPbeta_max_ge_2slope_add_1 n S hS ] ), Nat.sub_le_of_le_add <| by omega ⟩
           · exact ⟨ DP_pos_mem n S ( DPbeta_mem_DP n S hS ) hx', DP_le_mem n S ( DPbeta_mem_DP n S hS ) hx' ⟩
         exact Finset.mem_filter.mpr ⟨ Finset.mem_powerset.mpr h_betaOp_subset, betaOp_sum n S hS ▸ DP_sum n S ( DPbeta_mem_DP n S hS ) ⟩
       have h_beta_op_card : 0 < (betaOp S).card := by
@@ -478,7 +479,7 @@ theorem betaOp_card (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsBet
 theorem DPalpha_odd_card_eq_DPbeta_even_card (n : ℕ) :
     ((distinctPartitionsAlpha n).filter (fun S => S.card % 2 = 1)).card =
     ((distinctPartitionsBeta n).filter (fun S => S.card % 2 = 0)).card := by
-      refine' Finset.card_bij ( fun S hS => alphaOp S ) _ _ _
+      refine Finset.card_bij ( fun S hS => alphaOp S ) ?_ ?_ ?_
       · grind +suggestions
       · intro a₁ ha₁ a₂ ha₂ h_eq
         have := betaOp_alphaOp n a₁ (by

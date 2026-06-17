@@ -7,111 +7,111 @@ In $q$-Pochhammer notation (with $z = -w^2$):
 \]
 Many references use $(q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum_k z^k q^{k(k-1)/2}$, which is equivalent under $q \mapsto q^2$, $z \mapsto -qw^2$.
 
-\subsection{Proof 1: Hermite-style coefficient recurrence}
-\label{sec:hermite}
+% \subsection{Proof 1: Hermite-style coefficient recurrence}
+% \label{sec:hermite}
 
-This is the proof in the original outline. The skeleton:
+% This is the proof in the original outline. The skeleton:
 
-\begin{enumerate}\item Define the partial product $\phi_n(w, q) = \prod_{k=1}^n (1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})$.
-\item Derive the functional equation $\phi_n(qw, q) = \phi_n(w, q) \cdot \frac{1 - q^{2n+1} w^2}{q^{2n} - q w^2}$.
-\item Expand $\phi_n(w, q) = \sum_{k=-n}^n A_{n,k}(q) w^{2k}$ as a Laurent polynomial.
-\item Read off the boundary condition $A_{n,n}(q) = q^{n^2}$ and the recurrence
-\[
-A_{n,k}(q) = A_{n, k-1}(q) \, q^{2k-1} \, \frac{1 - q^{2n - 2k + 2}}{1 - q^{2n + 2k}}.
-\]
-\item Solve in closed form:
-\[
-A_{n,k} = \frac{q^{k^2}}{(q^2; q^2)_n} \prod_{s = n - k + 1}^n (1 - q^{2s}) \prod_{s = n + k + 1}^{2n} (1 - q^{2s}).
-\]
-\item Multiply through by $(q^2; q^2)_n$ and pull out signs to get
-\[
-\prod_{k=1}^n (1 - q^{2k})(1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})
-= \sum_{k=-n}^n (-1)^k w^{2k} q^{k^2} B_{n,k}(q),
-\]
-where $B_{n,k}(q) = 1 + O(q^{n-k+1})$.
-\item Take $n \to \infty$ via dominated convergence on $\mathbb{Z}$.
-\end{enumerate}
+% \begin{enumerate}\item Define the partial product $\phi_n(w, q) = \prod_{k=1}^n (1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})$.
+% \item Derive the functional equation $\phi_n(qw, q) = \phi_n(w, q) \cdot \frac{1 - q^{2n+1} w^2}{q^{2n} - q w^2}$.
+% \item Expand $\phi_n(w, q) = \sum_{k=-n}^n A_{n,k}(q) w^{2k}$ as a Laurent polynomial.
+% \item Read off the boundary condition $A_{n,n}(q) = q^{n^2}$ and the recurrence
+% \[
+% A_{n,k}(q) = A_{n, k-1}(q) \, q^{2k-1} \, \frac{1 - q^{2n - 2k + 2}}{1 - q^{2n + 2k}}.
+% \]
+% \item Solve in closed form:
+% \[
+% A_{n,k} = \frac{q^{k^2}}{(q^2; q^2)_n} \prod_{s = n - k + 1}^n (1 - q^{2s}) \prod_{s = n + k + 1}^{2n} (1 - q^{2s}).
+% \]
+% \item Multiply through by $(q^2; q^2)_n$ and pull out signs to get
+% \[
+% \prod_{k=1}^n (1 - q^{2k})(1 - q^{2k-1} w^2)(1 - q^{2k-1} w^{-2})
+% = \sum_{k=-n}^n (-1)^k w^{2k} q^{k^2} B_{n,k}(q),
+% \]
+% where $B_{n,k}(q) = 1 + O(q^{n-k+1})$.
+% \item Take $n \to \infty$ via dominated convergence on $\mathbb{Z}$.
+% \end{enumerate}
 
-\paragraph{Reference.} This is essentially Jacobi's original argument, written up cleanly by many authors; see e.g. Hardy--Wright, \emph{Theory of Numbers}, \S 19.8, or the lecture notes referenced in the outline.
+% \paragraph{Reference.} This is essentially Jacobi's original argument, written up cleanly by many authors; see e.g. Hardy--Wright, \emph{Theory of Numbers}, \S 19.8, or the lecture notes referenced in the outline.
 
-\paragraph{Cost in Lean.} High. The bookkeeping with $A_{n,k}, B_{n,k}$, two interleaved finite products of $1 - q^{2s}$ with $s$ ranges depending on $|k|$, the recurrence with denominators, and the dominated-convergence step on $\mathbb{Z}$ are all individually formalizable but together generate hundreds of small lemmas. Estimate: $\sim 1500$--$2000$ lines.
+% \paragraph{Cost in Lean.} High. The bookkeeping with $A_{n,k}, B_{n,k}$, two interleaved finite products of $1 - q^{2s}$ with $s$ ranges depending on $|k|$, the recurrence with denominators, and the dominated-convergence step on $\mathbb{Z}$ are all individually formalizable but together generate hundreds of small lemmas. Estimate: $\sim 1500$--$2000$ lines.
 
-\section{Proof 2: Euler / $q$-binomial theorem}
-\label{sec:qbin}
+% \section{Proof 2: Euler / $q$-binomial theorem}
+% \label{sec:qbin}
 
-\paragraph{The $q$-binomial theorem.} For $|q| < 1$ and $|z| < 1$,
-\[
-\sum_{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(az; q)_\infty}{(z; q)_\infty}.
-\]
-Two specializations due to Euler (the ``$q$-exponentials''):
-\[
-(-z; q)_\infty = \sum_{n=0}^\infty \frac{q^{n(n-1)/2}}{(q; q)_n} z^n, \qquad
-\frac{1}{(z; q)_\infty} = \sum_{n=0}^\infty \frac{z^n}{(q; q)_n} \quad (|z| < 1).
-\]
+% \paragraph{The $q$-binomial theorem.} For $|q| < 1$ and $|z| < 1$,
+% \[
+% \sum_{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(az; q)_\infty}{(z; q)_\infty}.
+% \]
+% Two specializations due to Euler (the ``$q$-exponentials''):
+% \[
+% (-z; q)_\infty = \sum_{n=0}^\infty \frac{q^{n(n-1)/2}}{(q; q)_n} z^n, \qquad
+% \frac{1}{(z; q)_\infty} = \sum_{n=0}^\infty \frac{z^n}{(q; q)_n} \quad (|z| < 1).
+% \]
 
-\paragraph{Andrews' proof (1965).} Combine both Euler identities, multiply, and rearrange so the diagonal terms produce $z^k q^{k(k-1)/2}$. A particularly clean modern version is Zhu's \emph{semi-finite} proof (arXiv:2106.16156, 2 pages): for any $m \geq 0$ and $z \neq 0$,
-\[
-\sum_{n=-m}^\infty \frac{q^{n(n-1)/2} z^n}{(q^{m+1}; q)_n} = (q; q)_m (-q/z; q)_m (-z; q)_\infty,
-\]
-proved by reindexing and applying \emph{only} the first Euler identity. Letting $m \to \infty$ (with $z$ in a compact subset of $\mathbb{C}^\times$) gives Jacobi's identity directly.
+% \paragraph{Andrews' proof (1965).} Combine both Euler identities, multiply, and rearrange so the diagonal terms produce $z^k q^{k(k-1)/2}$. A particularly clean modern version is Zhu's \emph{semi-finite} proof (arXiv:2106.16156, 2 pages): for any $m \geq 0$ and $z \neq 0$,
+% \[
+% \sum_{n=-m}^\infty \frac{q^{n(n-1)/2} z^n}{(q^{m+1}; q)_n} = (q; q)_m (-q/z; q)_m (-z; q)_\infty,
+% \]
+% proved by reindexing and applying \emph{only} the first Euler identity. Letting $m \to \infty$ (with $z$ in a compact subset of $\mathbb{C}^\times$) gives Jacobi's identity directly.
 
-\paragraph{References.}
-\begin{itemize}\item G.\,E.\ Andrews, \emph{A simple proof of Jacobi's triple product identity}, Proc.~Amer.~Math.~Soc.\ \textbf{16} (1965), 333--334.
-\item G.\,E.\ Andrews, \emph{The Theory of Partitions}, Cambridge, 1976, Ch.\ 2.
-\item G.\,E.\ Andrews, R.\ Askey, R.\ Roy, \emph{Special Functions}, Cambridge, 1999, Ch.\ 10.
-\item J.-M.\ Zhu, \emph{A semi-finite proof of Jacobi's triple product identity}, arXiv:2106.16156.
-\item A.\,B.\ Shukla, \emph{Tiling proofs of Jacobi triple product and Rogers--Ramanujan identities}, arXiv:2006.03878 (gives a combinatorial proof via the $q$-binomial theorem).
-\end{itemize}
-
-\paragraph{Cost in Lean.} High \emph{up front}, low marginal. You must first develop a small theory of $q$-Pochhammer symbols and prove the $q$-binomial theorem. After that, the Jacobi triple product is a few-line corollary (modulo handling convergence of bilateral series). The infrastructure pays for itself if you later want Euler's pentagonal number theorem, Rogers--Ramanujan, or any other classical $q$-identity.
-
-\subsection{Proof 3: Complex analysis via quasi-periodicity}
-\label{sec:complex}
-
-This is the proof in Stein--Shakarchi, \emph{Complex Analysis}, Ch.\ 10, \S 1. View both sides as functions of $w$ for $|q| < 1$ fixed; equivalently, view both sides as functions of $z \in \mathbb{C}$ where $w = e^{\pi i z}$ and $q = e^{\pi i \tau}$, $\operatorname{Im} \tau > 0$.
-
-\paragraph{The argument.}
-\begin{enumerate}\item Define $\Theta(z \mid \tau) = \sum_{n \in \mathbb{Z}} e^{\pi i n^2 \tau + 2\pi i n z}$ (the RHS) and
-$\Pi(z \mid \tau) = \prod_{m \geq 1} (1 - q^{2m})(1 + q^{2m-1} e^{2\pi i z})(1 + q^{2m-1} e^{-2\pi i z})$ (the LHS, up to $w \mapsto i w$ to match signs).
-\item Show both are entire in $z$ (uniform convergence on compact sets; for $\Theta$ this is Gaussian decay, for $\Pi$ this is the $\sum \|1 - a_k\| < \infty$ criterion).
-\item Verify both satisfy the \emph{same} two functional equations:
-\[
-F(z+1) = F(z), \qquad F(z + \tau) = e^{-\pi i \tau - 2\pi i z} F(z).
-\]
-\item Show both have the \emph{same simple zeros}, located at $z = \tfrac{1}{2} + \tfrac{\tau}{2} + \mathbb{Z} + \tau \mathbb{Z}$. For $\Pi$ this is direct; for $\Theta$ it follows from the functional equations plus the fact that the quotient $\Theta/\Pi$ is doubly quasi-periodic and entire, hence constant.
-\item Compute the constant by evaluating at one point (e.g., $z = \tfrac{1}{2}$).
-\end{enumerate}
-
-\paragraph{Reference.} E.\,M.\ Stein, R.\ Shakarchi, \emph{Complex Analysis}, Princeton, 2003, Chapter 10, \S 1.1 (``Product formula for the Jacobi theta function''). See also Wikipedia, \emph{Theta function}, and the survey at \texttt{metaphor.ethz.ch/x/2019/fs/401-4110-19L/sc/talk4.pdf}.
-
-\paragraph{Cost in Lean.} Moderate. The argument leans on Mathlib's existing complex analysis (locally uniform convergence implies holomorphic limit, Liouville-style uniqueness from doubly periodic entire functions). The hardest formal step is establishing local uniform convergence of the LHS product, plus identifying zero sets. No combinatorial coefficient bookkeeping.
-
-% \subsection{Mathlib infrastructure useful for any of the three}
-
-% \paragraph{Infinite sums and products.}
-% \begin{itemize}\item \texttt{Mathlib.Topology.Algebra.InfiniteSum.Defs} -- \texttt{Summable}, \texttt{Multipliable}, \texttt{tsum} ($\sum'$), \texttt{tprod} ($\prod'$).
-% \item \texttt{Mathlib.Topology.Algebra.InfiniteSum.NatInt} -- relating $\mathbb{Z}$-indexed sums to $\mathbb{N}$-indexed sums (essential for the RHS of the Jacobi identity).
-% \item \texttt{Mathlib.Analysis.Normed.Field.InfiniteSum} -- \texttt{Summable.mul\_norm}, Cauchy products in normed rings, dominated convergence for series.
-% \item \texttt{Mathlib.Analysis.SpecificLimits.Normed} -- \texttt{summable\_geometric\_of\_norm\_lt\_one}, the workhorse for proving $\sum \|q^k\|$ converges.
+% \paragraph{References.}
+% \begin{itemize}\item G.\,E.\ Andrews, \emph{A simple proof of Jacobi's triple product identity}, Proc.~Amer.~Math.~Soc.\ \textbf{16} (1965), 333--334.
+% \item G.\,E.\ Andrews, \emph{The Theory of Partitions}, Cambridge, 1976, Ch.\ 2.
+% \item G.\,E.\ Andrews, R.\ Askey, R.\ Roy, \emph{Special Functions}, Cambridge, 1999, Ch.\ 10.
+% \item J.-M.\ Zhu, \emph{A semi-finite proof of Jacobi's triple product identity}, arXiv:2106.16156.
+% \item A.\,B.\ Shukla, \emph{Tiling proofs of Jacobi triple product and Rogers--Ramanujan identities}, arXiv:2006.03878 (gives a combinatorial proof via the $q$-binomial theorem).
 % \end{itemize}
 
-% \paragraph{Infinite products via logarithms (for Proofs 1 and 3).}
-% \begin{itemize}\item \texttt{Multipliable.of\_summable\_log} and friends -- a product $\prod a_k$ converges iff $\sum \log a_k$ converges (in a suitable region). Useful when each factor $a_k = 1 - b_k$ with $\sum \|b_k\| < \infty$.
-% \item For each factor of the form $1 - q^{2k-1} w^{\pm 2}$, summability of $\sum \|q^{2k-1}\|$ is geometric.
-% \end{itemize}
+% \paragraph{Cost in Lean.} High \emph{up front}, low marginal. You must first develop a small theory of $q$-Pochhammer symbols and prove the $q$-binomial theorem. After that, the Jacobi triple product is a few-line corollary (modulo handling convergence of bilateral series). The infrastructure pays for itself if you later want Euler's pentagonal number theorem, Rogers--Ramanujan, or any other classical $q$-identity.
 
-% \paragraph{Complex analysis (for Proof 3).}
-% \begin{itemize}\item \texttt{Mathlib.Analysis.Complex.LocallyUniformLimit} -- \texttt{TendstoLocallyUniformlyOn.differentiableOn}: a locally uniform limit of holomorphic functions is holomorphic. Exactly the tool you need to transport holomorphy from finite partial products to the infinite product.
-% \item \texttt{Mathlib.Analysis.Complex.Liouville} -- bounded entire is constant; doubly periodic entire is constant.
-% \item \texttt{Mathlib.Analysis.Calculus.UniformLimitsDeriv} -- derivative of a uniform limit is the limit of derivatives, useful for zero-counting via the argument principle.
-% \end{itemize}
+% \subsection{Proof 3: Complex analysis via quasi-periodicity}
+% \label{sec:complex}
 
-% \paragraph{What is \emph{not} yet in Mathlib (as of early 2026).}
-% \begin{itemize}\item No $q$-Pochhammer symbol $(a;q)_n$, $(a;q)_\infty$. (The existing \texttt{pochhammer} in Mathlib is the rising factorial, a different object.)
-% \item No $q$-binomial coefficients or $q$-binomial theorem.
-% \item No Jacobi theta functions $\vartheta_1, \ldots, \vartheta_4$.
-% \item No general theory of doubly periodic / elliptic functions beyond the basics. The Weierstrass $\wp$-function is partially developed but not the full machinery one would want.
-% \end{itemize}
+% This is the proof in Stein--Shakarchi, \emph{Complex Analysis}, Ch.\ 10, \S 1. View both sides as functions of $w$ for $|q| < 1$ fixed; equivalently, view both sides as functions of $z \in \mathbb{C}$ where $w = e^{\pi i z}$ and $q = e^{\pi i \tau}$, $\operatorname{Im} \tau > 0$.
+
+% \paragraph{The argument.}
+% \begin{enumerate}\item Define $\Theta(z \mid \tau) = \sum_{n \in \mathbb{Z}} e^{\pi i n^2 \tau + 2\pi i n z}$ (the RHS) and
+% $\Pi(z \mid \tau) = \prod_{m \geq 1} (1 - q^{2m})(1 + q^{2m-1} e^{2\pi i z})(1 + q^{2m-1} e^{-2\pi i z})$ (the LHS, up to $w \mapsto i w$ to match signs).
+% \item Show both are entire in $z$ (uniform convergence on compact sets; for $\Theta$ this is Gaussian decay, for $\Pi$ this is the $\sum \|1 - a_k\| < \infty$ criterion).
+% \item Verify both satisfy the \emph{same} two functional equations:
+% \[
+% F(z+1) = F(z), \qquad F(z + \tau) = e^{-\pi i \tau - 2\pi i z} F(z).
+% \]
+% \item Show both have the \emph{same simple zeros}, located at $z = \tfrac{1}{2} + \tfrac{\tau}{2} + \mathbb{Z} + \tau \mathbb{Z}$. For $\Pi$ this is direct; for $\Theta$ it follows from the functional equations plus the fact that the quotient $\Theta/\Pi$ is doubly quasi-periodic and entire, hence constant.
+% \item Compute the constant by evaluating at one point (e.g., $z = \tfrac{1}{2}$).
+% \end{enumerate}
+
+% \paragraph{Reference.} E.\,M.\ Stein, R.\ Shakarchi, \emph{Complex Analysis}, Princeton, 2003, Chapter 10, \S 1.1 (``Product formula for the Jacobi theta function''). See also Wikipedia, \emph{Theta function}, and the survey at \texttt{metaphor.ethz.ch/x/2019/fs/401-4110-19L/sc/talk4.pdf}.
+
+% \paragraph{Cost in Lean.} Moderate. The argument leans on Mathlib's existing complex analysis (locally uniform convergence implies holomorphic limit, Liouville-style uniqueness from doubly periodic entire functions). The hardest formal step is establishing local uniform convergence of the LHS product, plus identifying zero sets. No combinatorial coefficient bookkeeping.
+
+% % \subsection{Mathlib infrastructure useful for any of the three}
+
+% % \paragraph{Infinite sums and products.}
+% % \begin{itemize}\item \texttt{Mathlib.Topology.Algebra.InfiniteSum.Defs} -- \texttt{Summable}, \texttt{Multipliable}, \texttt{tsum} ($\sum'$), \texttt{tprod} ($\prod'$).
+% % \item \texttt{Mathlib.Topology.Algebra.InfiniteSum.NatInt} -- relating $\mathbb{Z}$-indexed sums to $\mathbb{N}$-indexed sums (essential for the RHS of the Jacobi identity).
+% % \item \texttt{Mathlib.Analysis.Normed.Field.InfiniteSum} -- \texttt{Summable.mul\_norm}, Cauchy products in normed rings, dominated convergence for series.
+% % \item \texttt{Mathlib.Analysis.SpecificLimits.Normed} -- \texttt{summable\_geometric\_of\_norm\_lt\_one}, the workhorse for proving $\sum \|q^k\|$ converges.
+% % \end{itemize}
+
+% % \paragraph{Infinite products via logarithms (for Proofs 1 and 3).}
+% % \begin{itemize}\item \texttt{Multipliable.of\_summable\_log} and friends -- a product $\prod a_k$ converges iff $\sum \log a_k$ converges (in a suitable region). Useful when each factor $a_k = 1 - b_k$ with $\sum \|b_k\| < \infty$.
+% % \item For each factor of the form $1 - q^{2k-1} w^{\pm 2}$, summability of $\sum \|q^{2k-1}\|$ is geometric.
+% % \end{itemize}
+
+% % \paragraph{Complex analysis (for Proof 3).}
+% % \begin{itemize}\item \texttt{Mathlib.Analysis.Complex.LocallyUniformLimit} -- \texttt{TendstoLocallyUniformlyOn.differentiableOn}: a locally uniform limit of holomorphic functions is holomorphic. Exactly the tool you need to transport holomorphy from finite partial products to the infinite product.
+% % \item \texttt{Mathlib.Analysis.Complex.Liouville} -- bounded entire is constant; doubly periodic entire is constant.
+% % \item \texttt{Mathlib.Analysis.Calculus.UniformLimitsDeriv} -- derivative of a uniform limit is the limit of derivatives, useful for zero-counting via the argument principle.
+% % \end{itemize}
+
+% % \paragraph{What is \emph{not} yet in Mathlib (as of early 2026).}
+% % \begin{itemize}\item No $q$-Pochhammer symbol $(a;q)_n$, $(a;q)_\infty$. (The existing \texttt{pochhammer} in Mathlib is the rising factorial, a different object.)
+% % \item No $q$-binomial coefficients or $q$-binomial theorem.
+% % \item No Jacobi theta functions $\vartheta_1, \ldots, \vartheta_4$.
+% % \item No general theory of doubly periodic / elliptic functions beyond the basics. The Weierstrass $\wp$-function is partially developed but not the full machinery one would want.
+% % \end{itemize}
 
 
 \section{The $q$-binomial theorem: statement and proof}

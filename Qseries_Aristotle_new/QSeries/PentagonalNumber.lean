@@ -62,14 +62,14 @@ theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
                 intro n; induction n <;> simp_all +decide [ Nat.mul_succ, Finset.prod_range_succ ] ; ring
               have h_split : Filter.Tendsto (fun n => ∏ k ∈ Finset.range (3 * n), (1 + g k)) Filter.atTop (nhds (∏' k : ℕ, (1 + g k))) := by
                 have h_split : Multipliable (fun k => 1 + g k) := by
-                  refine' multipliable_one_add_of_summable _
+                  refine multipliable_one_add_of_summable _
                   exact hg_summable
                 convert h_split.hasProd.tendsto_prod_nat.comp ( Filter.tendsto_id.nsmul_atTop three_pos ) using 1
               have h_split : Filter.Tendsto (fun n => (∏ k ∈ Finset.range n, (1 + g (3 * k))) * (∏ k ∈ Finset.range n, (1 + g (3 * k + 1))) * (∏ k ∈ Finset.range n, (1 + g (3 * k + 2)))) Filter.atTop (nhds ((∏' k : ℕ, (1 + g (3 * k))) * (∏' k : ℕ, (1 + g (3 * k + 1))) * (∏' k : ℕ, (1 + g (3 * k + 2)))) ) := by
                 have h_split : ∀ {h : ℕ → ℂ}, Summable (fun k => ‖h k‖) → Filter.Tendsto (fun n => ∏ k ∈ Finset.range n, (1 + h k)) Filter.atTop (nhds (∏' k : ℕ, (1 + h k))) := by
                   intro h hh_summable
                   have h_split : Multipliable (fun k => 1 + h k) := by
-                    refine' multipliable_one_add_of_summable _
+                    refine multipliable_one_add_of_summable _
                     exact hh_summable
                   convert h_split.hasProd.tendsto_prod_nat using 1
                 exact Filter.Tendsto.mul ( Filter.Tendsto.mul ( h_split <| hg_summable.comp_injective <| by intros a b; aesop ) ( h_split <| hg_summable.comp_injective <| by intros a b; aesop ) ) ( h_split <| hg_summable.comp_injective <| by intros a b; aesop )
@@ -86,18 +86,18 @@ theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
       rw [ h_def, h_split ]
       unfold qPochhammerInf; ring
     · congr! 1
-      · refine' tsum_congr fun k => _
+      · refine tsum_congr fun k => _
         unfold pentagonal; ring
         rw [ show ( -k + k ^ 2 * 3 : ℤ ) / 2 = k + k.choose 2 * 3 by
               rw [ Int.ediv_eq_of_eq_mul_left ] <;> norm_num
-              exact Nat.recOn k ( by norm_num ) fun n ih => by norm_num [ Nat.choose ] at * ; linarith; ] ; norm_cast ; ring
-      · refine' tsum_congr fun m => _
+              exact Nat.recOn k ( by norm_num ) fun n ih => by norm_num [ Nat.choose ] at * ; omega; ] ; norm_cast ; ring
+      · refine tsum_congr fun m => _
         rw [ show pentagonal ( - ( m + 1 ) : ℤ ) = ( m + 2 ).choose 2 * 3 - ( m + 1 ) by
               unfold pentagonal
               rw [ Nat.choose_two_right ]
               ring
               norm_cast
-              exact eq_tsub_of_add_eq ( by nlinarith [ Nat.sub_add_cancel ( by linarith : 1 ≤ 2 + m ), Nat.div_mul_cancel ( show 2 ∣ 4 + m * 7 + m ^ 2 * 3 from even_iff_two_dvd.mp ( by simp +arith +decide [ parity_simps ] ) ), Nat.div_mul_cancel ( show 2 ∣ m * ( 2 + m - 1 ) + ( 2 + m - 1 ) * 2 from even_iff_two_dvd.mp ( by simp +arith +decide [ mul_add, parity_simps ] ) ) ] ) ]
+              exact eq_tsub_of_add_eq ( by nlinarith [ Nat.sub_add_cancel ( by omega : 1 ≤ 2 + m ), Nat.div_mul_cancel ( show 2 ∣ 4 + m * 7 + m ^ 2 * 3 from even_iff_two_dvd.mp ( by simp +arith +decide [ parity_simps ] ) ), Nat.div_mul_cancel ( show 2 ∣ m * ( 2 + m - 1 ) + ( 2 + m - 1 ) * 2 from even_iff_two_dvd.mp ( by simp +arith +decide [ mul_add, parity_simps ] ) ) ] ) ]
         rw [ show ( m + 2 ).choose 2 * 3 - ( m + 1 ) = ( m + 2 ).choose 2 * 3 - ( m + 1 ) from rfl, pow_sub₀ ] <;> norm_num ; ring
         · assumption
         · grind +suggestions

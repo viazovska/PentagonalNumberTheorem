@@ -1,7 +1,7 @@
 name = "my_project"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["MyProject", "PentagonalNumberTheorem", "EulerPentagonalNumberTheorem_Franklin", "QSeries"]
+defaultTargets = ["PentagonalNumberTheorem", "EulerPentagonalNumberTheorem_Franklin", "QSeries"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -19,9 +19,6 @@ scope = "leanprover-community"
 name = "checkdecls"
 git = "https://github.com/PatrickMassot/checkdecls.git"
 [[lean_lib]]
-name = "MyProject"
-
-[[lean_lib]]
 name = "PentagonalNumberTheorem"
 
 [[lean_lib]]
@@ -29,3 +26,4 @@ name = "EulerPentagonalNumberTheorem_Franklin"
 
 [[lean_lib]]
 name = "QSeries"
+srcDir = "Qseries_Aristotle_new"

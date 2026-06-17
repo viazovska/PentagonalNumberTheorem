@@ -27,11 +27,12 @@ noncomputable section
 /-- Telescoping factorisation: $(q;q)_\infty = (q;q)_n \cdot (q \cdot q^n; q)_\infty$. -/
 theorem qPochhammerInf_eq_mul {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
     qPochhammerInf q q = qPochhammer q q n * qPochhammerInf (q * q ^ n) q := by
-  induction' n with n ih
-  · norm_num [ qPochhammer ]
-  · rw [ ih, qPochhammer_succ ]
-    rw [ mul_assoc, qPochhammerInf_recursion ] ; ring
-    grind
+  induction n with
+  | zero => norm_num [ qPochhammer ]
+  | succ n ih =>
+      rw [ ih, qPochhammer_succ ]
+      rw [ mul_assoc, qPochhammerInf_recursion ] ; ring
+      grind
 
 /-- Euler's second identity evaluated at $z = -q^{n+1}$, giving $(q^{n+1}; q)_\infty$. -/
 theorem euler_second_at_neg_qpow {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
@@ -39,7 +40,7 @@ theorem euler_second_at_neg_qpow {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
       (qPochhammerInf (q ^ (n + 1)) q) := by
   convert euler_second_identity hq _ using 1
   · norm_num
-  · simpa using pow_lt_one₀ ( norm_nonneg q ) hq ( by linarith )
+  · simpa using pow_lt_one₀ ( norm_nonneg q ) hq ( by omega )
 
 /-- The product $(q;q)_\infty (-z;q)_\infty$ equals $\sum_n q^{\binom{n}{2}} z^n (q^{n+1};q)_\infty$, via Euler's second identity. -/
 theorem qPochhammerInf_prod_hasSum {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
@@ -67,7 +68,7 @@ theorem jacobiTripleProduct_zero {z : ℂ} (hz : ‖z‖ < 1) (hz' : z ≠ 0) :
   · rw [ tsum_eq_sum, tsum_eq_single 0 ] <;> norm_num
     any_goals exact { 0, 1 }
     · norm_num [ Finset.sum_pair ]
-    · exact fun n hn => Or.inr <| Nat.ne_of_gt <| Nat.choose_pos <| by linarith
+    · exact fun n hn => Or.inr <| Nat.ne_of_gt <| Nat.choose_pos <| by omega
     · intro b hb; rcases b with ( _ | _ | b ) <;> simp_all +decide [ Nat.choose ] 
   · aesop
 
@@ -116,7 +117,7 @@ theorem jacobiTripleProduct_annulus {q z : ℂ} (hq : ‖q‖ < 1)
             have h_partition' : ∀ p : ℕ × ℕ, p.1 < p.2 ↔ ∃ m n : ℕ, p = (m, m + n + 1) := by
               exact fun p => ⟨ fun hp => ⟨ p.1, p.2 - p.1 - 1, by ext <;> norm_num ; omega ⟩, by rintro ⟨ m, n, rfl ⟩ ; simp +decide ⟩
             have h_split : ∑' (p : ℕ × ℕ), f p = ∑' (p : ℕ × ℕ), f p * (if p.1 ≥ p.2 then 1 else 0) + ∑' (p : ℕ × ℕ), f p * (if p.1 < p.2 then 1 else 0) := by
-              rw [ ← Summable.tsum_add ] ; congr ; ext p ; split_ifs <;> ring <;> linarith
+              rw [ ← Summable.tsum_add ] ; congr ; ext p ; split_ifs <;> ring <;> omega
               · exact Summable.of_norm <| by simpa using hf.norm.of_nonneg_of_le ( fun p => by positivity ) fun p => by split_ifs <;> norm_num
               · exact Summable.of_norm <| by simpa using hf.norm.of_nonneg_of_le ( fun p => by positivity ) fun p => by split_ifs <;> norm_num
             convert h_split using 2
@@ -157,7 +158,7 @@ theorem jacobiTripleProduct_annulus {q z : ℂ} (hq : ‖q‖ < 1)
     have := cauchy_coeff_neg hq l
     simp_all +decide [ div_eq_mul_inv, mul_assoc, mul_comm, mul_left_comm, pow_add, pow_mul, tsum_mul_left, tsum_mul_right ]
     rw [ ← this.tsum_eq ] ; simp +decide [ mul_assoc, mul_comm, mul_left_comm, ← tsum_mul_left ] ; ring
-    refine' tsum_congr fun n => _ ; by_cases hn : n = 0 <;> simp_all +decide [ pow_succ, mul_assoc, mul_comm, mul_left_comm ]
+    refine tsum_congr fun n => ?_ ; by_cases hn : n = 0 <;> simp_all +decide [ pow_succ, mul_assoc, mul_comm, mul_left_comm ]
   aesop
 
 end

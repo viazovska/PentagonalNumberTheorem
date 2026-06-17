@@ -112,11 +112,11 @@ theorem qBinom_mul_qPochhammer_mul_qPochhammer [CommRing R] (q : R) :
   | zero =>
       intro k hk
       interval_cases k
-      simp
+      simp [ qBinom, qPochhammer ]
   | succ n ih =>
       intro k hk
       rcases k with _ | k
-      · simp
+      · simp [ qBinom_succ_zero ]
       · rcases lt_or_eq_of_le hk with hlt | heq
         · have hk1 : k + 1 ≤ n := Nat.lt_succ_iff.mp hlt
           have hk2 : k ≤ n := by omega
