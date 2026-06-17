@@ -1,14 +1,14 @@
-\section{Jacobi triple product}
+% \section{Jacobi triple product}
 
-In $q$-Pochhammer notation (with $z = -w^2$):
-\[
-(q^2; q^2)_\infty \, (q z; q^2)_\infty \, (q/z; q^2)_\infty
-\;=\; \sum_{k \in \mathbb{Z}} (-z)^k q^{k^2}.
-\]
-Many references use $(q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum_k z^k q^{k(k-1)/2}$, which is equivalent under $q \mapsto q^2$, $z \mapsto -qw^2$.
+% In $q$-Pochhammer notation (with $z = -w^2$):
+% \[
+% (q^2; q^2)_\infty \, (q z; q^2)_\infty \, (q/z; q^2)_\infty
+% \;=\; \sum_{k \in \mathbb{Z}} (-z)^k q^{k^2}.
+% \]
+% Many references use $(q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum_k z^k q^{k(k-1)/2}$, which is equivalent under $q \mapsto q^2$, $z \mapsto -qw^2$.
 
-\subsection{Proof 1: Hermite-style coefficient recurrence}
-\label{sec:hermite}
+% \subsection{Proof 1: Hermite-style coefficient recurrence}
+% \label{sec:hermite}
 
 % This is the proof in the original outline. The skeleton:
 
@@ -36,8 +36,8 @@ Many references use $(q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum_k z^k q^{
 
 % \paragraph{Cost in Lean.} High. The bookkeeping with $A_{n,k}, B_{n,k}$, two interleaved finite products of $1 - q^{2s}$ with $s$ ranges depending on $|k|$, the recurrence with denominators, and the dominated-convergence step on $\mathbb{Z}$ are all individually formalizable but together generate hundreds of small lemmas. Estimate: $\sim 1500$--$2000$ lines.
 
-\subsection{Proof 2: Euler / $q$-binomial theorem}
-\label{sec:qbin}
+% \subsection{Proof 2: Euler / $q$-binomial theorem}
+% \label{sec:qbin}
 
 % \paragraph{The $q$-binomial theorem.} For $|q| < 1$ and $|z| < 1$,
 % \[
@@ -65,8 +65,8 @@ Many references use $(q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum_k z^k q^{
 
 % \paragraph{Cost in Lean.} High \emph{up front}, low marginal. You must first develop a small theory of $q$-Pochhammer symbols and prove the $q$-binomial theorem. After that, the Jacobi triple product is a few-line corollary (modulo handling convergence of bilateral series). The infrastructure pays for itself if you later want Euler's pentagonal number theorem, Rogers--Ramanujan, or any other classical $q$-identity.
 
-\subsection{Proof 3: Complex analysis via quasi-periodicity}
-\label{sec:complex}
+% \subsection{Proof 3: Complex analysis via quasi-periodicity}
+% \label{sec:complex}
 
 % This is the proof in Stein--Shakarchi, \emph{Complex Analysis}, Ch.\ 10, \S 1. View both sides as functions of $w$ for $|q| < 1$ fixed; equivalently, view both sides as functions of $z \in \mathbb{C}$ where $w = e^{\pi i z}$ and $q = e^{\pi i \tau}$, $\operatorname{Im} \tau > 0$.
 

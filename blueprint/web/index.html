@@ -2594,21 +2594,15 @@
 
   </div>
 </div>
-<h1 id="a0000000074">3 Jacobi triple product</h1>
-<p>In \(q\)-Pochhammer notation (with \(z = -w^2\)): </p>
-<div class="displaymath" id="a0000000075">
-  \[  (q^2; q^2)_\infty \,  (q z; q^2)_\infty \,  (q/z; q^2)_\infty \; =\;  \sum _{k \in \mathbb {Z}} (-z)^k q^{k^2}.  \]
-</div>
-<p> Many references use \((q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty = \sum _k z^k q^{k(k-1)/2}\), which is equivalent under \(q \mapsto q^2\), \(z \mapsto -qw^2\). </p>
-<h1 id="sec:qbin-proof">4 The \(q\)-binomial theorem: statement and proof</h1>
+<h1 id="sec:qbin-proof">3 The \(q\)-binomial theorem: statement and proof</h1>
 <p>  </p>
-<h2 id="a0000000076">4.1 Statement</h2>
+<h2 id="a0000000074">3.1 Statement</h2>
 <p>Define the <em>finite</em> \(q\)-Pochhammer symbol </p>
-<div class="displaymath" id="a0000000077">
+<div class="displaymath" id="a0000000075">
   \[  (a; q)_n = \prod _{k=0}^{n-1} (1 - a q^k), \qquad (a; q)_0 = 1,  \]
 </div>
 <p> the <em>\(q\)-factorial</em> \([n]_q! = (q;q)_n / (1-q)^n\), and the <em>Gaussian binomial coefficient</em> </p>
-<div class="displaymath" id="a0000000078">
+<div class="displaymath" id="a0000000076">
   \[  \binom {n}{k}_q = \frac{(q; q)_n}{(q; q)_k \,  (q; q)_{n-k}} \qquad (0 \leq k \leq n).  \]
 </div>
 <p> By convention \(\binom {n}{k}_q = 0\) for \(k {\lt} 0\) or \(k {\gt} n\). These are polynomials in \(q\) with integer coefficients (this is part of what needs to be proved). </p>
@@ -2628,7 +2622,7 @@
 
     <a class="icon proof" href="index.html#thm:qbin-finite">#</a>
     
-    <a class="icon proof" href="index.html#a0000000079"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000077"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -2684,7 +2678,7 @@
   </div>
   <div class="theorem_thmcontent">
   <p> In \(\mathbb {Z}[q, z]\), for every \(n \geq 0\), </p>
-<div class="displaymath" id="a0000000080">
+<div class="displaymath" id="a0000000078">
   \[  \prod _{k=0}^{n-1} (1 + z q^k) = \sum _{k=0}^n q^{\binom {k}{2}} \binom {n}{k}_q z^k.  \]
 </div>
 
@@ -2706,7 +2700,7 @@
 
     <a class="icon proof" href="index.html#thm:qbin-infinite">#</a>
     
-    <a class="icon proof" href="index.html#a0000000081"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000079"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -2762,14 +2756,14 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For \(|q| {\lt} 1\) and any \(a, z \in \mathbb {C}\) with \(|z| {\lt} 1\), </p>
-<div class="displaymath" id="a0000000082">
+<div class="displaymath" id="a0000000080">
   \[  \sum _{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(a z; q)_\infty }{(z; q)_\infty }.  \]
 </div>
 
   </div>
 </div>
 <p>The two Euler identities follow from Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a> by specializing \(a = 0\) (gives \(1/(z;q)_\infty = \sum z^n / (q;q)_n\)) and by sending \(a \to \infty \) along \(a = -y/q^N\) with \(N \to \infty \), then renaming (gives \((-z;q)_\infty = \sum q^{\binom {n}{2}} z^n / (q;q)_n\)). </p>
-<h2 id="a0000000083">4.2 Proof of the finite \(q\)-binomial theorem</h2>
+<h2 id="a0000000081">3.2 Proof of the finite \(q\)-binomial theorem</h2>
 <p>This proof is purely algebraic (no analysis) and is the version best suited for Lean. It uses only induction on \(n\) and the \(q\)-Pascal identity. </p>
 <div class="lemma_thmwrapper theorem-style-plain" id="lem:qpascal">
   <div class="lemma_thmheading">
@@ -2787,7 +2781,7 @@
 
     <a class="icon proof" href="index.html#lem:qpascal">#</a>
     
-    <a class="icon proof" href="index.html#a0000000084"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000082"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -2835,14 +2829,14 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For all \(n, k \in \mathbb {N}\), </p>
-<div class="displaymath" id="a0000000085">
+<div class="displaymath" id="a0000000083">
   \[  \binom {n+1}{k+1}_q \; =\;  \binom {n}{k+1}_q + q^{n - k}\, \binom {n}{k}_q.  \]
 </div>
 <p> (Equivalently, with \(k \geq 1\): \(\binom {n+1}{k}_q = \binom {n}{k}_q + q^{n - k + 1}\binom {n}{k-1}_q\). A symmetric form \(\binom {n+1}{k+1}_q = q^{k+1}\binom {n}{k+1}_q + \binom {n}{k}_q\) also holds; we use the first.) </p>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000084">
+<div class="proof_wrapper" id="a0000000082">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -2854,7 +2848,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000079">
+<div class="proof_wrapper" id="a0000000077">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof of Theorem&#160;<a href="index.html#thm:qbin-finite">25</a>
@@ -2864,24 +2858,24 @@
   <div class="proof_content">
   <p> Induction on \(n\), following the Lean proof <span class="ttfamily">qSeries.qBinom_finite_thm</span> in <span class="ttfamily">Series/qSeries.lean</span>. The case \(n = 0\) gives \(1 = 1\). </p>
 <p>For the inductive step, set \(P_n(z) := \prod _{k=0}^{n-1}(1 + z q^k)\) and \(Q_n(z) := \sum _{k=0}^{n} q^{\binom {k}{2}}\binom {n}{k}_q z^k\), so the theorem reads \(P_n = Q_n\). By <span class="ttfamily">Finset.prod_range_succ</span> and the inductive hypothesis \(P_n = Q_n\), </p>
-<div class="displaymath" id="a0000000086">
+<div class="displaymath" id="a0000000084">
   \[  P_{n+1}(z) \; =\;  P_n(z)\, (1 + z q^n) \; =\;  Q_n(z)\, (1 + z q^n),  \]
 </div>
 <p> so it suffices to show \(Q_{n+1}(z) = Q_n(z)\, (1 + z q^n)\). We decompose \(Q_{n+1}(z) = \sum _{k=0}^{n+1} q^{\binom {k}{2}}\binom {n+1}{k}_q z^k\) in four explicit steps (mirroring <span class="ttfamily">stepB</span>–<span class="ttfamily">stepD</span> of the Lean proof). </p>
 <p><em>Step A (peel off \(k = 0\) via <span class="ttfamily">Finset.sum_range_succ’</span>).</em> Using \(\binom {n+1}{0}_q = 1\), </p>
-<div class="displaymath" id="a0000000087">
+<div class="displaymath" id="a0000000085">
   \[  Q_{n+1}(z) \; =\;  1 \; +\;  \sum _{k=0}^{n} q^{\binom {k+1}{2}}\, \binom {n+1}{k+1}_q\, z^{k+1}.  \]
 </div>
 <p><em>Step B (\(q\)-Pascal split).</em> Apply Lemma&#160;<a href="index.html#lem:qpascal">27</a> inside the sum and split via <span class="ttfamily">Finset.sum_add_distrib</span>: </p>
-<div class="displaymath" id="a0000000088">
+<div class="displaymath" id="a0000000086">
   \[  \sum _{k=0}^{n} q^{\binom {k+1}{2}}\binom {n+1}{k+1}_q z^{k+1} \; =\;  \underbrace{\sum _{k=0}^{n} q^{\binom {k+1}{2}}\binom {n}{k+1}_q z^{k+1}}_{S_1} \; +\;  \underbrace{\sum _{k=0}^{n} q^{\binom {k+1}{2}+n-k}\binom {n}{k}_q z^{k+1}}_{S_2}.  \]
 </div>
 <p><em>Step C (\(S_2 = z q^n\,  Q_n(z)\)).</em> The identity \(\binom {k+1}{2} = \binom {k}{2} + k\) (helper <span class="ttfamily">choose_two_succ</span>) and \(k + (n - k) = n\) (valid because \(k \leq n\), by <span class="ttfamily">Nat.sub_add_cancel</span>) give \(q^{\binom {k+1}{2}+n-k}\,  z^{k+1} = z\,  q^n \cdot q^{\binom {k}{2}}\,  z^k\), hence </p>
-<div class="displaymath" id="a0000000089">
+<div class="displaymath" id="a0000000087">
   \[  S_2 \; =\;  z\,  q^n \sum _{k=0}^{n} q^{\binom {k}{2}}\binom {n}{k}_q z^k \; =\;  z\,  q^n\,  Q_n(z).  \]
 </div>
 <p><em>Step D (\(1 + S_1 = Q_n(z)\)).</em> Reindex \(j = k+1\) to identify \(S_1 = \sum _{j=1}^{n+1} q^{\binom {j}{2}}\binom {n}{j}_q z^j\), then adjoin the \(j = 0\) term \(1\) (using <span class="ttfamily">Finset.sum_range_succ’</span> in reverse): </p>
-<div class="displaymath" id="a0000000090">
+<div class="displaymath" id="a0000000088">
   \[  1 + S_1 \; =\;  \sum _{j=0}^{n+1} q^{\binom {j}{2}}\binom {n}{j}_q z^j.  \]
 </div>
 <p> The \(j = n+1\) term vanishes by Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">32</a> (\(\binom {n}{n+1}_q = 0\)), reducing this to \(Q_n(z)\). </p>
@@ -2889,8 +2883,8 @@
 
   </div>
 </div>
-<h2 id="a0000000091">4.3 Passing to the infinite case</h2>
-<div class="proof_wrapper" id="a0000000081">
+<h2 id="a0000000089">3.3 Passing to the infinite case</h2>
+<div class="proof_wrapper" id="a0000000079">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof of Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>
@@ -2899,18 +2893,18 @@
   </div>
   <div class="proof_content">
   <p>  We follow Heine’s classical functional-equation argument, which is the route realised in Lean (<span class="ttfamily">qSeries.qBinom_infinite_thm</span>). Define </p>
-<div class="displaymath" id="a0000000092">
+<div class="displaymath" id="a0000000090">
   \[  c_n \; :=\;  \frac{(a;q)_n}{(q;q)_n}, \qquad F(z) \; :=\;  \sum _{n \ge 0} c_n\,  z^n, \qquad G(z) \; :=\;  \frac{(a z;q)_\infty }{(z;q)_\infty }.  \]
 </div>
 <p> The argument has three pieces. </p>
 <p><em>(i) Coefficient recurrence.</em> From \((a;q)_{n+1} = (a;q)_n(1 - a q^n)\) and \((q;q)_{n+1} = (q;q)_n(1 - q^{n+1})\), </p>
-<div class="displaymath" id="a0000000093">
+<div class="displaymath" id="a0000000091">
   \[  c_{n+1}\, (1 - q^{n+1}) \; =\;  c_n\, (1 - a q^n).  \]
 </div>
 <p> (Note that \(|q| {\lt} 1\) forces \(1 - q^{n+1} \neq 0\), so \(c_n\) is well-defined.) </p>
 <p><em>(ii) Functional equation \((1-z)\, H(z) = (1-az)\, H(qz)\) for \(H \in \{ F, G\} \).</em> For \(F\): expand both sides as power series; the coefficient identity in (i) shows the series of \((1-z) F(z)\) and \((1-az) F(qz)\) agree term-by-term. The sum \(F(z)\) converges absolutely on \(\| z\|  {\lt} 1\) because the coefficient sequence \(c_n\) is bounded (its numerator \(\| (a;q)_n\| \) converges by Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">36</a> and its denominator \(\| (q;q)_n\| \) is eventually bounded below by a positive constant). For \(G\): from the telescoping identity \((z;q)_\infty = (1-z)\, (zq;q)_\infty \) (an instance of \(\prod _{k\ge 0} f_k = f_0 \cdot \prod _{k\ge 1} f_k\)) applied to both \((z;q)_\infty \) and \((az;q)_\infty \). </p>
 <p><em>(iii) Iteration and passage to the limit.</em> Iterating the functional equation \(n\) times on the open unit disc gives </p>
-<div class="displaymath" id="a0000000094">
+<div class="displaymath" id="a0000000092">
   \[  F(z) \cdot (z;q)_n \; =\;  F(q^n z) \cdot (a z;q)_n  \]
 </div>
 <p> for every \(n \ge 0\). As \(n \to \infty \): </p>
@@ -2924,22 +2918,22 @@
 
   </div>
 </div>
-<h4 id="a0000000095">Remark (alternative route).</h4>
+<h4 id="a0000000093">Remark (alternative route).</h4>
 <p> A different classical route passes \(n \to \infty \) in a Cauchy-type <em>finite</em> analog </p>
-<div class="displaymath" id="a0000000096">
+<div class="displaymath" id="a0000000094">
   \[  \sum _{k=0}^n \binom {n}{k}_q \frac{(a;q)_k}{(q;q)_k} z^k \; \xrightarrow {n \to \infty }\;  \sum _{k=0}^\infty \frac{(a;q)_k}{(q;q)_k} z^k,  \]
 </div>
 <p> using \((q;q)_k / (q;q)_n \to 1/(q^{k+1};q)_\infty \) and dominated convergence. The Heine route used above avoids the bookkeeping of a separate finite identity and is the one matched by the Lean formalisation. </p>
-<h4 id="a0000000097">Avoiding the infinite version entirely.</h4>
+<h4 id="a0000000095">Avoiding the infinite version entirely.</h4>
 <p> For Jacobi’s triple product via Zhu’s semi-finite proof, you do not actually need Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>. You only need the <em>first Euler identity</em> </p>
-<div class="displaymath" id="a0000000098">
+<div class="displaymath" id="a0000000096">
   \[  (-z; q)_\infty = \sum _{n=0}^\infty \frac{q^{\binom {n}{2}}}{(q; q)_n} z^n,  \]
 </div>
 <p> which is the \(n \to \infty \) limit of Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> after rewriting \(\prod _{k=0}^{n-1}(1 + zq^k)\) as \((-z; q)_n\) and dividing by suitable factors. This limit is gentler than the full Cauchy identity. </p>
-<h1 id="sec:qPochhammer-formalized">5 The \(q\)-Pochhammer symbol and Gaussian binomial coefficient (formalized)</h1>
+<h1 id="sec:qPochhammer-formalized">4 The \(q\)-Pochhammer symbol and Gaussian binomial coefficient (formalized)</h1>
 <p>  </p>
 <p>This section records the foundational definitions and lemmas that have been formalized in Lean for the \(q\)-series approach to Jacobi’s triple product. The corresponding source file is <span class="ttfamily">Series/qSeries.lean</span> in the <span class="ttfamily">Series</span> Lean library, under the namespace <span class="ttfamily">qSeries</span>. Throughout this section \(R\) is a commutative ring and \(a, q \in R\). </p>
-<h2 id="a0000000099">5.1 The \(q\)-Pochhammer symbol</h2>
+<h2 id="a0000000097">4.1 The \(q\)-Pochhammer symbol</h2>
 <div class="definition_thmwrapper theorem-style-definition" id="def:qPochhammer">
   <div class="definition_thmheading">
     <span class="definition_thmcaption">
@@ -2981,7 +2975,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>For \(n \in \mathbb {N}\), the finite \(q\)-Pochhammer symbol is </p>
-<div class="displaymath" id="a0000000100">
+<div class="displaymath" id="a0000000098">
   \[  (a; q)_n \; :=\;  \prod _{k = 0}^{n - 1} \bigl(1 - a\,  q^k\bigr).  \]
 </div>
 <p> In Lean, this is implemented as <span class="ttfamily">\(\prod \) k \(\in \) Finset.range n, (1 - a * q^k)</span>, specialising to \((a; q)_0 = 1\) (the empty product). </p>
@@ -3004,7 +2998,7 @@
 
     <a class="icon proof" href="index.html#lem:qPochhammer-zero">#</a>
     
-    <a class="icon proof" href="index.html#a0000000101"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000099"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3055,7 +3049,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000101">
+<div class="proof_wrapper" id="a0000000099">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3083,7 +3077,7 @@
 
     <a class="icon proof" href="index.html#lem:qPochhammer-succ">#</a>
     
-    <a class="icon proof" href="index.html#a0000000102"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000100"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3131,13 +3125,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For all \(n \in \mathbb {N}\), </p>
-<div class="displaymath" id="a0000000103">
+<div class="displaymath" id="a0000000101">
   \[  (a; q)_{n+1} \; =\;  (a; q)_n \cdot \bigl(1 - a\,  q^n\bigr).  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000102">
+<div class="proof_wrapper" id="a0000000100">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3149,7 +3143,7 @@
 
   </div>
 </div>
-<h2 id="a0000000104">5.2 The Gaussian binomial coefficient</h2>
+<h2 id="a0000000102">4.2 The Gaussian binomial coefficient</h2>
 <div class="definition_thmwrapper theorem-style-definition" id="def:qBinom">
   <div class="definition_thmheading">
     <span class="definition_thmcaption">
@@ -3191,7 +3185,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>The Gaussian binomial coefficient \(\binom {n}{k}_q \in R\) is defined by recursion on \(n\) and \(k\): </p>
-<div class="displaymath" id="a0000000105">
+<div class="displaymath" id="a0000000103">
   \[  \begin{aligned}  \binom {0}{0}_q & = 1, &  \binom {0}{k+1}_q & = 0, \\ \binom {n+1}{0}_q & = 1, &  \binom {n+1}{k+1}_q & = \binom {n}{k+1}_q + q^{n-k}\, \binom {n}{k}_q. \end{aligned}  \]
 </div>
 <p> This is the \(q\)-Pascal recurrence in the form stated in Lemma&#160;<a href="index.html#lem:qpascal">27</a> (with the index shift \(k \mapsto k+1\)). By construction \(\binom {n}{k}_q\) is a polynomial in \(q\) with integer coefficients, defined for every pair \((n, k) \in \mathbb {N}^2\) (no division, no roots-of-unity exclusion). </p>
@@ -3214,7 +3208,7 @@
 
     <a class="icon proof" href="index.html#lem:qBinom-eq-zero-of-lt">#</a>
     
-    <a class="icon proof" href="index.html#a0000000106"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000104"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3265,7 +3259,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000106">
+<div class="proof_wrapper" id="a0000000104">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3293,7 +3287,7 @@
 
     <a class="icon proof" href="index.html#lem:qBinom-self">#</a>
     
-    <a class="icon proof" href="index.html#a0000000107"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000105"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3346,7 +3340,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000107">
+<div class="proof_wrapper" id="a0000000105">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3355,7 +3349,7 @@
   </div>
   <div class="proof_content">
   <p>Induction on \(n\). The case \(n = 0\) is by definition. For the step, </p>
-<div class="displaymath" id="a0000000108">
+<div class="displaymath" id="a0000000106">
   \[  \binom {n+1}{n+1}_q = \binom {n}{n+1}_q + q^{n-n}\, \binom {n}{n}_q = 0 + 1 \cdot 1 = 1,  \]
 </div>
 <p> using Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">32</a> for the first term and the inductive hypothesis for the second. </p>
@@ -3378,7 +3372,7 @@
 
     <a class="icon proof" href="index.html#lem:qBinom-closed-form">#</a>
     
-    <a class="icon proof" href="index.html#a0000000109"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000107"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3434,13 +3428,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For all \(k \leq n\), </p>
-<div class="displaymath" id="a0000000110">
+<div class="displaymath" id="a0000000108">
   \[  \binom {n}{k}_q \cdot (q; q)_k \cdot (q; q)_{n - k} \; =\;  (q; q)_n.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000109">
+<div class="proof_wrapper" id="a0000000107">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3453,21 +3447,21 @@
 <p><em>Boundary \(k = 0\).</em> Reduces to \(1 \cdot 1 \cdot (q; q)_n = (q; q)_n\). </p>
 <p><em>Boundary \(k = n + 1\).</em> By Lemma&#160;<a href="index.html#lem:qBinom-self">33</a> we have \(\binom {n+1}{n+1}_q = 1\), and \((q; q)_0 = 1\), so both sides equal \((q; q)_{n+1}\). </p>
 <p><em>Inductive step \(k + 1 \leq n\).</em> Apply the \(q\)-Pascal recurrence </p>
-<div class="displaymath" id="a0000000111">
+<div class="displaymath" id="a0000000109">
   \[  \binom {n+1}{k+1}_q = \binom {n}{k+1}_q + q^{n-k}\, \binom {n}{k}_q  \]
 </div>
 <p> and the factorisations </p>
-<div class="displaymath" id="a0000000112">
+<div class="displaymath" id="a0000000110">
   \[  (q; q)_{n - k} \; =\;  (q; q)_{n - (k+1)} \cdot \bigl(1 - q\, q^{n-(k+1)}\bigr), \qquad (q; q)_{k + 1} \; =\;  (q; q)_k \cdot \bigl(1 - q\, q^k\bigr),  \]
 </div>
 <p> together with the power identities \(q \cdot q^{n-(k+1)} = q^{n-k}\) and \(q^{n-k} \cdot (q \cdot q^k) = q \cdot q^n\), which use \(k \leq n\) via <span class="ttfamily">Nat.sub_add_cancel</span>. The two inductive hypotheses at \((n, k+1)\) and \((n, k)\) then combine into the required identity, dispatched in Lean by <span class="ttfamily">linear_combination</span>. </p>
 
   </div>
 </div>
-<h2 id="subsec:qbin-finite-formalized">5.3 The finite \(q\)-binomial theorem (step 5)</h2>
+<h2 id="subsec:qbin-finite-formalized">4.3 The finite \(q\)-binomial theorem (step 5)</h2>
 <p> </p>
 <p>Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> is formalised as <span class="ttfamily">qSeries.qBinom_finite_thm</span> in <span class="ttfamily">QSeries/FiniteBinomial.lean</span> (in <span class="ttfamily">Qseries_Aristotle_new</span>). The Lean proof follows exactly the four-step strategy spelled out in the proof attached to Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> above: peel off \(k = 0\), apply the \(q\)-Pascal recurrence (Lemma&#160;<a href="index.html#lem:qpascal">27</a>) inside the sum, simplify the second piece to \(z q^n\,  Q_n\), and recombine the first piece via \(\binom {n}{n+1}_q = 0\) (Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">32</a>). </p>
-<h2 id="subsec:qbin-infinite-formalized">5.4 The infinite \(q\)-Pochhammer symbol and Cauchy identity (steps 6, 8)</h2>
+<h2 id="subsec:qbin-infinite-formalized">4.4 The infinite \(q\)-Pochhammer symbol and Cauchy identity (steps 6, 8)</h2>
 <p> </p>
 <p>Working in \(\mathbb {C}\) for the analytic part of the development. </p>
 <div class="definition_thmwrapper theorem-style-definition" id="def:qPochhammerInf">
@@ -3511,7 +3505,7 @@
   </div>
   <div class="definition_thmcontent">
   <p></p>
-<div class="displaymath" id="a0000000113">
+<div class="displaymath" id="a0000000111">
   \[  (a; q)_\infty \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\,  q^k\bigr) \; \in \;  \mathbb {C},  \]
 </div>
 <p> defined unconditionally via <span class="ttfamily">tprod</span>. The value is mathematically meaningful (and the product is convergent) under the hypothesis \(\| q\|  {\lt} 1\) provided by Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">36</a>. </p>
@@ -3534,7 +3528,7 @@
 
     <a class="icon proof" href="index.html#lem:multipliable-one-sub-smul-qpow">#</a>
     
-    <a class="icon proof" href="index.html#a0000000114"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000112"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3585,7 +3579,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000114">
+<div class="proof_wrapper" id="a0000000112">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3662,17 +3656,17 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For \(a, z, q \in \mathbb {C}\) with \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000115">
+<div class="displaymath" id="a0000000113">
   \[  \sum _{n=0}^{\infty } \frac{(a; q)_n}{(q; q)_n}\,  z^n = \frac{(a z; q)_\infty }{(z; q)_\infty }.  \]
 </div>
 <p> (Equivalent to Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>.) The Lean theorem is <span class="ttfamily">qSeries.qBinom_infinite_thm</span> in <span class="ttfamily">QSeries/CauchyIdentity.lean</span> (in <span class="ttfamily">Qseries_Aristotle_new</span>). The proof realised in Lean follows Heine’s functional-equation argument spelled out in the proof of Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a> above, organised under <span class="ttfamily">section CauchyIdentity</span>: non-vanishing of \((z;q)_\infty \) (<span class="ttfamily">qPochhammerInf_z_q_ne_zero</span>), the telescoping recursion \((z;q)_\infty = (1-z)\, (zq;q)_\infty \) (<span class="ttfamily">qPochhammerInf_recursion</span>), the coefficient recurrence \(c_{n+1}(1-q^{n+1}) = c_n(1 - a q^n)\) (<span class="ttfamily">cauchyCoeff_succ_mul</span>), the functional equations for \(F\) and \(G\) (<span class="ttfamily">cauchy_functional_eq_F</span>, <span class="ttfamily">cauchy_functional_eq_G</span>), iteration on the disc (<span class="ttfamily">iterated_functional_eq_disc</span>), and the Tannery-based limit \(F(q^n z) \to 1\) (<span class="ttfamily">tendsto_F_qpow</span>). The alternative route via a finite Cauchy-type analog of Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> is not formalised. </p>
 
   </div>
 </div>
-<h4 id="a0000000116">Remark.</h4>
-<p> Together with Lemma&#160;<a href="index.html#lem:qPochhammer-succ">30</a>, Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">32</a>, and Lemma&#160;<a href="index.html#lem:qBinom-closed-form">34</a>, Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> realises steps 1, 2, 3, 4, and 5 of the formalisation roadmap in Section&#160;<a href="index.html#sec:qbin-proof">4</a> (“Formalization plan in Lean”). Step 6 is realised by Definition&#160;<a href="index.html#def:qPochhammerInf">35</a> and Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">36</a>. Step 8 (the full Cauchy identity, Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>) is now formalised in full via Heine’s functional-equation route (<span class="ttfamily">qSeries.qBinom_infinite_thm</span>). Step 3 is partially completed: the recursive definition is in place (Definition&#160;<a href="index.html#def:qBinom">31</a>) and the closed-form bridge to the quotient description is established (Lemma&#160;<a href="index.html#lem:qBinom-closed-form">34</a>); the symmetry identity \(\binom {n}{k}_q = \binom {n}{n-k}_q\) remains as future work, as does step 7 (the first Euler identity). </p>
-<p><em>Update.</em> Steps 7 and 8 are now fully formalised, and the Jacobi triple product and Euler’s pentagonal number theorem are proved with no <span class="ttfamily">sorry</span>. The route actually taken by the formalisation diverges from all three textbook sketches above; the analytic proof is documented in Section&#160;<a href="index.html#sec:implemented">6</a> (including an extension to all \(z \neq 0\) in Section&#160;<a href="index.html#subsec:analytic-extension">6.8</a>), and a second, independent algebraic proof working entirely in formal power series rings is documented in Section&#160;<a href="index.html#sec:fps">7</a>. </p>
-<h1 id="sec:implemented">6 Implemented proof strategy</h1>
+<h4 id="a0000000114">Remark.</h4>
+<p> Together with Lemma&#160;<a href="index.html#lem:qPochhammer-succ">30</a>, Lemma&#160;<a href="index.html#lem:qBinom-eq-zero-of-lt">32</a>, and Lemma&#160;<a href="index.html#lem:qBinom-closed-form">34</a>, Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> realises steps 1, 2, 3, 4, and 5 of the formalisation roadmap in Section&#160;<a href="index.html#sec:qbin-proof">3</a> (“Formalization plan in Lean”). Step 6 is realised by Definition&#160;<a href="index.html#def:qPochhammerInf">35</a> and Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">36</a>. Step 8 (the full Cauchy identity, Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>) is now formalised in full via Heine’s functional-equation route (<span class="ttfamily">qSeries.qBinom_infinite_thm</span>). Step 3 is partially completed: the recursive definition is in place (Definition&#160;<a href="index.html#def:qBinom">31</a>) and the closed-form bridge to the quotient description is established (Lemma&#160;<a href="index.html#lem:qBinom-closed-form">34</a>); the symmetry identity \(\binom {n}{k}_q = \binom {n}{n-k}_q\) remains as future work, as does step 7 (the first Euler identity). </p>
+<p><em>Update.</em> Steps 7 and 8 are now fully formalised, and the Jacobi triple product and Euler’s pentagonal number theorem are proved with no <span class="ttfamily">sorry</span>. The route actually taken by the formalisation diverges from all three textbook sketches above; the analytic proof is documented in Section&#160;<a href="index.html#sec:implemented">5</a> (including an extension to all \(z \neq 0\) in Section&#160;<a href="index.html#subsec:analytic-extension">5.8</a>), and a second, independent algebraic proof working entirely in formal power series rings is documented in Section&#160;<a href="index.html#sec:fps">6</a>. </p>
+<h1 id="sec:implemented">5 Implemented proof strategy</h1>
 <p>  </p>
 <p>This section records the proof strategy that was <em>actually</em> carried out in the Lean formalisation (produced with the Aristotle prover). It does not follow any one of the three textbook routes of Sections&#160;??, ??, ?? verbatim. It is closest in spirit to Proof&#160;2 (the Euler / \(q\)-binomial route, Section&#160;??), but the execution is neither Andrews’ nor Zhu’s: instead of Zhu’s semi-finite truncation or a complex-analytic continuation, the formalisation </p>
 <ol class="enumerate">
@@ -3685,9 +3679,9 @@
   <li><p>derives Euler’s pentagonal number theorem from the triple product by the substitution \(q\mapsto q^3\), \(z\mapsto -q\). </p>
 </li>
 </ol>
-<h4 id="a0000000117">Source files.</h4>
-<p> The development lives in the Lean library <span class="ttfamily">Qseries_Aristotle_new</span>, split into the modules <span class="ttfamily">QSeries/Defs.lean</span>, <span class="ttfamily">QSeries/FiniteBinomial.lean</span>, <span class="ttfamily">QSeries/InfPochhammer.lean</span>, <span class="ttfamily">QSeries/CauchyIdentity.lean</span>, <span class="ttfamily">QSeries/EulerIdentities.lean</span>, <span class="ttfamily">QSeries/JTP_KeyIdentity.lean</span>, <span class="ttfamily">QSeries/JTP_Core.lean</span>, <span class="ttfamily">QSeries/JTP_Helpers.lean</span>, <span class="ttfamily">QSeries/JacobiTripleProduct.lean</span>, <span class="ttfamily">QSeries/PentagonalNumber.lean</span>, and <span class="ttfamily">QSeries/JTP_Analytic.lean</span> (which extends the identity to all \(z \neq 0\)), all under the namespace <span class="ttfamily">qSeries</span>. An independent purely algebraic proof of the triple product in the formal power series ring \(R[\! [ X]\! ]\) lives in <span class="ttfamily">QSeries/FPS.lean</span>, <span class="ttfamily">QSeries/FPS_Euler.lean</span>, and <span class="ttfamily">QSeries/FPS_Algebra.lean</span> under the namespace <span class="ttfamily">qSeries.FPS</span>; this is documented in Section&#160;<a href="index.html#sec:fps">7</a>. The \(q\)-Pochhammer / \(q\)-binomial foundations (Section&#160;<a href="index.html#sec:qPochhammer-formalized">5</a>) are shared between both developments. </p>
-<h2 id="a0000000118">6.1 The two Euler identities</h2>
+<h4 id="a0000000115">Source files.</h4>
+<p> The development lives in the Lean library <span class="ttfamily">Qseries_Aristotle_new</span>, split into the modules <span class="ttfamily">QSeries/Defs.lean</span>, <span class="ttfamily">QSeries/FiniteBinomial.lean</span>, <span class="ttfamily">QSeries/InfPochhammer.lean</span>, <span class="ttfamily">QSeries/CauchyIdentity.lean</span>, <span class="ttfamily">QSeries/EulerIdentities.lean</span>, <span class="ttfamily">QSeries/JTP_KeyIdentity.lean</span>, <span class="ttfamily">QSeries/JTP_Core.lean</span>, <span class="ttfamily">QSeries/JTP_Helpers.lean</span>, <span class="ttfamily">QSeries/JacobiTripleProduct.lean</span>, <span class="ttfamily">QSeries/PentagonalNumber.lean</span>, and <span class="ttfamily">QSeries/JTP_Analytic.lean</span> (which extends the identity to all \(z \neq 0\)), all under the namespace <span class="ttfamily">qSeries</span>. An independent purely algebraic proof of the triple product in the formal power series ring \(R[\! [ X]\! ]\) lives in <span class="ttfamily">QSeries/FPS.lean</span>, <span class="ttfamily">QSeries/FPS_Euler.lean</span>, and <span class="ttfamily">QSeries/FPS_Algebra.lean</span> under the namespace <span class="ttfamily">qSeries.FPS</span>; this is documented in Section&#160;<a href="index.html#sec:fps">6</a>. The \(q\)-Pochhammer / \(q\)-binomial foundations (Section&#160;<a href="index.html#sec:qPochhammer-formalized">4</a>) are shared between both developments. </p>
+<h2 id="a0000000116">5.1 The two Euler identities</h2>
 <p>Both Euler \(q\)-exponential identities are obtained as specialisations of the Cauchy identity (Theorem&#160;<a href="index.html#thm:qbin-infinite-formalized">37</a>) and the finite \(q\)-binomial theorem (Theorem&#160;<a href="index.html#thm:qbin-finite">25</a>). </p>
 <div class="lemma_thmwrapper theorem-style-plain" id="lem:euler-first">
   <div class="lemma_thmheading">
@@ -3705,7 +3699,7 @@
 
     <a class="icon proof" href="index.html#lem:euler-first">#</a>
     
-    <a class="icon proof" href="index.html#a0000000119"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000117"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3755,13 +3749,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000120">
+<div class="displaymath" id="a0000000118">
   \[  \sum _{n=0}^{\infty } \frac{z^n}{(q;q)_n} = \frac{1}{(z;q)_\infty }.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000119">
+<div class="proof_wrapper" id="a0000000117">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3789,7 +3783,7 @@
 
     <a class="icon proof" href="index.html#lem:euler-second">#</a>
     
-    <a class="icon proof" href="index.html#a0000000121"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000119"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3843,13 +3837,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000122">
+<div class="displaymath" id="a0000000120">
   \[  \sum _{n=0}^{\infty } \frac{q^{\binom {n}{2}} z^n}{(q;q)_n} = (-z;q)_\infty .  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000121">
+<div class="proof_wrapper" id="a0000000119">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3861,7 +3855,7 @@
 
   </div>
 </div>
-<h2 id="a0000000123">6.2 Expanding the product as a single series</h2>
+<h2 id="a0000000121">5.2 Expanding the product as a single series</h2>
 <p>The two factors \((q;q)_\infty (-z;q)_\infty \) are folded into one series using a telescoping identity for the infinite \(q\)-Pochhammer symbol. </p>
 <div class="lemma_thmwrapper theorem-style-plain" id="lem:qPochhammerInf-telescope">
   <div class="lemma_thmheading">
@@ -3879,7 +3873,7 @@
 
     <a class="icon proof" href="index.html#lem:qPochhammerInf-telescope">#</a>
     
-    <a class="icon proof" href="index.html#a0000000124"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000122"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -3929,13 +3923,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and every \(n\), </p>
-<div class="displaymath" id="a0000000125">
+<div class="displaymath" id="a0000000123">
   \[  (q;q)_\infty \; =\;  (q;q)_n \cdot (q^{\, n+1};q)_\infty .  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000124">
+<div class="proof_wrapper" id="a0000000122">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -3963,7 +3957,7 @@
 
     <a class="icon proof" href="index.html#lem:qPochhammerInf-prod-hassum">#</a>
     
-    <a class="icon proof" href="index.html#a0000000126"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000124"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4013,13 +4007,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000127">
+<div class="displaymath" id="a0000000125">
   \[  \sum _{n=0}^{\infty } q^{\binom {n}{2}} z^n\, (q^{\, n+1};q)_\infty = (q;q)_\infty \, (-z;q)_\infty .  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000126">
+<div class="proof_wrapper" id="a0000000124">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4031,9 +4025,9 @@
 
   </div>
 </div>
-<h2 id="a0000000128">6.3 The key identity \(S_k = 1/(q;q)_\infty \)</h2>
+<h2 id="a0000000126">5.3 The key identity \(S_k = 1/(q;q)_\infty \)</h2>
 <p>This is the core of the formalisation, replacing both the coefficient-recurrence bookkeeping of Proof&#160;1 and the complex analysis of Proof&#160;3. After the Cauchy product is rearranged by diagonals, each diagonal coefficient is exactly one of the sums </p>
-<div class="displaymath" id="a0000000129">
+<div class="displaymath" id="a0000000127">
   \[  S_k(q) \; :=\;  \sum _{m=0}^{\infty } \frac{q^{\, m(m+k)}}{(q;q)_m\, (q;q)_{m+k}},  \]
 </div>
 <p> and all of them collapse to \(1/(q;q)_\infty \). This is the classical <em>Durfee rectangle identity</em>: combinatorially, \(m\times (m+k)\) is the Durfee rectangle of a partition, contributing \(q^{m(m+k)}\), with the regions to its right and below contributing \(1/(q;q)_m\) and \(1/(q;q)_{m+k}\); the \(k=0\) case is the classical Durfee square identity. (See Andrews, <em>The Theory of Partitions</em>, 1976, and Gessel, <em>Some generalized Durfee square identities</em>, Discrete Math. <b class="bfseries">50</b> (1984).) What is specific to this formalisation is the proof: rather than the Young-diagram bijection, the identity is established <em>analytically</em> through the contraction recurrence below, which is convenient to formalise in Lean. </p>
@@ -4117,7 +4111,7 @@
 
     <a class="icon proof" href="index.html#lem:summable-S">#</a>
     
-    <a class="icon proof" href="index.html#a0000000130"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000128"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4168,7 +4162,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000130">
+<div class="proof_wrapper" id="a0000000128">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4196,7 +4190,7 @@
 
     <a class="icon proof" href="index.html#lem:S-sum-tendsto">#</a>
     
-    <a class="icon proof" href="index.html#a0000000131"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000129"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4249,7 +4243,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000131">
+<div class="proof_wrapper" id="a0000000129">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4277,7 +4271,7 @@
 
     <a class="icon proof" href="index.html#lem:S-sum-recurrence">#</a>
     
-    <a class="icon proof" href="index.html#a0000000132"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000130"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4327,13 +4321,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and every \(k\), </p>
-<div class="displaymath" id="a0000000133">
+<div class="displaymath" id="a0000000131">
   \[  S_k - S_{k+1} \; =\;  q^{\, k+1}\, \bigl(S_{k+2} - S_{k+1}\bigr).  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000132">
+<div class="proof_wrapper" id="a0000000130">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4361,7 +4355,7 @@
 
     <a class="icon proof" href="index.html#thm:S-sum-eq">#</a>
     
-    <a class="icon proof" href="index.html#a0000000134"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000132"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4414,7 +4408,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000134">
+<div class="proof_wrapper" id="a0000000132">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4442,7 +4436,7 @@
 
     <a class="icon proof" href="index.html#lem:cauchy-coeff-nonneg">#</a>
     
-    <a class="icon proof" href="index.html#a0000000135"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000133"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4490,13 +4484,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and \(k \ge 0\), </p>
-<div class="displaymath" id="a0000000136">
+<div class="displaymath" id="a0000000134">
   \[  \sum _{m=0}^{\infty } q^{\binom {m+k}{2}}\, (q^{\, m+k+1};q)_\infty \cdot \frac{q^{\binom {m}{2}}\,  q^{m}}{(q;q)_m} = q^{\binom {k}{2}}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000135">
+<div class="proof_wrapper" id="a0000000133">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4524,7 +4518,7 @@
 
     <a class="icon proof" href="index.html#lem:cauchy-coeff-neg">#</a>
     
-    <a class="icon proof" href="index.html#a0000000137"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000135"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4572,13 +4566,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and \(l \ge 0\), </p>
-<div class="displaymath" id="a0000000138">
+<div class="displaymath" id="a0000000136">
   \[  \sum _{n=0}^{\infty } q^{\binom {n}{2}}\, (q^{\, n+1};q)_\infty \cdot \frac{q^{\binom {n+l+1}{2}}\,  q^{\, n+l+1}}{(q;q)_{n+l+1}} = q^{\binom {l+2}{2}}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000137">
+<div class="proof_wrapper" id="a0000000135">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4590,7 +4584,7 @@
 
   </div>
 </div>
-<h2 id="a0000000139">6.4 Extended second Euler identity (all \(z\))</h2>
+<h2 id="a0000000137">5.4 Extended second Euler identity (all \(z\))</h2>
 <p>To run the Cauchy product on the full punctured disc rather than only the annulus, the second Euler identity is extended to all \(z\in \mathbb {C}\). </p>
 <div class="lemma_thmwrapper theorem-style-plain" id="lem:euler-second-recursion">
   <div class="lemma_thmheading">
@@ -4608,7 +4602,7 @@
 
     <a class="icon proof" href="index.html#lem:euler-second-recursion">#</a>
     
-    <a class="icon proof" href="index.html#a0000000140"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000138"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4661,7 +4655,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000140">
+<div class="proof_wrapper" id="a0000000138">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4689,7 +4683,7 @@
 
     <a class="icon proof" href="index.html#thm:euler-second-all">#</a>
     
-    <a class="icon proof" href="index.html#a0000000141"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000139"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4739,13 +4733,13 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and <em>every</em> \(z\in \mathbb {C}\), </p>
-<div class="displaymath" id="a0000000142">
+<div class="displaymath" id="a0000000140">
   \[  \sum _{n=0}^{\infty } \frac{q^{\binom {n}{2}} z^n}{(q;q)_n} = (-z;q)_\infty .  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000141">
+<div class="proof_wrapper" id="a0000000139">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4773,7 +4767,7 @@
 
     <a class="icon proof" href="index.html#lem:euler-second-qoz-all">#</a>
     
-    <a class="icon proof" href="index.html#a0000000143"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000141"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4821,13 +4815,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and \(z \neq 0\) (no annulus condition), </p>
-<div class="displaymath" id="a0000000144">
+<div class="displaymath" id="a0000000142">
   \[  \sum _{m=0}^{\infty } \frac{q^{\binom {m}{2}}\,  q^{m}\,  z^{-m}}{(q;q)_m} = (-q/z;q)_\infty .  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000143">
+<div class="proof_wrapper" id="a0000000141">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4839,7 +4833,7 @@
 
   </div>
 </div>
-<h2 id="a0000000145">6.5 The triple product and bilateral series</h2>
+<h2 id="a0000000143">5.5 The triple product and bilateral series</h2>
 <div class="definition_thmwrapper theorem-style-definition" id="def:jacobiProd">
   <div class="definition_thmheading">
     <span class="definition_thmcaption">
@@ -4906,7 +4900,7 @@
 
   </div>
 </div>
-<h2 id="a0000000146">6.6 The Jacobi triple product</h2>
+<h2 id="a0000000144">5.6 The Jacobi triple product</h2>
 <div class="theorem_thmwrapper theorem-style-plain" id="thm:jtp-full">
   <div class="theorem_thmheading">
     <span class="theorem_thmcaption">
@@ -4923,7 +4917,7 @@
 
     <a class="icon proof" href="index.html#thm:jtp-full">#</a>
     
-    <a class="icon proof" href="index.html#a0000000147"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000145"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -4979,13 +4973,13 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For \(\| q\|  {\lt} 1\), \(\| z\|  {\lt} 1\), \(z \neq 0\), \(\; \mathrm{jacobiProd}(q,z) = \mathrm{jacobiBilateral}(q,z)\); that is, </p>
-<div class="displaymath" id="a0000000148">
+<div class="displaymath" id="a0000000146">
   \[  (q;q)_\infty \, (-z;q)_\infty \, (-q/z;q)_\infty = \sum _{k\ge 0} z^k q^{\binom {k}{2}} + \sum _{m\ge 0} z^{-(m+1)} q^{\binom {m+2}{2}}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000147">
+<div class="proof_wrapper" id="a0000000145">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -4997,9 +4991,9 @@
 
   </div>
 </div>
-<h4 id="a0000000149">Remark (divergence from the outline).</h4>
+<h4 id="a0000000147">Remark (divergence from the outline).</h4>
 <p> Compared with Section&#160;??: the formalisation uses a <em>genuine Cauchy product</em> of two second-Euler expansions, not Zhu’s semi-finite truncation; the diagonal coefficients are evaluated through the classical Durfee rectangle identity (Theorem&#160;<a href="index.html#thm:S-sum-eq">46</a>), but via its analytic contraction-recurrence proof rather than the usual Young-diagram bijection; and the argument is carried out directly on the whole punctured disc by strengthening the Euler identity to all \(z\) (Theorem&#160;<a href="index.html#thm:euler-second-all">50</a>), so it needs neither an annulus restriction with a separate extension step, the Liouville-type complex analysis of Proof&#160;3, nor the coefficient bookkeeping of Proof&#160;1. (Using Durfee rectangles to reach the Jacobi triple product is itself known; see W. Chu, <em>Durfee rectangles and the Jacobi triple product identity</em>, Acta Math. Sinica <b class="bfseries">9</b> (1993), 24–26.) </p>
-<h2 id="a0000000150">6.7 Euler’s pentagonal number theorem</h2>
+<h2 id="a0000000148">5.7 Euler’s pentagonal number theorem</h2>
 <div class="definition_thmwrapper theorem-style-definition" id="def:pentagonal">
   <div class="definition_thmheading">
     <span class="definition_thmcaption">
@@ -5060,7 +5054,7 @@
 
     <a class="icon proof" href="index.html#thm:pentagonal-impl">#</a>
     
-    <a class="icon proof" href="index.html#a0000000151"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000149"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5110,13 +5104,13 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For \(\| q\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000152">
+<div class="displaymath" id="a0000000150">
   \[  (q;q)_\infty = \sum _{k\ge 0} (-1)^k q^{\omega (k)} + \sum _{k\ge 0} (-1)^{k+1} q^{\omega (-(k+1))} \; =\;  1 - q - q^2 + q^5 + q^7 - q^{12} - \cdots .  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000151">
+<div class="proof_wrapper" id="a0000000149">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5128,7 +5122,7 @@
 
   </div>
 </div>
-<h2 id="subsec:analytic-extension">6.8 Analytic extension to all \(z \neq 0\)</h2>
+<h2 id="subsec:analytic-extension">5.8 Analytic extension to all \(z \neq 0\)</h2>
 <p>  </p>
 <p>Theorem&#160;<a href="index.html#thm:jtp-full">53</a> was proved under the restriction \(\| z\|  {\lt} 1\). The module <span class="ttfamily">QSeries/JTP_Analytic.lean</span> removes this restriction using locally uniform convergence of both sides on \(\{ z \neq 0\} \) and the functional equation \(f(qz) = f(z)/z\) satisfied by both \(\mathrm{jacobiProd}(q,z)\) and \(\mathrm{jacobiBilateral}(q,z)\). </p>
 <div class="theorem_thmwrapper theorem-style-plain" id="thm:summable-nonneg-all">
@@ -5147,7 +5141,7 @@
 
     <a class="icon proof" href="index.html#thm:summable-nonneg-all">#</a>
     
-    <a class="icon proof" href="index.html#a0000000153"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000151"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5198,7 +5192,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000153">
+<div class="proof_wrapper" id="a0000000151">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5226,7 +5220,7 @@
 
     <a class="icon proof" href="index.html#thm:jacobi-prod-luc">#</a>
     
-    <a class="icon proof" href="index.html#a0000000154"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000152"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5277,7 +5271,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000154">
+<div class="proof_wrapper" id="a0000000152">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5305,7 +5299,7 @@
 
     <a class="icon proof" href="index.html#thm:jacobi-series-luc">#</a>
     
-    <a class="icon proof" href="index.html#a0000000155"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000153"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5356,7 +5350,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000155">
+<div class="proof_wrapper" id="a0000000153">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5384,7 +5378,7 @@
 
     <a class="icon proof" href="index.html#thm:jtp-analytic">#</a>
     
-    <a class="icon proof" href="index.html#a0000000156"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000154"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5440,13 +5434,13 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For \(\| q\|  {\lt} 1\) and every \(z \neq 0\), </p>
-<div class="displaymath" id="a0000000157">
+<div class="displaymath" id="a0000000155">
   \[  (q;q)_\infty \, (-z;q)_\infty \, (-q/z;q)_\infty = \sum _{k \ge 0} z^k\,  q^{\binom {k}{2}} + \sum _{m \ge 0} z^{-(m+1)}\,  q^{\binom {m+2}{2}}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000156">
+<div class="proof_wrapper" id="a0000000154">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5458,12 +5452,12 @@
 
   </div>
 </div>
-<h1 id="sec:fps">7 Formal power series reformulation (algebraic proof)</h1>
+<h1 id="sec:fps">6 Formal power series reformulation (algebraic proof)</h1>
 <p>  </p>
-<p>This section records the second, independent proof of the Jacobi triple product that was formalised in <span class="ttfamily">Qseries_Aristotle_new/QSeries/FPS.lean</span>, <span class="ttfamily">QSeries/FPS_Euler.lean</span>, and <span class="ttfamily">QSeries/FPS_Algebra.lean</span> under the namespace <span class="ttfamily">qSeries.FPS</span>. Unlike the analytic proof of Section&#160;<a href="index.html#sec:implemented">6</a>, this proof is <em>entirely algebraic</em>: no norms, no \(\| q\|  {\lt} 1\) hypothesis, and no topological analysis beyond the \(X\)-adic (pi) topology on \(R[\! [ X ]\! ]\). </p>
-<h4 id="a0000000158">Key idea.</h4>
+<p>This section records the second, independent proof of the Jacobi triple product that was formalised in <span class="ttfamily">Qseries_Aristotle_new/QSeries/FPS.lean</span>, <span class="ttfamily">QSeries/FPS_Euler.lean</span>, and <span class="ttfamily">QSeries/FPS_Algebra.lean</span> under the namespace <span class="ttfamily">qSeries.FPS</span>. Unlike the analytic proof of Section&#160;<a href="index.html#sec:implemented">5</a>, this proof is <em>entirely algebraic</em>: no norms, no \(\| q\|  {\lt} 1\) hypothesis, and no topological analysis beyond the \(X\)-adic (pi) topology on \(R[\! [ X ]\! ]\). </p>
+<h4 id="a0000000156">Key idea.</h4>
 <p> The variable \(q\) becomes the formal power series indeterminate \(X \in R[\! [ X]\! ]\), while \(z\) lives in the coefficient ring \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\) (with \(z = T(1)\), \(z^{-1} = T(-1)\)). The infinite \(q\)-Pochhammer symbol \((a; X)_\infty \) is a well-defined element of \(R[\! [ X]\! ]\) because the factors \((1 - a X^k)\) converge to \(1\) in the pi topology: each factor affects only finitely many coefficients of any fixed degree. </p>
-<h2 id="subsec:fps-qpoch">7.1 FPS q-Pochhammer symbols</h2>
+<h2 id="subsec:fps-qpoch">6.1 FPS q-Pochhammer symbols</h2>
 <p>  </p>
 <p>Throughout this section \(R\) is a commutative ring (with <span class="ttfamily">DiscreteTopology</span>). </p>
 <div class="definition_thmwrapper theorem-style-definition" id="def:fps-qPoch">
@@ -5507,7 +5501,7 @@
   </div>
   <div class="definition_thmcontent">
   <p>For \(a \in R[\! [ X]\! ]\) and \(n \in \mathbb {N}\), </p>
-<div class="displaymath" id="a0000000159">
+<div class="displaymath" id="a0000000157">
   \[  \texttt{qPoch}\, a\, n \; :=\;  \prod _{k=0}^{n-1}\bigl(1 - a\cdot X^k\bigr) \; \in \;  R[\! [ X]\! ].  \]
 </div>
 
@@ -5529,7 +5523,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-qPoch-zero">#</a>
     
-    <a class="icon proof" href="index.html#a0000000160"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000158"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5580,7 +5574,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000160">
+<div class="proof_wrapper" id="a0000000158">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5608,7 +5602,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-qPoch-succ">#</a>
     
-    <a class="icon proof" href="index.html#a0000000161"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000159"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5659,7 +5653,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000161">
+<div class="proof_wrapper" id="a0000000159">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5687,7 +5681,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-qPoch-shift">#</a>
     
-    <a class="icon proof" href="index.html#a0000000162"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000160"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5738,7 +5732,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000162">
+<div class="proof_wrapper" id="a0000000160">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5766,7 +5760,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-coeff-stable">#</a>
     
-    <a class="icon proof" href="index.html#a0000000163"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000161"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5817,7 +5811,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000163">
+<div class="proof_wrapper" id="a0000000161">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5845,7 +5839,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-constantCoeff-qPoch-X">#</a>
     
-    <a class="icon proof" href="index.html#a0000000164"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000162"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5896,7 +5890,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000164">
+<div class="proof_wrapper" id="a0000000162">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -5924,7 +5918,7 @@
 
     <a class="icon proof" href="index.html#thm:fps-multipliable">#</a>
     
-    <a class="icon proof" href="index.html#a0000000165"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000163"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -5975,7 +5969,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000165">
+<div class="proof_wrapper" id="a0000000163">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6048,7 +6042,7 @@
   </div>
   <div class="definition_thmcontent">
   <p> </p>
-<div class="displaymath" id="a0000000166">
+<div class="displaymath" id="a0000000164">
   \[  \texttt{qPochInf}\, a \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\cdot X^k\bigr) \; \in \;  R[\! [ X]\! ].  \]
 </div>
 
@@ -6070,7 +6064,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-coeff-qPochInf">#</a>
     
-    <a class="icon proof" href="index.html#a0000000167"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000165"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6123,7 +6117,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000167">
+<div class="proof_wrapper" id="a0000000165">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6151,7 +6145,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-qPochInf-recursion">#</a>
     
-    <a class="icon proof" href="index.html#a0000000168"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000166"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6202,7 +6196,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000168">
+<div class="proof_wrapper" id="a0000000166">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6230,7 +6224,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-qPochInf-eq-qPoch-mul">#</a>
     
-    <a class="icon proof" href="index.html#a0000000169"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000167"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6285,7 +6279,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000169">
+<div class="proof_wrapper" id="a0000000167">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6313,7 +6307,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-isUnit-qPochInf">#</a>
     
-    <a class="icon proof" href="index.html#a0000000170"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000168"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6364,7 +6358,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000170">
+<div class="proof_wrapper" id="a0000000168">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6376,7 +6370,7 @@
 
   </div>
 </div>
-<h2 id="subsec:fps-euler2">7.2 FPS Euler second identity</h2>
+<h2 id="subsec:fps-euler2">6.2 FPS Euler second identity</h2>
 <p>  </p>
 <div class="theorem_thmwrapper theorem-style-plain" id="thm:fps-euler-second">
   <div class="theorem_thmheading">
@@ -6394,7 +6388,7 @@
 
     <a class="icon proof" href="index.html#thm:fps-euler-second">#</a>
     
-    <a class="icon proof" href="index.html#a0000000171"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000169"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6450,13 +6444,13 @@
   </div>
   <div class="theorem_thmcontent">
   <p> In \(R[\! [ X]\! ]\) (for any commutative ring \(R\) with discrete topology), </p>
-<div class="displaymath" id="a0000000172">
+<div class="displaymath" id="a0000000170">
   \[  \texttt{qPochInf}(-a) \; =\;  \sum _{k=0}^{\infty } X^{\binom {k}{2}}\cdot a^k \cdot \bigl(\texttt{qPoch}\, (X : R[\! [ X]\! ])\, k\bigr)^{-1}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000171">
+<div class="proof_wrapper" id="a0000000169">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6468,7 +6462,7 @@
 
   </div>
 </div>
-<h2 id="subsec:fps-key">7.3 FPS key identity</h2>
+<h2 id="subsec:fps-key">6.3 FPS key identity</h2>
 <p>  </p>
 <div class="definition_thmwrapper theorem-style-definition" id="def:fps-S">
   <div class="definition_thmheading">
@@ -6533,7 +6527,7 @@
   </div>
   <div class="definition_thmcontent">
   <p> For \(k \in \mathbb {N}\), define </p>
-<div class="displaymath" id="a0000000173">
+<div class="displaymath" id="a0000000171">
   \[  S^{\mathrm{fps}}_k \; :=\;  \sum _{m=0}^{\infty } X^{m(m+k)} \cdot \bigl(\texttt{qPoch}(X,m)\bigr)^{-1} \cdot \bigl(\texttt{qPoch}(X,m+k)\bigr)^{-1} \; \in \;  R[\! [ X]\! ].  \]
 </div>
 
@@ -6555,7 +6549,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-summable-S">#</a>
     
-    <a class="icon proof" href="index.html#a0000000174"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000172"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6606,7 +6600,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000174">
+<div class="proof_wrapper" id="a0000000172">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6634,7 +6628,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-S-recurrence">#</a>
     
-    <a class="icon proof" href="index.html#a0000000175"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000173"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6684,13 +6678,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> For every \(k\): </p>
-<div class="displaymath" id="a0000000176">
+<div class="displaymath" id="a0000000174">
   \[  S^{\mathrm{fps}}_k - S^{\mathrm{fps}}_{k+1} \; =\;  X^{k+1}\cdot \bigl(S^{\mathrm{fps}}_{k+2} - S^{\mathrm{fps}}_{k+1}\bigr).  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000175">
+<div class="proof_wrapper" id="a0000000173">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6718,7 +6712,7 @@
 
     <a class="icon proof" href="index.html#thm:fps-S-const">#</a>
     
-    <a class="icon proof" href="index.html#a0000000177"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000175"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6771,7 +6765,7 @@
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000177">
+<div class="proof_wrapper" id="a0000000175">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6799,7 +6793,7 @@
 
     <a class="icon proof" href="index.html#thm:fps-key">#</a>
     
-    <a class="icon proof" href="index.html#a0000000178"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000176"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6851,13 +6845,13 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For every \(k\), </p>
-<div class="displaymath" id="a0000000179">
+<div class="displaymath" id="a0000000177">
   \[  S^{\mathrm{fps}}_k \; =\;  \bigl(\texttt{qPochInf}(X)\bigr)^{-1} \; =:\;  \texttt{qqInv}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000178">
+<div class="proof_wrapper" id="a0000000176">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6869,9 +6863,9 @@
 
   </div>
 </div>
-<h4 id="a0000000180">Comparison with the analytic key identity.</h4>
+<h4 id="a0000000178">Comparison with the analytic key identity.</h4>
 <p> The analytic key identity (Theorem&#160;<a href="index.html#thm:S-sum-eq">46</a>) proves \(S_k = 1/(q;q)_\infty \) using a <em>norm estimate</em>: \(\| D_k\|  \le \| q\| ^{n(2k+n+1)/2} \| D_{k+n}\|  \to 0\). The FPS key identity (Theorem&#160;<a href="index.html#thm:fps-key">77</a>) proves the same identity <em>coefficient by coefficient</em> using only ring arithmetic in \(R[\! [ X ]\! ]\), requiring no analytic hypotheses whatsoever. </p>
-<h2 id="subsec:fps-cauchy">7.4 FPS Cauchy coefficient identities</h2>
+<h2 id="subsec:fps-cauchy">6.4 FPS Cauchy coefficient identities</h2>
 <p>  </p>
 <div class="lemma_thmwrapper theorem-style-plain" id="lem:fps-qqInf-euler2">
   <div class="lemma_thmheading">
@@ -6889,7 +6883,7 @@
 
     <a class="icon proof" href="index.html#lem:fps-qqInf-euler2">#</a>
     
-    <a class="icon proof" href="index.html#a0000000181"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000179"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -6941,13 +6935,13 @@
   </div>
   <div class="lemma_thmcontent">
   <p> In \(R[\! [ X]\! ]\): </p>
-<div class="displaymath" id="a0000000182">
+<div class="displaymath" id="a0000000180">
   \[  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-a) \; =\;  \sum _{n=0}^{\infty } X^{\binom {n}{2}}\, a^n\,  \texttt{qPochInf}(X \cdot X^n).  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000181">
+<div class="proof_wrapper" id="a0000000179">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -6975,7 +6969,7 @@
 
     <a class="icon proof" href="index.html#thm:fps-cauchy-nonneg">#</a>
     
-    <a class="icon proof" href="index.html#a0000000183"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000181"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -7027,14 +7021,14 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For every \(k \ge 0\): </p>
-<div class="displaymath" id="a0000000184">
+<div class="displaymath" id="a0000000182">
   \[  \sum _{m=0}^{\infty } \bigl[X^{(m+k)\text{.choose}\, 2}\cdot \texttt{qPochInf}(X\cdot X^{m+k})\bigr] \cdot \bigl[X^{m\text{.choose}\, 2}\cdot X^m \cdot (\texttt{qPoch}(X,m))^{-1}\bigr] \; =\;  X^{k\text{.choose}\, 2}.  \]
 </div>
 <p> That is, the \(k\)-th diagonal sum of the Cauchy product equals \(X^{\binom {k}{2}}\). </p>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000183">
+<div class="proof_wrapper" id="a0000000181">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -7062,7 +7056,7 @@
 
     <a class="icon proof" href="index.html#thm:fps-cauchy-neg">#</a>
     
-    <a class="icon proof" href="index.html#a0000000185"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000183"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -7114,13 +7108,13 @@
   </div>
   <div class="theorem_thmcontent">
   <p> For every \(l \ge 0\): </p>
-<div class="displaymath" id="a0000000186">
+<div class="displaymath" id="a0000000184">
   \[  \sum _{n=0}^{\infty } \bigl[X^{n\text{.choose}\, 2}\cdot \texttt{qPochInf}(X\cdot X^n)\bigr] \cdot \bigl[X^{(n+l+1)\text{.choose}\, 2}\cdot X^{n+l+1} \cdot (\texttt{qPoch}(X,n+l+1))^{-1}\bigr] \; =\;  X^{(l+2)\text{.choose}\, 2}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000185">
+<div class="proof_wrapper" id="a0000000183">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -7132,7 +7126,7 @@
 
   </div>
 </div>
-<h2 id="subsec:fps-jtp">7.5 FPS Jacobi triple product</h2>
+<h2 id="subsec:fps-jtp">6.5 FPS Jacobi triple product</h2>
 <p>  </p>
 <div class="definition_thmwrapper theorem-style-definition" id="def:fps-jtp">
   <div class="definition_thmheading">
@@ -7195,7 +7189,7 @@
   </div>
   <div class="definition_thmcontent">
   <p> Let \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\), \(z = T(1)\), \(z^{-1} = T(-1)\) viewed as constant power series in \(A[\! [ X]\! ]\). Define: </p>
-<div class="displaymath" id="a0000000187">
+<div class="displaymath" id="a0000000185">
   \begin{align*}  \texttt{jtpProd} & \; :=\;  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-z)\cdot \texttt{qPochInf}(-X\cdot z^{-1}) \; \in \;  A[\! [ X]\! ], \\ \texttt{jtpSeries} & \; :=\;  \Bigl(\sum _{n\ge 0} T(n)\cdot X^{n\text{.choose}\, 2}\Bigr) + \Bigl(\sum _{m\ge 0} T(-(m+1))\cdot X^{(m+2)\text{.choose}\, 2}\Bigr) \; \in \;  A[\! [ X]\! ]. \end{align*}
 </div>
 <p> Here \(T(k)\) is the degree-\(k\) monomial in the Laurent polynomial ring \(A\), so \(T(n) = z^n\) and \(T(-(m+1)) = z^{-(m+1)}\). </p>
@@ -7218,7 +7212,7 @@
 
     <a class="icon proof" href="index.html#thm:fps-jtp">#</a>
     
-    <a class="icon proof" href="index.html#a0000000188"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+    <a class="icon proof" href="index.html#a0000000186"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
 </a>
     
     
@@ -7274,17 +7268,17 @@
   </div>
   <div class="theorem_thmcontent">
   <p> In \(A[\! [ X]\! ]\) (with \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\)): </p>
-<div class="displaymath" id="a0000000189">
+<div class="displaymath" id="a0000000187">
   \[  \texttt{jtpProd} \; =\;  \texttt{jtpSeries},  \]
 </div>
 <p> that is, </p>
-<div class="displaymath" id="a0000000190">
+<div class="displaymath" id="a0000000188">
   \[  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-z)\cdot \texttt{qPochInf}(-X/z) \; =\;  \sum _{k \ge 0} z^k X^{\binom {k}{2}} \; +\;  \sum _{m \ge 0} z^{-(m+1)} X^{\binom {m+2}{2}}.  \]
 </div>
 
   </div>
 </div>
-<div class="proof_wrapper" id="a0000000188">
+<div class="proof_wrapper" id="a0000000186">
   <div class="proof_heading">
     <span class="proof_caption">
     Proof
@@ -7297,13 +7291,13 @@
 
   </div>
 </div>
-<h4 id="a0000000191">Comparison with Section&#160;<a href="index.html#sec:implemented">6</a>.</h4>
+<h4 id="a0000000189">Comparison with Section&#160;<a href="index.html#sec:implemented">5</a>.</h4>
 <ul class="itemize">
   <li><p>The FPS proof (Theorem&#160;<a href="index.html#thm:fps-jtp">82</a>) works over <em>any</em> commutative ring with discrete topology and needs no \(\| q\| {\lt}1\) hypothesis; the analytic proof (Theorem&#160;<a href="index.html#thm:jtp-full">53</a>) works in \(\mathbb {C}\) with \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\). </p>
 </li>
   <li><p>The analytic proof is extended to all \(z\neq 0\) by Theorem&#160;<a href="index.html#thm:jtp-analytic">59</a>; the FPS proof is already valid for all \(z \in A^\times \). </p>
 </li>
-  <li><p>Both use the same algebraic infrastructure (Sections&#160;<a href="index.html#sec:qPochhammer-formalized">5</a>–<a href="index.html#subsec:qbin-finite-formalized">5.3</a>). The key identity (\(S_k = (q;q)_\infty ^{-1}\)) is proved analytically in Theorem&#160;<a href="index.html#thm:S-sum-eq">46</a> and algebraically (in \(R[\! [ X]\! ]\)) in Theorem&#160;<a href="index.html#thm:fps-key">77</a>. </p>
+  <li><p>Both use the same algebraic infrastructure (Sections&#160;<a href="index.html#sec:qPochhammer-formalized">4</a>–<a href="index.html#subsec:qbin-finite-formalized">4.3</a>). The key identity (\(S_k = (q;q)_\infty ^{-1}\)) is proved analytically in Theorem&#160;<a href="index.html#thm:S-sum-eq">46</a> and algebraically (in \(R[\! [ X]\! ]\)) in Theorem&#160;<a href="index.html#thm:fps-key">77</a>. </p>
 </li>
 </ul>
 
