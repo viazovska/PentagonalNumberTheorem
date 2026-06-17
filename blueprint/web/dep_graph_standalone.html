@@ -318,9 +318,9 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/alphaOp" class="lean_decl">alphaOp</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L101" class="lean_decl">alphaOp</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/betaOp" class="lean_decl">betaOp</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L107" class="lean_decl">betaOp</a></li>
         
       </ul>
   </div>
@@ -361,15 +361,13 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/base" class="lean_decl">base</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L55" class="lean_decl">partBase</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/partBase" class="lean_decl">partBase</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L59" class="lean_decl">partMax</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/partMax" class="lean_decl">partMax</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L63" class="lean_decl">partSlope</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/partSlope" class="lean_decl">partSlope</a></li>
-        
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/partSlopeSet" class="lean_decl">partSlopeSet</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L66" class="lean_decl">partSlopeSet</a></li>
         
       </ul>
   </div>
@@ -411,24 +409,151 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/all_distinct_partitions" class="lean_decl">all_distinct_partitions</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L37" class="lean_decl">distinctPartitions</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/even_distinct_partitions" class="lean_decl">even_distinct_partitions</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L41" class="lean_decl">distinctPartitionsEven</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/odd_distinct_partitions" class="lean_decl">odd_distinct_partitions</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L45" class="lean_decl">distinctPartitionsOdd</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DP" class="lean_decl">DP</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L49" class="lean_decl">pe</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPeven" class="lean_decl">DPeven</a></li>
-        
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPodd" class="lean_decl">DPodd</a></li>
-        
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pe" class="lean_decl">pe</a></li>
-        
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/po" class="lean_decl">po</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L52" class="lean_decl">po</a></li>
         
       </ul>
   </div>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:fps-jtp_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-jtp" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">81</span><span class="definition_thmtitle">FPS JTP objects</span></div>
+    <div class="thm_thmcontent"><p> Let \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\), \(z = T(1)\), \(z^{-1} = T(-1)\) viewed as constant power series in \(A[\! [ X]\! ]\). Define: </p>
+<div class="displaymath" id="a0000000187">
+  \begin{align*}  \texttt{jtpProd} & \; :=\;  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-z)\cdot \texttt{qPochInf}(-X\cdot z^{-1}) \; \in \;  A[\! [ X]\! ], \\ \texttt{jtpSeries} & \; :=\;  \Bigl(\sum _{n\ge 0} T(n)\cdot X^{n\text{.choose}\, 2}\Bigr) + \Bigl(\sum _{m\ge 0} T(-(m+1))\cdot X^{(m+2)\text{.choose}\, 2}\Bigr) \; \in \;  A[\! [ X]\! ]. \end{align*}
+</div>
+<p> Here \(T(k)\) is the degree-\(k\) monomial in the Laurent polynomial ring \(A\), so \(T(n) = z^n\) and \(T(-(m+1)) = z^{-(m+1)}\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-jtp">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L218">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:fps-qPoch_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-qPoch" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">60</span><span class="definition_thmtitle">FPS finite \(q\)-Pochhammer symbol</span></div>
+    <div class="thm_thmcontent"><p>For \(a \in R[\! [ X]\! ]\) and \(n \in \mathbb {N}\), </p>
+<div class="displaymath" id="a0000000159">
+  \[  \texttt{qPoch}\, a\, n \; :=\;  \prod _{k=0}^{n-1}\bigl(1 - a\cdot X^k\bigr) \; \in \;  R[\! [ X]\! ].  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-qPoch">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L50">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:fps-qPochInf_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-qPochInf" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">67</span><span class="definition_thmtitle">FPS infinite \(q\)-Pochhammer symbol</span></div>
+    <div class="thm_thmcontent">
+<div class="displaymath" id="a0000000166">
+  \[  \texttt{qPochInf}\, a \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\cdot X^k\bigr) \; \in \;  R[\! [ X]\! ].  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-qPochInf">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L132">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:fps-S_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:fps-S" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">73</span><span class="definition_thmtitle">FPS key sum</span></div>
+    <div class="thm_thmcontent"><p> For \(k \in \mathbb {N}\), define </p>
+<div class="displaymath" id="a0000000173">
+  \[  S^{\mathrm{fps}}_k \; :=\;  \sum _{m=0}^{\infty } X^{m(m+k)} \cdot \bigl(\texttt{qPoch}(X,m)\bigr)^{-1} \cdot \bigl(\texttt{qPoch}(X,m+k)\bigr)^{-1} \; \in \;  R[\! [ X]\! ].  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#def:fps-S">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L247">Lean</a>
     
     
   
@@ -458,7 +583,16 @@ div.proof_content {
     <a class="latex_link" href="index.html#def:jacobiProd">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.jacobiProd">Lean</a>
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+        
+           <li><a href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JacobiTripleProduct.lean#L59" class="lean_decl">qSeries.jacobiProd</a></li>
+        
+           <li><a href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JacobiTripleProduct.lean#L72" class="lean_decl">qSeries.jacobiBilateral</a></li>
+        
+      </ul>
+  </div>
     
     
   
@@ -496,11 +630,11 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPalpha" class="lean_decl">DPalpha</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L71" class="lean_decl">distinctPartitionsAlpha</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPbeta" class="lean_decl">DPbeta</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L79" class="lean_decl">distinctPartitionsBeta</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPspecial" class="lean_decl">DPspecial</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L87" class="lean_decl">distinctPartitionsSpecial</a></li>
         
       </ul>
   </div>
@@ -564,7 +698,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#def:pentagonal">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.pentagonal">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/PentagonalNumberTheorem/pentagonal_number-theorem.lean#L11">Lean</a>
     
     
   
@@ -589,7 +723,7 @@ div.proof_content {
       </span>
       <span class="definition_thmlabel">31</span><span class="definition_thmtitle">Gaussian binomial coefficient</span></div>
     <div class="thm_thmcontent"><p>The Gaussian binomial coefficient \(\binom {n}{k}_q \in R\) is defined by recursion on \(n\) and \(k\): </p>
-<div class="displaymath" id="a0000000121">
+<div class="displaymath" id="a0000000105">
   \[  \begin{aligned}  \binom {0}{0}_q & = 1, &  \binom {0}{k+1}_q & = 0, \\ \binom {n+1}{0}_q & = 1, &  \binom {n+1}{k+1}_q & = \binom {n}{k+1}_q + q^{n-k}\, \binom {n}{k}_q. \end{aligned}  \]
 </div>
 <p> This is the \(q\)-Pascal recurrence in the form stated in Lemma&#160;<a href="index.html#lem:qpascal">27</a> (with the index shift \(k \mapsto k+1\)). By construction \(\binom {n}{k}_q\) is a polynomial in \(q\) with integer coefficients, defined for every pair \((n, k) \in \mathbb {N}^2\) (no division, no roots-of-unity exclusion). </p>
@@ -598,7 +732,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#def:qBinom">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L58">Lean</a>
     
     
   
@@ -623,7 +757,7 @@ div.proof_content {
       </span>
       <span class="definition_thmlabel">28</span><span class="definition_thmtitle">Finite \(q\)-Pochhammer symbol</span></div>
     <div class="thm_thmcontent"><p>For \(n \in \mathbb {N}\), the finite \(q\)-Pochhammer symbol is </p>
-<div class="displaymath" id="a0000000116">
+<div class="displaymath" id="a0000000100">
   \[  (a; q)_n \; :=\;  \prod _{k = 0}^{n - 1} \bigl(1 - a\,  q^k\bigr).  \]
 </div>
 <p> In Lean, this is implemented as <span class="ttfamily">\(\prod \) k \(\in \) Finset.range n, (1 - a * q^k)</span>, specialising to \((a; q)_0 = 1\) (the empty product). </p>
@@ -632,7 +766,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#def:qPochhammer">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L40">Lean</a>
     
     
   
@@ -657,7 +791,7 @@ div.proof_content {
       </span>
       <span class="definition_thmlabel">35</span><span class="definition_thmtitle">Infinite \(q\)-Pochhammer symbol</span></div>
     <div class="thm_thmcontent">
-<div class="displaymath" id="a0000000129">
+<div class="displaymath" id="a0000000113">
   \[  (a; q)_\infty \; :=\;  \prod _{k=0}^{\infty }\bigl(1 - a\,  q^k\bigr) \; \in \;  \mathbb {C},  \]
 </div>
 <p> defined unconditionally via <span class="ttfamily">tprod</span>. The value is mathematically meaningful (and the product is convergent) under the hypothesis \(\| q\|  {\lt} 1\) provided by Lemma&#160;<a href="index.html#lem:multipliable-one-sub-smul-qpow">36</a>. </p>
@@ -666,7 +800,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#def:qPochhammerInf">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammerInf">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/InfPochhammer.lean#L36">Lean</a>
     
     
   
@@ -696,7 +830,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#def:S-sum">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.S_sum">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_KeyIdentity.lean#L30">Lean</a>
     
     
   
@@ -730,9 +864,9 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SmkSet" class="lean_decl">SmkSet</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L95" class="lean_decl">smkSet</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SpkSet" class="lean_decl">SpkSet</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Defs.lean#L98" class="lean_decl">spkSet</a></li>
         
       </ul>
   </div>
@@ -760,7 +894,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">48</span><span class="lemma_thmtitle">Negative diagonal coefficient</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and \(l \ge 0\), </p>
-<div class="displaymath" id="a0000000154">
+<div class="displaymath" id="a0000000138">
   \[  \sum _{n=0}^{\infty } q^{\binom {n}{2}}\, (q^{\, n+1};q)_\infty \cdot \frac{q^{\binom {n+l+1}{2}}\,  q^{\, n+l+1}}{(q;q)_{n+l+1}} = q^{\binom {l+2}{2}}.  \]
 </div>
 </div>
@@ -768,7 +902,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:cauchy-coeff-neg">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.cauchy_coeff_neg">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L499">Lean</a>
     
     
   
@@ -793,7 +927,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">47</span><span class="lemma_thmtitle">Non-negative diagonal coefficient</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and \(k \ge 0\), </p>
-<div class="displaymath" id="a0000000152">
+<div class="displaymath" id="a0000000136">
   \[  \sum _{m=0}^{\infty } q^{\binom {m+k}{2}}\, (q^{\, m+k+1};q)_\infty \cdot \frac{q^{\binom {m}{2}}\,  q^{m}}{(q;q)_m} = q^{\binom {k}{2}}.  \]
 </div>
 </div>
@@ -801,7 +935,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:cauchy-coeff-nonneg">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.cauchy_coeff_nonneg">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L477">Lean</a>
     
     
   
@@ -826,7 +960,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">38</span><span class="lemma_thmtitle">First Euler identity</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000136">
+<div class="displaymath" id="a0000000120">
   \[  \sum _{n=0}^{\infty } \frac{z^n}{(q;q)_n} = \frac{1}{(z;q)_\infty }.  \]
 </div>
 </div>
@@ -834,7 +968,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:euler-first">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.euler_first_identity">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/EulerIdentities.lean#L47">Lean</a>
     
     
   
@@ -859,7 +993,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">39</span><span class="lemma_thmtitle">Second Euler identity</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000138">
+<div class="displaymath" id="a0000000122">
   \[  \sum _{n=0}^{\infty } \frac{q^{\binom {n}{2}} z^n}{(q;q)_n} = (-z;q)_\infty .  \]
 </div>
 </div>
@@ -867,7 +1001,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:euler-second">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.euler_second_identity">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/EulerIdentities.lean#L77">Lean</a>
     
     
   
@@ -892,7 +1026,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">51</span><span class="lemma_thmtitle">Extended Euler identity at \(q/z\)</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and \(z \neq 0\) (no annulus condition), </p>
-<div class="displaymath" id="a0000000160">
+<div class="displaymath" id="a0000000144">
   \[  \sum _{m=0}^{\infty } \frac{q^{\binom {m}{2}}\,  q^{m}\,  z^{-m}}{(q;q)_m} = (-q/z;q)_\infty .  \]
 </div>
 </div>
@@ -900,7 +1034,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:euler-second-qoz-all">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.euler_second_at_qoz_all">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JacobiTripleProduct.lean#L202">Lean</a>
     
     
   
@@ -930,7 +1064,373 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:euler-second-recursion">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.euler_second_series_recursion">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JacobiTripleProduct.lean#L151">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-coeff-qPochInf_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-coeff-qPochInf" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">68</span><span class="lemma_thmtitle">Coefficient formula</span></div>
+    <div class="thm_thmcontent"><p> \([X^d]\, \texttt{qPochInf}\, a = [X^d]\, \texttt{qPoch}\, a\, (d+1)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-coeff-qPochInf">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L136">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-coeff-stable_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-coeff-stable" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">64</span><span class="lemma_thmtitle">Coefficient stabilisation</span></div>
+    <div class="thm_thmcontent"><p> If \(d {\lt} n\) then \([X^d]\, \texttt{qPoch}\, a\, (n+1) = [X^d]\, \texttt{qPoch}\, a\, n\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-coeff-stable">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L79">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-constantCoeff-qPoch-X_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-constantCoeff-qPoch-X" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">65</span><span class="lemma_thmtitle">Constant coefficient</span></div>
+    <div class="thm_thmcontent"><p> The constant term of \(\texttt{qPoch}\, (X : R[\! [ X]\! ])\, n\) is \(1\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-constantCoeff-qPoch-X">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Euler.lean#L31">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-isUnit-qPochInf_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-isUnit-qPochInf" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">71</span><span class="lemma_thmtitle">FPS unit</span></div>
+    <div class="thm_thmcontent"><p> If \(1 - [X^0]\, a\) is a unit of \(R\), then \(\texttt{qPochInf}\, a\) is a unit of \(R[\! [ X]\! ]\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-isUnit-qPochInf">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L177">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPoch-shift_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPoch-shift" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">63</span><span class="lemma_thmtitle">FPS shift identity</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPoch}\, a\, (n+1) = (1-a)\cdot \texttt{qPoch}\, (aX)\, n\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPoch-shift">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L64">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPoch-succ_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPoch-succ" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">62</span><span class="lemma_thmtitle">FPS recurrence</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPoch}\, a\, (n+1) = \texttt{qPoch}\, a\, n \cdot (1 - a\cdot X^n)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPoch-succ">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L59">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPoch-zero_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPoch-zero" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">61</span><span class="lemma_thmtitle">Base case</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPoch}\, a\, 0 = 1\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPoch-zero">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L55">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPochInf-eq-qPoch-mul_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPochInf-eq-qPoch-mul" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">70</span><span class="lemma_thmtitle">Iterated telescoping</span></div>
+    <div class="thm_thmcontent"><p> For every \(n \in \mathbb {N}\): \(\texttt{qPochInf}\, a = \texttt{qPoch}\, a\, n \cdot \texttt{qPochInf}\, (a\cdot X^n)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPochInf-eq-qPoch-mul">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Euler.lean#L48">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qPochInf-recursion_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qPochInf-recursion" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">69</span><span class="lemma_thmtitle">FPS recursion</span></div>
+    <div class="thm_thmcontent"><p> \(\texttt{qPochInf}\, a = (1-a)\cdot \texttt{qPochInf}\, (a\cdot X)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qPochInf-recursion">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L156">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-qqInf-euler2_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-qqInf-euler2" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">78</span><span class="lemma_thmtitle">FPS product expansion</span></div>
+    <div class="thm_thmcontent"><p> In \(R[\! [ X]\! ]\): </p>
+<div class="displaymath" id="a0000000182">
+  \[  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-a) \; =\;  \sum _{n=0}^{\infty } X^{\binom {n}{2}}\, a^n\,  \texttt{qPochInf}(X \cdot X^n).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-qqInf-euler2">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L459">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-S-recurrence_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-S-recurrence" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">75</span><span class="lemma_thmtitle">FPS key sum recurrence</span></div>
+    <div class="thm_thmcontent"><p> For every \(k\): </p>
+<div class="displaymath" id="a0000000176">
+  \[  S^{\mathrm{fps}}_k - S^{\mathrm{fps}}_{k+1} \; =\;  X^{k+1}\cdot \bigl(S^{\mathrm{fps}}_{k+2} - S^{\mathrm{fps}}_{k+1}\bigr).  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-S-recurrence">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L355">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="lem:fps-summable-S_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="lem:fps-summable-S" style="display: none">
+    <div class="thm_thmheading">
+      <span class="lemma_thmcaption">
+      Lemma
+      </span>
+      <span class="lemma_thmlabel">74</span><span class="lemma_thmtitle">FPS key sum is summable</span></div>
+    <div class="thm_thmcontent"><p> The summand of \(S^{\mathrm{fps}}_k\) is summable in \(R[\! [ X]\! ]\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#lem:fps-summable-S">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L251">Lean</a>
     
     
   
@@ -960,7 +1460,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:multipliable-one-sub-smul-qpow">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.multipliable_one_sub_smul_qpow">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/InfPochhammer.lean#L39">Lean</a>
     
     
   
@@ -985,7 +1485,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">34</span><span class="lemma_thmtitle">Closed form for \(\binom {n}{k}_q\)</span></div>
     <div class="thm_thmcontent"><p> For all \(k \leq n\), </p>
-<div class="displaymath" id="a0000000126">
+<div class="displaymath" id="a0000000110">
   \[  \binom {n}{k}_q \cdot (q; q)_k \cdot (q; q)_{n - k} \; =\;  (q; q)_n.  \]
 </div>
 </div>
@@ -993,7 +1493,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qBinom-closed-form">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_mul_qPochhammer_mul_qPochhammer">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L106">Lean</a>
     
     
   
@@ -1023,7 +1523,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qBinom-eq-zero-of-lt">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_eq_zero_of_lt">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L85">Lean</a>
     
     
   
@@ -1053,7 +1553,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qBinom-self">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_self">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L97">Lean</a>
     
     
   
@@ -1078,7 +1578,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">27</span><span class="lemma_thmtitle">\(q\)-Pascal</span></div>
     <div class="thm_thmcontent"><p> For all \(n, k \in \mathbb {N}\), </p>
-<div class="displaymath" id="a0000000101">
+<div class="displaymath" id="a0000000085">
   \[  \binom {n+1}{k+1}_q \; =\;  \binom {n}{k+1}_q + q^{n - k}\, \binom {n}{k}_q.  \]
 </div>
 <p> (Equivalently, with \(k \geq 1\): \(\binom {n+1}{k}_q = \binom {n}{k}_q + q^{n - k + 1}\binom {n}{k-1}_q\). A symmetric form \(\binom {n+1}{k+1}_q = q^{k+1}\binom {n}{k+1}_q + \binom {n}{k}_q\) also holds; we use the first.) </p>
@@ -1087,7 +1587,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qpascal">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_succ_succ">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L80">Lean</a>
     
     
   
@@ -1112,7 +1612,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">30</span><span class="lemma_thmtitle">Recurrence</span></div>
     <div class="thm_thmcontent"><p> For all \(n \in \mathbb {N}\), </p>
-<div class="displaymath" id="a0000000119">
+<div class="displaymath" id="a0000000103">
   \[  (a; q)_{n+1} \; =\;  (a; q)_n \cdot \bigl(1 - a\,  q^n\bigr).  \]
 </div>
 </div>
@@ -1120,7 +1620,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qPochhammer-succ">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer_succ">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L49">Lean</a>
     
     
   
@@ -1150,7 +1650,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qPochhammer-zero">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammer_zero">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/Defs.lean#L45">Lean</a>
     
     
   
@@ -1175,7 +1675,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">41</span><span class="lemma_thmtitle">Product as a series</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000143">
+<div class="displaymath" id="a0000000127">
   \[  \sum _{n=0}^{\infty } q^{\binom {n}{2}} z^n\, (q^{\, n+1};q)_\infty = (q;q)_\infty \, (-z;q)_\infty .  \]
 </div>
 </div>
@@ -1183,7 +1683,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qPochhammerInf-prod-hassum">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammerInf_prod_hasSum">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_Core.lean#L46">Lean</a>
     
     
   
@@ -1208,7 +1708,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">40</span><span class="lemma_thmtitle">Telescoping</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and every \(n\), </p>
-<div class="displaymath" id="a0000000141">
+<div class="displaymath" id="a0000000125">
   \[  (q;q)_\infty \; =\;  (q;q)_n \cdot (q^{\, n+1};q)_\infty .  \]
 </div>
 </div>
@@ -1216,7 +1716,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:qPochhammerInf-telescope">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qPochhammerInf_eq_mul">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_Core.lean#L28">Lean</a>
     
     
   
@@ -1241,7 +1741,7 @@ div.proof_content {
       </span>
       <span class="lemma_thmlabel">45</span><span class="lemma_thmtitle">Recurrence for \(S_k\)</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and every \(k\), </p>
-<div class="displaymath" id="a0000000149">
+<div class="displaymath" id="a0000000133">
   \[  S_k - S_{k+1} \; =\;  q^{\, k+1}\, \bigl(S_{k+2} - S_{k+1}\bigr).  \]
 </div>
 </div>
@@ -1249,7 +1749,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:S-sum-recurrence">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.S_sum_recurrence">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_KeyIdentity.lean#L141">Lean</a>
     
     
   
@@ -1279,7 +1779,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:S-sum-tendsto">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.S_sum_tendsto">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_KeyIdentity.lean#L89">Lean</a>
     
     
   
@@ -1309,7 +1809,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lem:summable-S">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.summable_S_summand">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_KeyIdentity.lean#L42">Lean</a>
     
     
   
@@ -1339,7 +1839,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lemma:alpha-after-beta">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/alphaOp_betaOp">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L429">Lean</a>
     
     
   
@@ -1413,9 +1913,9 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/alphaOp_card" class="lean_decl">alphaOp_card</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L452" class="lean_decl">alphaOp_card</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/betaOp_card" class="lean_decl">betaOp_card</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L467" class="lean_decl">betaOp_card</a></li>
         
       </ul>
   </div>
@@ -1451,7 +1951,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lemma:alpha-beta-special">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/DP_eq_union">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L50">Lean</a>
     
     
   
@@ -1485,11 +1985,11 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPalpha_inter_DPbeta" class="lean_decl">DPalpha_inter_DPbeta</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L34" class="lean_decl">DPalpha_inter_DPbeta</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPalpha_inter_DPspecial" class="lean_decl">DPalpha_inter_DPspecial</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L40" class="lean_decl">DPalpha_inter_DPspecial</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPbeta_inter_DPspecial" class="lean_decl">DPbeta_inter_DPspecial</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L45" class="lean_decl">DPbeta_inter_DPspecial</a></li>
         
       </ul>
   </div>
@@ -1522,7 +2022,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lemma:alpha-lands-in-beta">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/alphaOp_mem_DPbeta">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L338">Lean</a>
     
     
   
@@ -1562,9 +2062,9 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPalpha_odd_card_eq_DPbeta_even_card" class="lean_decl">DPalpha_odd_card_eq_DPbeta_even_card</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L479" class="lean_decl">DPalpha_odd_card_eq_DPbeta_even_card</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPalpha_even_card_eq_DPbeta_odd_card" class="lean_decl">DPalpha_even_card_eq_DPbeta_odd_card</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L493" class="lean_decl">DPalpha_even_card_eq_DPbeta_odd_card</a></li>
         
       </ul>
   </div>
@@ -1597,7 +2097,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lemma:beta-after-alpha">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/betaOp_alphaOp">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L417">Lean</a>
     
     
   
@@ -1627,7 +2127,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lemma:beta-lands-in-alpha">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/betaOp_mem_DPalpha">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L361">Lean</a>
     
     
   
@@ -1665,11 +2165,11 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/coeff_prod_eq_pe_sub_po" class="lean_decl">coeff_prod_eq_pe_sub_po</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L117" class="lean_decl">coeff_prod_eq_pe_sub_po</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/coeff_prod_eq_signed_partition_sum" class="lean_decl">coeff_prod_eq_signed_partition_sum</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L61" class="lean_decl">coeff_prod_eq_signed_partition_sum</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/signed_partition_sum_eq_pe_sub_po" class="lean_decl">signed_partition_sum_eq_pe_sub_po</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L93" class="lean_decl">signed_partition_sum_eq_pe_sub_po</a></li>
         
       </ul>
   </div>
@@ -1709,13 +2209,13 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/p_count" class="lean_decl">p_count</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L22" class="lean_decl">p_count</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pGenFun" class="lean_decl">pGenFun</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L26" class="lean_decl">pGenFun</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/coeff_pGenFun_eq_p_count" class="lean_decl">coeff_pGenFun_eq_p_count</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L32" class="lean_decl">coeff_pGenFun_eq_p_count</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pGenFun_eq_prod" class="lean_decl">pGenFun_eq_prod</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L42" class="lean_decl">pGenFun_eq_prod</a></li>
         
       </ul>
   </div>
@@ -1751,7 +2251,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#lemma:P-alpha-card-eq-P-beta-card">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/DPalpha_card_eq_DPbeta_card">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L444">Lean</a>
     
     
   
@@ -1788,15 +2288,15 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pe_minus_po_eq_special" class="lean_decl">pe_minus_po_eq_special</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L503" class="lean_decl">pe_minus_po_eq_special</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pe_minus_po_zero" class="lean_decl">pe_minus_po_zero</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L530" class="lean_decl">pe_minus_po_zero</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pe_minus_po_nonpent" class="lean_decl">pe_minus_po_nonpent</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L532" class="lean_decl">pe_minus_po_nonpent</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pe_minus_po_pent_minus" class="lean_decl">pe_minus_po_pent_minus</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L539" class="lean_decl">pe_minus_po_pent_minus</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/pe_minus_po_pent_plus" class="lean_decl">pe_minus_po_pent_plus</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L546" class="lean_decl">pe_minus_po_pent_plus</a></li>
         
       </ul>
   </div>
@@ -1842,19 +2342,19 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPspecial_empty_of_nonpent" class="lean_decl">DPspecial_empty_of_nonpent</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L77" class="lean_decl">DPspecial_empty_of_nonpent</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPspecial_pent_minus" class="lean_decl">DPspecial_pent_minus</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L122" class="lean_decl">DPspecial_pent_minus</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/DPspecial_pent_plus" class="lean_decl">DPspecial_pent_plus</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L233" class="lean_decl">DPspecial_pent_plus</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SmkSet_card" class="lean_decl">SmkSet_card</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L58" class="lean_decl">SmkSet_card</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SmkSet_sum" class="lean_decl">SmkSet_sum</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L61" class="lean_decl">SmkSet_sum</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SpkSet_card" class="lean_decl">SpkSet_card</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L68" class="lean_decl">SpkSet_card</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/SpkSet_sum" class="lean_decl">SpkSet_sum</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/Lemmas.lean#L72" class="lean_decl">SpkSet_sum</a></li>
         
       </ul>
   </div>
@@ -1894,13 +2394,13 @@ div.proof_content {
       <span class="lean_link">Lean</span>
       <ul class="tooltip_list">
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/coeff_prod_pentagonal_zero" class="lean_decl">coeff_prod_pentagonal_zero</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L126" class="lean_decl">coeff_prod_pentagonal_zero</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/coeff_prod_pentagonal_nonpent" class="lean_decl">coeff_prod_pentagonal_nonpent</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L135" class="lean_decl">coeff_prod_pentagonal_nonpent</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/coeff_prod_pentagonal_minus" class="lean_decl">coeff_prod_pentagonal_minus</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L146" class="lean_decl">coeff_prod_pentagonal_minus</a></li>
         
-           <li><a href="https://viazovska.github.io/my_project/docs/find/#doc/coeff_prod_pentagonal_plus" class="lean_decl">coeff_prod_pentagonal_plus</a></li>
+           <li><a href="https://github.com/viazovska/my_project/blob/main/EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean#L155" class="lean_decl">coeff_prod_pentagonal_plus</a></li>
         
       </ul>
   </div>
@@ -1928,7 +2428,7 @@ div.proof_content {
       </span>
       <span class="theorem_thmlabel">50</span><span class="theorem_thmtitle">Extended second Euler identity</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and <em>every</em> \(z\in \mathbb {C}\), </p>
-<div class="displaymath" id="a0000000158">
+<div class="displaymath" id="a0000000142">
   \[  \sum _{n=0}^{\infty } \frac{q^{\binom {n}{2}} z^n}{(q;q)_n} = (-z;q)_\infty .  \]
 </div>
 </div>
@@ -1936,7 +2436,330 @@ div.proof_content {
     <a class="latex_link" href="index.html#thm:euler-second-all">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.euler_second_identity_all">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JacobiTripleProduct.lean#L170">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-cauchy-neg_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-cauchy-neg" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">80</span><span class="theorem_thmtitle">FPS Cauchy coefficient – negative diagonal</span></div>
+    <div class="thm_thmcontent"><p> For every \(l \ge 0\): </p>
+<div class="displaymath" id="a0000000186">
+  \[  \sum _{n=0}^{\infty } \bigl[X^{n\text{.choose}\, 2}\cdot \texttt{qPochInf}(X\cdot X^n)\bigr] \cdot \bigl[X^{(n+l+1)\text{.choose}\, 2}\cdot X^{n+l+1} \cdot (\texttt{qPoch}(X,n+l+1))^{-1}\bigr] \; =\;  X^{(l+2)\text{.choose}\, 2}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-cauchy-neg">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L499">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-cauchy-nonneg_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-cauchy-nonneg" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">79</span><span class="theorem_thmtitle">FPS Cauchy coefficient – non-negative diagonal</span></div>
+    <div class="thm_thmcontent"><p> For every \(k \ge 0\): </p>
+<div class="displaymath" id="a0000000184">
+  \[  \sum _{m=0}^{\infty } \bigl[X^{(m+k)\text{.choose}\, 2}\cdot \texttt{qPochInf}(X\cdot X^{m+k})\bigr] \cdot \bigl[X^{m\text{.choose}\, 2}\cdot X^m \cdot (\texttt{qPoch}(X,m))^{-1}\bigr] \; =\;  X^{k\text{.choose}\, 2}.  \]
+</div>
+<p> That is, the \(k\)-th diagonal sum of the Cauchy product equals \(X^{\binom {k}{2}}\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-cauchy-nonneg">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L477">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-euler-second_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-euler-second" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">72</span><span class="theorem_thmtitle">FPS Euler second identity</span></div>
+    <div class="thm_thmcontent"><p> In \(R[\! [ X]\! ]\) (for any commutative ring \(R\) with discrete topology), </p>
+<div class="displaymath" id="a0000000172">
+  \[  \texttt{qPochInf}(-a) \; =\;  \sum _{k=0}^{\infty } X^{\binom {k}{2}}\cdot a^k \cdot \bigl(\texttt{qPoch}\, (X : R[\! [ X]\! ])\, k\bigr)^{-1}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-euler-second">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L176">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-jtp_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-jtp" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">82</span><span class="theorem_thmtitle">FPS Jacobi triple product</span></div>
+    <div class="thm_thmcontent"><p> In \(A[\! [ X]\! ]\) (with \(A = \texttt{LaurentPolynomial}\, \mathbb {C}\)): </p>
+<div class="displaymath" id="a0000000189">
+  \[  \texttt{jtpProd} \; =\;  \texttt{jtpSeries},  \]
+</div>
+<p> that is, </p>
+<div class="displaymath" id="a0000000190">
+  \[  \texttt{qPochInf}(X)\cdot \texttt{qPochInf}(-z)\cdot \texttt{qPochInf}(-X/z) \; =\;  \sum _{k \ge 0} z^k X^{\binom {k}{2}} \; +\;  \sum _{m \ge 0} z^{-(m+1)} X^{\binom {m+2}{2}}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-jtp">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L863">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-key_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-key" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">77</span><span class="theorem_thmtitle">FPS key identity</span></div>
+    <div class="thm_thmcontent"><p> For every \(k\), </p>
+<div class="displaymath" id="a0000000179">
+  \[  S^{\mathrm{fps}}_k \; =\;  \bigl(\texttt{qPochInf}(X)\bigr)^{-1} \; =:\;  \texttt{qqInv}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-key">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L443">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-multipliable_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-multipliable" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">66</span><span class="theorem_thmtitle">FPS multipliability in pi topology</span></div>
+    <div class="thm_thmcontent"><p> The family \(k \mapsto 1 - a\cdot X^k\) is multipliable in \(R[\! [ X]\! ]\) (with the pi / \(X\)-adic topology). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-multipliable">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS.lean#L105">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:fps-S-const_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:fps-S-const" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">76</span><span class="theorem_thmtitle">FPS: all \(S_k\) are equal</span></div>
+    <div class="thm_thmcontent"><p> \(S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0\) for all \(k \in \mathbb {N}\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:fps-S-const">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FPS_Algebra.lean#L368">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:jacobi-prod-luc_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:jacobi-prod-luc" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">57</span><span class="theorem_thmtitle">Locally uniform convergence of the product side</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\), the partial products \(\prod _{k {\lt} N}(1 - q^{2k})(1 + zq^{2k-1})(1 + q^{2k-1}/z)\) converge <em>locally uniformly</em> on \(\{ z \neq 0\} \) to \(\mathrm{jacobiProd}(q,z)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:jacobi-prod-luc">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_Analytic.lean#L282">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:jacobi-series-luc_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:jacobi-series-luc" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">58</span><span class="theorem_thmtitle">Locally uniform convergence of the series side</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\), the bilateral partial sums \(\sum _{|k| {\lt} N} z^k\,  q^{\binom {k}{2}}\) converge <em>locally uniformly</em> on \(\{ z \neq 0\} \) to \(\mathrm{jacobiBilateral}(q,z)\). </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:jacobi-series-luc">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_Analytic.lean#L149">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:jtp-analytic_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:jtp-analytic" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">59</span><span class="theorem_thmtitle">Analytic Jacobi triple product</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and every \(z \neq 0\), </p>
+<div class="displaymath" id="a0000000157">
+  \[  (q;q)_\infty \, (-z;q)_\infty \, (-q/z;q)_\infty = \sum _{k \ge 0} z^k\,  q^{\binom {k}{2}} + \sum _{m \ge 0} z^{-(m+1)}\,  q^{\binom {m+2}{2}}.  \]
+</div>
+</div>
+
+    <a class="latex_link" href="index.html#thm:jtp-analytic">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_Analytic.lean#L403">Lean</a>
     
     
   
@@ -1961,7 +2784,7 @@ div.proof_content {
       </span>
       <span class="theorem_thmlabel">53</span><span class="theorem_thmtitle">Jacobi triple product</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\), \(\| z\|  {\lt} 1\), \(z \neq 0\), \(\; \mathrm{jacobiProd}(q,z) = \mathrm{jacobiBilateral}(q,z)\); that is, </p>
-<div class="displaymath" id="a0000000164">
+<div class="displaymath" id="a0000000148">
   \[  (q;q)_\infty \, (-z;q)_\infty \, (-q/z;q)_\infty = \sum _{k\ge 0} z^k q^{\binom {k}{2}} + \sum _{m\ge 0} z^{-(m+1)} q^{\binom {m+2}{2}}.  \]
 </div>
 </div>
@@ -1969,7 +2792,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#thm:jtp-full">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.jacobiTripleProduct">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JacobiTripleProduct.lean#L211">Lean</a>
     
     
   
@@ -1994,7 +2817,7 @@ div.proof_content {
       </span>
       <span class="theorem_thmlabel">55</span><span class="theorem_thmtitle">Euler’s pentagonal number theorem</span></div>
     <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000168">
+<div class="displaymath" id="a0000000152">
   \[  (q;q)_\infty = \sum _{k\ge 0} (-1)^k q^{\omega (k)} + \sum _{k\ge 0} (-1)^{k+1} q^{\omega (-(k+1))} \; =\;  1 - q - q^2 + q^5 + q^7 - q^{12} - \cdots .  \]
 </div>
 </div>
@@ -2002,7 +2825,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#thm:pentagonal-impl">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.eulerPentagonalNumber">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/PentagonalNumber.lean#L42">Lean</a>
     
     
   
@@ -2027,7 +2850,7 @@ div.proof_content {
       </span>
       <span class="theorem_thmlabel">25</span><span class="theorem_thmtitle">Finite \(q\)-binomial theorem</span></div>
     <div class="thm_thmcontent"><p> In \(\mathbb {Z}[q, z]\), for every \(n \geq 0\), </p>
-<div class="displaymath" id="a0000000096">
+<div class="displaymath" id="a0000000080">
   \[  \prod _{k=0}^{n-1} (1 + z q^k) = \sum _{k=0}^n q^{\binom {k}{2}} \binom {n}{k}_q z^k.  \]
 </div>
 </div>
@@ -2035,7 +2858,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#thm:qbin-finite">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_finite_thm">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/FiniteBinomial.lean#L32">Lean</a>
     
     
   
@@ -2060,7 +2883,7 @@ div.proof_content {
       </span>
       <span class="theorem_thmlabel">26</span><span class="theorem_thmtitle">Infinite \(q\)-binomial / Cauchy identity</span></div>
     <div class="thm_thmcontent"><p> For \(|q| {\lt} 1\) and any \(a, z \in \mathbb {C}\) with \(|z| {\lt} 1\), </p>
-<div class="displaymath" id="a0000000098">
+<div class="displaymath" id="a0000000082">
   \[  \sum _{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(a z; q)_\infty }{(z; q)_\infty }.  \]
 </div>
 </div>
@@ -2068,7 +2891,7 @@ div.proof_content {
     <a class="latex_link" href="index.html#thm:qbin-infinite">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_infinite_thm">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/CauchyIdentity.lean#L340">Lean</a>
     
     
   
@@ -2093,16 +2916,16 @@ div.proof_content {
       </span>
       <span class="theorem_thmlabel">37</span><span class="theorem_thmtitle">Infinite \(q\)-binomial / Cauchy identity, restated for the formal development</span></div>
     <div class="thm_thmcontent"><p> For \(a, z, q \in \mathbb {C}\) with \(\| q\|  {\lt} 1\) and \(\| z\|  {\lt} 1\), </p>
-<div class="displaymath" id="a0000000131">
+<div class="displaymath" id="a0000000115">
   \[  \sum _{n=0}^{\infty } \frac{(a; q)_n}{(q; q)_n}\,  z^n = \frac{(a z; q)_\infty }{(z; q)_\infty }.  \]
 </div>
-<p> (Equivalent to Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>.) The Lean theorem is <span class="ttfamily">qSeries.qBinom_infinite_thm</span> in <span class="ttfamily">Series/qSeries.lean</span>. The proof realised in Lean follows Heine’s functional-equation argument spelled out in the proof of Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a> above, organised under <span class="ttfamily">section CauchyIdentity</span>: non-vanishing of \((z;q)_\infty \) (<span class="ttfamily">qPochhammerInf_z_q_ne_zero</span>), the telescoping recursion \((z;q)_\infty = (1-z)\, (zq;q)_\infty \) (<span class="ttfamily">qPochhammerInf_recursion</span>), the coefficient recurrence \(c_{n+1}(1-q^{n+1}) = c_n(1 - a q^n)\) (<span class="ttfamily">cauchyCoeff_succ_mul</span>), the functional equations for \(F\) and \(G\) (<span class="ttfamily">cauchy_functional_eq_F</span>, <span class="ttfamily">cauchy_functional_eq_G</span>), iteration on the disc (<span class="ttfamily">iterated_functional_eq_disc</span>), and the Tannery-based limit \(F(q^n z) \to 1\) (<span class="ttfamily">tendsto_F_qpow</span>). The alternative route via a finite Cauchy-type analog of Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> is not formalised. </p>
+<p> (Equivalent to Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a>.) The Lean theorem is <span class="ttfamily">qSeries.qBinom_infinite_thm</span> in <span class="ttfamily">QSeries/CauchyIdentity.lean</span> (in <span class="ttfamily">Qseries_Aristotle_new</span>). The proof realised in Lean follows Heine’s functional-equation argument spelled out in the proof of Theorem&#160;<a href="index.html#thm:qbin-infinite">26</a> above, organised under <span class="ttfamily">section CauchyIdentity</span>: non-vanishing of \((z;q)_\infty \) (<span class="ttfamily">qPochhammerInf_z_q_ne_zero</span>), the telescoping recursion \((z;q)_\infty = (1-z)\, (zq;q)_\infty \) (<span class="ttfamily">qPochhammerInf_recursion</span>), the coefficient recurrence \(c_{n+1}(1-q^{n+1}) = c_n(1 - a q^n)\) (<span class="ttfamily">cauchyCoeff_succ_mul</span>), the functional equations for \(F\) and \(G\) (<span class="ttfamily">cauchy_functional_eq_F</span>, <span class="ttfamily">cauchy_functional_eq_G</span>), iteration on the disc (<span class="ttfamily">iterated_functional_eq_disc</span>), and the Tannery-based limit \(F(q^n z) \to 1\) (<span class="ttfamily">tendsto_F_qpow</span>). The alternative route via a finite Cauchy-type analog of Theorem&#160;<a href="index.html#thm:qbin-finite">25</a> is not formalised. </p>
 </div>
 
     <a class="latex_link" href="index.html#thm:qbin-infinite-formalized">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.qBinom_infinite_thm">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/CauchyIdentity.lean#L340">Lean</a>
     
     
   
@@ -2132,7 +2955,37 @@ div.proof_content {
     <a class="latex_link" href="index.html#thm:S-sum-eq">LaTeX</a>
     
     
-  <a class="lean_link lean_decl" href="https://viazovska.github.io/my_project/docs/find/#doc/qSeries.S_sum_eq">Lean</a>
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_KeyIdentity.lean#L227">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:summable-nonneg-all_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:summable-nonneg-all" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">56</span><span class="theorem_thmtitle">Summability of bilateral series for all \(z\)</span></div>
+    <div class="thm_thmcontent"><p> For \(\| q\|  {\lt} 1\) and <em>every</em> \(z \in \mathbb {C}\), the non-negative part \(\sum _{k \ge 0} z^k\,  q^{\binom {k}{2}}\) is summable. </p>
+</div>
+
+    <a class="latex_link" href="index.html#thm:summable-nonneg-all">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="https://github.com/viazovska/my_project/blob/main/Qseries_Aristotle_new/QSeries/JTP_Analytic.lean#L38">Lean</a>
     
     
   
@@ -2160,7 +3013,7 @@ graphContainer.graphviz({useWorker: false})
     .width(width)
     .height(height)
     .fit(true)
-    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"lemma:alpha-beta-change-parity"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-change-parity",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even"	[color=green,		fillcolor="#1CAC78",		label="alpha-odd-eq-beta-even",		shape=ellipse,		style=filled];	"lemma:alpha-beta-change-parity" -> "lemma:alpha-odd-eq-beta-even";	"lemma:pe-minus-po-closed-form"	[color=green,		fillcolor="#1CAC78",		label="pe-minus-po-closed-form",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even" -> "lemma:pe-minus-po-closed-form";	"thm:euler-pentagonal"	[color=green,		fillcolor="#1CAC78",		label="euler-pentagonal",		shape=ellipse,		style=filled];	"lemma:pe-minus-po-closed-form" -> "thm:euler-pentagonal";	"lem:cauchy-coeff-neg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-neg",		shape=ellipse,		style=filled];	"thm:jtp-full"	[color=green,		fillcolor="#1CAC78",		label="jtp-full",		shape=ellipse,		style=filled];	"lem:cauchy-coeff-neg" -> "thm:jtp-full"	[style=dashed];	"thm:pentagonal-impl"	[color=green,		fillcolor="#1CAC78",		label="pentagonal-impl",		shape=ellipse,		style=filled];	"thm:jtp-full" -> "thm:pentagonal-impl"	[style=dashed];	"lemma:special"	[color=green,		fillcolor="#1CAC78",		label=special,		shape=ellipse,		style=filled];	"lemma:special" -> "lemma:pe-minus-po-closed-form";	"lemma:alpha-lands-in-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-lands-in-beta",		shape=ellipse,		style=filled];	"lemma:alpha-lands-in-beta" -> "lemma:alpha-beta-change-parity";	"lemma:beta-after-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-after-alpha",		shape=ellipse,		style=filled];	"lemma:alpha-lands-in-beta" -> "lemma:beta-after-alpha";	"lemma:alpha-beta-bijection"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-bijection",		shape=ellipse,		style=filled];	"lemma:beta-after-alpha" -> "lemma:alpha-beta-bijection";	"lemma:alpha-beta-bijection" -> "lemma:alpha-odd-eq-beta-even";	"lemma:P-alpha-card-eq-P-beta-card"	[color=green,		fillcolor="#1CAC78",		label="P-alpha-card-eq-P-beta-card",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:P-alpha-card-eq-P-beta-card";	"lemma:alpha-beta-special-disjoint"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special-disjoint",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special-disjoint" -> "lemma:alpha-beta-special";	"lemma:alpha-beta-special" -> "lemma:pe-minus-po-closed-form";	"lemma:expansion-product"	[color=green,		fillcolor="#1CAC78",		label="expansion-product",		shape=ellipse,		style=filled];	"lemma:expansion-product" -> "thm:euler-pentagonal";	"def:jacobiProd"	[color=green,		fillcolor="#B0ECA3",		label=jacobiProd,		shape=box,		style=filled];	"def:jacobiProd" -> "thm:jtp-full"	[style=dashed];	"def:staircase-sets"	[color=green,		fillcolor="#B0ECA3",		label="staircase-sets",		shape=box,		style=filled];	"def:staircase-sets" -> "lemma:special"	[style=dashed];	"def:P-alpha-beta-special"	[color=green,		fillcolor="#B0ECA3",		label="P-alpha-beta-special",		shape=box,		style=filled];	"def:P-alpha-beta-special" -> "lemma:special"	[style=dashed];	"def:P-alpha-beta-special" -> "lemma:alpha-beta-special-disjoint"	[style=dashed];	"def:alpha-beta-ops"	[color=green,		fillcolor="#B0ECA3",		label="alpha-beta-ops",		shape=box,		style=filled];	"def:P-alpha-beta-special" -> "def:alpha-beta-ops"	[style=dashed];	"def:alpha-beta-ops" -> "lemma:alpha-lands-in-beta"	[style=dashed];	"lemma:beta-lands-in-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-lands-in-alpha",		shape=ellipse,		style=filled];	"def:alpha-beta-ops" -> "lemma:beta-lands-in-alpha"	[style=dashed];	"lemma:alpha-after-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-after-beta",		shape=ellipse,		style=filled];	"lemma:alpha-after-beta" -> "lemma:alpha-beta-bijection";	"lemma:beta-lands-in-alpha" -> "lemma:alpha-beta-change-parity";	"lemma:beta-lands-in-alpha" -> "lemma:alpha-after-beta";	"def:qPochhammerInf"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammerInf,		shape=box,		style=filled];	"def:qPochhammerInf" -> "def:jacobiProd"	[style=dashed];	"lem:multipliable-one-sub-smul-qpow"	[color=green,		fillcolor="#1CAC78",		label="multipliable-one-sub-smul-qpow",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:multipliable-one-sub-smul-qpow"	[style=dashed];	"lem:S-sum-tendsto"	[color=green,		fillcolor="#1CAC78",		label="S-sum-tendsto",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:S-sum-tendsto"	[style=dashed];	"lem:qPochhammerInf-telescope"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-telescope",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"lem:euler-second"	[color=green,		fillcolor="#1CAC78",		label="euler-second",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:euler-second"	[style=dashed];	"thm:qbin-infinite"	[color=green,		fillcolor="#1CAC78",		label="qbin-infinite",		shape=ellipse,		style=filled];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite";	"thm:qbin-infinite-formalized"	[color=green,		label="qbin-infinite-formalized",		shape=ellipse];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite-formalized"	[style=dashed];	"thm:S-sum-eq"	[color=green,		fillcolor="#1CAC78",		label="S-sum-eq",		shape=ellipse,		style=filled];	"lem:S-sum-tendsto" -> "thm:S-sum-eq"	[style=dashed];	"lem:qPochhammerInf-prod-hassum"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-prod-hassum",		shape=ellipse,		style=filled];	"lem:qPochhammerInf-telescope" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"lem:euler-second" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"thm:euler-second-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-all",		shape=ellipse,		style=filled];	"lem:euler-second" -> "thm:euler-second-all"	[style=dashed];	"lem:euler-first"	[color=green,		fillcolor="#9CEC8B",		label="euler-first",		shape=ellipse,		style=filled];	"thm:qbin-infinite-formalized" -> "lem:euler-first"	[style=dashed];	"thm:S-sum-eq" -> "lem:cauchy-coeff-neg"	[style=dashed];	"lem:cauchy-coeff-nonneg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-nonneg",		shape=ellipse,		style=filled];	"thm:S-sum-eq" -> "lem:cauchy-coeff-nonneg"	[style=dashed];	"lem:qPochhammerInf-prod-hassum" -> "thm:jtp-full"	[style=dashed];	"lem:euler-second-qoz-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-qoz-all",		shape=ellipse,		style=filled];	"thm:euler-second-all" -> "lem:euler-second-qoz-all"	[style=dashed];	"lem:S-sum-recurrence"	[color=green,		fillcolor="#1CAC78",		label="S-sum-recurrence",		shape=ellipse,		style=filled];	"lem:S-sum-recurrence" -> "thm:S-sum-eq"	[style=dashed];	"lem:cauchy-coeff-nonneg" -> "thm:jtp-full"	[style=dashed];	"lem:euler-second-qoz-all" -> "thm:jtp-full"	[style=dashed];	"thm:qbin-finite"	[color=green,		fillcolor="#1CAC78",		label="qbin-finite",		shape=ellipse,		style=filled];	"thm:qbin-finite" -> "lem:euler-second"	[style=dashed];	"lem:euler-second-recursion"	[color=green,		fillcolor="#1CAC78",		label="euler-second-recursion",		shape=ellipse,		style=filled];	"lem:euler-second-recursion" -> "thm:euler-second-all"	[style=dashed];	"lem:summable-S"	[color=green,		fillcolor="#1CAC78",		label="summable-S",		shape=ellipse,		style=filled];	"lem:qBinom-self"	[color=green,		fillcolor="#1CAC78",		label="qBinom-self",		shape=ellipse,		style=filled];	"lem:qBinom-closed-form"	[color=green,		fillcolor="#1CAC78",		label="qBinom-closed-form",		shape=ellipse,		style=filled];	"lem:qBinom-self" -> "lem:qBinom-closed-form"	[style=dashed];	"lem:qBinom-closed-form" -> "lem:euler-second"	[style=dashed];	"lem:qPochhammer-succ"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-succ",		shape=ellipse,		style=filled];	"lem:qPochhammer-succ" -> "lem:S-sum-recurrence"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:euler-second-recursion"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:qBinom-closed-form"	[style=dashed];	"def:partition"	[color=blue,		fillcolor="#A3D6FF",		label=partition,		shape=box,		style=filled];	"def:distinct-partitions"	[color=green,		fillcolor="#B0ECA3",		label="distinct-partitions",		shape=box,		style=filled];	"def:partition" -> "def:distinct-partitions"	[style=dashed];	"lemma:gen-func-p"	[color=green,		fillcolor="#1CAC78",		label="gen-func-p",		shape=ellipse,		style=filled];	"def:partition" -> "lemma:gen-func-p"	[style=dashed];	"def:distinct-partitions" -> "lemma:expansion-product"	[style=dashed];	"def:base-slope"	[color=green,		fillcolor="#B0ECA3",		label="base-slope",		shape=box,		style=filled];	"def:distinct-partitions" -> "def:base-slope"	[style=dashed];	"def:base-slope" -> "def:P-alpha-beta-special"	[style=dashed];	"def:qPochhammer"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammer,		shape=box,		style=filled];	"def:qPochhammer" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-infinite-formalized"	[style=dashed];	"def:qPochhammer" -> "thm:qbin-finite"	[style=dashed];	"def:qPochhammer" -> "lem:qPochhammer-succ"	[style=dashed];	"def:S-sum"	[color=green,		fillcolor="#B0ECA3",		label="S-sum",		shape=box,		style=filled];	"def:qPochhammer" -> "def:S-sum"	[style=dashed];	"lem:qPochhammer-zero"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-zero",		shape=ellipse,		style=filled];	"def:qPochhammer" -> "lem:qPochhammer-zero"	[style=dashed];	"def:S-sum" -> "lem:S-sum-tendsto"	[style=dashed];	"def:S-sum" -> "lem:S-sum-recurrence"	[style=dashed];	"def:S-sum" -> "lem:summable-S"	[style=dashed];	"def:qBinom"	[color=green,		fillcolor="#B0ECA3",		label=qBinom,		shape=box,		style=filled];	"lem:qpascal"	[color=green,		fillcolor="#1CAC78",		label=qpascal,		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qpascal"	[style=dashed];	"lem:qBinom-eq-zero-of-lt"	[color=green,		fillcolor="#1CAC78",		label="qBinom-eq-zero-of-lt",		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qBinom-eq-zero-of-lt"	[style=dashed];	"lem:qpascal" -> "thm:qbin-finite";	"lem:qBinom-eq-zero-of-lt" -> "thm:qbin-finite";	"lem:qBinom-eq-zero-of-lt" -> "lem:qBinom-self"	[style=dashed];	"def:pentagonal"	[color=green,		fillcolor="#B0ECA3",		label=pentagonal,		shape=box,		style=filled];	"def:pentagonal" -> "thm:pentagonal-impl"	[style=dashed];}`)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"def:distinct-partitions"	[color=green,		fillcolor="#B0ECA3",		label="distinct-partitions",		shape=box,		style=filled];	"lemma:expansion-product"	[color=green,		fillcolor="#1CAC78",		label="expansion-product",		shape=ellipse,		style=filled];	"def:distinct-partitions" -> "lemma:expansion-product"	[style=dashed];	"def:base-slope"	[color=green,		fillcolor="#B0ECA3",		label="base-slope",		shape=box,		style=filled];	"def:distinct-partitions" -> "def:base-slope"	[style=dashed];	"thm:euler-pentagonal"	[color=green,		fillcolor="#1CAC78",		label="euler-pentagonal",		shape=ellipse,		style=filled];	"lemma:expansion-product" -> "thm:euler-pentagonal";	"def:P-alpha-beta-special"	[color=green,		fillcolor="#B0ECA3",		label="P-alpha-beta-special",		shape=box,		style=filled];	"def:base-slope" -> "def:P-alpha-beta-special"	[style=dashed];	"lemma:pe-minus-po-closed-form"	[color=green,		fillcolor="#1CAC78",		label="pe-minus-po-closed-form",		shape=ellipse,		style=filled];	"lemma:pe-minus-po-closed-form" -> "thm:euler-pentagonal";	"lemma:alpha-beta-special-disjoint"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special-disjoint",		shape=ellipse,		style=filled];	"def:P-alpha-beta-special" -> "lemma:alpha-beta-special-disjoint"	[style=dashed];	"lemma:special"	[color=green,		fillcolor="#1CAC78",		label=special,		shape=ellipse,		style=filled];	"def:P-alpha-beta-special" -> "lemma:special"	[style=dashed];	"def:alpha-beta-ops"	[color=green,		fillcolor="#B0ECA3",		label="alpha-beta-ops",		shape=box,		style=filled];	"def:P-alpha-beta-special" -> "def:alpha-beta-ops"	[style=dashed];	"lemma:alpha-beta-special"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-special",		shape=ellipse,		style=filled];	"lemma:alpha-beta-special-disjoint" -> "lemma:alpha-beta-special";	"lemma:special" -> "lemma:pe-minus-po-closed-form";	"lemma:beta-lands-in-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-lands-in-alpha",		shape=ellipse,		style=filled];	"def:alpha-beta-ops" -> "lemma:beta-lands-in-alpha"	[style=dashed];	"lemma:alpha-lands-in-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-lands-in-beta",		shape=ellipse,		style=filled];	"def:alpha-beta-ops" -> "lemma:alpha-lands-in-beta"	[style=dashed];	"lemma:alpha-odd-eq-beta-even"	[color=green,		fillcolor="#1CAC78",		label="alpha-odd-eq-beta-even",		shape=ellipse,		style=filled];	"lemma:alpha-odd-eq-beta-even" -> "lemma:pe-minus-po-closed-form";	"lemma:alpha-beta-special" -> "lemma:pe-minus-po-closed-form";	"lemma:alpha-beta-change-parity"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-change-parity",		shape=ellipse,		style=filled];	"lemma:alpha-beta-change-parity" -> "lemma:alpha-odd-eq-beta-even";	"def:qBinom"	[color=green,		fillcolor="#B0ECA3",		label=qBinom,		shape=box,		style=filled];	"lem:qBinom-eq-zero-of-lt"	[color=green,		fillcolor="#1CAC78",		label="qBinom-eq-zero-of-lt",		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qBinom-eq-zero-of-lt"	[style=dashed];	"lem:qpascal"	[color=green,		fillcolor="#1CAC78",		label=qpascal,		shape=ellipse,		style=filled];	"def:qBinom" -> "lem:qpascal"	[style=dashed];	"lem:qBinom-self"	[color=green,		fillcolor="#1CAC78",		label="qBinom-self",		shape=ellipse,		style=filled];	"lem:qBinom-eq-zero-of-lt" -> "lem:qBinom-self"	[style=dashed];	"thm:qbin-finite"	[color=green,		fillcolor="#1CAC78",		label="qbin-finite",		shape=ellipse,		style=filled];	"lem:qBinom-eq-zero-of-lt" -> "thm:qbin-finite";	"lem:qpascal" -> "thm:qbin-finite";	"lem:qBinom-closed-form"	[color=green,		fillcolor="#1CAC78",		label="qBinom-closed-form",		shape=ellipse,		style=filled];	"lem:qBinom-self" -> "lem:qBinom-closed-form"	[style=dashed];	"thm:fps-euler-second"	[color=green,		fillcolor="#1CAC78",		label="fps-euler-second",		shape=ellipse,		style=filled];	"thm:qbin-finite" -> "thm:fps-euler-second"	[style=dashed];	"lem:euler-second"	[color=green,		fillcolor="#1CAC78",		label="euler-second",		shape=ellipse,		style=filled];	"thm:qbin-finite" -> "lem:euler-second"	[style=dashed];	"lem:fps-qqInf-euler2"	[color=green,		fillcolor="#1CAC78",		label="fps-qqInf-euler2",		shape=ellipse,		style=filled];	"thm:fps-euler-second" -> "lem:fps-qqInf-euler2"	[style=dashed];	"thm:fps-cauchy-neg"	[color=green,		fillcolor="#1CAC78",		label="fps-cauchy-neg",		shape=ellipse,		style=filled];	"lem:fps-qqInf-euler2" -> "thm:fps-cauchy-neg"	[style=dashed];	"thm:fps-cauchy-nonneg"	[color=green,		fillcolor="#1CAC78",		label="fps-cauchy-nonneg",		shape=ellipse,		style=filled];	"lem:fps-qqInf-euler2" -> "thm:fps-cauchy-nonneg"	[style=dashed];	"lem:qBinom-closed-form" -> "lem:euler-second"	[style=dashed];	"lem:qPochhammerInf-prod-hassum"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-prod-hassum",		shape=ellipse,		style=filled];	"lem:euler-second" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"thm:euler-second-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-all",		shape=ellipse,		style=filled];	"lem:euler-second" -> "thm:euler-second-all"	[style=dashed];	"def:S-sum"	[color=green,		fillcolor="#B0ECA3",		label="S-sum",		shape=box,		style=filled];	"lem:summable-S"	[color=green,		fillcolor="#1CAC78",		label="summable-S",		shape=ellipse,		style=filled];	"def:S-sum" -> "lem:summable-S"	[style=dashed];	"lem:S-sum-recurrence"	[color=green,		fillcolor="#1CAC78",		label="S-sum-recurrence",		shape=ellipse,		style=filled];	"def:S-sum" -> "lem:S-sum-recurrence"	[style=dashed];	"lem:S-sum-tendsto"	[color=green,		fillcolor="#1CAC78",		label="S-sum-tendsto",		shape=ellipse,		style=filled];	"def:S-sum" -> "lem:S-sum-tendsto"	[style=dashed];	"thm:S-sum-eq"	[color=green,		fillcolor="#1CAC78",		label="S-sum-eq",		shape=ellipse,		style=filled];	"lem:S-sum-recurrence" -> "thm:S-sum-eq"	[style=dashed];	"lem:S-sum-tendsto" -> "thm:S-sum-eq"	[style=dashed];	"lem:cauchy-coeff-neg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-neg",		shape=ellipse,		style=filled];	"thm:S-sum-eq" -> "lem:cauchy-coeff-neg"	[style=dashed];	"lem:cauchy-coeff-nonneg"	[color=green,		fillcolor="#1CAC78",		label="cauchy-coeff-nonneg",		shape=ellipse,		style=filled];	"thm:S-sum-eq" -> "lem:cauchy-coeff-nonneg"	[style=dashed];	"lemma:alpha-beta-bijection"	[color=green,		fillcolor="#1CAC78",		label="alpha-beta-bijection",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:alpha-odd-eq-beta-even";	"lemma:P-alpha-card-eq-P-beta-card"	[color=green,		fillcolor="#1CAC78",		label="P-alpha-card-eq-P-beta-card",		shape=ellipse,		style=filled];	"lemma:alpha-beta-bijection" -> "lemma:P-alpha-card-eq-P-beta-card";	"thm:summable-nonneg-all"	[color=green,		fillcolor="#1CAC78",		label="summable-nonneg-all",		shape=ellipse,		style=filled];	"thm:jtp-analytic"	[color=green,		fillcolor="#1CAC78",		label="jtp-analytic",		shape=ellipse,		style=filled];	"thm:summable-nonneg-all" -> "thm:jtp-analytic"	[style=dashed];	"thm:fps-jtp"	[color=green,		fillcolor="#1CAC78",		label="fps-jtp",		shape=ellipse,		style=filled];	"thm:fps-cauchy-neg" -> "thm:fps-jtp"	[style=dashed];	"thm:fps-cauchy-nonneg" -> "thm:fps-jtp"	[style=dashed];	"lem:qPochhammerInf-telescope"	[color=green,		fillcolor="#1CAC78",		label="qPochhammerInf-telescope",		shape=ellipse,		style=filled];	"lem:qPochhammerInf-telescope" -> "lem:qPochhammerInf-prod-hassum"	[style=dashed];	"thm:jtp-full"	[color=green,		fillcolor="#1CAC78",		label="jtp-full",		shape=ellipse,		style=filled];	"lem:qPochhammerInf-prod-hassum" -> "thm:jtp-full"	[style=dashed];	"thm:jtp-full" -> "thm:jtp-analytic"	[style=dashed];	"thm:pentagonal-impl"	[color=green,		fillcolor="#1CAC78",		label="pentagonal-impl",		shape=ellipse,		style=filled];	"thm:jtp-full" -> "thm:pentagonal-impl"	[style=dashed];	"lem:fps-qPoch-succ"	[color=green,		fillcolor="#1CAC78",		label="fps-qPoch-succ",		shape=ellipse,		style=filled];	"lem:fps-coeff-qPochInf"	[color=green,		fillcolor="#1CAC78",		label="fps-coeff-qPochInf",		shape=ellipse,		style=filled];	"lem:fps-coeff-qPochInf" -> "thm:fps-euler-second"	[style=dashed];	"lem:fps-summable-S"	[color=green,		fillcolor="#1CAC78",		label="fps-summable-S",		shape=ellipse,		style=filled];	"lem:fps-S-recurrence"	[color=green,		fillcolor="#1CAC78",		label="fps-S-recurrence",		shape=ellipse,		style=filled];	"lem:fps-summable-S" -> "lem:fps-S-recurrence"	[style=dashed];	"thm:fps-S-const"	[color=green,		fillcolor="#1CAC78",		label="fps-S-const",		shape=ellipse,		style=filled];	"lem:fps-S-recurrence" -> "thm:fps-S-const"	[style=dashed];	"thm:fps-key"	[color=green,		fillcolor="#1CAC78",		label="fps-key",		shape=ellipse,		style=filled];	"thm:fps-S-const" -> "thm:fps-key"	[style=dashed];	"thm:fps-key" -> "thm:fps-cauchy-neg"	[style=dashed];	"thm:fps-key" -> "thm:fps-cauchy-nonneg"	[style=dashed];	"lem:cauchy-coeff-neg" -> "thm:jtp-full"	[style=dashed];	"lem:cauchy-coeff-nonneg" -> "thm:jtp-full"	[style=dashed];	"thm:jacobi-prod-luc"	[color=green,		fillcolor="#1CAC78",		label="jacobi-prod-luc",		shape=ellipse,		style=filled];	"thm:jacobi-prod-luc" -> "thm:jtp-analytic"	[style=dashed];	"lemma:beta-after-alpha"	[color=green,		fillcolor="#1CAC78",		label="beta-after-alpha",		shape=ellipse,		style=filled];	"lemma:beta-after-alpha" -> "lemma:alpha-beta-bijection";	"def:staircase-sets"	[color=green,		fillcolor="#B0ECA3",		label="staircase-sets",		shape=box,		style=filled];	"def:staircase-sets" -> "lemma:special"	[style=dashed];	"lem:euler-second-qoz-all"	[color=green,		fillcolor="#1CAC78",		label="euler-second-qoz-all",		shape=ellipse,		style=filled];	"thm:euler-second-all" -> "lem:euler-second-qoz-all"	[style=dashed];	"lem:fps-constantCoeff-qPoch-X"	[color=green,		fillcolor="#1CAC78",		label="fps-constantCoeff-qPoch-X",		shape=ellipse,		style=filled];	"lem:fps-qPochInf-recursion"	[color=green,		fillcolor="#1CAC78",		label="fps-qPochInf-recursion",		shape=ellipse,		style=filled];	"lem:fps-qPochInf-eq-qPoch-mul"	[color=green,		fillcolor="#1CAC78",		label="fps-qPochInf-eq-qPoch-mul",		shape=ellipse,		style=filled];	"lem:fps-qPochInf-recursion" -> "lem:fps-qPochInf-eq-qPoch-mul"	[style=dashed];	"lem:fps-qPochInf-eq-qPoch-mul" -> "lem:fps-qqInf-euler2"	[style=dashed];	"thm:fps-multipliable"	[color=green,		fillcolor="#1CAC78",		label="fps-multipliable",		shape=ellipse,		style=filled];	"def:fps-qPochInf"	[color=green,		fillcolor="#B0ECA3",		label="fps-qPochInf",		shape=box,		style=filled];	"thm:fps-multipliable" -> "def:fps-qPochInf"	[style=dashed];	"def:fps-qPochInf" -> "lem:fps-coeff-qPochInf"	[style=dashed];	"def:fps-qPochInf" -> "lem:fps-qPochInf-recursion"	[style=dashed];	"def:fps-S"	[color=green,		fillcolor="#B0ECA3",		label="fps-S",		shape=box,		style=filled];	"def:fps-qPochInf" -> "def:fps-S"	[style=dashed];	"def:fps-jtp"	[color=green,		fillcolor="#B0ECA3",		label="fps-jtp",		shape=box,		style=filled];	"def:fps-qPochInf" -> "def:fps-jtp"	[style=dashed];	"lem:fps-isUnit-qPochInf"	[color=green,		fillcolor="#1CAC78",		label="fps-isUnit-qPochInf",		shape=ellipse,		style=filled];	"def:fps-qPochInf" -> "lem:fps-isUnit-qPochInf"	[style=dashed];	"def:fps-S" -> "lem:fps-summable-S"	[style=dashed];	"def:fps-jtp" -> "thm:fps-jtp"	[style=dashed];	"lemma:beta-lands-in-alpha" -> "lemma:alpha-beta-change-parity";	"lemma:alpha-after-beta"	[color=green,		fillcolor="#1CAC78",		label="alpha-after-beta",		shape=ellipse,		style=filled];	"lemma:beta-lands-in-alpha" -> "lemma:alpha-after-beta";	"lemma:alpha-lands-in-beta" -> "lemma:alpha-beta-change-parity";	"lemma:alpha-lands-in-beta" -> "lemma:beta-after-alpha";	"lemma:alpha-after-beta" -> "lemma:alpha-beta-bijection";	"def:qPochhammer"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammer,		shape=box,		style=filled];	"def:qPochhammer" -> "thm:qbin-finite"	[style=dashed];	"def:qPochhammer" -> "def:S-sum"	[style=dashed];	"def:qPochhammer" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"lem:qPochhammer-succ"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-succ",		shape=ellipse,		style=filled];	"def:qPochhammer" -> "lem:qPochhammer-succ"	[style=dashed];	"thm:qbin-infinite-formalized"	[color=green,		label="qbin-infinite-formalized",		shape=ellipse];	"def:qPochhammer" -> "thm:qbin-infinite-formalized"	[style=dashed];	"lem:qPochhammer-zero"	[color=green,		fillcolor="#1CAC78",		label="qPochhammer-zero",		shape=ellipse,		style=filled];	"def:qPochhammer" -> "lem:qPochhammer-zero"	[style=dashed];	"thm:qbin-infinite"	[color=green,		fillcolor="#1CAC78",		label="qbin-infinite",		shape=ellipse,		style=filled];	"def:qPochhammer" -> "thm:qbin-infinite"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:qBinom-closed-form"	[style=dashed];	"lem:qPochhammer-succ" -> "lem:S-sum-recurrence"	[style=dashed];	"lem:euler-second-recursion"	[color=green,		fillcolor="#1CAC78",		label="euler-second-recursion",		shape=ellipse,		style=filled];	"lem:qPochhammer-succ" -> "lem:euler-second-recursion"	[style=dashed];	"lem:euler-first"	[color=green,		fillcolor="#9CEC8B",		label="euler-first",		shape=ellipse,		style=filled];	"thm:qbin-infinite-formalized" -> "lem:euler-first"	[style=dashed];	"lem:euler-second-recursion" -> "thm:euler-second-all"	[style=dashed];	"thm:jacobi-series-luc"	[color=green,		fillcolor="#1CAC78",		label="jacobi-series-luc",		shape=ellipse,		style=filled];	"thm:jacobi-series-luc" -> "thm:jtp-analytic"	[style=dashed];	"def:fps-qPoch"	[color=green,		fillcolor="#B0ECA3",		label="fps-qPoch",		shape=box,		style=filled];	"def:fps-qPoch" -> "lem:fps-qPoch-succ"	[style=dashed];	"def:fps-qPoch" -> "lem:fps-constantCoeff-qPoch-X"	[style=dashed];	"def:fps-qPoch" -> "thm:fps-multipliable"	[style=dashed];	"lem:fps-qPoch-shift"	[color=green,		fillcolor="#1CAC78",		label="fps-qPoch-shift",		shape=ellipse,		style=filled];	"def:fps-qPoch" -> "lem:fps-qPoch-shift"	[style=dashed];	"lem:fps-qPoch-zero"	[color=green,		fillcolor="#1CAC78",		label="fps-qPoch-zero",		shape=ellipse,		style=filled];	"def:fps-qPoch" -> "lem:fps-qPoch-zero"	[style=dashed];	"lem:fps-coeff-stable"	[color=green,		fillcolor="#1CAC78",		label="fps-coeff-stable",		shape=ellipse,		style=filled];	"def:fps-qPoch" -> "lem:fps-coeff-stable"	[style=dashed];	"lem:fps-coeff-stable" -> "lem:fps-coeff-qPochInf"	[style=dashed];	"def:qPochhammerInf"	[color=green,		fillcolor="#B0ECA3",		label=qPochhammerInf,		shape=box,		style=filled];	"def:qPochhammerInf" -> "lem:euler-second"	[style=dashed];	"def:qPochhammerInf" -> "lem:S-sum-tendsto"	[style=dashed];	"def:qPochhammerInf" -> "lem:qPochhammerInf-telescope"	[style=dashed];	"def:jacobiProd"	[color=green,		fillcolor="#B0ECA3",		label=jacobiProd,		shape=box,		style=filled];	"def:qPochhammerInf" -> "def:jacobiProd"	[style=dashed];	"lem:multipliable-one-sub-smul-qpow"	[color=green,		fillcolor="#1CAC78",		label="multipliable-one-sub-smul-qpow",		shape=ellipse,		style=filled];	"def:qPochhammerInf" -> "lem:multipliable-one-sub-smul-qpow"	[style=dashed];	"def:jacobiProd" -> "thm:summable-nonneg-all"	[style=dashed];	"def:jacobiProd" -> "thm:jtp-full"	[style=dashed];	"def:jacobiProd" -> "thm:jacobi-prod-luc"	[style=dashed];	"def:jacobiProd" -> "thm:jacobi-series-luc"	[style=dashed];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite-formalized"	[style=dashed];	"lem:multipliable-one-sub-smul-qpow" -> "thm:qbin-infinite";	"def:partition"	[color=blue,		fillcolor="#A3D6FF",		label=partition,		shape=box,		style=filled];	"def:partition" -> "def:distinct-partitions"	[style=dashed];	"lemma:gen-func-p"	[color=green,		fillcolor="#1CAC78",		label="gen-func-p",		shape=ellipse,		style=filled];	"def:partition" -> "lemma:gen-func-p"	[style=dashed];	"lem:euler-second-qoz-all" -> "thm:jtp-full"	[style=dashed];	"def:pentagonal"	[color=green,		fillcolor="#B0ECA3",		label=pentagonal,		shape=box,		style=filled];	"def:pentagonal" -> "thm:pentagonal-impl"	[style=dashed];}`)
     .on("end", interactive);
 
 latexLabelEscaper = function(label) {

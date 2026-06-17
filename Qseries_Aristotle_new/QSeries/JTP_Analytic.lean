@@ -153,7 +153,7 @@ theorem jacobiBilateral_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
         (∑ m ∈ Finset.range N, z⁻¹ ^ (m + 1) * q ^ (m + 2).choose 2))
       (fun z => jacobiBilateral q z) atTop {z : ℂ | z ≠ 0} := by
   refine TendstoLocallyUniformlyOn.add ?_ ?_
-  · refine TendstoLocallyUniformly.tendstoLocallyUniformlyOn _
+  · apply TendstoLocallyUniformly.tendstoLocallyUniformlyOn
     have h_nonneg : ∀ R : ℝ, 0 ≤ R → TendstoUniformlyOn (fun N z => ∑ k ∈ Finset.range N, z ^ k * q ^ k.choose 2) (fun z => ∑' k : ℕ, z ^ k * q ^ k.choose 2) atTop (Metric.closedBall 0 R) := by
       grind +suggestions
     rw [ Metric.tendstoLocallyUniformly_iff ]
@@ -165,7 +165,7 @@ theorem jacobiBilateral_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
       obtain ⟨r, hr_pos, hr⟩ : ∃ r > 0, ∀ z ∈ Metric.ball z₀ r, ‖z⁻¹‖ ≤ 2 / ‖z₀‖ := by
         have := Metric.continuousAt_iff.mp ( show ContinuousAt ( fun z : ℂ => ‖z⁻¹‖ ) z₀ from ContinuousAt.norm <| ContinuousAt.inv₀ continuousAt_id hz₀ )
         obtain ⟨ δ, δ_pos, H ⟩ := this ( ‖z₀⁻¹‖ ) ( norm_pos_iff.mpr <| inv_ne_zero hz₀ ) ; exact ⟨ δ, δ_pos, fun z hz => by have := H hz; norm_num at *; ring_nf at *; linarith [ abs_lt.mp this ] ⟩ 
-      refine ⟨ r, hr_pos, _ ⟩
+      refine ⟨ r, hr_pos, ?_ ⟩
       have := @neg_tendstoUniformlyOn_ball q hq ( 2 / ‖z₀‖ ) ( by positivity )
       exact this.mono fun x hx => hr x hx.1
     intro ε hε
@@ -195,10 +195,11 @@ lemma TendstoUniformlyOn.mul_of_bounded {s : Set ℂ}
       intro n z hz; rw [ ← norm_mul, ← norm_mul ] ; convert norm_add_le ( ( F₁ z - f₁ n z ) * F₂ z ) ( f₁ n z * ( F₂ z - f₂ n z ) ) using 2 ; ring
     intro ε hε
     obtain ⟨N₁, hN₁⟩ : ∃ N₁, ∀ n ≥ N₁, ∀ z ∈ s, ‖F₁ z - f₁ n z‖ < ε / (2 * (C₂ + 1)) := by
-      simpa using h₁ ( ε / ( 2 * ( C₂ + 1 ) ) ) ( div_pos hε ( mul_pos zero_lt_two ( add_pos_of_nonneg_of_pos ( le_trans ( norm_nonneg _ ) ( h_bound₂ _ hs.choose_spec ) ) zero_lt_one ) ) )
+      simpa [dist_eq_norm] using h₁ ( ε / ( 2 * ( C₂ + 1 ) ) ) ( div_pos hε ( mul_pos zero_lt_two ( add_pos_of_nonneg_of_pos ( le_trans ( norm_nonneg _ ) ( h_bound₂ _ hs.choose_spec ) ) zero_lt_one ) ) )
     obtain ⟨N₂, hN₂⟩ : ∃ N₂, ∀ n ≥ N₂, ∀ z ∈ s, ‖F₂ z - f₂ n z‖ < ε / (2 * (C₁ + 1)) := by
-      simpa using h₂ ( ε / ( 2 * ( C₁ + 1 ) ) ) ( div_pos hε ( mul_pos zero_lt_two ( add_pos_of_nonneg_of_pos ( le_trans ( norm_nonneg _ ) ( h_bound₁ 0 _ hs.choose_spec ) ) zero_lt_one ) ) )
+      simpa [dist_eq_norm] using h₂ ( ε / ( 2 * ( C₁ + 1 ) ) ) ( div_pos hε ( mul_pos zero_lt_two ( add_pos_of_nonneg_of_pos ( le_trans ( norm_nonneg _ ) ( h_bound₁ 0 _ hs.choose_spec ) ) zero_lt_one ) ) )
     filter_upwards [ Filter.eventually_ge_atTop N₁, Filter.eventually_ge_atTop N₂ ] with n hn₁ hn₂ z hz
+    rw [dist_eq_norm]
     refine lt_of_le_of_lt ( h_diff n z hz ) ?_
     refine lt_of_le_of_lt ( add_le_add ( mul_le_mul_of_nonneg_left ( h_bound₂ z hz ) ( norm_nonneg _ ) ) ( mul_le_mul_of_nonneg_right ( h_bound₁ n z hz ) ( norm_nonneg _ ) ) ) ?_
     have := hN₁ n hn₁ z hz; have := hN₂ n hn₂ z hz; rw [ lt_div_iff₀ ] at * <;> nlinarith [ norm_nonneg ( F₁ z - f₁ n z ), norm_nonneg ( F₂ z - f₂ n z ), show 0 ≤ C₁ by exact le_trans ( norm_nonneg _ ) ( h_bound₁ 0 z hz ), show 0 ≤ C₂ by exact le_trans ( norm_nonneg _ ) ( h_bound₂ z hz ) ] 
@@ -238,7 +239,7 @@ lemma qPochhammerInf_bounded_on_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ
   obtain ⟨N, hN⟩ : ∃ N, ∀ n ≥ N, ∀ a ∈ Metric.closedBall 0 R, ‖qPochhammerInf a q - qPochhammer a q n‖ < 1 := by
     have := qPochhammer_tendstoUniformlyOn_closedBall hq R
     rw [ Metric.tendstoUniformlyOn_iff ] at this
-    simpa using this 1 zero_lt_one
+    simpa [dist_eq_norm] using this 1 zero_lt_one
   intro a ha; specialize hN N le_rfl a ha; specialize hC N a ha; exact le_trans ( by simpa using norm_add_le ( qPochhammerInf a q - qPochhammer a q N ) ( qPochhammer a q N ) ) ( by linarith )
 
 /-- For `z` in the closed ball of radius `‖z₀‖ / 2` around `z₀ ≠ 0`,
@@ -250,7 +251,7 @@ lemma neg_q_div_mem_closedBall {q z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
   rw [ div_le_div_iff₀ ] <;> try positivity
   · have := norm_sub_norm_le z₀ z; rw [ dist_eq_norm' ] at hz; nlinarith [ norm_nonneg q, norm_nonneg z, norm_nonneg z₀ ] 
   · contrapose! hz₀; simp_all +decide [ dist_eq_norm ]
-    exact norm_le_zero_iff.mp ( by omega )
+    exact norm_le_zero_iff.mp (by linarith [norm_nonneg z₀])
 
 /-- The Pochhammer products `qPochhammer (-z) q n` converge uniformly to
 `qPochhammerInf (-z) q` on any `Metric.closedBall z₀ r` when `‖q‖ < 1`. -/
@@ -314,7 +315,7 @@ theorem jacobiProd_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
         intro z hz
         have hz₁ : ‖-z‖ ≤ R₁ := by
           simp +zetaDelta at *
-          exact le_trans ( norm_le_of_mem_closedBall hz ) ( by omega )
+          exact le_trans ( norm_le_of_mem_closedBall hz ) ( by nlinarith [norm_nonneg z₀] )
         have hz₂ : ‖-q / z‖ ≤ R₂ := by
           exact neg_q_div_mem_closedBall hz₀ hz |> fun h => by simpa using h.out
         exact (by
@@ -322,7 +323,7 @@ theorem jacobiProd_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
     simpa only [ ← mul_assoc, jacobiProd ] using h_ABC
   intro ε hε
   intro z₀ hz₀
-  refine ⟨ Metric.closedBall z₀ ( ‖z₀‖ / 2 ) ∩ { z | z ≠ 0 }, _, _ ⟩
+  refine ⟨ Metric.closedBall z₀ ( ‖z₀‖ / 2 ) ∩ { z | z ≠ 0 }, ?_, ?_ ⟩
   · exact mem_nhdsWithin_of_mem_nhds ( Filter.inter_mem ( Metric.closedBall_mem_nhds _ <| half_pos <| norm_pos_iff.mpr hz₀ ) <| isOpen_ne.mem_nhds hz₀ )
   · have := h_suff z₀ hz₀ ε hε
     exact this.mono fun n hn y hy => hn y hy.1

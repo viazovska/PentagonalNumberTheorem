@@ -140,7 +140,7 @@ theorem coeff_qBinom_eq_qPochInv {k j n : ℕ} (hjk : j + k ≤ n) :
           simp_all +decide [ ← pow_add, coeff_mul ]
           rw [ Finset.sum_eq_zero ] <;> simp_all +decide [ coeff_X_pow ]
           intros; omega
-    intro j hj; specialize h_qPoch_mod j hj; simp_all +decide [ ← mul_assoc, ← eq_sub_iff_add_eq' ] 
+    intro j hj; specialize h_qPoch_mod j hj; simp_all +decide [ ← mul_assoc, ← eq_sub_iff_add_eq' ]
     rw [ mul_right_comm, qPoch_mul_qPochInv ] ; aesop
   have h_coeff : (qBinom n k (X : R⟦X⟧) - qPochInv k) * qPoch (X : R⟦X⟧) k ∈ {f : R⟦X⟧ | ∀ j < n - k + 1, (coeff j) f = 0} := by
     convert h_rhs using 1
@@ -164,7 +164,7 @@ private theorem qPoch_neg_eq_sum (a : R⟦X⟧) (n : ℕ) :
     qPoch (-a) n = ∑ k ∈ Finset.range (n + 1),
       X ^ k.choose 2 * qSeries.qBinom n k (X : R⟦X⟧) * a ^ k := by
   unfold qPoch
-  have h := qBinom_finite_thm ( X : R⟦X⟧ ) a n; simp_all +decide [ mul_comm ] 
+  have h := qBinom_finite_thm ( X : R⟦X⟧ ) a n; simp_all +decide [ mul_comm ]
 
 private theorem euler2_coeff_vanish (a : R⟦X⟧) (d k : ℕ) (hk : d < k.choose 2) :
     PowerSeries.coeff d (X ^ k.choose 2 * a ^ k * qPochInv (R := R) k) = 0 := by
@@ -200,7 +200,7 @@ theorem fps_euler_second (a : R⟦X⟧) :
         refine congr_arg _ ( Finset.sum_congr rfl fun p hp => ?_ )
         by_cases h : p.2 ≤ n - x.choose 2 <;> simp_all +decide [ PowerSeries.coeff_X_pow ]
         grind +revert
-    · intro b hb; by_cases h : n < b.choose 2 <;> simp_all +decide [ euler2_coeff_vanish ] 
+    · intro b hb; by_cases h : n < b.choose 2 <;> simp_all +decide [ euler2_coeff_vanish ]
       rcases b with ( _ | _ | b ) <;> simp_all +decide [ Nat.choose ]
       linarith [ Nat.choose_pos ( by omega : 2 ≤ b ) ]
   rw [ h_sum_eq, tsum_eq_sum ]
@@ -257,14 +257,14 @@ theorem summable_S_fps (k : ℕ) :
     intro x
     simp [PowerSeries.mk]
     exact summable_of_ne_finset_zero (s := Finset.range (x () + 1)) (fun n hn => if_pos (by nlinarith [Finset.mem_range.not.mp hn]))
-  · ext d; simp +decide [ mul_assoc, mul_comm, mul_left_comm, PowerSeries.coeff_mul ] 
+  · ext d; simp +decide [ mul_assoc, mul_comm, mul_left_comm, PowerSeries.coeff_mul ]
     split_ifs <;> simp_all +decide [ PowerSeries.coeff_X_pow ]
     · exact Eq.symm ( Finset.sum_eq_zero fun x hx => if_neg ( by linarith [ Finset.mem_antidiagonal.mp hx ] ) )
     · rw [ ← Finset.sum_filter ]
       rw [ ← Finset.sum_biUnion ]
       · refine Finset.sum_bij ( fun x hx => ( x.1, x.2 ) ) ?_ ?_ ?_ ?_ <;> simp_all +decide [ Finset.mem_biUnion ]
         grind
-      · intro a ha b hb hab; simp_all +decide [ Finset.disjoint_left ] 
+      · intro a ha b hb hab; simp_all +decide [ Finset.disjoint_left ]
         grind
 
 /-- Key auxiliary: `qPochInv(n-1) + X^n * qPochInv(n) = qPochInv(n)`.
@@ -289,14 +289,14 @@ private theorem summable_T_fps (k : ℕ) :
     intro x
     simp [PowerSeries.mk]
     exact summable_of_ne_finset_zero (s := Finset.range (x () + 1)) (fun n hn => if_pos (by nlinarith [Finset.mem_range.not.mp hn]))
-  · ext d; simp +decide [ PowerSeries.coeff_mul, mul_assoc ] 
+  · ext d; simp +decide [ PowerSeries.coeff_mul, mul_assoc ]
     split_ifs <;> simp_all +decide [ PowerSeries.coeff_X_pow ]
     · exact Eq.symm ( Finset.sum_eq_zero fun x hx => if_neg ( by linarith [ Finset.mem_antidiagonal.mp hx ] ) )
     · rw [ ← Finset.sum_filter ]
       rw [ ← Finset.sum_biUnion ]
       · refine Finset.sum_bij ( fun x hx => ( x.1, x.2 ) ) ?_ ?_ ?_ ?_ <;> simp_all +decide [ Finset.mem_biUnion ]
         grind
-      · intro a ha b hb hab; simp_all +decide [ Finset.disjoint_left ] 
+      · intro a ha b hb hab; simp_all +decide [ Finset.disjoint_left ]
         lia
 
 private theorem T_eq_S_add (k : ℕ) :
@@ -427,7 +427,7 @@ theorem coeff_S_fps_eq_qqInv (k : ℕ) (d : ℕ) (hkd : d < k) :
   have h_sum_zero : ∑' m : ℕ, (PowerSeries.coeff d) (X ^ (m * (m + k)) * qPochInv (R := R) m * qPochInv (m + k)) = (PowerSeries.coeff d) (X ^ 0 * qPochInv (R := R) 0 * qPochInv (0 + k)) := by
     rw [ tsum_eq_single 0 ]
     · simp +decide
-    · intro m hm; rw [ mul_assoc, PowerSeries.coeff_mul ] 
+    · intro m hm; rw [ mul_assoc, PowerSeries.coeff_mul ]
       rw [ Finset.sum_eq_zero ] ; intros ; simp_all +decide [ PowerSeries.coeff_X_pow ]
       exact fun h => absurd h ( by nlinarith [ Nat.pos_of_ne_zero hm ] )
   convert h_sum_zero using 1
@@ -436,7 +436,7 @@ theorem coeff_S_fps_eq_qqInv (k : ℕ) (d : ℕ) (hkd : d < k) :
       fun hf => ((hf.hasSum.map (PowerSeries.coeff d).toAddMonoidHom
         (WithPiTopology.continuous_coeff R d)).tsum_eq).symm
     exact h_sum_zero (summable_S_fps (R := R) k) ▸ hS_k ▸ rfl
-  · have := qPoch_mul_qPochInv ( R := R ) 0; simp_all +decide [ qPoch ] 
+  · have := qPoch_mul_qPochInv ( R := R ) 0; simp_all +decide [ qPoch ]
     convert coeff_qPochInv_eq_qqInv ( show d < k from hkd ) |> Eq.symm using 1
 
 /-- **Key identity**: `S_k = (qPochInf X)⁻¹` for all `k ≥ 0`. -/
@@ -507,7 +507,7 @@ theorem cauchy_coeff_neg (l : ℕ) :
     · convert summable_S_fps ( l + 1 ) using 1
       infer_instance
   convert HasSum.mul_left ( X ^ ( l + 2 ).choose 2 * qPochInf ( X : R⟦X⟧ ) ) h_sum using 1
-  · ext n; simp +decide [ ← mul_assoc, ← pow_add ] 
+  · ext n; simp +decide [ ← mul_assoc, ← pow_add ]
     rw [ ← qqInf_mul_qPochInv ]
     rw [ show ( n + ( l + 1 ) ).choose 2 + ( n + ( l + 1 ) ) = ( l + 2 ).choose 2 + n * ( n + ( l + 1 ) ) - n.choose 2 by rw [ Nat.sub_eq_of_eq_add ] ; linarith [ choose2_add' n l ] ] ; ring
     rw [ ← pow_add, ← pow_add, ← pow_add, ← pow_add ]
@@ -628,19 +628,19 @@ private theorem summable_a : Summable a_n := by
   have h_summable : ∀ d : ℕ, Summable (fun n : ℕ => PowerSeries.coeff d (a_n n)) := by
     intro d
     have h_summable : ∀ n : ℕ, n > d + 1 → PowerSeries.coeff d (a_n n) = 0 := by
-      intro n hn; rw [ show a_n n = X ^ n.choose 2 * z ^ n * qPochInf ( X * X ^ n ) by rfl ] ; simp +decide [ PowerSeries.coeff_mul, PowerSeries.coeff_X_pow ] 
+      intro n hn; rw [ show a_n n = X ^ n.choose 2 * z ^ n * qPochInf ( X * X ^ n ) by rfl ] ; simp +decide [ PowerSeries.coeff_mul, PowerSeries.coeff_X_pow ]
       refine Finset.sum_eq_zero fun x hx => ?_
       rw [ Finset.sum_eq_zero ] <;> simp +zetaDelta at *
-      intros; subst_vars; simp_all +decide [ Nat.choose_two_right ] 
+      intros; subst_vars; simp_all +decide [ Nat.choose_two_right ]
       nlinarith [ Nat.div_add_mod ( n * ( n - 1 ) ) 2, Nat.mod_lt ( n * ( n - 1 ) ) two_pos, Nat.sub_add_cancel ( by omega : 1 ≤ n ) ]
     rw [ ← summable_nat_add_iff ( d + 2 ) ]
     exact ⟨ _, hasSum_single 0 fun n hn => h_summable _ <| by omega ⟩
   convert h_summable ( x 1 ) using 1
   ext n; exact (by
-  unfold a_n; simp +decide [ Finsupp.single_apply ] 
+  unfold a_n; simp +decide [ Finsupp.single_apply ]
   convert rfl
   convert MvPowerSeries.coeff_apply _ _
-  ext; simp [Finsupp.single_apply])
+  exact congr_arg _ (Finsupp.unique_single x))
 
 open LaurentPolynomial in
 /-- The b_m sequence is summable. -/
@@ -651,7 +651,7 @@ private theorem summable_b : Summable b_m := by
     have h_lowest_degree : ∀ m : ℕ, ∀ x : Unit →₀ ℕ, b_m m x ≠ 0 → x 0 ≥ m.choose 2 + m := by
       intro m x hx_nonzero
       have h_degree : PowerSeries.coeff (x 0) (b_m m) ≠ 0 := by
-        contrapose! hx_nonzero; simp_all +decide [ MvPowerSeries.coeff ] 
+        contrapose! hx_nonzero; simp_all +decide [ MvPowerSeries.coeff ]
         convert hx_nonzero using 1
         convert MvPowerSeries.coeff_apply _ _
         · convert MvPowerSeries.coeff_apply _ _
@@ -671,7 +671,7 @@ private theorem summable_ab :
     intro x
     have h_tensor : ∀ p : ℕ × ℕ, (a_n p.1 * b_m p.2).coeff x = 0 ∨ p.1 ≤ x + 1 ∧ p.2 ≤ x + 1 := by
       unfold a_n b_m; simp +decide [ PowerSeries.coeff_mul, PowerSeries.coeff_X_pow ] ; (
-      intro a b; by_cases ha : a ≤ x + 1 <;> by_cases hb : b ≤ x + 1 <;> simp +decide [ ha, hb ] 
+      intro a b; by_cases ha : a ≤ x + 1 <;> by_cases hb : b ≤ x + 1 <;> simp +decide [ ha, hb ]
       · refine Finset.sum_eq_zero fun i hi => ?_ ; simp +decide [ Finset.sum_ite ] at hi ⊢
         refine Or.inr <| Finset.sum_eq_zero fun j hj => ?_ ; simp_all +decide [ Finset.sum_ite ]
         refine Or.inl <| Finset.sum_eq_zero fun k hk => ?_ ; simp_all +decide [ Finset.mem_filter, Finset.mem_antidiagonal ]
@@ -681,7 +681,7 @@ private theorem summable_ab :
         refine Or.inl <| Finset.sum_eq_zero fun j hj => ?_ ; simp_all +decide [ Nat.choose_eq_zero_of_lt ]
         refine Or.inl <| Finset.sum_eq_zero fun k hk => if_neg <| ?_ ; simp_all +decide [ Nat.choose_eq_zero_of_lt ]
         rw [ Nat.choose_two_right ]
-        exact ne_of_lt <| Nat.le_div_iff_mul_le zero_lt_two |>.2 <| by nlinarith only [ ha, hb, hi, hj, hk, Nat.sub_add_cancel ( by omega : 1 ≤ a ) ] 
+        exact ne_of_lt <| Nat.le_div_iff_mul_le zero_lt_two |>.2 <| by nlinarith only [ ha, hb, hi, hj, hk, Nat.sub_add_cancel ( by omega : 1 ≤ a ) ]
       · refine Finset.sum_eq_zero fun i hi => ?_
         simp +zetaDelta at *
         refine Or.inr <| Finset.sum_eq_zero fun j hj => ?_ ; simp_all +decide [ Finset.mem_antidiagonal ]
@@ -714,16 +714,16 @@ private theorem summable_nonneg :
     intro d
     obtain ⟨N, hN⟩ : ∃ N : ℕ, ∀ k ≥ N, k.choose 2 > d := by
       use d + 2
-      intro k hk; induction hk <;> simp_all +decide [ Nat.choose ] 
+      intro k hk; induction hk <;> simp_all +decide [ Nat.choose ]
       · grind
       · grind +qlia
-    use N; intro k hk; specialize hN k hk; simp_all +decide [ PowerSeries.coeff_mul, PowerSeries.coeff_X_pow ] 
+    use N; intro k hk; specialize hN k hk; simp_all +decide [ PowerSeries.coeff_mul, PowerSeries.coeff_X_pow ]
     exact Finset.sum_eq_zero fun x hx => if_neg ( by linarith [ Finset.mem_antidiagonal.mp hx ] )
   refine Pi.summable.mpr ?_
   intro x
   obtain ⟨ N, hN ⟩ := h_summable ( Finsupp.toMultiset x |> Multiset.count 1 )
   refine summable_of_ne_finset_zero (s := Finset.range N) ?_
-  intro k hk; specialize hN k ( le_of_not_gt fun hk' => hk <| Finset.mem_range.mpr hk' ) ; simp_all +decide 
+  intro k hk; specialize hN k ( le_of_not_gt fun hk' => hk <| Finset.mem_range.mpr hk' ) ; simp_all +decide
   convert hN using 1
   convert MvPowerSeries.coeff_mul _ _ _
   convert MvPowerSeries.coeff_mul _ _ _
@@ -743,20 +743,21 @@ private theorem summable_neg :
     rw [ PowerSeries.order_mul, h_min_deg ] ; aesop
   refine Pi.summable.mpr ?_
   intro x
-  refine summable_of_ne_finset_zero (s := Finset.range (x 0 + 1)) ?_
+  refine summable_of_ne_finset_zero (s := Finset.range (x PUnit.unit + 1)) ?_
   intro l hl; specialize h_min_deg l; contrapose! hl
-  have h_min_deg : PowerSeries.order (zinv ^ (l + 1) * X ^ (l + 2).choose 2) ≤ x 0 := by
-    apply le_of_not_gt; intro h_contra
-    rw [ PowerSeries.order ] at h_contra
-    split_ifs at h_contra <;> simp_all +decide [ PowerSeries.coeff ]
-    convert h_contra ( x PUnit.unit ) le_rfl using 1
-    simp +decide [ MvPowerSeries.coeff ]
-    convert hl using 1
-    simp +decide [ LinearMap.proj ]
-    congr!
-    ext; simp
-  simp_all +decide [ Nat.choose ]
-  norm_cast at h_min_deg; omega
+  have h_order_le : PowerSeries.order (zinv ^ (l + 1) * X ^ (l + 2).choose 2) ≤ x PUnit.unit := by
+    apply PowerSeries.order_le
+    simp only [PowerSeries.coeff, MvPowerSeries.coeff_apply, ← Finsupp.unique_single x]
+    exact hl
+  rw [h_min_deg] at h_order_le
+  simp only [Finset.mem_range]
+  have h_bound : l + 1 ≤ (l + 2).choose 2 := by
+    rw [Nat.choose_two_right]
+    have key : (l + 2) * (l + 2 - 1) = (l + 2) * (l + 1) := rfl
+    rw [key]
+    exact (Nat.le_div_iff_mul_le (by norm_num)).mpr (by nlinarith)
+  norm_cast at h_order_le
+  omega
 
 open LaurentPolynomial in
 /-- Summability of the non-negative diagonal rearrangement. -/
@@ -767,17 +768,17 @@ private theorem summable_nonneg_diag :
     refine Set.Finite.subset ( Set.finite_Icc 0 ( d + 1 ) |> Set.Finite.prod <| Set.finite_Icc 0 ( d + 1 ) ) ?_
     intro p hp
     have h_m : p.2 ≤ d := by
-      contrapose! hp; simp_all +decide [ PowerSeries.coeff_mul ] 
-      refine Finset.sum_eq_zero fun x hx => ?_ ; simp_all +decide [ PowerSeries.coeff_X_pow, Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk ] 
+      contrapose! hp; simp_all +decide [ PowerSeries.coeff_mul ]
+      refine Finset.sum_eq_zero fun x hx => ?_ ; simp_all +decide [ PowerSeries.coeff_X_pow, Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk ]
       refine Or.inr <| Finset.sum_eq_zero fun i hi => if_neg <| ?_ ; simp_all +decide [ Nat.choose_two_right ]
       grind
     have h_k : p.2 + p.1 ≤ d + 1 := by
-      contrapose! hp; simp_all +decide [ PowerSeries.coeff_mul ] 
+      contrapose! hp; simp_all +decide [ PowerSeries.coeff_mul ]
       refine Finset.sum_eq_zero fun x hx => ?_ ; simp_all +decide [ coeff_X_pow ]
       refine Or.inl <| Finset.sum_eq_zero fun y hy => ?_ ; simp_all +decide [ Finset.mem_antidiagonal ]
       refine Or.inl <| Finset.sum_eq_zero fun z hz => if_neg <| ?_ ; simp_all +decide [ Finset.mem_antidiagonal ]
       rw [ Nat.choose_two_right ]
-      exact ne_of_lt <| Nat.le_div_iff_mul_le zero_lt_two |>.2 <| by nlinarith only [ hp, h_m, hx, hy, hz, Nat.sub_add_cancel ( by omega : 1 ≤ p.2 + p.1 ) ] 
+      exact ne_of_lt <| Nat.le_div_iff_mul_le zero_lt_two |>.2 <| by nlinarith only [ hp, h_m, hx, hy, hz, Nat.sub_add_cancel ( by omega : 1 ≤ p.2 + p.1 ) ]
     exact ⟨⟨Nat.zero_le _, by omega⟩, ⟨Nat.zero_le _, by omega⟩⟩
   have h_summable : ∀ d : ℕ, Summable (fun p : ℕ × ℕ => PowerSeries.coeff d (a_n (p.2 + p.1) * b_m p.2)) := by
     intro d; specialize h_support d; exact (by
@@ -796,17 +797,17 @@ private theorem summable_neg_diag :
     Summable (fun p : ℕ × ℕ => a_n p.2 * b_m (p.2 + p.1 + 1)) := by
   have h_sum_zero : ∀ d : ℕ, Set.Finite {p : ℕ × ℕ | coeff d (a_n p.2 * b_m (p.2 + p.1 + 1)) ≠ 0} := by
     have h_min_deg : ∀ n l : ℕ, ∀ d : ℕ, coeff d (a_n n * b_m (n + l + 1)) ≠ 0 → n + l + 1 ≤ d := by
-      intro n l d hd; contrapose! hd; simp_all +decide [ a_n, b_m ] 
+      intro n l d hd; contrapose! hd; simp_all +decide [ a_n, b_m ]
       simp +decide [ mul_assoc, mul_comm, mul_left_comm, PowerSeries.coeff_mul ]
       refine Finset.sum_eq_zero fun x hx => ?_ ; simp_all +decide [ PowerSeries.coeff_X_pow ]
-      intro hx'; rw [ Finset.sum_eq_zero ] ; intros ; simp_all +decide [ add_assoc ] 
-      intro h; linarith [ Nat.choose_pos ( by omega : 2 ≤ n + ( l + 1 ) ) ] 
-    intro d; exact Set.finite_iff_bddAbove.mpr ⟨ ⟨ d, d ⟩, fun p hp => by specialize h_min_deg p.2 p.1 d hp; exact ⟨ by omega, by omega ⟩ ⟩ 
+      intro hx'; rw [ Finset.sum_eq_zero ] ; intros ; simp_all +decide [ add_assoc ]
+      intro h; linarith [ Nat.choose_pos ( by omega : 2 ≤ n + ( l + 1 ) ) ]
+    intro d; exact Set.finite_iff_bddAbove.mpr ⟨ ⟨ d, d ⟩, fun p hp => by specialize h_min_deg p.2 p.1 d hp; exact ⟨ by omega, by omega ⟩ ⟩
   refine Pi.summable.mpr ?_
   intro x
   refine summable_of_ne_finset_zero (s := Set.Finite.toFinset (h_sum_zero (Finsupp.degree x))) ?_
   simp +contextual [ Finsupp.degree ]
-  intro a b h; contrapose! h; simp_all +decide [ PowerSeries.coeff ] 
+  intro a b h; contrapose! h; simp_all +decide [ PowerSeries.coeff ]
   convert h using 1
   rw [ show ( fun₀ | () => ∑ i ∈ x.support, x i ) = x from ?_ ]
   · rfl
@@ -850,7 +851,7 @@ private theorem hasSum_ab_jtpSeries :
     convert h_summable.hasSum using 1
     rw [ show ( ∑' c : ℕ × ℕ, a_n c.1 * b_m c.2 ) = ( ∑' k : ℕ × ℕ, a_n ( k.2 + k.1 ) * b_m k.2 ) + ( ∑' k : ℕ × ℕ, a_n k.2 * b_m ( k.2 + k.1 + 1 ) ) from ?_ ]
     · rw [ hasSum_nonneg_part.tsum_eq, hasSum_neg_part.tsum_eq ]
-      unfold jtpSeries z zinv; norm_num [ z_pow_eq, zinv_pow_eq ] 
+      unfold jtpSeries z zinv; norm_num [ z_pow_eq, zinv_pow_eq ]
     · rw [ ← Equiv.tsum_eq ( diagEquiv.symm ) ]
       rw [ Summable.tsum_sum ] ; aesop
       · convert summable_nonneg_diag using 1

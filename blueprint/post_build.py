@@ -30,6 +30,7 @@ SKIP_DIRS = {".lake", "docbuild", "blueprint", ".git"}
 
 
 def build_decl_map() -> dict[str, tuple[str, int]]:
+    """Map unqualified declaration names to (relative path, line number)."""
     decl_map: dict[str, tuple[str, int]] = {}
     for lean_file in REPO_ROOT.rglob("*.lean"):
         if any(part in SKIP_DIRS for part in lean_file.parts):
@@ -44,13 +45,21 @@ def build_decl_map() -> dict[str, tuple[str, int]]:
 
 
 def patch_html(decl_map: dict[str, tuple[str, int]]) -> int:
-    url_re = re.compile(r"https://[^\"]+/docs/find/#doc/(\w+)")
+    # Match fully-qualified names like `qSeries.jacobiTripleProduct` (allow dots).
+    url_re = re.compile(r"https://[^\"]+/docs/find/#doc/([\w.]+)")
     patched = 0
 
     def repl(m: re.Match) -> str:
         decl = m.group(1)
+        # Try the full name first (covers unnamespaced declarations).
         if decl in decl_map:
             f, ln = decl_map[decl]
+            return f"{GH_BASE}/{f}#L{ln}"
+        # Try the unqualified name (last component after the last dot).
+        # This handles `qSeries.jacobiTripleProduct` → lookup `jacobiTripleProduct`.
+        short = decl.rsplit(".", 1)[-1]
+        if short in decl_map:
+            f, ln = decl_map[short]
             return f"{GH_BASE}/{f}#L{ln}"
         return m.group(0)
 
