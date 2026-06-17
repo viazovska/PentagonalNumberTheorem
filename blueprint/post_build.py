@@ -14,7 +14,7 @@ import re
 import sys
 from pathlib import Path
 
-GITHUB_REPO = "viazovska/my_project"
+GITHUB_REPO = "viazovska/PentagonalNumberTheorem"
 BRANCH = "main"
 GH_BASE = f"https://github.com/{GITHUB_REPO}/blob/{BRANCH}"
 
