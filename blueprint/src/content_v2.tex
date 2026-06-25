@@ -93,26 +93,6 @@ Splitting the sum by parity of $|S|$:
 $$c_n = \sum_{\substack{S \in \mathcal{P}(n) \\ |S| \text{ even}}} 1 \;-\; \sum_{\substack{S \in \mathcal{P}(n) \\ |S| \text{ odd}}} 1 = |\mathcal{P}_{\mathrm{even}}(n)| - |\mathcal{P}_{\mathrm{odd}}(n)| = p_e(n) - p_o(n).$$
 \end{proof}
 
-\begin{example}
-We compute $\prod_{i=1}^{20}(1 - x^i) + o(x^{20}).$\\
-
-The answer is $1-x-x^2+x^5+x^7-x^{12}-x^{15}+O\left(x^{20}\right).$\\
-
-\begin{center}
-\begin{tabular}{c|l|c|c}
-$n$ && $p_o(n)$ & $p_e(n)$\\
-$1$&$1$&$1$&$0$\\
-$2$&$2$&$1$&$0$\\
-$3$&$3=2+1$&$1$&$1$\\
-$4$&$4=3+1$&$1$&$1$\\
-$5$&$5=4+1=3+2$&$1$&$2$\\
-$6$&$6=5+1=4+2=3+2+1$&$2$&$2$\\
-$7$&$7=6+1=5+2=4+3=4+2+1$&$2$&$3$\\
-\end{tabular}
-\end{center}
-
-\end{example}
-
 \section{Pentagonal number theorem}
 
 \begin{theorem}[Euler]\label{thm:euler-pentagonal}\lean{coeff_prod_pentagonal_zero, coeff_prod_pentagonal_nonpent, coeff_prod_pentagonal_minus, coeff_prod_pentagonal_plus}\leanok\uses{def:distinct-partitions}

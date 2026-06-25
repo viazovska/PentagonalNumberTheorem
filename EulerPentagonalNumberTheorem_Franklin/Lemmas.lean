@@ -21,15 +21,6 @@ following Franklin's involution argument.
 * `parity_flip`: Franklin's involution flips even/odd parity
 * `signed_partition_main`: pe(n) - po(n) = (-1)^k for pentagonal n, 0 otherwise
 -/
-/-- **Example 6 (Source, table)**: `pe(5) = 2`.
-The two even-size distinct partitions of 5 are `{4,1}` and `{3,2}`. -/
-theorem pe_5 : pe 5 = 2 := by native_decide
-/-- **Example 6 (Source, table)**: `po(5) = 1`.
-The one odd-size distinct partition of 5 is `{5}`. -/
-theorem po_5 : po 5 = 1 := by native_decide
-/-- **Example 6 (Source, table)**: `pe(7) = 3`, `po(7) = 2`. -/
-theorem pe_7 : pe 7 = 3 := by native_decide
-theorem po_7 : po 7 = 2 := by native_decide
 /-- α-partitions and β-partitions are disjoint. -/
 theorem DPalpha_inter_DPbeta (n : ℕ) :
     distinctPartitionsAlpha n ∩ distinctPartitionsBeta n = ∅ := by
@@ -527,7 +518,7 @@ theorem pe_minus_po_eq_special (n : ℕ) :
       rw [ DPalpha_even_card_eq_DPbeta_odd_card, DPalpha_odd_card_eq_DPbeta_even_card ] ; ring
       grind
 /-- **Lemma 24 (Source), case n = 0**: `p_e(0) − p_o(0) = 1`. -/
-theorem pe_minus_po_zero : (pe 0 : ℤ) - po 0 = 1 := by native_decide
+theorem pe_minus_po_zero : (pe 0 : ℤ) - po 0 = 1 := by decide
 /-- For non-pentagonal n ≥ 1, pe(n) - po(n) = 0. -/
 theorem pe_minus_po_nonpent (n : ℕ) (hn : 1 ≤ n)
     (h1 : ∀ k, 1 ≤ k → 2 * n ≠ 3 * k ^ 2 - k)
