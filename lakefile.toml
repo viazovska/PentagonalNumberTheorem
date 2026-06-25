@@ -23,4 +23,4 @@ name = "EulerPentagonalNumberTheorem_Franklin"
 
 [[lean_lib]]
 name = "QSeries"
-srcDir = "Qseries_Aristotle_new"
+srcDir = "Qseries_Formalization"
