@@ -640,7 +640,7 @@ private theorem summable_a : Summable a_n := by
   unfold a_n; simp +decide [ Finsupp.single_apply ]
   convert rfl
   convert MvPowerSeries.coeff_apply _ _
-  exact congr_arg _ (Finsupp.unique_single x))
+  simp only [← Finsupp.unique_single x])
 
 open LaurentPolynomial in
 /-- The b_m sequence is summable. -/
