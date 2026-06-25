@@ -12,7 +12,7 @@ open scoped PowerSeries.WithPiTopology
 
 /-! # Pentagonal Number Theorem — Formal Power Series Statements
 This file contains the formal power series identities from the source document
-"Pentagonal Number Theorem" by JC, PM, MV (May 11, 2026).
+"Pentagonal Number Theorem" by Jonathan Conrad, Paula Mürmann, Maryna Viazovska (May 11, 2026).
 These results connect the combinatorial content (proved in `Lemmas.lean`)
 to the algebraic identities involving generating functions.
 -/

@@ -12,7 +12,7 @@ import EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries
 
 This file imports all components of the formalization of the
 Pentagonal Number Theorem, following the source document
-"Pentagonal Number Theorem" by JC, PM, MV (May 11, 2026).
+"Pentagonal Number Theorem" by Jonathan Conrad, Paula Mürmann, Maryna Viazovska (May 11, 2026).
 
 ## Main results
 

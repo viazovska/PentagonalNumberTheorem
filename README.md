@@ -134,4 +134,4 @@ The blueprint is the proof; Lean fills it in. To contribute a formalization:
 
 ## Authors
 
-JC, PM, MV.
+Jonathan Conrad, Paula Mürmann, Maryna Viazovska.

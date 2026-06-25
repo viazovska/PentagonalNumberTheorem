@@ -57,4 +57,4 @@ build instructions.
 
 ## Authors
 
-JC, PM, MV.
+Jonathan Conrad, Paula Mürmann, Maryna Viazovska.

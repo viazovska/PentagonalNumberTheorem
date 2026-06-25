@@ -37,7 +37,7 @@ We work with **partitions of $n$ into distinct positive parts**, represented as 
 
 [Hardy–Wright 2008] G. H. Hardy and E. M. Wright. *An Introduction to the Theory of Numbers*, 6th ed. Oxford University Press, 2008.
 
-[JC–PM–MV 2026] Jonathan Conrad, Paula Massot, Maryna Viazovska. "Pentagonal Number Theorem" (internal manuscript, 2026). Primary source for the Franklin involution formalization.
+[JC–PM–MV 2026] Jonathan Conrad, Paula Mürmann, Maryna Viazovska. "Pentagonal Number Theorem" (internal manuscript, 2026). Primary source for the Franklin involution formalization.
 
 [Gasper–Rahman 2004] George Gasper and Mizan Rahman. *Basic Hypergeometric Series*, 2nd ed. Cambridge University Press, 2004.
 
@@ -249,7 +249,7 @@ a clean one-liner from standard formal power series theory, or does it require b
 ## 10. Document metadata
 
 - Project name: `my_project` (Lean 4 / Mathlib formalization of Euler's PNT)
-- Authors: JC, PM, MV
+- Authors: Jonathan Conrad, Paula Mürmann, Maryna Viazovska
 - Brief generated: 2026-06-17
 - Build status at time of writing: both main libraries build cleanly with **zero sorry**; legacy files have 2 open sorry (superseded code, not part of submission)
 - Recent commit context: repo restructure completed 2026-06-13; blueprint and dependency graph fully deployed; all Lean code sorry-free
