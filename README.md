@@ -7,16 +7,16 @@ $$
 $$
 
 The mathematical proof is laid out as a
-[blueprint](https://leanprover-community.github.io/blueprint/index.html); the
+[blueprint](https://viazovska.github.io/PentagonalNumberTheorem/blueprint/); the
 Lean formalization fills in the leaves of the proof tree.
 
 ## Project site
 
-- **Landing page / overview**: <https://viazovska.github.io/my_project/>
-- **Web blueprint**: <https://viazovska.github.io/my_project/blueprint/>
-- **Dependency graph**: <https://viazovska.github.io/my_project/blueprint/dep_graph_document.html>
-- **PDF blueprint**: <https://viazovska.github.io/my_project/blueprint.pdf>
-- **Lean API docs**: <https://viazovska.github.io/my_project/docs/>
+- **Landing page / overview**: <https://viazovska.github.io/PentagonalNumberTheorem/>
+- **Web blueprint**: <https://viazovska.github.io/PentagonalNumberTheorem/blueprint/>
+- **Dependency graph**: <https://viazovska.github.io/PentagonalNumberTheorem/blueprint/dep_graph_document.html>
+- **PDF blueprint**: <https://viazovska.github.io/PentagonalNumberTheorem/blueprint.pdf>
+- **Lean API docs**: <https://viazovska.github.io/PentagonalNumberTheorem/docs/>
 
 The site is built and deployed by `.github/workflows/blueprint.yml` on every push to `main`.
 
@@ -77,7 +77,7 @@ automatically from your Lean source — no manual URL maintenance needed.
 The blueprint is the proof; Lean fills it in. To contribute a formalization:
 
 1. Pick an unproved lemma from the
-   [dependency graph](https://viazovska.github.io/my_project/blueprint/dep_graph_document.html)
+   [dependency graph](https://viazovska.github.io/PentagonalNumberTheorem/blueprint/dep_graph_document.html)
    (look for nodes whose ancestors are all proved).
 2. Write the Lean statement and proof in `PentagonalNumberTheorem/`.
 3. Add `\lean{your_decl_name}` to the corresponding blueprint item in
