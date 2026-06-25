@@ -120,12 +120,14 @@ $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(
 \sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
 \end{theorem}
 
+\ifplastex\else
 \begin{center}
 \includegraphics[width=0.6\textwidth]{PentNumbers.png}\\
 {\small The generalized pentagonal numbers $\tfrac{3k^2-k}{2}$, $k\in\Z$:
 $0,1,2,5,7,12,15,\dots$; the nested pentagons depict the figurate
 pentagonal numbers $1,5,12,\dots$ ($k\ge 1$).}
 \end{center}
+\fi
 \begin{proof}\leanok\uses{lemma:expansion-product, lemma:pe-minus-po-closed-form}
 The proof combines the previous expansion lemma with the closed-form computation of $p_e(n) - p_o(n)$ via Franklin's involution.
 

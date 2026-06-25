@@ -22,10 +22,10 @@ title: Pentagonal Number Theorem
 #email: your-email@example.com
 description: A Lean 4 / Mathlib formalization of Euler's Pentagonal Number Theorem.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://viazovska.github.io/my_project" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://viazovska.github.io/PentagonalNumberTheorem" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username:
 github_username: viazovska
-repository: viazovska/my_project
+repository: viazovska/PentagonalNumberTheorem
 
 # Build settings
 remote_theme: pages-themes/cayman@v0.2.0 
