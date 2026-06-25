@@ -3,7 +3,7 @@
 A Lean 4 / Mathlib formalization of **Euler's Pentagonal Number Theorem**:
 
 $$
-\prod_{i=1}^{\infty}(1-x^i) \;=\; \sum_{k\in\mathbb{Z}}(-1)^k\,x^{(3k^2-k)/2}.
+\prod_{i=1}^{\infty}(1-x^i) = \sum_{k\in\mathbb{Z}}(-1)^k x^{(3k^2-k)/2}.
 $$
 
 The mathematical proof is laid out as a
