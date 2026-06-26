@@ -100,14 +100,12 @@ $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(
 \sum_{k\in\Z}(-1)^k\,x^{(3k^2-k)/2}.$$
 \end{theorem}
 
-\ifplastex\else
 \begin{center}
 \includegraphics[width=0.6\textwidth]{PentNumbers.png}\\
 {\small The generalized pentagonal numbers $\tfrac{3k^2-k}{2}$, $k\in\Z$:
 $0,1,2,5,7,12,15,\dots$; the nested pentagons depict the figurate
 pentagonal numbers $1,5,12,\dots$ ($k\ge 1$).}
 \end{center}
-\fi
 \begin{proof}\leanok\uses{lemma:expansion-product, lemma:pe-minus-po-closed-form}
 The proof combines the previous expansion lemma with the closed-form computation of $p_e(n) - p_o(n)$ via Franklin's involution.
 
@@ -142,61 +140,7 @@ $\frac{3k^2-k}{2}$ & 15& 7& 2& 0& 1& 5& 12
 \end{tabular}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.5]
-\fill[red!20!white] (0,1)--(3*0.951,-2+3*0.309)--(3*0.588,-2-3*0.809)--(-3*0.588,-2-3*0.809)--(-3*0.951,-2+3*0.309);
-\fill[red!60!white] (0,1)--(2*0.951,-1+2*0.309)--(2*0.588,-1-2*0.809)--(-2*0.588,-1-2*0.809)--(-2*0.951,-1+2*0.309);
-\fill[red] (0,1)--(0.951,0.309)--(0.588,-0.809)--(-0.588,-0.809)--(-0.951,0.309);
-
-\fill[black!70!white] (0,1) circle(0.2 cm);
-\fill[black!50!white] (0.951,0.309) circle(0.2 cm);
-\fill[black!50!white] (-0.951,0.309) circle(0.2 cm);
-\fill[black!50!white] (0.588,-0.809) circle(0.2 cm);
-\fill[black!50!white] (-0.588,-0.809) circle(0.2 cm);
-
-\draw (0,1) circle(0.2 cm);
-\draw (0.951,0.309) circle(0.2 cm);
-\draw (-0.951,0.309) circle(0.2 cm);
-\draw (0.588,-0.809) circle(0.2 cm);
-\draw (-0.588,-0.809) circle(0.2 cm);
-
-\fill[black!30!white] (2*0.951,-1+2*0.309) circle(0.2 cm);
-\fill[black!30!white] (1.539,-1.5) circle(0.2 cm);
-\fill[black!30!white] (-2*0.951,-1+2*0.309) circle(0.2 cm);
-\fill[black!30!white] (-1.539,-1.5) circle(0.2 cm);
-\fill[black!30!white] (2*0.588,-1-2*0.809) circle(0.2 cm);
-\fill[black!30!white] (-2*0.588,-1-2*0.809) circle(0.2 cm);
-\fill[black!30!white] (0,-1-2*0.809) circle(0.2 cm);
-
-\draw (2*0.951,-1+2*0.309) circle(0.2 cm);
-\draw (1.539,-1.5) circle(0.2 cm);
-\draw (-2*0.951,-1+2*0.309) circle(0.2 cm);
-\draw (-1.539,-1.5) circle(0.2 cm);
-\draw (2*0.588,-1-2*0.809) circle(0.2 cm);
-\draw (-2*0.588,-1-2*0.809) circle(0.2 cm);
-\draw (0,-1-2*0.809) circle(0.2 cm);
-
-\fill[black!10!white] (3*0.951,-2+3*0.309) circle(0.2 cm);
-\fill[black!10!white] (3*0.951-0.363,-2+3*0.309-1.118) circle(0.2 cm);
-\fill[black!10!white] (3*0.951-2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
-\fill[black!10!white] (-3*0.951,-2+3*0.309) circle(0.2 cm);
-\fill[black!10!white] (-3*0.951+0.363,-2+3*0.309-1.118) circle(0.2 cm);
-\fill[black!10!white] (-3*0.951+2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
-\fill[black!10!white] (3*0.588,-2-3*0.809) circle(0.2 cm);
-\fill[black!10!white] (-3*0.588,-2-3*0.809) circle(0.2 cm);
-\fill[black!10!white] (-3*0.588+1.17557,-2-3*0.809) circle(0.2 cm);
-\fill[black!10!white] (-3*0.588+2*1.17557,-2-3*0.809) circle(0.2 cm);
-
-\draw (3*0.951,-2+3*0.309) circle(0.2 cm);
-\draw (3*0.951-0.363,-2+3*0.309-1.118) circle(0.2 cm);
-\draw (3*0.951-2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
-\draw (-3*0.951,-2+3*0.309) circle(0.2 cm);
-\draw (-3*0.951+0.363,-2+3*0.309-1.118) circle(0.2 cm);
-\draw (-3*0.951+2*0.363,-2+3*0.309-2*1.118) circle(0.2 cm);
-\draw (3*0.588,-2-3*0.809) circle(0.2 cm);
-\draw (-3*0.588,-2-3*0.809) circle(0.2 cm);
-\draw (-3*0.588+1.17557,-2-3*0.809) circle(0.2 cm);
-\draw (-3*0.588+2*1.17557,-2-3*0.809) circle(0.2 cm);
-\end{tikzpicture}
+\includegraphics[width=0.4\textwidth]{figures/fig_pentagon.png}
 \end{center}
 \end{remark}
 
@@ -204,38 +148,7 @@ $\frac{3k^2-k}{2}$ & 15& 7& 2& 0& 1& 5& 12
 \subsection{Proof}
 Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into different parts.\\
 \begin{center}
-\begin{tikzpicture}[scale=1]
-\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
-\fill[red!20!white] (2.,-2.5)--(3.,-2.5)--(6.,0.5)--(5.,0.5);
-\draw (5.5,-1) node{\color{red}slope};
-\draw (2.5,-3) node{\color{blue}base};
-\draw (-1,1) node{$17$};
-\draw (-1,0.5) node{$\scriptscriptstyle\mid\,\mid$};
-\draw (-1,0) node{$6$};
-\draw (-1,-0.5) node{$\scriptscriptstyle+$};
-\draw (0,0) circle(0.2 cm);
-\draw (1,0) circle(0.2 cm);
-\draw (2,0) circle(0.2 cm);
-\draw (3,0) circle(0.2 cm);
-\draw (4,0) circle(0.2 cm);
-\draw (5,0) circle(0.2 cm);
-\draw (-1,-1) node{$5$};
-\draw (-1,-1.5) node{$\scriptscriptstyle+$};
-\draw (0,-1) circle(0.2 cm);
-\draw (1,-1) circle(0.2 cm);
-\draw (2,-1) circle(0.2 cm);
-\draw (3,-1) circle(0.2 cm);
-\draw (4,-1) circle(0.2 cm);
-\draw (-1,-2) node{$4$};
-\draw (-1,-2.5) node{$\scriptscriptstyle+$};
-\draw (0,-2) circle(0.2 cm);
-\draw (1,-2) circle(0.2 cm);
-\draw (2,-2) circle(0.2 cm);
-\draw (3,-2) circle(0.2 cm);
-\draw (-1,-3) node{$2$};
-\draw (0,-3) circle(0.2 cm);
-\draw (1,-3) circle(0.2 cm);
-\end{tikzpicture}
+\includegraphics[width=0.5\textwidth]{figures/fig_partition.png}
 \end{center}
 
 \begin{definition}[Base and slope]\label{def:base-slope}\lean{partBase, partMax, partSlope, partSlopeSet}\uses{def:distinct-partitions}\leanok
@@ -391,110 +304,13 @@ $\beta$: For $S \in \mathcal{P}_\beta(n)$ (equivalently, $b > s$ and $b \notin D
 
 \paragraph{$\alpha$}
 \begin{center}
-\begin{tikzpicture}[scale=0.5]
-
-\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
-
-\draw (0,0) circle(0.2 cm);
-\draw (1,0) circle(0.2 cm);
-\draw (2,0) circle(0.2 cm);
-\draw (3,0) circle(0.2 cm);
-\draw (4,0) circle(0.2 cm);
-\draw (5,0) circle(0.2 cm);
-
-\draw (0,-1) circle(0.2 cm);
-\draw (1,-1) circle(0.2 cm);
-\draw (2,-1) circle(0.2 cm);
-\draw (3,-1) circle(0.2 cm);
-\draw (4,-1) circle(0.2 cm);
-
-\draw (0,-2) circle(0.2 cm);
-\draw (1,-2) circle(0.2 cm);
-\draw (2,-2) circle(0.2 cm);
-\draw (3,-2) circle(0.2 cm);
-
-\draw (0,-3) circle(0.2 cm);
-\draw (1,-3) circle(0.2 cm);
-
-
-
-\begin{scope}[xshift=12 cm]
-
-\fill[red!20!white] (4.,-1.5)--(5.,-1.5)--(7.,0.5)--(6.,0.5);
-
-\draw (0,0) circle(0.2 cm);
-\draw (1,0) circle(0.2 cm);
-\draw (2,0) circle(0.2 cm);
-\draw (3,0) circle(0.2 cm);
-\draw (4,0) circle(0.2 cm);
-\draw (5,0) circle(0.2 cm);
-\draw (6,0) circle(0.2 cm);
-
-\draw (0,-1) circle(0.2 cm);
-\draw (1,-1) circle(0.2 cm);
-\draw (2,-1) circle(0.2 cm);
-\draw (3,-1) circle(0.2 cm);
-\draw (4,-1) circle(0.2 cm);
-\draw (5,-1) circle(0.2 cm);
-
-\draw (0,-2) circle(0.2 cm);
-\draw (1,-2) circle(0.2 cm);
-\draw (2,-2) circle(0.2 cm);
-\draw (3,-2) circle(0.2 cm);
-\end{scope}
-\end{tikzpicture}
+\includegraphics[width=0.6\textwidth]{figures/fig_alpha.png}
 \end{center}
 
 
 \paragraph{$\beta$}
 \begin{center}
-\begin{tikzpicture}[scale=0.5]
-
-\fill[red!20!white] (3.,-1.5)--(4.,-1.5)--(6.,0.5)--(5.,0.5);
-
-\draw (0,0) circle(0.2 cm);
-\draw (1,0) circle(0.2 cm);
-\draw (2,0) circle(0.2 cm);
-\draw (3,0) circle(0.2 cm);
-\draw (4,0) circle(0.2 cm);
-\draw (5,0) circle(0.2 cm);
-
-\draw (0,-1) circle(0.2 cm);
-\draw (1,-1) circle(0.2 cm);
-\draw (2,-1) circle(0.2 cm);
-\draw (3,-1) circle(0.2 cm);
-\draw (4,-1) circle(0.2 cm);
-
-\draw (0,-2) circle(0.2 cm);
-\draw (1,-2) circle(0.2 cm);
-\draw (2,-2) circle(0.2 cm);
-
-
-\begin{scope}[xshift=12 cm]
-
-\fill[blue!20!white] (-0.5,-3.5)--(1.5,-3.5)--(1.5,-2.5)--(-0.5,-2.5);
-
-\draw (0,0) circle(0.2 cm);
-\draw (1,0) circle(0.2 cm);
-\draw (2,0) circle(0.2 cm);
-\draw (3,0) circle(0.2 cm);
-\draw (4,0) circle(0.2 cm);
-
-
-\draw (0,-1) circle(0.2 cm);
-\draw (1,-1) circle(0.2 cm);
-\draw (2,-1) circle(0.2 cm);
-\draw (3,-1) circle(0.2 cm);
-
-
-\draw (0,-2) circle(0.2 cm);
-\draw (1,-2) circle(0.2 cm);
-\draw (2,-2) circle(0.2 cm);
-
-\draw (0,-3) circle(0.2 cm);
-\draw (1,-3) circle(0.2 cm);
-\end{scope}
-\end{tikzpicture}
+\includegraphics[width=0.6\textwidth]{figures/fig_beta.png}
 \end{center}
 
 \begin{lemma}\label{lemma:alpha-lands-in-beta}\lean{alphaOp_mem_DPbeta}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}\leanok
@@ -539,9 +355,9 @@ We must show $b' > s' = b$ (with $b' \notin D'$ in the boundary case $b' = b + 1
 From Step 2, $b' \geq b + 1$.
 
 
-\emph{Subcase (i): $b' \geq b + 2$.} Then $b' \geq s' + 2$, second clause of $\mathcal{P}_\beta$ holds. \checkmark
+\emph{Subcase (i): $b' \geq b + 2$.} Then $b' \geq s' + 2$, second clause of $\mathcal{P}_\beta$ holds. ✓
 
-\emph{Subcase (ii): $b' = b + 1$.} We need $b' \notin D'$. We have $D' = \{m - b + 2, \ldots, m + 1\}$. By Step 0, $m \geq 2b$, so $m - b + 2 \geq b + 2 > b + 1 = b'$. Hence $b' < \min(D')$, so $b' \notin D'$, first clause of $\mathcal{P}_\beta$ holds. \checkmark
+\emph{Subcase (ii): $b' = b + 1$.} We need $b' \notin D'$. We have $D' = \{m - b + 2, \ldots, m + 1\}$. By Step 0, $m \geq 2b$, so $m - b + 2 \geq b + 2 > b + 1 = b'$. Hence $b' < \min(D')$, so $b' \notin D'$, first clause of $\mathcal{P}_\beta$ holds. ✓
 
 In both subcases, $\alpha(S) \in \mathcal{P}_\beta(n)$.
 

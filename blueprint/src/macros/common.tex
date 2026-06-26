@@ -19,8 +19,3 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 
-\usepackage{comment}
-
-% Detect plasTeX (web build) so we can conditionally exclude PDF-only content.
-% plasTeX defines \plastextrue early; xelatex/pdflatex do not.
-\ifdefined\plastextrue\else\newif\ifplastex\plastexfalse\fi
