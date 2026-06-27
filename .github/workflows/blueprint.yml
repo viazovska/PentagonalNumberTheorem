@@ -6,10 +6,10 @@ on:
       - main # Trigger on pushes to the default branch
   workflow_dispatch:        # Allow manual triggering of the workflow from the GitHub Actions interface
 
-# Cancel previous runs if a new commit is pushed to the same PR or branch
+# Separate concurrency groups for push vs dispatch so manual runs don't cancel ongoing Lean builds
 concurrency:
-  group: ${{ github.ref }}  # Group runs by the ref (branch or PR)
-  cancel-in-progress: true  # Cancel any ongoing runs in the same group
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -55,3 +55,32 @@ jobs:
         with:
           blueprint: true
           homepage: home_page
+
+      # docgen-action only runs Jekyll + deploy-pages on push events.
+      # These steps mirror that behavior so workflow_dispatch also deploys.
+      - name: Bundle Ruby dependencies
+        if: github.event_name == 'workflow_dispatch'
+        uses: ruby/setup-ruby@eaecf785f6a34567a6d97f686bbb7bccc1ac1e5c # v1.237.0
+        with:
+          working-directory: home_page
+          ruby-version: "3.1"
+          bundler-cache: true
+
+      - name: Build website using Jekyll
+        if: github.event_name == 'workflow_dispatch'
+        working-directory: home_page
+        env:
+          JEKYLL_GITHUB_TOKEN: ${{ github.token }}
+        run: JEKYLL_ENV=production bundle exec jekyll build
+        shell: bash
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: home_page/_site
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'workflow_dispatch'
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
