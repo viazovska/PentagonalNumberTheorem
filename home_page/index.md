@@ -41,17 +41,21 @@ partitions at pentagonal $n$.
 
 ## Status
 
-This is a work in progress. The blueprint contains the full mathematical argument;
-the Lean formalization is partial. Declarations currently in Lean:
+The Lean 4 formalization of the Franklin involution proof is **complete** — no
+`sorry` placeholders remain. The following are all fully proved:
 
-- `all_distinct_partitions`, `even_distinct_partitions`, `odd_distinct_partitions`
-- `base` (the smallest part of a partition)
-- `euler_pentagonal_number_theorem` (statement only, proof `sorry`)
+- All core definitions (partitions into distinct parts, base, slope, slope set,
+  the α / β / special partition classes, Franklin's operations αOp and βOp)
+- The disjointness and union-decomposition lemmas for the three classes
+- The staircase set lemmas (cardinality and sum of $\{m,m{-}1,\ldots,m{-}k{+}1\}$)
+- Franklin's involution: αOp lands in β, βOp lands in α, they are mutual inverses
+- The bijection $\mathcal{P}_\alpha(n)\leftrightarrow\mathcal{P}_\beta(n)$ and the parity-flip
+- The closed form $p_e(n)-p_o(n) = (-1)^k$ for generalized pentagonal $n$, $0$ otherwise
+- The formal-power-series packaging: $\prod_{i\geq 1}(1-x^i)$ equals the pentagonal series
 
 ## Contributing
 
-Open an issue on GitHub for typos / mathematical errors in the blueprint, or
-send a pull request with a Lean proof attached to one of the blueprint lemmas.
+Open an issue on GitHub for typos or mathematical errors in the blueprint.
 See the [repository README](https://github.com/{{ site.repository }}#readme) for
 build instructions.
 
