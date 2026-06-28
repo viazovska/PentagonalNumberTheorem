@@ -59,6 +59,15 @@ Open an issue on GitHub for typos or mathematical errors in the blueprint.
 See the [repository README](https://github.com/{{ site.repository }}#readme) for
 build instructions.
 
+## Use of AI
+
+This project used AI assistance at two stages:
+
+- **Aristotle** (EPFL's AI assistant) helped develop and refine the mathematical
+  argument and the structure of the blueprint.
+- **Claude** (Anthropic) assisted with Lean 4 proof development, blueprint
+  maintenance, and CI/deployment infrastructure.
+
 ## Authors
 
 Jonathan Conrad, Paula Mürmann, Maryna Viazovska.
