@@ -41,15 +41,15 @@ partitions at pentagonal $n$.
 
 ## Status
 
-The Lean 4 formalization of the Franklin involution proof is **complete** — no
+The Lean 4 formalization of the Franklin involution proof is complete — no
 `sorry` placeholders remain. The following are all fully proved:
 
 - All core definitions (partitions into distinct parts, base, slope, slope set,
-  the α / β / special partition classes, Franklin's operations αOp and βOp)
+  the α / β / special partition classes, Franklin's operations α and β)
 - The disjointness and union-decomposition lemmas for the three classes
 - The staircase set lemmas (cardinality and sum of $\{m,m{-}1,\ldots,m{-}k{+}1\}$)
 - Franklin's involution: αOp lands in β, βOp lands in α, they are mutual inverses
-- The bijection $\mathcal{P}_\alpha(n)\leftrightarrow\mathcal{P}_\beta(n)$ and the parity-flip
+- The bijection and the parity-flip
 - The closed form $p_e(n)-p_o(n) = (-1)^k$ for generalized pentagonal $n$, $0$ otherwise
 - The formal-power-series packaging: $\prod_{i\geq 1}(1-x^i)$ equals the pentagonal series
 
@@ -63,11 +63,11 @@ build instructions.
 
 This project used AI assistance at two stages:
 
-- **Aristotle** (EPFL's AI assistant) helped develop and refine the mathematical
+- **Aristotle** helped develop and refine the mathematical
   argument and the structure of the blueprint.
-- **Claude** (Anthropic) assisted with Lean 4 proof development, blueprint
+- **Claude** assisted with Lean 4 proof development, blueprint
   maintenance, and CI/deployment infrastructure.
 
 ## Authors
 
-Jonathan Conrad, Paula Mürmann, Maryna Viazovska.
+Jonathan Conrad, Paula M{\"u}rmann, Maryna Viazovska.
