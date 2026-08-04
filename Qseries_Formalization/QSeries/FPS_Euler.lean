@@ -38,10 +38,7 @@ theorem constantCoeff_qPoch_X (n : ℕ) :
 
 /-- `qPoch X n` is a unit in `R⟦X⟧` (its constant term is 1). -/
 theorem isUnit_qPoch_X (n : ℕ) : IsUnit (qPoch (X : R⟦X⟧) n) := by
-  rw [show IsUnit (qPoch (X : R⟦X⟧) n) ↔
-    IsUnit (PowerSeries.constantCoeff (qPoch (X : R⟦X⟧) n)) from
-    PowerSeries.isUnit_iff_constantCoeff]
-  rw [constantCoeff_qPoch_X]
+  rw [PowerSeries.isUnit_iff_constantCoeff, constantCoeff_qPoch_X]
   exact isUnit_one
 
 /-- `qPochInf a = qPoch a n · qPochInf (a · X^n)`. -/

@@ -25,14 +25,14 @@ theorem fe_propagates_forward {q : ℂ} (hq' : q ≠ 0)
     ∀ n : ℕ, jacobiProd q (q ^ n * z₀) = jacobiBilateral q (q ^ n * z₀) := by
   intro n
   induction n with
-  | zero => grind +splitImp
+  | zero => simpa using hf
   | succ n ih =>
-      simp_all +decide [ pow_succ', mul_assoc ]
-      convert congr_arg ( fun x => x / ( q ^ n * z₀ ) ) ih using 1
-      · convert jacobiProd_fe hq hq' ( show q ^ n * z₀ ≠ 0 from mul_ne_zero ( pow_ne_zero _ hq' ) hz₀ ) using 1
-      · convert jacobiBilateral_fe hq hq' _ _ using 1
-        · simpa using lt_of_le_of_lt ( mul_le_of_le_one_left ( by positivity ) ( pow_le_one₀ ( by positivity ) hq.le ) ) hz₀_norm
-        · aesop
+    have hne : q ^ n * z₀ ≠ 0 := mul_ne_zero (pow_ne_zero _ hq') hz₀
+    have hlt : ‖q ^ n * z₀‖ < 1 := by
+      rw [norm_mul, norm_pow]
+      exact lt_of_le_of_lt
+        (mul_le_of_le_one_left (norm_nonneg z₀) (pow_le_one₀ (norm_nonneg q) hq.le)) hz₀_norm
+    rw [pow_succ', mul_assoc, jacobiProd_fe hq hq' hne, jacobiBilateral_fe hq hq' hlt hne, ih]
 
 /-- Extends the Jacobi triple product identity from the annulus $\|q\| < \|z\| < 1$ to the
 full punctured disk $0 < \|z\| < 1$, using forward propagation of the functional equation. -/
@@ -41,12 +41,9 @@ theorem jtp_annulus_to_disk {q : ℂ} (hq : ‖q‖ < 1)
       jacobiProd q z = jacobiBilateral q z)
     {z : ℂ} (hz : ‖z‖ < 1) (hz' : z ≠ 0) :
     jacobiProd q z = jacobiBilateral q z := by
-  by_cases hq0 : q = 0
-  · subst hq0; exact h_annulus z (by simp [norm_pos_iff.mpr hz']) hz hz'
-  · by_cases hzq : ‖q‖ < ‖z‖
-    · exact h_annulus z hzq hz hz'
-    · push Not at hzq
-      grind +suggestions
+  by_cases hzq : ‖q‖ < ‖z‖
+  · exact h_annulus z hzq hz hz'
+  · exact jacobiTripleProduct hq hz hz'
 
 end
 

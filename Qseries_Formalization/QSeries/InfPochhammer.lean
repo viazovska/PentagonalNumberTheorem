@@ -35,78 +35,52 @@ Defined unconditionally as a `tprod`; convergence (under $\|q\| < 1$) is provide
 by `multipliable_one_sub_smul_qpow`. -/
 noncomputable def qPochhammerInf (a q : ℂ) : ℂ := ∏' k : ℕ, (1 - a * q ^ k)
 
+/-- For $\|q\| < 1$ the sequence $n \mapsto \|{-}(a q^n)\|$ is summable: it is the
+geometric series $\|a\| \cdot \|q\|^n$. -/
+theorem summable_norm_neg_mul_qpow {a q : ℂ} (hq : ‖q‖ < 1) :
+    Summable fun n : ℕ => ‖-(a * q ^ n)‖ := by
+  simpa [norm_neg, norm_mul, norm_pow] using
+    (summable_geometric_of_lt_one (norm_nonneg q) hq).mul_left ‖a‖
+
+/-- If $\|z\| < 1$ and $\|q\| \le 1$ then $z q^k \ne 1$, so the q-Pochhammer factors
+$1 - z q^k$ are all nonzero. -/
+theorem one_sub_mul_pow_ne_zero {z q : ℂ} (hz : ‖z‖ < 1) (hq : ‖q‖ ≤ 1) (k : ℕ) :
+    (1 : ℂ) - z * q ^ k ≠ 0 := by
+  intro h
+  have hnorm : ‖z‖ * ‖q‖ ^ k = 1 := by
+    rw [← norm_pow, ← norm_mul, show z * q ^ k = 1 from by linear_combination -h, norm_one]
+  nlinarith [norm_nonneg z, pow_le_one₀ (norm_nonneg q) hq (n := k),
+    pow_nonneg (norm_nonneg q) k]
+
 /-- For $\|q\| < 1$, the product $\prod_{k \geq 0}(1 - aq^k)$ is multipliable. -/
 theorem multipliable_one_sub_smul_qpow {a q : ℂ} (hq : ‖q‖ < 1) :
     Multipliable (fun k : ℕ => 1 - a * q ^ k) := by
-  have h_geom : Summable (fun n : ℕ => ‖q‖ ^ n) :=
-    summable_geometric_of_lt_one (norm_nonneg q) hq
-  have h_summ : Summable (fun n : ℕ => ‖-(a * q ^ n)‖) := by
-    have eq : (fun n : ℕ => ‖-(a * q ^ n)‖) = (fun n => ‖a‖ * ‖q‖ ^ n) := by
-      ext n; rw [norm_neg, norm_mul, norm_pow]
-    rw [eq]
-    exact h_geom.mul_left ‖a‖
-  have key : Multipliable (fun k : ℕ => 1 + -(a * q ^ k)) :=
-    multipliable_one_add_of_summable h_summ
-  simpa [sub_eq_add_neg] using key
+  simpa [sub_eq_add_neg] using
+    multipliable_one_add_of_summable (summable_norm_neg_mul_qpow (a := a) hq)
 
 /-- **Non-vanishing of $(q;q)_n$ for $\|q\| < 1$.** -/
 theorem qPochhammer_q_q_ne_zero {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
-    qPochhammer q q n ≠ 0 := by
-  rw [qPochhammer, Finset.prod_ne_zero_iff]
-  intro k _ h
-  rw [show (1 : ℂ) - q * q ^ k = 1 - q ^ (k + 1) from by ring] at h
-  have h1 : q ^ (k + 1) = 1 := by linear_combination -h
-  have hn1 : ‖q ^ (k + 1)‖ = 1 := by rw [h1]; simp
-  rw [norm_pow] at hn1
-  have hqp : ‖q‖ ^ (k + 1) < 1 :=
-    pow_lt_one₀ (norm_nonneg _) hq (Nat.succ_ne_zero k)
-  linarith
+    qPochhammer q q n ≠ 0 :=
+  Finset.prod_ne_zero_iff.mpr fun k _ => one_sub_mul_pow_ne_zero hq hq.le k
 
 /-- **Non-vanishing of $(z;q)_n$ when $\|z\| < 1$ and $\|q\| \le 1$.** -/
 theorem qPochhammer_z_q_ne_zero {z q : ℂ} (hz : ‖z‖ < 1) (hq : ‖q‖ ≤ 1)
-    (n : ℕ) : qPochhammer z q n ≠ 0 := by
-  rw [qPochhammer, Finset.prod_ne_zero_iff]
-  intro k _ h
-  have h1 : z * q ^ k = 1 := by linear_combination -h
-  have hnorm : ‖z * q ^ k‖ = 1 := by rw [h1]; simp
-  rw [norm_mul, norm_pow] at hnorm
-  have hqkle : ‖q‖ ^ k ≤ 1 := pow_le_one₀ (norm_nonneg _) hq
-  nlinarith [norm_nonneg z, norm_nonneg q, pow_nonneg (norm_nonneg q) k]
+    (n : ℕ) : qPochhammer z q n ≠ 0 :=
+  Finset.prod_ne_zero_iff.mpr fun k _ => one_sub_mul_pow_ne_zero hz hq k
 
 /-- Helper: $(a;q)_\infty \neq 0$ when every factor is nonzero. -/
 theorem qPochhammerInf_ne_zero_of_factors {a q : ℂ} (hq : ‖q‖ < 1)
     (hfac : ∀ k : ℕ, (1 : ℂ) - a * q ^ k ≠ 0) :
     qPochhammerInf a q ≠ 0 := by
-  have h_geom : Summable (fun n : ℕ => ‖q‖ ^ n) :=
-    summable_geometric_of_lt_one (norm_nonneg q) hq
-  have h_summ : Summable (fun n : ℕ => ‖-(a * q ^ n)‖) := by
-    have eq : (fun n : ℕ => ‖-(a * q ^ n)‖) = (fun n => ‖a‖ * ‖q‖ ^ n) := by
-      ext n; rw [norm_neg, norm_mul, norm_pow]
-    rw [eq]
-    exact h_geom.mul_left ‖a‖
-  have h_ne : ∀ i, (1 : ℂ) + -(a * q ^ i) ≠ 0 := by
-    intro i
-    rw [show (1 : ℂ) + -(a * q ^ i) = 1 - a * q ^ i from by ring]
-    exact hfac i
-  have h_main : (∏' k : ℕ, ((1 : ℂ) + -(a * q ^ k))) ≠ 0 :=
-    tprod_one_add_ne_zero_of_summable h_ne h_summ
-  unfold qPochhammerInf
-  have h_eq : (fun k : ℕ => (1 : ℂ) - a * q ^ k)
-                = (fun k => (1 : ℂ) + -(a * q ^ k)) := by
-    ext k; ring
-  rw [h_eq]
-  exact h_main
+  have h_main := tprod_one_add_ne_zero_of_summable
+    (f := fun k : ℕ => -(a * q ^ k))
+    (fun i => by rw [← sub_eq_add_neg]; exact hfac i) (summable_norm_neg_mul_qpow hq)
+  simpa [qPochhammerInf, sub_eq_add_neg] using h_main
 
 /-- **Non-vanishing of $(z;q)_\infty$ for $\|z\| < 1, \|q\| < 1$.** -/
 theorem qPochhammerInf_z_q_ne_zero {z q : ℂ} (hz : ‖z‖ < 1) (hq : ‖q‖ < 1) :
-    qPochhammerInf z q ≠ 0 := by
-  apply qPochhammerInf_ne_zero_of_factors hq
-  intro k h
-  have h1 : z * q ^ k = 1 := by linear_combination -h
-  have hnorm : ‖z * q ^ k‖ = 1 := by rw [h1]; simp
-  rw [norm_mul, norm_pow] at hnorm
-  have hqkle : ‖q‖ ^ k ≤ 1 := pow_le_one₀ (norm_nonneg _) hq.le
-  nlinarith [norm_nonneg z, norm_nonneg q, pow_nonneg (norm_nonneg q) k]
+    qPochhammerInf z q ≠ 0 :=
+  qPochhammerInf_ne_zero_of_factors hq fun k => one_sub_mul_pow_ne_zero hz hq.le k
 
 /-- **Partial products converge to $(a;q)_\infty$.** -/
 theorem tendsto_qPochhammer {a q : ℂ} (hq : ‖q‖ < 1) :
@@ -122,21 +96,12 @@ theorem qPochhammerInf_recursion {z q : ℂ} (hq : ‖q‖ < 1) :
   have h_fin : ∀ n : ℕ,
       qPochhammer z q (n + 1) = (1 - z) * qPochhammer (z * q) q n := by
     intro n
-    induction n with
-    | zero => simp [qPochhammer_succ, qPochhammer_zero]
-    | succ n ih =>
-        rw [qPochhammer_succ z q (n + 1), ih, qPochhammer_succ (z * q) q n,
-            show (z * q) * q ^ n = z * q ^ (n + 1) from by ring]
-        ring
-  have hLHS : Tendsto (fun n => qPochhammer z q (n + 1)) atTop
-                (𝓝 (qPochhammerInf z q)) :=
-    (tendsto_add_atTop_iff_nat 1).mpr (tendsto_qPochhammer hq)
-  have hRHS : Tendsto (fun n => (1 - z) * qPochhammer (z * q) q n) atTop
-                (𝓝 ((1 - z) * qPochhammerInf (z * q) q)) :=
-    (tendsto_qPochhammer (a := z * q) hq).const_mul (1 - z)
-  have heq : (fun n => qPochhammer z q (n + 1))
-              = (fun n => (1 - z) * qPochhammer (z * q) q n) := funext h_fin
-  rw [heq] at hLHS
-  exact tendsto_nhds_unique hLHS hRHS
+    rw [qPochhammer, qPochhammer, Finset.prod_range_succ', mul_comm]
+    simp [pow_succ', mul_assoc]
+  have hLHS : Tendsto (fun n => (1 - z) * qPochhammer (z * q) q n) atTop
+                (𝓝 (qPochhammerInf z q)) := by
+    simpa only [h_fin] using
+      (tendsto_add_atTop_iff_nat 1).mpr (tendsto_qPochhammer (a := z) hq)
+  exact tendsto_nhds_unique hLHS ((tendsto_qPochhammer (a := z * q) hq).const_mul (1 - z))
 
 end qSeries

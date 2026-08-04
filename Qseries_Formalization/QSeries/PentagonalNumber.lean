@@ -36,6 +36,75 @@ well-defined for $k \in \mathbb{Z}$ (the product $k(3k-1)$ is always even). -/
 def pentagonal (k : ℤ) : ℕ :=
   (k * (3 * k - 1) / 2).toNat
 
+/-- At a nonnegative index, $\omega(k) = k + 3\binom{k}{2}$. -/
+private theorem pentagonal_natCast (k : ℕ) : pentagonal (k : ℤ) = k + k.choose 2 * 3 := by
+  have key : (k : ℤ) * (3 * (k : ℤ) - 1) = 2 * ((k + k.choose 2 * 3 : ℕ) : ℤ) := by
+    induction k with
+    | zero => norm_num
+    | succ n ih =>
+      simp only [Nat.cast_succ, Nat.choose_succ_succ, Nat.choose_one_right] at *
+      push_cast at *
+      linarith
+  unfold pentagonal
+  rw [key]
+  omega
+
+/-- At a negative index, $\omega(-(m+1)) + (m+1) = 3\binom{m+2}{2}$. -/
+private theorem pentagonal_neg_add (m : ℕ) :
+    pentagonal (-(m + 1) : ℤ) + (m + 1) = (m + 2).choose 2 * 3 := by
+  have key : (-((m : ℤ) + 1)) * (3 * (-((m : ℤ) + 1)) - 1) =
+      2 * (((m + 2).choose 2 * 3 : ℤ) - ((m : ℤ) + 1)) := by
+    induction m with
+    | zero => norm_num
+    | succ n ih =>
+      simp only [Nat.cast_succ, Nat.choose_succ_succ, Nat.choose_one_right,
+        Nat.choose_zero_right] at *
+      push_cast at *
+      linarith
+  have hle : (m : ℤ) + 1 ≤ ((m + 2).choose 2 * 3 : ℤ) := by
+    have h : (m + 2).choose 2 = (m + 1) + (m + 1).choose 2 := by
+      rw [Nat.choose_succ_succ, Nat.choose_one_right]
+    have : (m + 1 : ℕ) ≤ (m + 2).choose 2 * 3 := by omega
+    exact_mod_cast this
+  unfold pentagonal
+  rw [key]
+  omega
+
+/-- $\omega(-(m+1)) \neq 0$: the negative pentagonal numbers are all positive. -/
+private theorem pentagonal_neg_ne_zero (m : ℕ) : pentagonal (-(m + 1) : ℤ) ≠ 0 := by
+  have hp := pentagonal_neg_add m
+  have h : (m + 2).choose 2 = (m + 1) + (m + 1).choose 2 := by
+    rw [Nat.choose_succ_succ, Nat.choose_one_right]
+  omega
+
+/-- Partial products of an absolutely convergent product converge to the product. -/
+private theorem tendsto_prod_one_add {f : ℕ → ℂ} (hf : Summable fun k => ‖f k‖) :
+    Tendsto (fun n => ∏ k ∈ Finset.range n, (1 + f k)) atTop (𝓝 (∏' k : ℕ, (1 + f k))) :=
+  (multipliable_one_add_of_summable hf).hasProd.tendsto_prod_nat
+
+/-- An absolutely convergent product over `ℕ` splits into its three residue classes mod `3`. -/
+private theorem tprod_one_add_split_three {f : ℕ → ℂ} (hf : Summable fun k => ‖f k‖) :
+    ∏' k : ℕ, (1 + f k) = (∏' k : ℕ, (1 + f (3 * k))) * (∏' k : ℕ, (1 + f (3 * k + 1))) *
+      ∏' k : ℕ, (1 + f (3 * k + 2)) := by
+  have hpart : ∀ n : ℕ, ∏ k ∈ Finset.range (3 * n), (1 + f k) =
+      (∏ k ∈ Finset.range n, (1 + f (3 * k))) * (∏ k ∈ Finset.range n, (1 + f (3 * k + 1))) *
+        ∏ k ∈ Finset.range n, (1 + f (3 * k + 2)) := by
+    intro n
+    induction n with
+    | zero => simp
+    | succ n ih => simp only [Nat.mul_succ, Finset.prod_range_succ] at *; rw [ih]; ring
+  have hL : Tendsto (fun n => ∏ k ∈ Finset.range (3 * n), (1 + f k)) atTop
+      (𝓝 (∏' k : ℕ, (1 + f k))) := by
+    simpa [Function.comp_def] using
+      (tendsto_prod_one_add hf).comp (tendsto_id.nsmul_atTop (three_pos (α := ℕ)))
+  have hR := ((tendsto_prod_one_add (f := fun k => f (3 * k))
+      (hf.comp_injective fun a b h => by omega)).mul
+    (tendsto_prod_one_add (f := fun k => f (3 * k + 1))
+      (hf.comp_injective fun a b h => by omega))).mul
+    (tendsto_prod_one_add (f := fun k => f (3 * k + 2))
+      (hf.comp_injective fun a b h => by omega))
+  exact tendsto_nhds_unique hL (hR.congr fun n => (hpart n).symm)
+
 /-- **Euler's pentagonal number theorem**: for $\|q\| < 1$, the infinite product $(q;q)_\infty$
 equals the bilateral series $\sum_{k \in \mathbb{Z}} (-1)^k q^{\omega(k)}$ over generalized
 pentagonal numbers $\omega(k) = k(3k-1)/2$, written as two one-sided sums. -/
@@ -44,73 +113,48 @@ theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
       (∑' k : ℕ, (-1 : ℂ) ^ k * q ^ pentagonal k)
       + ∑' k : ℕ, (-1 : ℂ) ^ (k + 1) * q ^ pentagonal (-(↑k + 1)) := by
   by_cases hq0 : q = 0
-  · rw [ tsum_eq_single 0, tsum_eq_single 0 ] <;> simp_all +decide [ pentagonal ]
-    · grind
-    · exact fun n hn => Int.le_ediv_of_mul_le ( by norm_num ) ( by nlinarith [ show ( n : ℤ ) > 0 from Nat.cast_pos.mpr ( Nat.pos_of_ne_zero hn ) ] )
-  · convert jacobiTripleProduct_annulus ( show ‖q ^ 3‖ < 1 from by simpa using pow_lt_one₀ ( norm_nonneg q ) hq ( by norm_num ) ) _ _ _ using 1
-    case neg.convert_1 => exact -q
-    · norm_num [ pow_succ, mul_assoc, hq0 ]
-      have h_def : qPochhammerInf q q = ∏' k : ℕ, (1 - q ^ (k + 1)) := by
-        exact tprod_congr fun k => by ring
-      have h_split : ∏' k : ℕ, (1 - q ^ (k + 1)) = (∏' k : ℕ, (1 - q ^ (3 * k + 1))) * (∏' k : ℕ, (1 - q ^ (3 * k + 2))) * (∏' k : ℕ, (1 - q ^ (3 * k + 3))) := by
-        have h_split : ∀ {f : ℕ → ℂ}, Summable (fun k => ‖f k‖) → (∏' k : ℕ, (1 + f k)) = (∏' k : ℕ, (1 + f (3 * k))) * (∏' k : ℕ, (1 + f (3 * k + 1))) * (∏' k : ℕ, (1 + f (3 * k + 2))) := by
-          intros f hf_summable
-          have h_split : ∏' k : ℕ, (1 + f k) = (∏' k : ℕ, (1 + f (3 * k))) * (∏' k : ℕ, (1 + f (3 * k + 1))) * (∏' k : ℕ, (1 + f (3 * k + 2))) := by
-            have h_split : ∀ {g : ℕ → ℂ}, Summable (fun k => ‖g k‖) → (∏' k : ℕ, (1 + g k)) = (∏' k : ℕ, (1 + g (3 * k))) * (∏' k : ℕ, (1 + g (3 * k + 1))) * (∏' k : ℕ, (1 + g (3 * k + 2))) := by
-              intros g hg_summable
-              have h_split : ∀ n : ℕ, ∏ k ∈ Finset.range (3 * n), (1 + g k) = (∏ k ∈ Finset.range n, (1 + g (3 * k))) * (∏ k ∈ Finset.range n, (1 + g (3 * k + 1))) * (∏ k ∈ Finset.range n, (1 + g (3 * k + 2))) := by
-                intro n; induction n <;> simp_all +decide [ Nat.mul_succ, Finset.prod_range_succ ] ; ring
-              have h_split : Filter.Tendsto (fun n => ∏ k ∈ Finset.range (3 * n), (1 + g k)) Filter.atTop (nhds (∏' k : ℕ, (1 + g k))) := by
-                have h_split : Multipliable (fun k => 1 + g k) := by
-                  exact multipliable_one_add_of_summable hg_summable
-                convert h_split.hasProd.tendsto_prod_nat.comp ( Filter.tendsto_id.nsmul_atTop three_pos ) using 1
-              have h_split : Filter.Tendsto (fun n => (∏ k ∈ Finset.range n, (1 + g (3 * k))) * (∏ k ∈ Finset.range n, (1 + g (3 * k + 1))) * (∏ k ∈ Finset.range n, (1 + g (3 * k + 2)))) Filter.atTop (nhds ((∏' k : ℕ, (1 + g (3 * k))) * (∏' k : ℕ, (1 + g (3 * k + 1))) * (∏' k : ℕ, (1 + g (3 * k + 2)))) ) := by
-                have h_split : ∀ {h : ℕ → ℂ}, Summable (fun k => ‖h k‖) → Filter.Tendsto (fun n => ∏ k ∈ Finset.range n, (1 + h k)) Filter.atTop (nhds (∏' k : ℕ, (1 + h k))) := by
-                  intro h hh_summable
-                  have h_split : Multipliable (fun k => 1 + h k) := by
-                    exact multipliable_one_add_of_summable hh_summable
-                  convert h_split.hasProd.tendsto_prod_nat using 1
-                exact Filter.Tendsto.mul ( Filter.Tendsto.mul ( h_split <| hg_summable.comp_injective <| by intros a b; aesop ) ( h_split <| hg_summable.comp_injective <| by intros a b; aesop ) ) ( h_split <| hg_summable.comp_injective <| by intros a b; aesop )
-              exact tendsto_nhds_unique ‹_› ( by simp only [*] )
-            exact h_split hf_summable
-          exact h_split
-        convert h_split _ using 1
-        rotate_left
-        rotate_left
-        use fun k => -q ^ ( k + 1 )
-        · simpa using summable_nat_add_iff 1 |>.2 <| summable_geometric_of_lt_one ( by positivity ) hq
-        · exact tprod_congr fun _ => by ring
-        · norm_cast
-      rw [ h_def, h_split ]
-      unfold qPochhammerInf; ring
-    · congr! 1
-      · refine tsum_congr fun k => ?_
-        have h_pent : pentagonal (↑k : ℤ) = k + k.choose 2 * 3 := by
-          unfold pentagonal
-          have key : ↑k * (3 * (↑k : ℤ) - 1) = 2 * ↑(k + k.choose 2 * 3) := by
-            induction k with
-            | zero => norm_num
-            | succ n ih =>
-              simp only [Nat.cast_succ, Nat.choose_succ_succ, Nat.choose_one_right] at *
-              push_cast at *
-              linarith
-          have h2 : (↑k * (3 * (↑k : ℤ) - 1) / 2 : ℤ) = ↑(k + k.choose 2 * 3) := by
-            rw [key]; omega
-          rw [h2, Int.toNat_natCast]
-        rw [h_pent]; ring
-      · refine tsum_congr fun m => ?_
-        rw [ show pentagonal ( - ( m + 1 ) : ℤ ) = ( m + 2 ).choose 2 * 3 - ( m + 1 ) by
-              unfold pentagonal
-              rw [ Nat.choose_two_right ]
-              ring
-              norm_cast
-              exact eq_tsub_of_add_eq ( by nlinarith [ Nat.sub_add_cancel ( by omega : 1 ≤ 2 + m ), Nat.div_mul_cancel ( show 2 ∣ 4 + m * 7 + m ^ 2 * 3 from even_iff_two_dvd.mp ( by simp +arith +decide [ parity_simps ] ) ), Nat.div_mul_cancel ( show 2 ∣ m * ( 2 + m - 1 ) + ( 2 + m - 1 ) * 2 from even_iff_two_dvd.mp ( by simp +arith +decide [ mul_add, parity_simps ] ) ) ] ) ]
-        rw [ show ( m + 2 ).choose 2 * 3 - ( m + 1 ) = ( m + 2 ).choose 2 * 3 - ( m + 1 ) from rfl, pow_sub₀ ] <;> norm_num ; ring
-        · assumption
-        · grind +suggestions
-    · simpa using pow_lt_self_of_lt_one₀ ( norm_pos_iff.mpr hq0 ) hq ( by norm_num : ( 1 : ℕ ) < 3 )
-    · simpa using hq
-    · aesop
+  · subst hq0
+    have h1 : ∀ k : ℕ, k ≠ 0 → (-1 : ℂ) ^ k * (0 : ℂ) ^ pentagonal (k : ℤ) = 0 := fun k hk => by
+      rw [pentagonal_natCast, zero_pow (by omega), mul_zero]
+    have h2 : ∀ k : ℕ, (-1 : ℂ) ^ (k + 1) * (0 : ℂ) ^ pentagonal (-(↑k + 1)) = 0 := fun k => by
+      rw [zero_pow (pentagonal_neg_ne_zero k), mul_zero]
+    rw [tsum_eq_single 0 h1]
+    simp only [h2, tsum_zero, add_zero]
+    simp [qPochhammerInf, pentagonal]
+  · have h3 : ‖q ^ 3‖ < 1 := by simpa using pow_lt_one₀ (norm_nonneg q) hq (by norm_num)
+    have hzq : ‖q ^ 3‖ < ‖-q‖ := by
+      simpa using pow_lt_self_of_lt_one₀ (norm_pos_iff.mpr hq0) hq (by norm_num : (1 : ℕ) < 3)
+    have hf : Summable fun k : ℕ => ‖-q ^ (k + 1)‖ := by
+      simpa using (summable_nat_add_iff 1).2 (summable_geometric_of_lt_one (norm_nonneg q) hq)
+    have hprod : qPochhammerInf q q = qPochhammerInf (q ^ 3) (q ^ 3) *
+        qPochhammerInf (-(-q)) (q ^ 3) * qPochhammerInf (-(q ^ 3) / -q) (q ^ 3) := by
+      have hd : (-(q ^ 3) / -q : ℂ) = q ^ 2 := by field_simp
+      have e0 : qPochhammerInf q q = ∏' k : ℕ, (1 + -q ^ (k + 1)) :=
+        tprod_congr fun k => by ring
+      have e1 : qPochhammerInf (-(-q)) (q ^ 3) = ∏' k : ℕ, (1 + -q ^ (3 * k + 1)) :=
+        tprod_congr fun k => by rw [neg_neg]; ring
+      have e2 : qPochhammerInf (q ^ 2) (q ^ 3) = ∏' k : ℕ, (1 + -q ^ (3 * k + 2)) :=
+        tprod_congr fun k => by ring
+      have e3 : qPochhammerInf (q ^ 3) (q ^ 3) = ∏' k : ℕ, (1 + -q ^ (3 * k + 3)) :=
+        tprod_congr fun k => by ring
+      rw [hd, e0, e1, e2, e3, tprod_one_add_split_three hf]
+      ring
+    have hsum1 : ∑' k : ℕ, (-1 : ℂ) ^ k * q ^ pentagonal (k : ℤ) =
+        ∑' k : ℕ, (-q) ^ k * (q ^ 3) ^ k.choose 2 :=
+      tsum_congr fun k => by rw [pentagonal_natCast, neg_pow]; ring
+    have hsum2 : ∑' k : ℕ, (-1 : ℂ) ^ (k + 1) * q ^ pentagonal (-(↑k + 1)) =
+        ∑' m : ℕ, (-q : ℂ)⁻¹ ^ (m + 1) * (q ^ 3) ^ (m + 2).choose 2 := by
+      refine tsum_congr fun m => ?_
+      have hp := pentagonal_neg_add m
+      have key : (q ^ 3) ^ (m + 2).choose 2 = q ^ pentagonal (-(↑m + 1)) * q ^ (m + 1) := by
+        rw [← pow_mul, ← pow_add]
+        congr 1
+        omega
+      rw [key, show (-q : ℂ)⁻¹ ^ (m + 1) * (q ^ pentagonal (-(↑m + 1)) * q ^ (m + 1)) =
+        ((-q : ℂ)⁻¹ * q) ^ (m + 1) * q ^ pentagonal (-(↑m + 1)) from by rw [mul_pow]; ring,
+        show ((-q : ℂ)⁻¹ * q) = -1 from by field_simp]
+    rw [hprod, hsum1, hsum2]
+    exact jacobiTripleProduct_annulus h3 hzq (by simpa using hq) (neg_ne_zero.mpr hq0)
 
 end
 

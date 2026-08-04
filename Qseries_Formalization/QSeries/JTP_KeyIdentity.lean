@@ -38,214 +38,228 @@ def S_summand (q : ℂ) (k : ℕ) (m : ℕ) : ℂ :=
 theorem S_sum_eq_tsum (q : ℂ) (k : ℕ) :
     S_sum q k = ∑' m, S_summand q k m := rfl
 
+/-- A sequence of positive reals converging to a positive limit is bounded below by a
+positive constant. -/
+theorem aux_keyid_exists_pos_le_of_tendsto {f : ℕ → ℝ} {L : ℝ} (hL : 0 < L)
+    (hf : Tendsto f atTop (𝓝 L)) (hpos : ∀ n, 0 < f n) : ∃ C > 0, ∀ n, C ≤ f n := by
+  obtain ⟨N, hN⟩ := eventually_atTop.mp (hf.eventually (lt_mem_nhds (half_lt_self hL)))
+  have hne : (Finset.range (N + 1)).Nonempty := ⟨0, by simp⟩
+  refine ⟨min (L / 2) ((Finset.range (N + 1)).inf' hne f), ?_, fun n => ?_⟩
+  · exact lt_min (by linarith) ((Finset.lt_inf'_iff hne).2 fun i _ => hpos i)
+  · rcases le_or_gt n N with h | h
+    · exact (min_le_right _ _).trans (Finset.inf'_le f (Finset.mem_range.2 (by omega)))
+    · exact (min_le_left _ _).trans (hN n h.le).le
+
+/-- The finite q-Pochhammer symbols `(q;q)_n` are bounded away from `0` uniformly in `n`,
+since they converge to the nonzero limit `(q;q)_∞`. -/
+theorem aux_keyid_exists_pos_le_norm_qPochhammer {q : ℂ} (hq : ‖q‖ < 1) :
+    ∃ C > 0, ∀ n : ℕ, C ≤ ‖qPochhammer q q n‖ :=
+  aux_keyid_exists_pos_le_of_tendsto (norm_pos_iff.mpr (qPochhammerInf_z_q_ne_zero hq hq))
+    (tendsto_qPochhammer hq).norm fun n => norm_pos_iff.mpr (qPochhammer_q_q_ne_zero hq n)
+
 /-- The series defining $S_k(q)$ is summable for $\|q\| < 1$. -/
 theorem summable_S_summand {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     Summable (S_summand q k) := by
-  have h_summable : Summable (fun m : ℕ => (q ^ (m * (m + k))) / (qPochhammer q q m * qPochhammer q q (m + k))) := by
-    have h_bound : ∃ C > 0, ∀ m : ℕ, ‖qPochhammer q q m * qPochhammer q q (m + k)‖ ≥ C := by
-      have h_prod_nonzero : ∃ C > 0, ∀ m : ℕ, ‖qPochhammer q q m‖ ≥ C := by
-        have h_prod_conv : Summable (fun j : ℕ => ‖q ^ j‖) := by
-          simpa using summable_geometric_of_lt_one ( norm_nonneg q ) hq
-        have h_prod_conv : ∃ C > 0, ∀ m : ℕ, ‖∏ j ∈ Finset.range m, (1 - q ^ (j + 1))‖ ≥ C := by
-          have h_prod_conv : ∃ C > 0, ∀ m : ℕ, ‖∏ j ∈ Finset.range m, (1 - q ^ (j + 1))‖ ≥ Real.exp (-∑ j ∈ Finset.range m, ‖q ^ (j + 1)‖ / (1 - ‖q ^ (j + 1)‖)) := by
-            have h_prod_conv : ∀ m : ℕ, ‖∏ j ∈ Finset.range m, (1 - q ^ (j + 1))‖ ≥ Real.exp (-∑ j ∈ Finset.range m, ‖q ^ (j + 1)‖ / (1 - ‖q ^ (j + 1)‖)) := by
-              intros m
-              have h_prod_conv : ∀ j ∈ Finset.range m, ‖1 - q ^ (j + 1)‖ ≥ Real.exp (-‖q ^ (j + 1)‖ / (1 - ‖q ^ (j + 1)‖)) := by
-                intros j hj
-                have h_exp : ‖1 - q ^ (j + 1)‖ ≥ 1 - ‖q ^ (j + 1)‖ := by
-                  simpa using norm_sub_norm_le ( 1 : ℂ ) ( q ^ ( j + 1 ) )
-                have h_exp : ∀ x : ℝ, 0 ≤ x ∧ x < 1 → 1 - x ≥ Real.exp (-x / (1 - x)) := by
-                  intros x hx
-                  have h_exp : Real.exp (-x / (1 - x)) ≤ 1 - x := by
-                    rw [ neg_div, Real.exp_neg ]
-                    rw [ inv_eq_one_div, div_le_iff₀ ] <;> nlinarith [ Real.add_one_le_exp ( x / ( 1 - x ) ), mul_div_cancel₀ x ( by linarith [hx.2] : ( 1 - x ) ≠ 0 ) ]
-                  exact h_exp
-                exact le_trans ( h_exp _ ⟨ by positivity, by simpa using pow_lt_one₀ ( by positivity ) hq ( by omega ) ⟩ ) ‹‖1 - q ^ ( j + 1 )‖ ≥ 1 - ‖q ^ ( j + 1 )‖›
-              simpa [ neg_div, Real.exp_neg, Real.exp_sum ] using Finset.prod_le_prod ( fun _ _ => by positivity ) h_prod_conv
-            exact ⟨ 1, zero_lt_one, h_prod_conv ⟩
-          have h_prod_conv : Summable (fun j : ℕ => ‖q ^ (j + 1)‖ / (1 - ‖q ^ (j + 1)‖)) := by
-            have h_prod_conv : Summable (fun j : ℕ => ‖q ^ (j + 1)‖ / (1 - ‖q‖)) := by
-              exact Summable.mul_right _ ( by simpa using summable_nat_add_iff 1 |>.2 ‹Summable fun j : ℕ => ‖q ^ j‖› )
-            refine .of_nonneg_of_le ( fun j => div_nonneg ( norm_nonneg _ ) ( sub_nonneg.mpr ( by simpa using pow_le_one₀ ( norm_nonneg q ) hq.le ) ) ) ( fun j => ?_ ) h_prod_conv
-            gcongr
-            · linarith
-            · simpa using pow_le_of_le_one ( norm_nonneg q ) hq.le ( by norm_num )
-          have h_prod_conv : ∃ C > 0, ∀ m : ℕ, Real.exp (-∑ j ∈ Finset.range m, ‖q ^ (j + 1)‖ / (1 - ‖q ^ (j + 1)‖)) ≥ C := by
-            exact ⟨ Real.exp ( -∑' j : ℕ, ‖q ^ ( j + 1 )‖ / ( 1 - ‖q ^ ( j + 1 )‖ ) ), Real.exp_pos _, fun m => Real.exp_le_exp.mpr <| neg_le_neg <| Summable.sum_le_tsum ( Finset.range m ) ( fun _ _ => div_nonneg ( norm_nonneg _ ) <| sub_nonneg.mpr <| by simpa using pow_le_one₀ ( norm_nonneg _ ) hq.le ) h_prod_conv ⟩
-          grind
-        obtain ⟨ C, hC₀, hC ⟩ := h_prod_conv; use C, hC₀; intro m; specialize hC m; simp_all +decide [ qPochhammer ] 
-        simpa only [ pow_succ' ] using hC
-      obtain ⟨ C, hC₀, hC ⟩ := h_prod_nonzero; exact ⟨ C ^ 2, sq_pos_of_pos hC₀, fun m => by simpa only [ sq, norm_mul ] using mul_le_mul ( hC m ) ( hC ( m + k ) ) ( by positivity ) ( by positivity ) ⟩ 
-    have h_summable : Summable (fun m : ℕ => ‖q ^ (m * (m + k))‖ / h_bound.choose) := by
-      refine Summable.mul_right _ ?_
-      have h_summable : Summable (fun m : ℕ => ‖q‖ ^ (m ^ 2)) := by
-        exact Summable.comp_injective ( summable_geometric_of_lt_one ( norm_nonneg q ) hq ) fun a b h => by simpa using h
-      exact Summable.of_nonneg_of_le ( fun m => by positivity ) ( fun m => by simpa using pow_le_pow_of_le_one ( by positivity ) hq.le ( by nlinarith ) ) h_summable
-    refine .of_norm <| h_summable.of_nonneg_of_le ( fun m => by positivity ) ( fun m => ?_ )
-    simpa using div_le_div_of_nonneg_left ( by positivity ) ( by linarith [ h_bound.choose_spec.1 ] ) ( h_bound.choose_spec.2 m )
-  convert h_summable using 1
+  obtain ⟨C, hC₀, hC⟩ := aux_keyid_exists_pos_le_norm_qPochhammer hq
+  have hsq : Summable fun m : ℕ => ‖q‖ ^ (m ^ 2) :=
+    Summable.comp_injective (summable_geometric_of_lt_one (norm_nonneg q) hq)
+      fun a b h => by simpa using h
+  refine Summable.of_norm <| (hsq.mul_right (C * C)⁻¹).of_nonneg_of_le
+    (fun m => norm_nonneg _) fun m => ?_
+  have h1 : ‖q‖ ^ (m * (m + k)) ≤ ‖q‖ ^ (m ^ 2) :=
+    pow_le_pow_of_le_one (norm_nonneg q) hq.le (by nlinarith)
+  have h2 : C * C ≤ ‖qPochhammer q q m‖ * ‖qPochhammer q q (m + k)‖ :=
+    mul_le_mul (hC m) (hC (m + k)) hC₀.le (hC₀.le.trans (hC m))
+  rw [S_summand, norm_div, norm_pow, norm_mul, ← div_eq_mul_inv]
+  exact div_le_div₀ (by positivity) h1 (by positivity) h2
 
 /-- As $k \to \infty$, $S_k(q)$ converges to $1/(q;q)_\infty$. -/
 theorem S_sum_tendsto {q : ℂ} (hq : ‖q‖ < 1) :
     Tendsto (S_sum q) atTop (𝓝 (1 / qPochhammerInf q q)) := by
-  have h_m_zero : Filter.Tendsto (fun k => 1 / qPochhammer q q k) Filter.atTop (nhds (1 / qPochhammerInf q q)) := by
-    convert tendsto_const_nhds.div ( tendsto_qPochhammer hq ) _ using 1 ; norm_num
-    convert qPochhammerInf_z_q_ne_zero hq hq using 1
-  have h_bound : ∃ C > 0, ∀ m ≥ 1, ∀ k : ℕ, ‖qPochhammer q q m * qPochhammer q q (m + k)‖ ≥ C := by
-    have h_qPochhammer_bound : ∃ C > 0, ∀ m ≥ 1, ‖qPochhammer q q m‖ ≥ C := by
-      have h_bound : Filter.Tendsto (fun m => ‖qPochhammer q q m‖) Filter.atTop (nhds (‖qPochhammerInf q q‖)) := by
-        convert Filter.Tendsto.norm ( tendsto_qPochhammer hq ) using 1
-      have h_bound : ‖qPochhammerInf q q‖ > 0 := by
-        exact norm_pos_iff.mpr ( qPochhammerInf_z_q_ne_zero hq hq )
-      have := Metric.tendsto_atTop.mp ‹_› ( ‖qPochhammerInf q q‖ / 2 ) ( half_pos h_bound )
-      obtain ⟨ N, hN ⟩ := this
-      use min (‖qPochhammerInf q q‖ / 2) (Finset.min' (Finset.image (fun m => ‖qPochhammer q q m‖) (Finset.range (N + 1))) (by
-      exact ⟨ _, Finset.mem_image_of_mem _ ( Finset.mem_range.mpr ( Nat.succ_pos _ ) ) ⟩))
-      generalize_proofs at *
-      simp_all +decide [ Finset.min' ]
-      refine ⟨ ?_, ?_ ⟩
-      · intro i hi; exact qPochhammer_q_q_ne_zero hq i
-      · exact fun m hm => if hm' : m ≤ N then Or.inr ⟨ m, hm', le_rfl ⟩ else Or.inl <| by linarith [ abs_lt.mp ( hN m ( le_of_not_ge hm' ) ) ] 
-    obtain ⟨ C, hC₀, hC ⟩ := h_qPochhammer_bound; use C * C; exact ⟨ mul_pos hC₀ hC₀, fun m hm k => by simpa [ mul_assoc ] using mul_le_mul ( hC m hm ) ( hC ( m + k ) ( by omega ) ) ( by positivity ) ( by positivity ) ⟩ 
-  have h_sum_zero : Filter.Tendsto (fun k => ∑' m : ℕ, (if m = 0 then 0 else q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)))) Filter.atTop (nhds 0) := by
-    have h_dominated : ∀ m ≥ 1, Filter.Tendsto (fun k => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))) Filter.atTop (nhds 0) := by
+  obtain ⟨C, hC₀, hC⟩ := aux_keyid_exists_pos_le_norm_qPochhammer hq
+  have hCC : ∀ m k : ℕ, C * C ≤ ‖qPochhammer q q m * qPochhammer q q (m + k)‖ := fun m k => by
+    rw [norm_mul]
+    exact mul_le_mul (hC m) (hC (m + k)) hC₀.le (hC₀.le.trans (hC m))
+  have hCC₀ : (0 : ℝ) < C * C := mul_pos hC₀ hC₀
+  have h_m_zero : Tendsto (fun k => 1 / qPochhammer q q k) atTop (𝓝 (1 / qPochhammerInf q q)) :=
+    tendsto_const_nhds.div (tendsto_qPochhammer hq) (qPochhammerInf_z_q_ne_zero hq hq)
+  have h_sum_zero : Tendsto (fun k => ∑' m : ℕ, (if m = 0 then 0 else
+      q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)))) atTop (𝓝 0) := by
+    have h_dominated : ∀ m, m ≠ 0 → Tendsto (fun k : ℕ =>
+        q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))) atTop (𝓝 0) := by
       intro m hm
-      have h_lim : Filter.Tendsto (fun k => q ^ (m * (m + k))) Filter.atTop (nhds 0) := by
-        exact tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq |> Filter.Tendsto.comp <| Filter.tendsto_atTop_mono ( fun k => by nlinarith ) tendsto_natCast_atTop_atTop
-      rw [ tendsto_zero_iff_norm_tendsto_zero ] at *
-      exact squeeze_zero ( fun _ => by positivity ) ( fun k => by simpa using div_le_div_of_nonneg_left ( by positivity ) ( by linarith [ h_bound.choose_spec.1 ] ) ( h_bound.choose_spec.2 m hm k ) ) ( by simpa using h_lim.div_const h_bound.choose )
-    have h_dominated_convergence : Filter.Tendsto (fun k => ∑' m : ℕ, (if m = 0 then 0 else q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)))) Filter.atTop (nhds (∑' m : ℕ, (if m = 0 then 0 else 0))) := by
-      refine' ( tendsto_tsum_of_dominated_convergence _ _ _ )
-      use fun k => if k = 0 then 0 else ‖q‖ ^ ( k * k ) / h_bound.choose
-      · rw [ ← summable_nat_add_iff 1 ]
-        exact Summable.mul_right _ <| Summable.of_nonneg_of_le ( fun n => by positivity ) ( fun n => by exact pow_le_pow_of_le_one ( by positivity ) hq.le <| by nlinarith ) <| summable_geometric_of_lt_one ( by positivity ) hq
-      · intro k; by_cases hk : k = 0 <;> simp +decide [ hk, h_dominated ] 
-        exact h_dominated k ( Nat.pos_of_ne_zero hk )
-      · refine Filter.Eventually.of_forall fun n k => ?_
-        split_ifs <;> simp_all +decide [ div_eq_mul_inv ]
-        refine mul_le_mul ?_ ?_ ?_ ?_
-        · exact pow_le_pow_of_le_one ( norm_nonneg _ ) hq.le ( by nlinarith )
-        · have := h_bound.choose_spec.2 k ( Nat.pos_of_ne_zero ‹_› ) n
-          simpa [ mul_comm ] using inv_anti₀ ( h_bound.choose_spec.1 ) this
-        · positivity
-        · positivity
-    aesop
-  convert h_m_zero.add h_sum_zero using 2 <;> norm_num [ S_sum ]
-  rw [ Summable.tsum_eq_add_tsum_ite ]
+      have h_lim : Tendsto (fun k : ℕ => q ^ (m * (m + k))) atTop (𝓝 0) :=
+        (tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq).comp <|
+          tendsto_atTop_mono (fun k => by nlinarith [Nat.one_le_iff_ne_zero.mpr hm])
+            tendsto_natCast_atTop_atTop
+      have h_bnd : Tendsto (fun k : ℕ => ‖q ^ (m * (m + k))‖ / (C * C)) atTop (𝓝 0) := by
+        simpa using h_lim.norm.div_const (C * C)
+      refine squeeze_zero_norm (fun k => ?_) h_bnd
+      rw [norm_div]
+      exact div_le_div_of_nonneg_left (norm_nonneg _) hCC₀ (hCC m k)
+    have h_dom_conv : Tendsto (fun k => ∑' m : ℕ, (if m = 0 then 0 else
+        q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)))) atTop
+        (𝓝 (∑' _ : ℕ, (0 : ℂ))) := by
+      refine tendsto_tsum_of_dominated_convergence
+        (bound := fun m : ℕ => if m = 0 then 0 else ‖q‖ ^ (m * m) / (C * C)) ?_ ?_ ?_
+      · rw [← summable_nat_add_iff 1]
+        refine Summable.mul_right _ <| Summable.of_nonneg_of_le (fun n => by positivity)
+          (fun n => ?_) <| summable_geometric_of_lt_one (norm_nonneg q) hq
+        simpa using pow_le_pow_of_le_one (norm_nonneg q) hq.le (by nlinarith)
+      · intro m
+        by_cases hm : m = 0
+        · simp only [hm]
+          exact tendsto_const_nhds
+        · simpa only [if_neg hm] using h_dominated m hm
+      · refine Filter.Eventually.of_forall fun k m => ?_
+        by_cases hm : m = 0
+        · simp [hm]
+        · simp only [if_neg hm, norm_div]
+          refine div_le_div₀ (by positivity) ?_ hCC₀ (hCC m k)
+          rw [norm_pow]
+          exact pow_le_pow_of_le_one (norm_nonneg q) hq.le (by nlinarith)
+    simpa using h_dom_conv
+  convert h_m_zero.add h_sum_zero using 2 <;> norm_num [S_sum]
+  rw [Summable.tsum_eq_add_tsum_ite]
   any_goals exact Nat.zero
-  · norm_num [ qPochhammer ]
+  · norm_num [qPochhammer]
   · convert summable_S_summand hq _ using 1
 
-set_option maxHeartbeats 400000 in
+/-- For `‖q‖ < 1` and `n ≥ 1` the tail factor `1 - qⁿ` is bounded away from zero,
+uniformly in `n`, by the constant `1 - ‖q‖`. -/
+theorem aux_keyid_norm_one_sub_pow_ge {q : ℂ} (hq : ‖q‖ < 1) {n : ℕ} (hn : 1 ≤ n) :
+    1 - ‖q‖ ≤ ‖1 - q ^ n‖ := by
+  refine le_trans ?_ (norm_sub_norm_le (1 : ℂ) (q ^ n))
+  have h : ‖q‖ ^ n ≤ ‖q‖ ^ 1 := pow_le_pow_of_le_one (norm_nonneg q) hq.le hn
+  simp only [norm_one, norm_pow, pow_one] at h ⊢
+  linarith
+
+/-- The shifted family `q ^ (m * (m + k)) / ((q;q)_m (q;q)_{m+k+1})` is summable:
+it is `S_summand q k` scaled by the uniformly bounded factor `(1 - q ^ (m+k+1))⁻¹`. -/
+theorem aux_keyid_summable_succ {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
+    Summable fun m : ℕ =>
+      q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) := by
+  have hpos : (0 : ℝ) < 1 - ‖q‖ := by linarith
+  refine Summable.of_norm <|
+    ((summable_S_summand hq k).norm.mul_right (1 - ‖q‖)⁻¹).of_nonneg_of_le
+      (fun m => norm_nonneg _) fun m => ?_
+  rw [qPochhammer_succ, ← mul_assoc, ← pow_succ', div_mul_eq_div_div, norm_div, div_eq_mul_inv,
+    S_summand]
+  gcongr
+  exact aux_keyid_norm_one_sub_pow_ge hq (by omega)
+
+/-- Multiplying the shifted family by the bounded factor `1 - q ^ m` preserves summability. -/
+theorem aux_keyid_summable_S_diff {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
+    Summable fun m : ℕ =>
+      q ^ (m * (m + k)) * (1 - q ^ m) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) := by
+  refine Summable.of_norm <| ((aux_keyid_summable_succ hq k).norm.mul_right 2).of_nonneg_of_le
+    (fun m => norm_nonneg _) fun m => ?_
+  rw [← div_mul_eq_mul_div, norm_mul]
+  gcongr
+  refine le_trans (norm_sub_le _ _) ?_
+  have : ‖q‖ ^ m ≤ 1 := pow_le_one₀ (norm_nonneg q) hq.le
+  simp only [norm_one, norm_pow]
+  linarith
+
 /-- The recurrence $S_k - S_{k+1} = q^{k+1}(S_{k+2} - S_{k+1})$ satisfied by $S_k(q)$. -/
 theorem S_sum_recurrence {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     S_sum q k - S_sum q (k + 1) = q ^ (k + 1) * (S_sum q (k + 2) - S_sum q (k + 1)) := by
-  have h_split : ∑' m : ℕ, (q ^ (m * (m + k)) * (1 - q ^ m - q ^ (m + k + 1))) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) = q ^ (k + 1) * (S_sum q (k + 2) - S_sum q (k + 1)) := by
-    have h_split : ∑' m : ℕ, q ^ (m * (m + k)) * (1 - q ^ m) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) = ∑' m : ℕ, q ^ ((m + 1) * (m + 1 + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 2)) := by
-      rw [ Summable.tsum_eq_zero_add ]
-      · norm_num [ qPochhammer_succ ]
-        refine tsum_congr fun m => ?_
-        convert mul_div_mul_right _ _ ( show ( 1 - q ^ ( m + 1 ) ) ≠ 0 from sub_ne_zero_of_ne <| Ne.symm <| by exact ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_lt <| pow_lt_one₀ ( by positivity ) hq <| by positivity ) using 1 ; ring
-        rw [ show 1 + m + k = m + k + 1 by ring ] ; rw [ qPochhammer_succ ] ; ring
-      · have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 1))) := by
-          have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))) := by
-            convert summable_S_summand hq k using 1
-          have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)) * (1 / (1 - q ^ (m + k + 1)))) := by
-            have h_summable : ∃ C > 0, ∀ m : ℕ, ‖1 / (1 - q ^ (m + k + 1))‖ ≤ C := by
-              have h_summable : ∃ C > 0, ∀ m : ℕ, ‖1 - q ^ (m + k + 1)‖ ≥ C := by
-                have h_lim : Filter.Tendsto (fun m : ℕ => ‖1 - q ^ (m + k + 1)‖) Filter.atTop (nhds 1) := by
-                  exact le_trans ( Filter.Tendsto.norm ( tendsto_const_nhds.sub ( tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq |> Filter.Tendsto.comp <| Filter.tendsto_add_atTop_nat _ |> Filter.Tendsto.comp <| Filter.tendsto_add_atTop_nat _ ) ) ) ( by norm_num )
-                have := h_lim.eventually ( lt_mem_nhds <| show 1 > 1 / 2 by norm_num )
-                obtain ⟨ N, hN ⟩ := Filter.eventually_atTop.mp this
-                use min (1 / 2) (Finset.min' (Finset.image (fun m => ‖1 - q ^ (m + k + 1)‖) (Finset.range (N + 1))) (by
-                exact ⟨ _, Finset.mem_image_of_mem _ ( Finset.mem_range.mpr ( Nat.succ_pos _ ) ) ⟩))
-                generalize_proofs at *
-                simp +zetaDelta at *
-                exact ⟨ fun m hm => sub_ne_zero_of_ne <| ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_gt <| pow_lt_one₀ ( norm_nonneg q ) hq <| by omega, fun m => if hm : m ≤ N then Or.inr <| Finset.min'_le _ _ <| Finset.mem_image_of_mem _ <| Finset.mem_range.mpr <| by omega else Or.inl <| le_of_lt <| hN m <| le_of_not_ge hm ⟩
-              exact ⟨ 1 / h_summable.choose, one_div_pos.mpr h_summable.choose_spec.1, fun m => by simpa using inv_anti₀ h_summable.choose_spec.1 ( h_summable.choose_spec.2 m ) ⟩
-            obtain ⟨ C, hC₀, hC ⟩ := h_summable
-            have h_prod_summable : Summable (fun m : ℕ => ‖q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))‖ * C) := by
-              exact Summable.mul_right _ ( h_summable.norm )
-            have h_comparison : ∀ m : ℕ, ‖q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)) * (1 / (1 - q ^ (m + k + 1)))‖ ≤ ‖q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))‖ * C := by
-              exact fun m => by rw [ norm_mul ] ; exact mul_le_mul_of_nonneg_left ( hC m ) ( norm_nonneg _ ) 
-            have h_comparison_test : Summable (fun m : ℕ => ‖q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)) * (1 / (1 - q ^ (m + k + 1)))‖) := by
-              exact Summable.of_nonneg_of_le ( fun m => norm_nonneg _ ) h_comparison h_prod_summable
-            exact h_comparison_test.of_norm
-          convert h_summable using 2 ; norm_num [ qPochhammer_succ ] ; ring
-          grind
-        convert h_summable.sub ( show Summable fun m : ℕ => q ^ ( m * ( m + k ) ) * q ^ m / ( qPochhammer q q m * qPochhammer q q ( m + k + 1 ) ) from ?_ ) using 2 ; ring
-        have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) * q ^ m) := by
-          exact Summable.of_norm <| by simpa using h_summable.norm.of_nonneg_of_le ( fun m => by positivity ) fun m => by simpa using mul_le_mul_of_nonneg_left ( pow_le_one₀ ( by positivity ) hq.le ) ( by positivity ) 
-        exact h_summable.congr fun m => by ring
-    convert congr_arg₂ ( · + · ) h_split ( show ∑' m : ℕ, - ( q ^ ( m * ( m + k ) ) * q ^ ( m + k + 1 ) ) / ( qPochhammer q q m * qPochhammer q q ( m + k + 1 ) ) = -q ^ ( k + 1 ) * S_sum q ( k + 1 ) from ?_ ) using 1
-    · rw [ ← Summable.tsum_add ] ; congr ; ext m ; ring
-      · have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 1))) := by
-          have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))) := by
-            convert summable_S_summand hq k using 1
-          have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)) * (1 / (1 - q ^ (m + k + 1)))) := by
-            refine .of_norm ?_
-            have h_summable : ∃ C > 0, ∀ m : ℕ, ‖1 / (1 - q ^ (m + k + 1))‖ ≤ C := by
-              have h_summable : ∃ C > 0, ∀ m : ℕ, ‖1 - q ^ (m + k + 1)‖ ≥ C := by
-                have h_lim : Filter.Tendsto (fun m : ℕ => ‖1 - q ^ (m + k + 1)‖) Filter.atTop (nhds 1) := by
-                  exact le_trans ( Filter.Tendsto.norm ( tendsto_const_nhds.sub ( tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq |> Filter.Tendsto.comp <| Filter.tendsto_add_atTop_nat _ |> Filter.Tendsto.comp <| Filter.tendsto_add_atTop_nat _ ) ) ) ( by norm_num )
-                have := h_lim.eventually ( lt_mem_nhds <| show 1 > 1 / 2 by norm_num )
-                obtain ⟨ N, hN ⟩ := Filter.eventually_atTop.mp this
-                use min (1 / 2) (Finset.min' (Finset.image (fun m => ‖1 - q ^ (m + k + 1)‖) (Finset.range (N + 1))) (by
-                exact ⟨ _, Finset.mem_image_of_mem _ ( Finset.mem_range.mpr ( Nat.succ_pos _ ) ) ⟩))
-                generalize_proofs at *
-                simp +zetaDelta at *
-                exact ⟨ fun m hm => sub_ne_zero_of_ne <| ne_of_apply_ne Norm.norm <| by norm_num; exact ne_of_gt <| pow_lt_one₀ ( norm_nonneg q ) hq <| by omega, fun m => if hm : m ≤ N then Or.inr <| Finset.min'_le _ _ <| Finset.mem_image_of_mem _ <| Finset.mem_range.mpr <| by omega else Or.inl <| le_of_lt <| hN m <| le_of_not_ge hm ⟩
-              exact ⟨ 1 / h_summable.choose, one_div_pos.mpr h_summable.choose_spec.1, fun m => by simpa using inv_anti₀ h_summable.choose_spec.1 ( h_summable.choose_spec.2 m ) ⟩
-            obtain ⟨ C, hC₀, hC ⟩ := h_summable
-            exact Summable.of_nonneg_of_le ( fun m => norm_nonneg _ ) ( fun m => by simpa [ abs_mul, abs_div ] using mul_le_mul_of_nonneg_left ( hC m ) ( by positivity ) ) ( h_summable.norm.mul_right C )
-          convert h_summable using 2 ; norm_num [ qPochhammer_succ ] ; ring
-          grind
-        convert h_summable.sub ( show Summable fun m : ℕ => q ^ ( m * ( m + k ) ) * q ^ m / ( qPochhammer q q m * qPochhammer q q ( m + k + 1 ) ) from ?_ ) using 2 ; ring
-        have h_summable : Summable (fun m : ℕ => q ^ m * (q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k + 1)))) := by
-          exact Summable.of_norm <| by simpa using Summable.of_nonneg_of_le ( fun m => by positivity ) ( fun m => mul_le_of_le_one_left ( by positivity ) <| pow_le_one₀ ( by positivity ) hq.le ) <| h_summable.norm
-        grind +locals
-      · have h_summable : Summable (fun m : ℕ => q ^ (m * (m + k + 1)) / (qPochhammer q q m * qPochhammer q q (m + k + 1))) := by
-          have := summable_S_summand hq (k + 1)
-          convert this using 1
-        convert h_summable.mul_left ( -q ^ ( k + 1 ) ) using 2 ; ring
-    · unfold S_sum; ring
-      norm_num [ mul_assoc, mul_comm, mul_left_comm, ← tsum_mul_left ] ; ring
-    · unfold S_sum; norm_num [ div_eq_mul_inv, mul_assoc, mul_comm, mul_left_comm, ← tsum_mul_left ] 
-      exact tsum_congr fun n => by ring
-  rw [ ← h_split, S_sum, S_sum, ← Summable.tsum_sub ]
+  have h_split : ∑' m : ℕ, (q ^ (m * (m + k)) * (1 - q ^ m - q ^ (m + k + 1))) /
+      (qPochhammer q q m * qPochhammer q q (m + k + 1)) =
+      q ^ (k + 1) * (S_sum q (k + 2) - S_sum q (k + 1)) := by
+    have h_split : ∑' m : ℕ, q ^ (m * (m + k)) * (1 - q ^ m) /
+        (qPochhammer q q m * qPochhammer q q (m + k + 1)) =
+        ∑' m : ℕ, q ^ ((m + 1) * (m + 1 + k)) /
+          (qPochhammer q q m * qPochhammer q q (m + k + 2)) := by
+      rw [Summable.tsum_eq_zero_add (aux_keyid_summable_S_diff hq k)]
+      norm_num [qPochhammer_succ]
+      refine tsum_congr fun m => ?_
+      have hne : (1 - q ^ (m + 1)) ≠ 0 := sub_ne_zero_of_ne <| Ne.symm <|
+        ne_of_apply_ne Norm.norm <| by
+          norm_num
+          exact ne_of_lt <| pow_lt_one₀ (by positivity) hq (by positivity)
+      convert mul_div_mul_right _ _ hne using 1
+      ring_nf
+      rw [show 1 + m + k = m + k + 1 by ring, qPochhammer_succ]
+      ring
+    have hsum1 := aux_keyid_summable_S_diff hq k
+    have hsum2 : Summable fun m : ℕ => -(q ^ (m * (m + k)) * q ^ (m + k + 1)) /
+        (qPochhammer q q m * qPochhammer q q (m + k + 1)) := by
+      have h : Summable fun m : ℕ =>
+          q ^ (m * (m + k + 1)) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) := by
+        convert summable_S_summand hq (k + 1) using 1
+      convert h.mul_left (-q ^ (k + 1)) using 2
+      ring_nf
+    convert congr_arg₂ (· + ·) h_split
+      (show ∑' m : ℕ, -(q ^ (m * (m + k)) * q ^ (m + k + 1)) /
+          (qPochhammer q q m * qPochhammer q q (m + k + 1)) = -q ^ (k + 1) * S_sum q (k + 1)
+        from ?_) using 1
+    · rw [← Summable.tsum_add hsum1 hsum2]
+      congr
+      ext m
+      ring
+    · unfold S_sum
+      ring_nf
+      norm_num [mul_assoc, mul_comm, mul_left_comm, ← tsum_mul_left]
+      ring_nf
+    · unfold S_sum
+      norm_num [div_eq_mul_inv, mul_assoc, mul_comm, mul_left_comm, ← tsum_mul_left]
+      exact tsum_congr fun n => by ring_nf
+  rw [← h_split, S_sum, S_sum, ← Summable.tsum_sub]
   · refine tsum_congr fun m => ?_
-    rw [ div_sub_div, div_eq_div_iff ]
-    · rw [ show m + ( k + 1 ) = m + k + 1 by ring, qPochhammer_succ ] ; ring
-    · simp_all +decide [ qPochhammer_q_q_ne_zero ]
-    · exact mul_ne_zero ( qPochhammer_q_q_ne_zero hq m ) ( qPochhammer_q_q_ne_zero hq ( m + k + 1 ) )
-    · exact mul_ne_zero ( qPochhammer_q_q_ne_zero hq m ) ( qPochhammer_q_q_ne_zero hq ( m + k ) )
-    · exact mul_ne_zero ( qPochhammer_q_q_ne_zero hq _ ) ( qPochhammer_q_q_ne_zero hq _ )
+    rw [div_sub_div, div_eq_div_iff]
+    · rw [show m + (k + 1) = m + k + 1 by ring, qPochhammer_succ]
+      ring
+    · exact mul_ne_zero (mul_ne_zero (qPochhammer_q_q_ne_zero hq m)
+        (qPochhammer_q_q_ne_zero hq (m + k)))
+        (mul_ne_zero (qPochhammer_q_q_ne_zero hq m) (qPochhammer_q_q_ne_zero hq (m + (k + 1))))
+    · exact mul_ne_zero (qPochhammer_q_q_ne_zero hq m) (qPochhammer_q_q_ne_zero hq (m + k + 1))
+    · exact mul_ne_zero (qPochhammer_q_q_ne_zero hq m) (qPochhammer_q_q_ne_zero hq (m + k))
+    · exact mul_ne_zero (qPochhammer_q_q_ne_zero hq _) (qPochhammer_q_q_ne_zero hq _)
   · convert summable_S_summand hq k using 1
-  · convert summable_S_summand hq ( k + 1 ) using 1
+  · convert summable_S_summand hq (k + 1) using 1
 
 /-- All $S_k(q)$ are equal to $1/(q;q)_\infty$ for $\|q\| < 1$. -/
 theorem S_sum_eq {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     S_sum q k = 1 / qPochhammerInf q q := by
   have h_ind : ∀ k : ℕ, S_sum q k - S_sum q (k + 1) = 0 := by
     intro k
-    have h_induction : ∀ n : ℕ, ‖S_sum q k - S_sum q (k + 1)‖ ≤ ‖q‖ ^ (n * (2 * k + n + 1) / 2) * ‖S_sum q (k + n) - S_sum q (k + n + 1)‖ := by
+    have h_induction : ∀ n : ℕ, ‖S_sum q k - S_sum q (k + 1)‖ ≤
+        ‖q‖ ^ (n * (2 * k + n + 1) / 2) * ‖S_sum q (k + n) - S_sum q (k + n + 1)‖ := by
       intro n
       induction n with
       | zero => norm_num
       | succ n ih =>
-          have h_induction_step : ‖S_sum q (k + n) - S_sum q (k + n + 1)‖ ≤ ‖q‖ ^ (k + n + 1) * ‖S_sum q (k + n + 1) - S_sum q (k + n + 2)‖ := by
-            have := S_sum_recurrence hq ( k + n )
-            rw [ this, norm_mul, norm_pow, norm_sub_rev ]
-          convert le_trans ih ( mul_le_mul_of_nonneg_left h_induction_step <| by positivity ) using 1 ; ring
-          rw [ show ( 2 + n * 3 + n * k * 2 + n ^ 2 + k * 2 ) / 2 = n + k + ( n + n * k * 2 + n ^ 2 ) / 2 + 1 by exact Nat.div_eq_of_eq_mul_left zero_lt_two <| by linarith [ Nat.div_mul_cancel ( show 2 ∣ n + n * k * 2 + n ^ 2 from even_iff_two_dvd.mp <| by simp +arith +decide [ parity_simps ] ) ] ] ; ring
-    have h_diff_zero : Filter.Tendsto (fun n => S_sum q (k + n) - S_sum q (k + n + 1)) Filter.atTop (nhds 0) := by
-      convert Filter.Tendsto.sub ( S_sum_tendsto hq |> Filter.Tendsto.comp <| Filter.tendsto_atTop_mono ( fun n => Nat.le_add_left _ _ ) Filter.tendsto_id ) ( S_sum_tendsto hq |> Filter.Tendsto.comp <| Filter.tendsto_atTop_mono ( fun n => Nat.le_succ_of_le <| Nat.le_add_left _ _ ) Filter.tendsto_id ) using 2 ; norm_num
-    have h_exp_zero : Filter.Tendsto (fun n => ‖q‖ ^ (n * (2 * k + n + 1) / 2)) Filter.atTop (nhds 0) := by
-      exact tendsto_pow_atTop_nhds_zero_of_lt_one ( norm_nonneg q ) hq |> Filter.Tendsto.comp <| Filter.tendsto_atTop_atTop.mpr fun x => ⟨ 2 * x + 1, fun n hn => Nat.le_div_iff_mul_le zero_lt_two |>.2 <| by nlinarith ⟩
-    exact norm_le_zero_iff.mp ( le_of_tendsto_of_tendsto' tendsto_const_nhds ( by simpa using h_exp_zero.mul ( h_diff_zero.norm ) ) h_induction )
-  have h_const : ∀ k : ℕ, S_sum q k = S_sum q 0 := by
-    exact fun n => Nat.recOn n rfl fun n ih => by linear_combination' ih - h_ind n
-  convert tendsto_nhds_unique ( tendsto_const_nhds.congr ( by aesop ) ) ( S_sum_tendsto hq ) using 1
+        have h_induction_step : ‖S_sum q (k + n) - S_sum q (k + n + 1)‖ ≤
+            ‖q‖ ^ (k + n + 1) * ‖S_sum q (k + n + 1) - S_sum q (k + n + 2)‖ := by
+          rw [S_sum_recurrence hq (k + n), norm_mul, norm_pow, norm_sub_rev]
+        convert le_trans ih (mul_le_mul_of_nonneg_left h_induction_step <| by positivity) using 1
+        ring_nf
+        rw [show (2 + n * 3 + n * k * 2 + n ^ 2 + k * 2) / 2 =
+          n + k + (n + n * k * 2 + n ^ 2) / 2 + 1 from
+            Nat.div_eq_of_eq_mul_left zero_lt_two <| by
+              linarith [Nat.div_mul_cancel (show 2 ∣ n + n * k * 2 + n ^ 2 from
+                even_iff_two_dvd.mp <| by simp [parity_simps])]]
+        ring
+    have h_diff_zero :
+        Tendsto (fun n => S_sum q (k + n) - S_sum q (k + n + 1)) atTop (𝓝 0) := by
+      convert Filter.Tendsto.sub
+        ((S_sum_tendsto hq).comp
+          (tendsto_atTop_mono (fun n => Nat.le_add_left _ _) tendsto_id))
+        ((S_sum_tendsto hq).comp
+          (tendsto_atTop_mono (fun n => Nat.le_succ_of_le <| Nat.le_add_left _ _) tendsto_id))
+        using 2
+      norm_num
+    have h_exp_zero : Tendsto (fun n => ‖q‖ ^ (n * (2 * k + n + 1) / 2)) atTop (𝓝 0) :=
+      (tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg q) hq).comp <|
+        tendsto_atTop_atTop.mpr fun x =>
+          ⟨2 * x + 1, fun n hn => Nat.le_div_iff_mul_le zero_lt_two |>.2 <| by nlinarith⟩
+    exact norm_le_zero_iff.mp (le_of_tendsto_of_tendsto' tendsto_const_nhds
+      (by simpa using h_exp_zero.mul h_diff_zero.norm) h_induction)
+  have h_const : ∀ n : ℕ, S_sum q n = S_sum q 0 :=
+    fun n => Nat.recOn n rfl fun n ih => by linear_combination' ih - h_ind n
+  convert tendsto_nhds_unique (tendsto_const_nhds.congr fun n => (h_const n).symm)
+    (S_sum_tendsto hq) using 1
   exact h_const k
 
 private lemma choose2_step (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
@@ -282,7 +296,7 @@ private lemma qPochhammerInf_eq_mul' {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
     rw [ih, qPochhammer_succ, mul_assoc]
     congr 1
     rw [qPochhammerInf_recursion hq]
-    ring
+    ring_nf
 
 /-- qPochhammerInf (q * q^n) q = (q;q)_∞ / (q;q)_n -/
 lemma qPochhammerInf_shift_div {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
@@ -290,36 +304,53 @@ lemma qPochhammerInf_shift_div {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
   rw [eq_div_iff (qPochhammer_q_q_ne_zero hq n), mul_comm]
   exact (qPochhammerInf_eq_mul' hq n).symm
 
-/-- The sum over $m$ of the $z^k$ cross-terms in the JTP double product has sum $q^{\binom{k}{2}}$. -/
+/-- The sum over $m$ of the $z^k$ cross-terms in the JTP double product has sum
+$q^{\binom{k}{2}}$. -/
 theorem cauchy_coeff_nonneg {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     HasSum (fun m : ℕ =>
       q ^ (m + k).choose 2 * qPochhammerInf (q * q ^ (m + k)) q *
       (q ^ m.choose 2 * q ^ m / qPochhammer q q m))
       (q ^ k.choose 2) := by
-  have h_sum : HasSum (fun m => q ^ ((m + k).choose 2 + m.choose 2 + m) * qPochhammerInf q q / (qPochhammer q q (m + k) * qPochhammer q q m)) (q ^ k.choose 2) := by
-    have h_sum : HasSum (fun m => q ^ (k.choose 2 + m * (m + k)) * qPochhammerInf q q / (qPochhammer q q (m + k) * qPochhammer q q m)) (q ^ k.choose 2) := by
-      have h_sum : HasSum (fun m => q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k))) (1 / qPochhammerInf q q) := by
-        convert S_sum_eq hq k using 1
-        exact ⟨ fun h => h.tsum_eq, fun h => h ▸ Summable.hasSum ( summable_S_summand hq k ) ⟩
-      convert h_sum.mul_left ( q ^ k.choose 2 * qPochhammerInf q q ) using 1 <;> ring
-      · ac_rfl
-      · rw [ mul_assoc, mul_inv_cancel₀ ( qPochhammerInf_z_q_ne_zero hq hq ), mul_one ]
-    convert h_sum using 3 ; rw [ choose2_add ]
-  convert h_sum using 2 ; push_cast [ qPochhammerInf_shift_div hq ] ; ring
+  have h_base : HasSum (fun m : ℕ =>
+      q ^ (m * (m + k)) / (qPochhammer q q m * qPochhammer q q (m + k)))
+      (1 / qPochhammerInf q q) := by
+    convert S_sum_eq hq k using 1
+    exact ⟨fun h => h.tsum_eq, fun h => h ▸ (summable_S_summand hq k).hasSum⟩
+  have h_scaled : HasSum (fun m : ℕ => q ^ (k.choose 2 + m * (m + k)) * qPochhammerInf q q /
+      (qPochhammer q q (m + k) * qPochhammer q q m)) (q ^ k.choose 2) := by
+    convert h_base.mul_left (q ^ k.choose 2 * qPochhammerInf q q) using 1 <;> ring_nf
+    · ac_rfl
+    · rw [mul_assoc, mul_inv_cancel₀ (qPochhammerInf_z_q_ne_zero hq hq), mul_one]
+  have h_sum : HasSum (fun m : ℕ =>
+      q ^ ((m + k).choose 2 + m.choose 2 + m) * qPochhammerInf q q /
+        (qPochhammer q q (m + k) * qPochhammer q q m)) (q ^ k.choose 2) := by
+    convert h_scaled using 3
+    rw [choose2_add]
+  convert h_sum using 2
+  push_cast [qPochhammerInf_shift_div hq]
+  ring
 
-/-- The sum over $n$ of the $z^{-(l+1)}$ cross-terms in the JTP double product has sum $q^{\binom{l+2}{2}}$. -/
+/-- The sum over $n$ of the $z^{-(l+1)}$ cross-terms in the JTP double product has sum
+$q^{\binom{l+2}{2}}$. -/
 theorem cauchy_coeff_neg {q : ℂ} (hq : ‖q‖ < 1) (l : ℕ) :
     HasSum (fun n : ℕ =>
       q ^ n.choose 2 * qPochhammerInf (q * q ^ n) q *
       (q ^ (n + (l + 1)).choose 2 * q ^ (n + (l + 1)) / qPochhammer q q (n + (l + 1))))
       (q ^ (l + 2).choose 2) := by
-  have h_simp : HasSum (fun n : ℕ => q ^ (n.choose 2 + (n + (l + 1)).choose 2 + (n + (l + 1))) * qPochhammerInf q q / (qPochhammer q q n * qPochhammer q q (n + (l + 1)))) (q ^ (l + 2).choose 2) := by
-    convert HasSum.mul_left ( q ^ ( l + 2 ).choose 2 * qPochhammerInf q q ) ( summable_S_summand hq ( l + 1 ) |> Summable.hasSum ) using 1
-    · ext; rw [ S_summand ] ; rw [ choose2_add' ] ; ring
-    · rw [ show ( ∑' n : ℕ, S_summand q ( l + 1 ) n ) = 1 / qPochhammerInf q q from ?_ ]
-      · rw [ mul_assoc, mul_one_div_cancel ( qPochhammerInf_z_q_ne_zero hq hq ), mul_one ]
-      · convert S_sum_eq hq ( l + 1 ) using 1
-  convert h_simp using 2 ; rw [ qPochhammerInf_shift_div hq ] ; ring
+  have h_simp : HasSum (fun n : ℕ =>
+      q ^ (n.choose 2 + (n + (l + 1)).choose 2 + (n + (l + 1))) * qPochhammerInf q q /
+        (qPochhammer q q n * qPochhammer q q (n + (l + 1)))) (q ^ (l + 2).choose 2) := by
+    convert HasSum.mul_left (q ^ (l + 2).choose 2 * qPochhammerInf q q)
+      (summable_S_summand hq (l + 1)).hasSum using 1
+    · ext n
+      rw [S_summand, choose2_add']
+      ring
+    · rw [show (∑' n : ℕ, S_summand q (l + 1) n) = 1 / qPochhammerInf q q from ?_]
+      · rw [mul_assoc, mul_one_div_cancel (qPochhammerInf_z_q_ne_zero hq hq), mul_one]
+      · convert S_sum_eq hq (l + 1) using 1
+  convert h_simp using 2
+  rw [qPochhammerInf_shift_div hq]
+  ring_nf
 
 end
 

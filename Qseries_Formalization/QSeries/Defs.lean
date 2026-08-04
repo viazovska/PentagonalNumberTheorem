@@ -110,54 +110,26 @@ theorem qBinom_mul_qPochhammer_mul_qPochhammer [CommRing R] (q : R) :
   intro n
   induction n with
   | zero =>
-      intro k hk
-      interval_cases k
-      simp [ qBinom, qPochhammer ]
+    rintro k hk
+    obtain rfl : k = 0 := by omega
+    simp
   | succ n ih =>
-      intro k hk
-      rcases k with _ | k
-      · simp [ qBinom_succ_zero ]
-      · rcases lt_or_eq_of_le hk with hlt | heq
-        · have hk1 : k + 1 ≤ n := Nat.lt_succ_iff.mp hlt
-          have hk2 : k ≤ n := by omega
-          have ih1 := ih hk1
-          have ih2 := ih hk2
-          have hpow1 : q * q ^ (n - (k + 1)) = q ^ (n - k) := by
-            rw [show (n - k : ℕ) = (n - (k + 1)) + 1 from by omega, pow_succ']
-          have hpow2 : q ^ (n - k) * (q * q ^ k) = q * q ^ n := by
-            rw [show q ^ (n - k) * (q * q ^ k) = q * (q ^ (n - k) * q ^ k)
-                  from by ring, ← pow_add, Nat.sub_add_cancel hk2]
-          have hnk_split :
-              qPochhammer q q (n - k)
-                = qPochhammer q q (n - (k + 1)) * (1 - q * q ^ (n - (k + 1))) := by
-            rw [show (n - k : ℕ) = (n - (k + 1)) + 1 from by omega,
-                qPochhammer_succ]
-          have ih1' :
-              qBinom n (k + 1) q * (qPochhammer q q k * (1 - q * q ^ k))
-                  * qPochhammer q q (n - (k + 1))
-                = qPochhammer q q n := by
-            rw [← qPochhammer_succ]; exact ih1
-          have ih2_split :
-              qBinom n k q * qPochhammer q q k
-                  * (qPochhammer q q (n - (k + 1)) * (1 - q * q ^ (n - (k + 1))))
-                = qPochhammer q q n := by
-            rw [← hnk_split]; exact ih2
-          have h_rhs_pow :
-              q * q ^ n = q * q ^ (n - (k + 1)) * (q * q ^ k) := by
-            rw [← hpow2, ← hpow1]
-          rw [qBinom_succ_succ,
-              show (n + 1) - (k + 1) = n - k from by omega,
-              hnk_split, qPochhammer_succ q q k, qPochhammer_succ q q n,
-              ← hpow1, h_rhs_pow]
-          linear_combination
-            (1 - q * q ^ (n - (k + 1))) * ih1'
-              + q * q ^ (n - (k + 1)) * (1 - q * q ^ k) * ih2_split
-        · have hkn : k = n := by omega
-          rw [hkn, qBinom_succ_succ,
-              qBinom_eq_zero_of_lt q (Nat.lt_succ_self _),
-              qBinom_self, Nat.sub_self, pow_zero,
-              show (n + 1) - (n + 1) = 0 from by omega,
-              qPochhammer_zero]
-          ring
+    rintro (_ | k) hk
+    · simp
+    obtain hlt | rfl : k + 1 ≤ n ∨ n = k := by omega
+    · -- Interior case: write `n = k + 1 + m` and feed in both induction hypotheses.
+      obtain ⟨m, rfl⟩ : ∃ m, n = k + 1 + m := ⟨n - (k + 1), by omega⟩
+      have ih1 := ih (show k + 1 ≤ k + 1 + m by omega)
+      have ih2 := ih (show k ≤ k + 1 + m by omega)
+      rw [show k + 1 + m - (k + 1) = m from by omega, qPochhammer_succ q q k] at ih1
+      rw [show k + 1 + m - k = m + 1 from by omega, qPochhammer_succ q q m] at ih2
+      rw [qBinom_succ_succ, show k + 1 + m + 1 - (k + 1) = m + 1 from by omega,
+        show k + 1 + m - k = m + 1 from by omega, qPochhammer_succ q q k,
+        qPochhammer_succ q q m, qPochhammer_succ q q (k + 1 + m)]
+      linear_combination (1 - q * q ^ m) * ih1 + q ^ (m + 1) * (1 - q * q ^ k) * ih2
+    · -- Diagonal case `k = n`.
+      rw [qBinom_succ_succ, qBinom_eq_zero_of_lt q (Nat.lt_succ_self _), qBinom_self,
+        Nat.sub_self, Nat.sub_self, pow_zero, qPochhammer_zero]
+      ring
 
 end qSeries

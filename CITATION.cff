@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+title: >-
+  A Lean 4 formalization of Euler's Pentagonal Number Theorem
+  and the Jacobi Triple Product
+message: >-
+  If you use this formalization in your research, please cite it
+  using the metadata from this file.
+type: software
+authors:
+  - given-names: Jonathan
+    family-names: Conrad
+  - given-names: Paula
+    family-names: Mürmann
+  - given-names: Maryna
+    family-names: Viazovska
+repository-code: 'https://github.com/viazovska/PentagonalNumberTheorem'
+url: 'https://viazovska.github.io/PentagonalNumberTheorem'
+abstract: >-
+  Two independent Lean 4 / Mathlib formalizations of Euler's
+  pentagonal number theorem. The first follows Franklin's
+  sign-reversing involution on partitions into distinct parts and
+  yields the coefficient identity for the truncated product. The
+  second develops q-Pochhammer symbols, Euler's identities and the
+  Cauchy identity to prove the Jacobi Triple Product, both as a
+  formal power series identity over an arbitrary commutative ring
+  and analytically over the complex numbers for |q| < 1, and
+  derives the pentagonal number theorem for the infinite product
+  by specialization.
+keywords:
+  - Lean 4
+  - Mathlib
+  - formalized mathematics
+  - interactive theorem proving
+  - number theory
+  - partitions
+  - q-series
+  - pentagonal number theorem
+  - Jacobi triple product
+license: Apache-2.0

@@ -101,7 +101,7 @@ $$\prod_{i=1}^\infty(1-x^i)\,=\,1+\sum_{k=1}^\infty (-1)^k\,(x^{(3k^2-k)/2}+x^{(
 \end{theorem}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{PentNumbers.png}\\
+\includegraphics[width=0.4\textwidth]{PentNumbers.png}\\
 {\small The generalized pentagonal numbers $\tfrac{3k^2-k}{2}$, $k\in\Z$:
 $0,1,2,5,7,12,15,\dots$; the nested pentagons depict the figurate
 pentagonal numbers $1,5,12,\dots$ ($k\ge 1$).}
@@ -133,22 +133,22 @@ The $k = 0$ term gives $(-1)^0 \, x^0 = 1$, matching the leading $1$. Combining 
 $$\sum_{k \in \mathbb{Z}_{\geq 1}} (-1)^k x^{(3k^2 - k)/2} \;+\; (-1)^0 x^0 \;+\; \sum_{k' \in \mathbb{Z}_{\leq -1}} (-1)^{k'} x^{(3(k')^2 - k')/2} \;=\; \sum_{k \in \mathbb{Z}} (-1)^k x^{(3k^2 - k)/2}.$$
 \end{proof}
 
-\begin{remark}[Pentagonal numbers]
-  \begin{tabular}{c|c|c|c|c|c|c|c}
-$k$& -3&-2&-1&0&1&2&3\\
-$\frac{3k^2-k}{2}$ & 15& 7& 2& 0& 1& 5& 12
-\end{tabular}
+% \begin{remark}[Pentagonal numbers]
+%   \begin{tabular}{c|c|c|c|c|c|c|c}
+% $k$& -3&-2&-1&0&1&2&3\\
+% $\frac{3k^2-k}{2}$ & 15& 7& 2& 0& 1& 5& 12
+% \end{tabular}
 
-\begin{center}
-\includegraphics[width=0.4\textwidth]{figures/fig_pentagon.png}
-\end{center}
-\end{remark}
+% \begin{center}
+% \includegraphics[width=0.4\textwidth]{figures/fig_pentagon.png}
+% \end{center}
+% \end{remark}
 
 
 \subsection{Proof}
 Let $n$ be a positive integer. Consider a diagram of a partition of $n$ into different parts.\\
 \begin{center}
-\includegraphics[width=0.5\textwidth]{figures/fig_partition.png}
+\includegraphics[width=0.3\textwidth]{figures/fig_partition.png}
 \end{center}
 
 \begin{definition}[Base and slope]\label{def:base-slope}\lean{partBase, partMax, partSlope, partSlopeSet}\uses{def:distinct-partitions}\leanok
@@ -304,13 +304,13 @@ $\beta$: For $S \in \mathcal{P}_\beta(n)$ (equivalently, $b > s$ and $b \notin D
 
 \paragraph{$\alpha$}
 \begin{center}
-\includegraphics[width=0.6\textwidth]{figures/fig_alpha.png}
+\includegraphics[width=0.3\textwidth]{figures/fig_alpha.png}
 \end{center}
 
 
 \paragraph{$\beta$}
 \begin{center}
-\includegraphics[width=0.6\textwidth]{figures/fig_beta.png}
+\includegraphics[width=0.3\textwidth]{figures/fig_beta.png}
 \end{center}
 
 \begin{lemma}\label{lemma:alpha-lands-in-beta}\lean{alphaOp_mem_DPbeta}\uses{def:alpha-beta-ops, def:P-alpha-beta-special}\leanok
