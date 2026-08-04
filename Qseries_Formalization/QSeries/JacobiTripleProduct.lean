@@ -3,7 +3,6 @@ Copyright (c) 2026 Jonathan Conrad. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad
 -/
-import QSeries.EulerIdentities
 import QSeries.JTP_Core
 
 /-!
@@ -18,27 +17,27 @@ $$(q;q)_\infty \cdot (-z;q)_\infty \cdot (-q/z;q)_\infty
 The proof uses:
 1. Both sides satisfy the functional equation $H(qz) = H(z)/z$.
 2. The Euler identities (first and second) provide series expansions.
-3. The Cauchy identity (`qBinom_infinite_thm`) relates the product to sums.
+3. The Cauchy identity (`hasSum_qPochhammer_div_mul_pow`) relates the product to sums.
 4. Extension from the annulus ‖q‖ < ‖z‖ < 1 to the full punctured disk.
 
 ## Main results
 
-* `qSeries.jacobiTripleProduct` — the Jacobi triple product identity.
+* `QSeries.jacobiTripleProduct` — the Jacobi triple product identity.
 -/
 
 open Finset Filter
 open scoped Topology
 
-namespace qSeries
+namespace QSeries
 
 noncomputable section
 
 /-- `(n+1).choose 2 = n.choose 2 + n`. -/
-private theorem aux_jtp_choose_two_succ (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
+private theorem choose_two_succ (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
   rw [Nat.choose_succ_succ, Nat.choose_one_right, add_comm]
 
 /-- For `‖q‖ < 1` the q-Pochhammer factor `1 - q ^ (n + 1)` is nonzero. -/
-private theorem aux_jtp_one_sub_pow_ne_zero {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
+private theorem one_sub_pow_ne_zero {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
     (1 : ℂ) - q ^ (n + 1) ≠ 0 := by
   intro h
   have h1 : ‖q‖ ^ (n + 1) = 1 := by
@@ -47,7 +46,7 @@ private theorem aux_jtp_one_sub_pow_ne_zero {q : ℂ} (hq : ‖q‖ < 1) (n : �
   linarith
 
 /-- Summability of the non-negative part $\sum_{k \geq 0} z^k q^{\binom{k}{2}}$. -/
-theorem summable_jacobi_nonneg {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
+theorem summable_pow_mul_pow_choose_two {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
     Summable (fun k : ℕ => z ^ k * q ^ k.choose 2) := by
   refine Summable.of_norm ?_
   simp only [norm_mul, norm_pow]
@@ -57,7 +56,7 @@ theorem summable_jacobi_nonneg {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1)
 
 /-- Summability of the negative-index part $\sum_{m \geq 0} z^{-(m+1)} q^{\binom{m+2}{2}}$
 for $\|q\| < 1$ and $z \neq 0$. -/
-theorem summable_jacobi_neg {q z : ℂ} (hq : ‖q‖ < 1) :
+theorem summable_inv_pow_mul_pow_choose_two {q z : ℂ} (hq : ‖q‖ < 1) :
     Summable (fun m : ℕ => (z⁻¹) ^ (m + 1) * q ^ (m + 2).choose 2) := by
   have hr : (0 : ℝ) < ‖q‖ + (1 - ‖q‖) / 2 := by linarith [norm_nonneg q]
   refine summable_of_ratio_norm_eventually_le (r := ‖q‖ + (1 - ‖q‖) / 2) (by linarith) ?_
@@ -66,7 +65,7 @@ theorem summable_jacobi_neg {q z : ℂ} (hq : ‖q‖ < 1) :
       ((tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg q) hq).comp
         (tendsto_add_atTop_nat 2))
   filter_upwards [h0.eventually (gt_mem_nhds hr)] with n hn
-  have hstep : (n + 1 + 2).choose 2 = (n + 2).choose 2 + (n + 2) := aux_jtp_choose_two_succ (n + 2)
+  have hstep : (n + 1 + 2).choose 2 = (n + 2).choose 2 + (n + 2) := choose_two_succ (n + 2)
   calc ‖z⁻¹ ^ (n + 1 + 1) * q ^ (n + 1 + 2).choose 2‖
       = ‖z⁻¹ ^ (n + 1) * q ^ (n + 2).choose 2‖ * (‖z⁻¹‖ * ‖q‖ ^ (n + 2)) := by
         rw [hstep, pow_add]
@@ -95,20 +94,20 @@ def jacobiBilateral (q z : ℂ) : ℂ :=
   jacobiBilateralPos q z + jacobiBilateralNeg q z
 
 /-- **Telescoping for $(-z;q)_\infty$**: $(-z;q)_\infty = (1+z)(-zq;q)_\infty$. -/
-theorem neg_qPochhammerInf_recursion {z q : ℂ} (hq : ‖q‖ < 1) :
+theorem qPochhammerInf_neg_eq_one_add_mul {z q : ℂ} (hq : ‖q‖ < 1) :
     qPochhammerInf (-z) q = (1 + z) * qPochhammerInf (-(z * q)) q := by
-  have h := qPochhammerInf_recursion (z := -z) hq
+  have h := qPochhammerInf_eq_one_sub_mul (z := -z) hq
   rw [show (1 : ℂ) - -z = 1 + z from by ring,
       show -z * q = -(z * q) from by ring] at h
   exact h
 
 /-- The product satisfies $f(qz) = f(z)/z$ when $q \neq 0$ and $z \neq 0$. -/
-theorem jacobiProd_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : z ≠ 0) :
+theorem jacobiProd_mul_eq_div {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : z ≠ 0) :
     jacobiProd q (q * z) = jacobiProd q z / z := by
   unfold jacobiProd
   have hqz : q * z ≠ 0 := mul_ne_zero hq' hz
-  have h1 := neg_qPochhammerInf_recursion (z := z) hq
-  have h2 := neg_qPochhammerInf_recursion (z := z⁻¹) hq
+  have h1 := qPochhammerInf_neg_eq_one_add_mul (z := z) hq
+  have h2 := qPochhammerInf_neg_eq_one_add_mul (z := z⁻¹) hq
   rw [show -(q * z) = -(z * q) from by ring]
   rw [show -q / (q * z) = -(z⁻¹) from by field_simp]
   rw [show -(z⁻¹ * q) = -q / z from by field_simp] at h2
@@ -119,7 +118,7 @@ theorem jacobiProd_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : z ≠
 
 /-- The bilateral Jacobi series satisfies the same functional equation $f(qz) = f(z)/z$
 as the triple product. -/
-theorem jacobiBilateral_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : ‖z‖ < 1)
+theorem jacobiBilateral_mul_eq_div {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : ‖z‖ < 1)
     (hz' : z ≠ 0) :
     jacobiBilateral q (q * z) = jacobiBilateral q z / z := by
   rw [eq_div_iff hz', mul_comm]
@@ -131,7 +130,7 @@ theorem jacobiBilateral_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : 
         mul_assoc, tsum_mul_left, zero_add, mul_eq_mul_left_iff]
       exact Or.inl (tsum_congr fun n => by ring)
     · have h_summable : Summable (fun k : ℕ => z ^ k * q ^ k.choose 2) :=
-        summable_jacobi_nonneg hq hz
+        summable_pow_mul_pow_choose_two hq hz
       rw [← summable_nat_add_iff 1] at *; aesop
   have h_neg : z * jacobiBilateralNeg q (q * z) =
       ∑' m : ℕ, z ^ (-m : ℤ) * q ^ (m + 1).choose 2 := by
@@ -154,7 +153,7 @@ theorem jacobiBilateral_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : 
           · norm_num [Nat.choose_succ_succ, pow_succ', mul_assoc, mul_comm, mul_left_comm,
               tsum_mul_left, tsum_mul_right]
             ring_nf
-          · have := summable_jacobi_neg (z := z) hq
+          · have := summable_inv_pow_mul_pow_choose_two (z := z) hq
             rw [← summable_nat_add_iff 1]
             convert this using 2
             norm_num [Nat.choose_succ_succ, pow_succ']
@@ -167,12 +166,12 @@ theorem jacobiBilateral_fe {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0) (hz : 
             (mul_le_one₀ (pow_le_one₀ (by positivity) hq.le) (pow_nonneg (by positivity) _)
               (pow_le_one₀ (by positivity) hq.le))) (mul_le_of_le_one_left (by positivity) hz.le)
       · rw [← summable_nat_add_iff 1]
-        exact (summable_jacobi_nonneg hq hz).comp_injective Nat.succ_injective
-    · exact summable_jacobi_nonneg hq hz
+        exact (summable_pow_mul_pow_choose_two hq hz).comp_injective Nat.succ_injective
+    · exact summable_pow_mul_pow_choose_two hq hz
 
 /-- Summability of the Euler second series $\sum_{n \geq 0} q^{\binom{n}{2}} z^n / (q;q)_n$
 for all $z$ when $\|q\| < 1$. -/
-theorem euler_second_summable_all {q z : ℂ} (hq : ‖q‖ < 1) :
+theorem summable_euler_second' {q z : ℂ} (hq : ‖q‖ < 1) :
     Summable (fun n : ℕ => q ^ n.choose 2 * z ^ n / qPochhammer q q n) := by
   have hr : (0 : ℝ) < ‖q‖ + (1 - ‖q‖) / 2 := by linarith [norm_nonneg q]
   refine summable_of_ratio_norm_eventually_le (r := ‖q‖ + (1 - ‖q‖) / 2) (by linarith) ?_
@@ -182,7 +181,7 @@ theorem euler_second_summable_all {q z : ℂ} (hq : ‖q‖ < 1) :
       (((tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq).comp
         (tendsto_add_atTop_nat 1)).const_sub 1).norm (by norm_num)
   filter_upwards [h0.eventually (gt_mem_nhds hr)] with n hn
-  have hstep : (n + 1).choose 2 = n.choose 2 + n := aux_jtp_choose_two_succ n
+  have hstep : (n + 1).choose 2 = n.choose 2 + n := choose_two_succ n
   have hpoch : qPochhammer q q (n + 1) = qPochhammer q q n * (1 - q ^ (n + 1)) := by
     rw [qPochhammer_succ]; ring
   calc ‖q ^ (n + 1).choose 2 * z ^ (n + 1) / qPochhammer q q (n + 1)‖
@@ -195,7 +194,7 @@ theorem euler_second_summable_all {q z : ℂ} (hq : ‖q‖ < 1) :
     _ = _ := by ring
 
 /-- The Euler second series satisfies the recursion $E(z) = (1+z) \cdot E(qz)$. -/
-theorem euler_second_series_recursion {q z : ℂ} (hq : ‖q‖ < 1) :
+theorem tsum_euler_second_eq_one_add_mul {q z : ℂ} (hq : ‖q‖ < 1) :
     (∑' n : ℕ, q ^ n.choose 2 * z ^ n / qPochhammer q q n) =
     (1 + z) * (∑' n : ℕ, q ^ n.choose 2 * (z * q) ^ n / qPochhammer q q n) := by
   have h_series : ∀ n : ℕ, (q ^ n.choose 2 * z ^ n / qPochhammer q q n) -
@@ -204,11 +203,11 @@ theorem euler_second_series_recursion {q z : ℂ} (hq : ‖q‖ < 1) :
         (if n = 0 then 0 else 1) := by
     rintro (_ | m)
     · simp
-    · have hne := aux_jtp_one_sub_pow_ne_zero hq m
-      have hpne : qPochhammer q q m ≠ 0 := qPochhammer_q_q_ne_zero hq m
+    · have hne := one_sub_pow_ne_zero hq m
+      have hpne : qPochhammer q q m ≠ 0 := qPochhammer_self_ne_zero hq m
       have hpoch : qPochhammer q q (m + 1) = qPochhammer q q m * (1 - q ^ (m + 1)) := by
         rw [qPochhammer_succ]; ring
-      rw [if_neg (Nat.succ_ne_zero m), mul_one, Nat.add_sub_cancel, aux_jtp_choose_two_succ,
+      rw [if_neg (Nat.succ_ne_zero m), mul_one, Nat.add_sub_cancel, choose_two_succ,
         hpoch]
       field_simp
       ring
@@ -221,26 +220,26 @@ theorem euler_second_series_recursion {q z : ℂ} (hq : ‖q‖ < 1) :
       · aesop
       · rw [← summable_nat_add_iff 1]
         convert Summable.mul_left z
-          ((euler_second_summable_all hq).comp_injective Nat.cast_injective) using 2
+          ((summable_euler_second' hq).comp_injective Nat.cast_injective) using 2
         aesop
-    · exact euler_second_summable_all hq
-    · exact euler_second_summable_all hq
+    · exact summable_euler_second' hq
+    · exact summable_euler_second' hq
   linear_combination' h_series_sum
 
 /-- The finite telescoping $(-z;q)_\infty = \prod_{k<N}(1+zq^k)\cdot(-zq^N;q)_\infty$. -/
-private theorem aux_jtp_qPochhammerInf_neg_prod {q z : ℂ} (hq : ‖q‖ < 1) (N : ℕ) :
+private theorem qPochhammerInf_neg_eq_prod_mul {q z : ℂ} (hq : ‖q‖ < 1) (N : ℕ) :
     qPochhammerInf (-z) q =
       (∏ k ∈ Finset.range N, (1 + z * q ^ k)) * qPochhammerInf (-(z * q ^ N)) q := by
   induction N with
   | zero => simp
   | succ N ih =>
-    rw [ih, Finset.prod_range_succ, qPochhammerInf_recursion (z := -(z * q ^ N)) hq,
+    rw [ih, Finset.prod_range_succ, qPochhammerInf_eq_one_sub_mul (z := -(z * q ^ N)) hq,
       show -(z * q ^ N) * q = -(z * q ^ (N + 1)) from by ring]
     ring
 
 /-- Euler second identity for all $z$: the series $\sum_{n \geq 0} q^{\binom{n}{2}} z^n / (q;q)_n$
 has sum $(-z;q)_\infty$. -/
-theorem euler_second_identity_all {q z : ℂ} (hq : ‖q‖ < 1) :
+theorem euler_second_identity' {q z : ℂ} (hq : ‖q‖ < 1) :
     HasSum (fun n : ℕ => q ^ n.choose 2 * z ^ n / qPochhammer q q n)
       (qPochhammerInf (-z) q) := by
   have h_ind : ∀ N : ℕ, (∑' n : ℕ, q ^ n.choose 2 * z ^ n / qPochhammer q q n) =
@@ -253,7 +252,7 @@ theorem euler_second_identity_all {q z : ℂ} (hq : ‖q‖ < 1) :
         have h_rec : (∑' n : ℕ, q ^ n.choose 2 * (z * q ^ N) ^ n / qPochhammer q q n) =
             (1 + z * q ^ N) *
               ∑' n : ℕ, q ^ n.choose 2 * (z * q ^ (N + 1)) ^ n / qPochhammer q q n := by
-          convert euler_second_series_recursion hq using 1; ring_nf
+          convert tsum_euler_second_eq_one_add_mul hq using 1; ring_nf
         rw [Finset.prod_range_succ, ih, h_rec, mul_assoc]
   obtain ⟨N, hN⟩ : ∃ N : ℕ, ‖z * q ^ N‖ < 1 := by
     have h_lim : Tendsto (fun N : ℕ => ‖z * q ^ N‖) atTop (𝓝 0) := by
@@ -262,21 +261,21 @@ theorem euler_second_identity_all {q z : ℂ} (hq : ‖q‖ < 1) :
   have h_tsum : (∑' n : ℕ, q ^ n.choose 2 * z ^ n / qPochhammer q q n) =
       (∏ k ∈ Finset.range N, (1 + z * q ^ k)) * qPochhammerInf (-(z * q ^ N)) q := by
     rw [h_ind N, (euler_second_identity hq hN).tsum_eq]
-  rw [(aux_jtp_qPochhammerInf_neg_prod hq N).trans h_tsum.symm]
-  exact (euler_second_summable_all hq).hasSum
+  rw [(qPochhammerInf_neg_eq_prod_mul hq N).trans h_tsum.symm]
+  exact (summable_euler_second' hq).hasSum
 
 /-- Euler second identity evaluated at $q/z$: the series
 $\sum_{m \geq 0} q^{\binom{m}{2}+m} z^{-m} / (q;q)_m$ has sum $(-q/z;q)_\infty$. -/
-theorem euler_second_at_qoz_all {q z : ℂ} (hq : ‖q‖ < 1) :
+theorem euler_second_identity_div' {q z : ℂ} (hq : ‖q‖ < 1) :
     HasSum (fun m : ℕ => q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m)
       (qPochhammerInf (-q / z) q) := by
-  convert euler_second_identity_all hq |> HasSum.congr_fun <| fun n => ?_ using 1
+  convert euler_second_identity' hq |> HasSum.congr_fun <| fun n => ?_ using 1
   rotate_left
   exacts [q * z⁻¹, by ring, by ring_nf]
 
 /-- The `ℕ × ℕ`-indexed family occurring in the Cauchy product of the two Euler series
 is summable. -/
-private theorem aux_jtp_summable_prod {q z : ℂ}
+private theorem summable_prod_euler_second {q z : ℂ}
     (hA : Summable fun n : ℕ => q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q)
     (hB : Summable fun m : ℕ => q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m) :
     Summable fun p : ℕ × ℕ => q ^ p.1.choose 2 * z ^ p.1 * qPochhammerInf (q * q ^ p.1) q *
@@ -284,21 +283,21 @@ private theorem aux_jtp_summable_prod {q z : ℂ}
   .of_norm <| by simpa using Summable.mul_norm hA.norm hB.norm
 
 /-- Fubini: the product of the two Euler series is a single sum over `ℕ × ℕ`. -/
-private theorem aux_jtp_mul_eq_tsum_prod {q z : ℂ}
+private theorem tsum_mul_tsum_euler_second {q z : ℂ}
     (hA : Summable fun n : ℕ => q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q)
     (hB : Summable fun m : ℕ => q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m) :
     (∑' n : ℕ, q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q) *
         ∑' m : ℕ, q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m =
       ∑' p : ℕ × ℕ, q ^ p.1.choose 2 * z ^ p.1 * qPochhammerInf (q * q ^ p.1) q *
         (q ^ p.2.choose 2 * q ^ p.2 * z⁻¹ ^ p.2 / qPochhammer q q p.2) := by
-  rw [(aux_jtp_summable_prod hA hB).tsum_prod]
+  rw [(summable_prod_euler_second hA hB).tsum_prod]
   simp only [tsum_mul_left, tsum_mul_right]
 
 /-- The `k`-th diagonal of the Cauchy product sums to $z^k q^{\binom{k}{2}}$. -/
-private theorem aux_jtp_cauchy_nonneg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z ≠ 0) (k : ℕ) :
+private theorem tsum_diagonal_nonneg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z ≠ 0) (k : ℕ) :
     ∑' m : ℕ, q ^ (m + k).choose 2 * z ^ (m + k) * qPochhammerInf (q * q ^ (m + k)) q *
         (q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m) = z ^ k * q ^ k.choose 2 := by
-  rw [← (cauchy_coeff_nonneg hq k).tsum_eq, ← tsum_mul_left]
+  rw [← (hasSum_pow_choose_two_nonneg hq k).tsum_eq, ← tsum_mul_left]
   refine tsum_congr fun m => ?_
   have hzz : z ^ m * z⁻¹ ^ m = 1 := by rw [← mul_pow, mul_inv_cancel₀ hz', one_pow]
   calc q ^ (m + k).choose 2 * z ^ (m + k) * qPochhammerInf (q * q ^ (m + k)) q *
@@ -308,11 +307,11 @@ private theorem aux_jtp_cauchy_nonneg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z �
     _ = _ := by rw [hzz, one_mul]
 
 /-- The `l`-th subdiagonal of the Cauchy product sums to $z^{-(l+1)} q^{\binom{l+2}{2}}$. -/
-private theorem aux_jtp_cauchy_neg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z ≠ 0) (l : ℕ) :
+private theorem tsum_diagonal_neg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z ≠ 0) (l : ℕ) :
     ∑' n : ℕ, q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q *
         (q ^ (n + (l + 1)).choose 2 * q ^ (n + (l + 1)) * z⁻¹ ^ (n + (l + 1)) /
           qPochhammer q q (n + (l + 1))) = z⁻¹ ^ (l + 1) * q ^ (l + 2).choose 2 := by
-  rw [← (cauchy_coeff_neg hq l).tsum_eq, ← tsum_mul_left]
+  rw [← (hasSum_pow_choose_two_neg hq l).tsum_eq, ← tsum_mul_left]
   refine tsum_congr fun n => ?_
   have hzz : z ^ n * z⁻¹ ^ n = 1 := by rw [← mul_pow, mul_inv_cancel₀ hz', one_pow]
   calc q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q *
@@ -328,14 +327,15 @@ bilateral theta series $\sum_{k \in \mathbb{Z}} z^k q^{k(k-1)/2}$ for $\|q\| < 1
 and $z \neq 0$. -/
 theorem jacobiTripleProduct {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) (hz' : z ≠ 0) :
     jacobiProd q z = jacobiBilateral q z := by
-  have hA := (qPochhammerInf_prod_hasSum hq hz).summable
-  have hB := (euler_second_at_qoz_all (z := z) hq).summable
+  have hA := (hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf hq hz).summable
+  have hB := (euler_second_identity_div' (z := z) hq).summable
   unfold jacobiProd jacobiBilateral jacobiBilateralPos jacobiBilateralNeg
-  rw [← (qPochhammerInf_prod_hasSum hq hz).tsum_eq, ← (euler_second_at_qoz_all (z := z) hq).tsum_eq,
-    aux_jtp_mul_eq_tsum_prod hA hB, aux_core_tsum_split_diag (aux_jtp_summable_prod hA hB)]
-  exact congr_arg₂ (· + ·) (tsum_congr fun k => aux_jtp_cauchy_nonneg hq hz' k)
-    (tsum_congr fun l => aux_jtp_cauchy_neg hq hz' l)
+  rw [← (hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf hq hz).tsum_eq,
+    ← (euler_second_identity_div' (z := z) hq).tsum_eq,
+    tsum_mul_tsum_euler_second hA hB, tsum_split_diagonal (summable_prod_euler_second hA hB)]
+  exact congr_arg₂ (· + ·) (tsum_congr fun k => tsum_diagonal_nonneg hq hz' k)
+    (tsum_congr fun l => tsum_diagonal_neg hq hz' l)
 
 end
 
-end qSeries
+end QSeries

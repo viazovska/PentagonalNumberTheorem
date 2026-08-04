@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad
 -/
 import QSeries.Defs
+import Mathlib.Algebra.BigOperators.Ring.Finset
 
 /-!
 # Finite q-binomial theorem
@@ -13,13 +14,13 @@ $$\prod_{k=0}^{n-1}(1 + z q^k) = \sum_{k=0}^{n} q^{\binom{k}{2}} \binom{n}{k}_q 
 
 ## Main results
 
-* `qSeries.qBinom_finite_thm` — the finite q-binomial theorem.
+* `QSeries.prod_one_add_mul_pow_eq_sum_qBinom` — the finite q-binomial theorem.
 -/
 
 open Finset Filter
 open scoped Topology
 
-namespace qSeries
+namespace QSeries
 
 variable {R : Type*}
 
@@ -29,7 +30,7 @@ private lemma choose_two_succ (k : ℕ) : (k + 1).choose 2 = k.choose 2 + k := b
 
 /-- **Finite q-binomial theorem.**
 $$\prod_{k=0}^{n-1}(1 + z q^k) = \sum_{k=0}^{n} q^{\binom{k}{2}} \binom{n}{k}_q z^k.$$ -/
-theorem qBinom_finite_thm [CommRing R] (q z : R) (n : ℕ) :
+theorem prod_one_add_mul_pow_eq_sum_qBinom [CommRing R] (q z : R) (n : ℕ) :
     ∏ k ∈ Finset.range n, (1 + z * q ^ k)
       = ∑ k ∈ Finset.range (n + 1), q ^ k.choose 2 * qBinom n k q * z ^ k := by
   induction n with
@@ -84,4 +85,4 @@ theorem qBinom_finite_thm [CommRing R] (q z : R) (n : ℕ) :
         exact h
       linear_combination stepD
 
-end qSeries
+end QSeries

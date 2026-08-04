@@ -9,11 +9,11 @@ import QSeries.FPS
 # FPS Euler Second Identity
 
 We prove the Euler second identity purely algebraically in the formal power series ring:
-  `qPochInf(-a) = Σ_{n≥0} X^{C(n,2)} · aⁿ · (qPoch(X, n))⁻¹`
+  `qPochhammerInf(-a) = Σ_{n≥0} X^{C(n,2)} · aⁿ · (qPochhammer(X, n))⁻¹`
 
 The proof uses the finite q-binomial theorem (which holds in any commutative ring)
 and takes the limit in the pi topology. The key step is showing that the
-Gaussian binomial coefficient `qBinom(N, k, X)` converges to `(qPoch(X, k))⁻¹`
+Gaussian binomial coefficient `qBinom(N, k, X)` converges to `(qPochhammer(X, k))⁻¹`
 as N → ∞.
 -/
 
@@ -22,41 +22,41 @@ noncomputable section
 open scoped MvPowerSeries.WithPiTopology
 open PowerSeries Finset
 
-namespace qSeries.FPS
+namespace QSeries.PowerSeries
 
 variable {R : Type*} [CommRing R] [TopologicalSpace R] [DiscreteTopology R]
 
 set_option linter.unusedSectionVars false in
-/-- The constant term of `qPoch X n` is 1. -/
-theorem constantCoeff_qPoch_X (n : ℕ) :
-    constantCoeff (qPoch (X : R⟦X⟧) n) = 1 := by
+/-- The constant term of `qPochhammer X n` is 1. -/
+theorem constantCoeff_qPochhammer_X (n : ℕ) :
+    constantCoeff (qPochhammer (X : R⟦X⟧) n) = 1 := by
   induction n with
-  | zero => simp [qPoch]
+  | zero => simp [qPochhammer]
   | succ n ih =>
-    rw [qPoch_succ]
+    rw [qPochhammer_succ]
     simp [map_mul, map_sub, ih]
 
-/-- `qPoch X n` is a unit in `R⟦X⟧` (its constant term is 1). -/
-theorem isUnit_qPoch_X (n : ℕ) : IsUnit (qPoch (X : R⟦X⟧) n) := by
-  rw [PowerSeries.isUnit_iff_constantCoeff, constantCoeff_qPoch_X]
+/-- `qPochhammer X n` is a unit in `R⟦X⟧` (its constant term is 1). -/
+theorem isUnit_qPochhammer_X (n : ℕ) : IsUnit (qPochhammer (X : R⟦X⟧) n) := by
+  rw [PowerSeries.isUnit_iff_constantCoeff, constantCoeff_qPochhammer_X]
   exact isUnit_one
 
-/-- `qPochInf a = qPoch a n · qPochInf (a · X^n)`. -/
-theorem qPochInf_eq_qPoch_mul (a : R⟦X⟧) (n : ℕ) :
-    qPochInf a = qPoch a n * qPochInf (a * X ^ n) := by
+/-- `qPochhammerInf a = qPochhammer a n · qPochhammerInf (a · X^n)`. -/
+theorem qPochhammerInf_eq_qPochhammer_mul (a : R⟦X⟧) (n : ℕ) :
+    qPochhammerInf a = qPochhammer a n * qPochhammerInf (a * X ^ n) := by
   induction n with
-  | zero => simp [qPoch]
+  | zero => simp [qPochhammer]
   | succ n ih =>
-    rw [ih, qPoch_succ, mul_assoc]
+    rw [ih, qPochhammer_succ, mul_assoc]
     congr 1
-    rw [qPochInf_recursion]
+    rw [qPochhammerInf_eq_one_sub_mul]
     ring_nf
 
-/-- `qPochInf X = qPoch X n · qPochInf (X * X^n)`. -/
-theorem qqInf_eq_qPoch_mul (n : ℕ) :
-    qPochInf (X : R⟦X⟧) = qPoch X n * qPochInf (X * X ^ n) :=
-  qPochInf_eq_qPoch_mul X n
+/-- `qPochhammerInf X = qPochhammer X n · qPochhammerInf (X * X^n)`. -/
+theorem qPochhammerInf_X_eq_qPochhammer_mul (n : ℕ) :
+    qPochhammerInf (X : R⟦X⟧) = qPochhammer X n * qPochhammerInf (X * X ^ n) :=
+  qPochhammerInf_eq_qPochhammer_mul X n
 
-end qSeries.FPS
+end QSeries.PowerSeries
 
 end

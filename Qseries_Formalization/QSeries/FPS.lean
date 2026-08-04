@@ -3,7 +3,10 @@ Copyright (c) 2026 Jonathan Conrad. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad
 -/
-import Mathlib
+import Mathlib.Algebra.Polynomial.Laurent
+import Mathlib.Data.Complex.Basic
+import Mathlib.RingTheory.PowerSeries.Inverse
+import Mathlib.RingTheory.PowerSeries.PiTopology
 
 /-!
 # q-Pochhammer symbols as formal power series
@@ -22,15 +25,15 @@ convergence hypotheses are needed.
 
 ## Main definitions
 
-* `qSeries.FPS.qPoch`    — Finite q-Pochhammer `(a; X)_n` in `R⟦X⟧`.
-* `qSeries.FPS.qPochInf` — Infinite q-Pochhammer `(a; X)_∞` in `R⟦X⟧` (via `tprod`).
+* `QSeries.PowerSeries.qPochhammer`    — Finite q-Pochhammer `(a; X)_n` in `R⟦X⟧`.
+* `QSeries.PowerSeries.qPochhammerInf` — Infinite q-Pochhammer `(a; X)_∞` in `R⟦X⟧` (via `tprod`).
 
 ## Main results
 
-* `qSeries.FPS.multipliable_qPoch` — The infinite product is multipliable.
-* `qSeries.FPS.qPochInf_recursion`  — `(a; X)_∞ = (1 - a) · (aX; X)_∞`.
-* `qSeries.FPS.qPochInf_eq_mk`     — Coefficient-wise characterisation.
-* `qSeries.FPS.jacobiTripleProduct_fps` — The Jacobi triple product in `A⟦X⟧`
+* `QSeries.PowerSeries.multipliable_one_sub_mul_pow` — The infinite product is multipliable.
+* `QSeries.PowerSeries.qPochhammerInf_eq_one_sub_mul`  — `(a; X)_∞ = (1 - a) · (aX; X)_∞`.
+* `QSeries.PowerSeries.qPochhammerInf_eq_mk`     — Coefficient-wise characterisation.
+* `QSeries.PowerSeries.jacobiTripleProduct` — The Jacobi triple product in `A⟦X⟧`
   (proved in `QSeries.FPS_Algebra`).
 -/
 
@@ -39,7 +42,7 @@ noncomputable section
 open scoped MvPowerSeries.WithPiTopology
 open PowerSeries Finset
 
-namespace qSeries.FPS
+namespace QSeries.PowerSeries
 
 section Finite
 
@@ -47,25 +50,25 @@ variable {R : Type*} [CommRing R]
 
 /-- **Finite q-Pochhammer symbol** in `R⟦X⟧`.
 `(a; X)_n = ∏_{k=0}^{n-1} (1 - a · X^k)` where `a ∈ R⟦X⟧`. -/
-def qPoch (a : R⟦X⟧) (n : ℕ) : R⟦X⟧ :=
+def qPochhammer (a : R⟦X⟧) (n : ℕ) : R⟦X⟧ :=
   ∏ k ∈ range n, (1 - a * X ^ k)
 
 /-- The empty finite q-Pochhammer product `(a; X)_0 = 1`. -/
 @[simp]
-theorem qPoch_zero (a : R⟦X⟧) : qPoch a 0 = 1 := by
-  simp [qPoch]
+theorem qPochhammer_zero (a : R⟦X⟧) : qPochhammer a 0 = 1 := by
+  simp [qPochhammer]
 
 /-- The recurrence `(a; X)_{n+1} = (a; X)_n * (1 - a X^n)`. -/
-theorem qPoch_succ (a : R⟦X⟧) (n : ℕ) :
-    qPoch a (n + 1) = qPoch a n * (1 - a * X ^ n) := by
-  simp [qPoch, prod_range_succ]
+theorem qPochhammer_succ (a : R⟦X⟧) (n : ℕ) :
+    qPochhammer a (n + 1) = qPochhammer a n * (1 - a * X ^ n) := by
+  simp [qPochhammer, prod_range_succ]
 
 /-- The shift identity `(a; X)_{n+1} = (1 - a) * (aX; X)_n`. -/
-theorem qPoch_eq_mul_qPoch_shift (a : R⟦X⟧) (n : ℕ) :
-    qPoch a (n + 1) = (1 - a) * qPoch (a * X) n := by
+theorem qPochhammer_succ_eq_one_sub_mul (a : R⟦X⟧) (n : ℕ) :
+    qPochhammer a (n + 1) = (1 - a) * qPochhammer (a * X) n := by
   induction n with
-  | zero => simp [qPoch]
-  | succ n ih => rw [qPoch_succ, ih, qPoch_succ]; ring
+  | zero => simp [qPochhammer]
+  | succ n ih => rw [qPochhammer_succ, ih, qPochhammer_succ]; ring
 
 end Finite
 
@@ -74,19 +77,19 @@ section Stabilisation
 variable {R : Type*} [CommRing R]
 
 /-- For `d < n`, the `d`-th coefficient of `(a; X)_{n+1}` equals that of `(a; X)_n`. -/
-theorem coeff_qPoch_stable (a : R⟦X⟧) {d n : ℕ} (hdn : d < n) :
-    coeff d (qPoch a (n + 1)) = coeff d (qPoch a n) := by
-  rw [qPoch_succ, mul_sub, mul_one, map_sub, ← mul_assoc,
+theorem coeff_qPochhammer_succ (a : R⟦X⟧) {d n : ℕ} (hdn : d < n) :
+    coeff d (qPochhammer a (n + 1)) = coeff d (qPochhammer a n) := by
+  rw [qPochhammer_succ, mul_sub, mul_one, map_sub, ← mul_assoc,
     PowerSeries.coeff_mul_X_pow', if_neg hdn.not_ge, sub_zero]
 
 /-- For `N ≥ M > d`, the `d`-th coefficient of `(a; X)_N` equals that of `(a; X)_M`. -/
-theorem coeff_qPoch_eq_of_ge (a : R⟦X⟧) {d M N : ℕ}
+theorem coeff_qPochhammer_eq_of_le (a : R⟦X⟧) {d M N : ℕ}
     (hM : d < M) (hN : M ≤ N) :
-    coeff d (qPoch a N) = coeff d (qPoch a M) := by
+    coeff d (qPochhammer a N) = coeff d (qPochhammer a M) := by
   induction hN with
   | refl => rfl
   | step hN ih =>
-      convert coeff_qPoch_stable a (lt_of_lt_of_le hM hN) using 1
+      convert coeff_qPochhammer_succ a (lt_of_lt_of_le hM hN) using 1
       exact ih.symm
 
 end Stabilisation
@@ -97,7 +100,7 @@ variable {R : Type*} [CommRing R] [TopologicalSpace R] [DiscreteTopology R]
 
 omit [DiscreteTopology R] in
 /-- The infinite product `∏_{k ≥ 0} (1 - a X^k)` is multipliable in `R⟦X⟧`. -/
-theorem multipliable_qPoch (a : R⟦X⟧) :
+theorem multipliable_one_sub_mul_pow (a : R⟦X⟧) :
     Multipliable (fun k : ℕ => 1 - a * X ^ k) := by
   have hord : ∀ k : ℕ, (k : ℕ∞) ≤ (-(a * X ^ k) : R⟦X⟧).order := fun k =>
     PowerSeries.le_order _ _ fun i hi => by
@@ -110,43 +113,43 @@ theorem multipliable_qPoch (a : R⟦X⟧) :
 
 /-- **Infinite q-Pochhammer symbol** `(a; X)_∞ = ∏_{k ≥ 0} (1 - a · X^k)`.
 Well-defined in `R⟦X⟧` with the pi topology. -/
-def qPochInf (a : R⟦X⟧) : R⟦X⟧ :=
+def qPochhammerInf (a : R⟦X⟧) : R⟦X⟧ :=
   ∏' k : ℕ, (1 - a * X ^ k)
 
 /-- The `d`-th coefficient of `(a; X)_∞` equals the `d`-th coefficient of `(a; X)_{d+1}`. -/
-theorem coeff_qPochInf (a : R⟦X⟧) (d : ℕ) :
-    coeff d (qPochInf a) = coeff d (qPoch a (d + 1)) := by
-  have h_limit : Filter.Tendsto (fun n => coeff d (qPoch a n)) Filter.atTop
-      (nhds (coeff d (qPochInf a))) :=
+theorem coeff_qPochhammerInf (a : R⟦X⟧) (d : ℕ) :
+    coeff d (qPochhammerInf a) = coeff d (qPochhammer a (d + 1)) := by
+  have h_limit : Filter.Tendsto (fun n => coeff d (qPochhammer a n)) Filter.atTop
+      (nhds (coeff d (qPochhammerInf a))) :=
     ((WithPiTopology.continuous_coeff R d).tendsto _).comp
-      (multipliable_qPoch a).hasProd.tendsto_prod_nat
+      (multipliable_one_sub_mul_pow a).hasProd.tendsto_prod_nat
   refine tendsto_nhds_unique h_limit (tendsto_const_nhds.congr' ?_)
   filter_upwards [Filter.eventually_ge_atTop (d + 1)] with n hn
-  exact (coeff_qPoch_eq_of_ge a (Nat.lt_succ_self _) hn).symm
+  exact (coeff_qPochhammer_eq_of_le a (Nat.lt_succ_self _) hn).symm
 
 /-- **Coefficient-wise definition.** -/
-theorem qPochInf_eq_mk (a : R⟦X⟧) :
-    qPochInf a = mk fun d => coeff d (qPoch a (d + 1)) := by
-  ext d; rw [coeff_mk, coeff_qPochInf]
+theorem qPochhammerInf_eq_mk (a : R⟦X⟧) :
+    qPochhammerInf a = mk fun d => coeff d (qPochhammer a (d + 1)) := by
+  ext d; rw [coeff_mk, coeff_qPochhammerInf]
 
 /-- If the constant coefficient of `a` is zero, then that of `(a; X)_∞` is `1`. -/
-theorem constantCoeff_qPochInf_of_order_pos (a : R⟦X⟧) (ha : coeff 0 a = 0) :
-    coeff 0 (qPochInf a) = 1 := by
-  rw [coeff_qPochInf, qPoch_succ, qPoch_zero]
+theorem coeff_zero_qPochhammerInf (a : R⟦X⟧) (ha : coeff 0 a = 0) :
+    coeff 0 (qPochhammerInf a) = 1 := by
+  rw [coeff_qPochhammerInf, qPochhammer_succ, qPochhammer_zero]
   simp [-coeff_zero_eq_constantCoeff, ha]
 
 /-- The recursion `(a; X)_∞ = (1 - a) * (aX; X)_∞`. -/
-theorem qPochInf_recursion (a : R⟦X⟧) :
-    qPochInf a = (1 - a) * qPochInf (a * X) := by
+theorem qPochhammerInf_eq_one_sub_mul (a : R⟦X⟧) :
+    qPochhammerInf a = (1 - a) * qPochhammerInf (a * X) := by
   -- The shifted partial products converge to `(aX; X)_∞`.
   have h_shift : Filter.Tendsto (fun n => ∏ k ∈ range n, (1 - a * X ^ (k + 1))) Filter.atTop
-      (nhds (qPochInf (a * X))) :=
-    (multipliable_qPoch (a * X)).hasProd.tendsto_prod_nat.congr
+      (nhds (qPochhammerInf (a * X))) :=
+    (multipliable_one_sub_mul_pow (a * X)).hasProd.tendsto_prod_nat.congr
       fun n => prod_congr rfl fun k _ => by ring
   -- The partial products of `(a; X)_∞`, reindexed, converge to `(a; X)_∞`.
   have h_all : Filter.Tendsto (fun n => ∏ k ∈ range (n + 1), (1 - a * X ^ k)) Filter.atTop
-      (nhds (qPochInf a)) :=
-    (multipliable_qPoch a).hasProd.tendsto_prod_nat.comp (Filter.tendsto_add_atTop_nat 1)
+      (nhds (qPochhammerInf a)) :=
+    (multipliable_one_sub_mul_pow a).hasProd.tendsto_prod_nat.comp (Filter.tendsto_add_atTop_nat 1)
   refine tendsto_nhds_unique h_all ?_
   have hsplit : ∀ n : ℕ, ∏ k ∈ range (n + 1), (1 - a * X ^ k)
       = (1 - a) * ∏ k ∈ range n, (1 - a * X ^ (k + 1)) := fun n => by
@@ -155,10 +158,10 @@ theorem qPochInf_recursion (a : R⟦X⟧) :
   exact tendsto_const_nhds.mul h_shift
 
 /-- `(a; X)_∞` is a unit in `R⟦X⟧` whenever `1 - coeff 0 a` is a unit in `R`. -/
-theorem isUnit_qPochInf (a : R⟦X⟧) (ha : IsUnit (1 - coeff 0 a : R)) :
-    IsUnit (qPochInf a) := by
+theorem isUnit_qPochhammerInf (a : R⟦X⟧) (ha : IsUnit (1 - coeff 0 a : R)) :
+    IsUnit (qPochhammerInf a) := by
   rw [PowerSeries.isUnit_iff_constantCoeff, ← coeff_zero_eq_constantCoeff_apply,
-    coeff_qPochInf, qPoch_succ, qPoch_zero, one_mul, pow_zero, mul_one]
+    coeff_qPochhammerInf, qPochhammer_succ, qPochhammer_zero, one_mul, pow_zero, mul_one]
   simpa using ha
 
 end Infinite
@@ -173,30 +176,30 @@ instance : DiscreteTopology A := ⟨rfl⟩
 local notation "PS" => (PowerSeries.C : A →+* A⟦X⟧)
 
 /-- `z = T(1)` viewed as a constant power series in `A⟦X⟧`. -/
-abbrev z : A⟦X⟧ := PS (LaurentPolynomial.T 1)
+abbrev laurentZ : A⟦X⟧ := PS (LaurentPolynomial.T 1)
 
 /-- `z⁻¹ = T(-1)` viewed as a constant power series in `A⟦X⟧`. -/
-abbrev zinv : A⟦X⟧ := PS (LaurentPolynomial.T (-1))
+abbrev laurentZInv : A⟦X⟧ := PS (LaurentPolynomial.T (-1))
 
 /-- `(q; q)_∞` in `A⟦X⟧`. -/
-def qqInf : A⟦X⟧ := qPochInf X
+def qPochhammerInfX : A⟦X⟧ := qPochhammerInf X
 
 /-- `(-z; q)_∞` in `A⟦X⟧`. -/
-def negzInf : A⟦X⟧ := qPochInf (-z)
+def qPochhammerInfNegZ : A⟦X⟧ := qPochhammerInf (-laurentZ)
 
 /-- `(-q/z; q)_∞` in `A⟦X⟧`. -/
-def negqzInf : A⟦X⟧ := qPochInf (-X * zinv)
+def qPochhammerInfNegXMulZInv : A⟦X⟧ := qPochhammerInf (-X * laurentZInv)
 
 /-- The **Jacobi triple product** (LHS) as an element of `A⟦X⟧`. -/
-def jtpProd : A⟦X⟧ := qqInf * negzInf * negqzInf
+def jacobiProd : A⟦X⟧ := qPochhammerInfX * qPochhammerInfNegZ * qPochhammerInfNegXMulZInv
 
 /-- The **bilateral theta series** (RHS). -/
-def jtpSeries : A⟦X⟧ :=
+def jacobiBilateral : A⟦X⟧ :=
   (∑' n : ℕ, PS (LaurentPolynomial.T (n : ℤ)) * X ^ n.choose 2) +
   (∑' m : ℕ, PS (LaurentPolynomial.T (-(↑m + 1))) * X ^ (m + 2).choose 2)
 
 end JTP
 
-end qSeries.FPS
+end QSeries.PowerSeries
 
 end

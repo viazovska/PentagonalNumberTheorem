@@ -3,7 +3,7 @@ Copyright (c) 2026 Jonathan Conrad. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad
 -/
-import Mathlib
+import Mathlib.Analysis.Normed.Module.MultipliableUniformlyOn
 import QSeries.JacobiTripleProduct
 
 /-!
@@ -16,27 +16,27 @@ restriction $\|z\| < 1$).
 
 ## Main results
 
-* `qSeries.summable_jacobi_nonneg_all` — Summability of the nonneg bilateral
+* `QSeries.summable_pow_mul_pow_choose_two'` — Summability of the nonneg bilateral
   sum for **all** $z$ when $\|q\| < 1$.
-* `qSeries.jacobiProd_tendstoLocallyUniformlyOn` — The product side converges
+* `QSeries.tendstoLocallyUniformlyOn_jacobiProd` — The product side converges
   locally uniformly on $\{z \neq 0\}$.
-* `qSeries.jacobiBilateral_tendstoLocallyUniformlyOn` — The series side
+* `QSeries.tendstoLocallyUniformlyOn_jacobiBilateral` — The series side
   converges locally uniformly on $\{z \neq 0\}$.
-* `qSeries.jacobiTripleProduct_analytic` — The analytic JTP for all
+* `QSeries.jacobiTripleProduct'` — The analytic JTP for all
   $\|q\| < 1$ and $z \neq 0$.
 -/
 
 open Finset Filter
 open scoped Topology
 
-namespace qSeries
+namespace QSeries
 
 noncomputable section
 
 /-- Ratio-test core for the Weierstrass `M`-test bounds appearing in the Jacobi triple
 product: for `‖q‖ < 1` the family `k ↦ c ^ (k + j) * ‖q‖ ^ (k + 2 * j).choose 2` is summable
 for every real `c` and every shift `j`. -/
-theorem aux_analytic_summable_pow_mul_norm_choose_two {q : ℂ} (hq : ‖q‖ < 1) (c : ℝ) (j : ℕ) :
+theorem summable_pow_add_mul_norm_pow_choose_two {q : ℂ} (hq : ‖q‖ < 1) (c : ℝ) (j : ℕ) :
     Summable fun k : ℕ => c ^ (k + j) * ‖q‖ ^ (k + 2 * j).choose 2 := by
   have h_lim : Tendsto (fun k : ℕ => |c| * ‖q‖ ^ (k + 2 * j)) atTop (𝓝 0) := by
     simpa using
@@ -57,54 +57,55 @@ theorem aux_analytic_summable_pow_mul_norm_choose_two {q : ℂ} (hq : ‖q‖ < 
 
 /-- The nonneg bilateral sum $\sum_{k \ge 0} z^k q^{\binom{k}{2}}$ converges
 for **all** $z \in \mathbb{C}$ when $\|q\| < 1$. -/
-theorem summable_jacobi_nonneg_all {q z : ℂ} (hq : ‖q‖ < 1) :
+theorem summable_pow_mul_pow_choose_two' {q z : ℂ} (hq : ‖q‖ < 1) :
     Summable (fun k : ℕ => z ^ k * q ^ k.choose 2) := by
   refine Summable.of_norm ?_
-  simpa using aux_analytic_summable_pow_mul_norm_choose_two hq ‖z‖ 0
+  simpa using summable_pow_add_mul_norm_pow_choose_two hq ‖z‖ 0
 
 /-- Summability of the Weierstrass M-test bound $R^k \|q\|^{\binom{k}{2}}$ for any real $R$. -/
-theorem summable_Mtest_nonneg {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
+theorem summable_pow_mul_norm_pow_choose_two {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     Summable (fun k : ℕ => R ^ k * ‖q‖ ^ k.choose 2) := by
-  simpa using aux_analytic_summable_pow_mul_norm_choose_two hq R 0
+  simpa using summable_pow_add_mul_norm_pow_choose_two hq R 0
 
 /-- Summability of the Weierstrass M-test bound $(R')^{m+1} \|q\|^{\binom{m+2}{2}}$
 for any real $R'$. -/
-theorem summable_Mtest_neg {q : ℂ} (hq : ‖q‖ < 1) (R' : ℝ) :
+theorem summable_pow_succ_mul_norm_pow_choose_two {q : ℂ} (hq : ‖q‖ < 1) (R' : ℝ) :
     Summable (fun m : ℕ => R' ^ (m + 1) * ‖q‖ ^ (m + 2).choose 2) := by
-  simpa using aux_analytic_summable_pow_mul_norm_choose_two hq R' 1
+  simpa using summable_pow_add_mul_norm_pow_choose_two hq R' 1
 
 /-- Extended product expansion for all $z$. -/
-theorem qPochhammerInf_prod_hasSum_all {q z : ℂ} (hq : ‖q‖ < 1) :
+theorem hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf' {q z : ℂ} (hq : ‖q‖ < 1) :
     HasSum (fun n : ℕ => q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q)
       (qPochhammerInf q q * qPochhammerInf (-z) q) := by
-  convert HasSum.mul_left (qPochhammerInf q q) (euler_second_identity_all hq) using 1
+  convert HasSum.mul_left (qPochhammerInf q q) (euler_second_identity' hq) using 1
   ext n
   by_cases hn : qPochhammer q q n = 0
-  · exact absurd hn <| qPochhammer_z_q_ne_zero hq (by linarith) n
+  · exact absurd hn <| qPochhammer_ne_zero hq (by linarith) n
   · simp only [div_eq_mul_inv, mul_assoc, mul_comm]
     congr 1
-    rw [qPochhammerInf_eq_mul hq n]
+    rw [qPochhammerInf_self_eq_qPochhammer_mul hq n]
     field_simp
 
 /-- The nonneg partial sums $\sum_{k < N} z^k q^{\binom{k}{2}}$ converge uniformly on
 $\{z : \|z\| \le R\}$ by the Weierstrass M-test. -/
-theorem nonneg_tendstoUniformlyOn_ball {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
+theorem tendstoUniformlyOn_sum_pow_mul_pow_choose_two {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     TendstoUniformlyOn
       (fun N z => ∑ k ∈ Finset.range N, z ^ k * q ^ k.choose 2)
       (fun z => ∑' k : ℕ, z ^ k * q ^ k.choose 2)
       atTop (Metric.closedBall 0 R) := by
-  refine tendstoUniformlyOn_tsum_nat (summable_Mtest_nonneg hq R) fun n z hz => ?_
+  refine tendstoUniformlyOn_tsum_nat (summable_pow_mul_norm_pow_choose_two hq R) fun n z hz => ?_
   rw [norm_mul, norm_pow, norm_pow]
   exact mul_le_mul_of_nonneg_right
     (pow_le_pow_left₀ (norm_nonneg z) (mem_closedBall_zero_iff.mp hz) n) (by positivity)
 
 /-- The negative-index partial sums converge uniformly on $\{z : \|z^{-1}\| \le R'\}$. -/
-theorem neg_tendstoUniformlyOn_ball {q : ℂ} (hq : ‖q‖ < 1) (R' : ℝ) :
+theorem tendstoUniformlyOn_sum_inv_pow_mul_pow_choose_two {q : ℂ} (hq : ‖q‖ < 1) (R' : ℝ) :
     TendstoUniformlyOn
       (fun N z => ∑ m ∈ Finset.range N, z⁻¹ ^ (m + 1) * q ^ (m + 2).choose 2)
       (fun z => ∑' m : ℕ, z⁻¹ ^ (m + 1) * q ^ (m + 2).choose 2)
       atTop {z : ℂ | ‖z⁻¹‖ ≤ R'} := by
-  refine tendstoUniformlyOn_tsum_nat (summable_Mtest_neg hq R') fun m z hz => ?_
+  refine tendstoUniformlyOn_tsum_nat (summable_pow_succ_mul_norm_pow_choose_two hq R')
+    fun m z hz => ?_
   rw [norm_mul, norm_pow, norm_pow]
   exact mul_le_mul_of_nonneg_right
     (pow_le_pow_left₀ (norm_nonneg _) hz (m + 1)) (by positivity)
@@ -129,7 +130,7 @@ lemma tendstoUniformlyOn_prod_range_of_finset {α β : Type*}
 
 /-- The partial Pochhammer products $(a;q)_n$ converge locally uniformly in $a$
 when $\|q\| < 1$. -/
-theorem qPochhammer_tendstoLocallyUniformly {q : ℂ} (hq : ‖q‖ < 1) :
+theorem tendstoLocallyUniformly_qPochhammer {q : ℂ} (hq : ‖q‖ < 1) :
     TendstoLocallyUniformly
       (fun n a => qPochhammer a q n)
       (fun a => qPochhammerInf a q) atTop := by
@@ -158,7 +159,7 @@ theorem qPochhammer_tendstoLocallyUniformly {q : ℂ} (hq : ‖q‖ < 1) :
   exact ⟨Metric.closedBall x 1, Metric.closedBall_mem_nhds _ zero_lt_one, hK ε hε⟩
 
 /-- Precomposing a uniform limit with a map sending `s` into the domain set `t`. -/
-lemma aux_analytic_tendstoUniformlyOn_comp {s t : Set ℂ} {f : ℕ → ℂ → ℂ} {F φ : ℂ → ℂ}
+lemma tendstoUniformlyOn_comp_of_mapsTo {s t : Set ℂ} {f : ℕ → ℂ → ℂ} {F φ : ℂ → ℂ}
     (h : TendstoUniformlyOn f F atTop t) (hφ : ∀ z ∈ s, φ z ∈ t) :
     TendstoUniformlyOn (fun n z => f n (φ z)) (fun z => F (φ z)) atTop s := by
   intro U hU
@@ -167,7 +168,7 @@ lemma aux_analytic_tendstoUniformlyOn_comp {s t : Set ℂ} {f : ℕ → ℂ → 
 
 /-- On the closed ball of radius `‖z₀‖ / 2` around `z₀` every point has norm at least
 `‖z₀‖ / 2`; so on such a ball `z` stays away from `0`. -/
-lemma aux_analytic_half_norm_le_of_mem_closedBall {z₀ z : ℂ}
+lemma half_norm_le_norm_of_mem_closedBall {z₀ z : ℂ}
     (hz : z ∈ Metric.closedBall z₀ (‖z₀‖ / 2)) : ‖z₀‖ / 2 ≤ ‖z‖ := by
   rw [Metric.mem_closedBall, dist_eq_norm'] at hz
   have := norm_sub_norm_le z₀ z
@@ -175,16 +176,16 @@ lemma aux_analytic_half_norm_le_of_mem_closedBall {z₀ z : ℂ}
 
 /-- On a ball of radius `‖z₀‖ / 2` around `z₀ ≠ 0` the inverse `z⁻¹` is bounded
 by `2 / ‖z₀‖`. -/
-lemma aux_analytic_norm_inv_le_of_mem_ball {z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
+lemma norm_inv_le_of_mem_ball {z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
     (hz : z ∈ Metric.ball z₀ (‖z₀‖ / 2)) : ‖z⁻¹‖ ≤ 2 / ‖z₀‖ := by
   have hz₀' : 0 < ‖z₀‖ := norm_pos_iff.mpr hz₀
-  have hzn := aux_analytic_half_norm_le_of_mem_closedBall (Metric.ball_subset_closedBall hz)
+  have hzn := half_norm_le_norm_of_mem_closedBall (Metric.ball_subset_closedBall hz)
   rw [norm_inv, inv_eq_one_div, div_le_div_iff₀ (by linarith) hz₀']
   linarith
 
 /-- The partial sums of the bilateral Jacobi series converge locally uniformly on
 $\{z \neq 0\}$ for fixed $\|q\| < 1$. -/
-theorem jacobiBilateral_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
+theorem tendstoLocallyUniformlyOn_jacobiBilateral {q : ℂ} (hq : ‖q‖ < 1) :
     TendstoLocallyUniformlyOn
       (fun N z =>
         (∑ k ∈ Finset.range N, z ^ k * q ^ k.choose 2) +
@@ -195,7 +196,7 @@ theorem jacobiBilateral_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
     rw [Metric.tendstoLocallyUniformly_iff]
     intro ε hε x
     have h_nonneg := Metric.tendstoUniformlyOn_iff.mp
-      (nonneg_tendstoUniformlyOn_ball hq (‖x‖ + 1))
+      (tendstoUniformlyOn_sum_pow_mul_pow_choose_two hq (‖x‖ + 1))
     exact ⟨Metric.closedBall 0 (‖x‖ + 1),
       Metric.closedBall_mem_nhds_of_mem (by norm_num), h_nonneg ε hε⟩
   · intro ε hε z₀ hz₀
@@ -203,14 +204,14 @@ theorem jacobiBilateral_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
       have : 0 < ‖z₀‖ := norm_pos_iff.mpr hz₀
       linarith
     have hsub : Metric.ball z₀ (‖z₀‖ / 2) ∩ {z : ℂ | z ≠ 0} ⊆ {z : ℂ | ‖z⁻¹‖ ≤ 2 / ‖z₀‖} :=
-      fun x hx => aux_analytic_norm_inv_le_of_mem_ball hz₀ hx.1
-    have hr := (neg_tendstoUniformlyOn_ball hq (2 / ‖z₀‖)).mono hsub
+      fun x hx => norm_inv_le_of_mem_ball hz₀ hx.1
+    have hr := (tendstoUniformlyOn_sum_inv_pow_mul_pow_choose_two hq (2 / ‖z₀‖)).mono hsub
     exact ⟨Metric.ball z₀ (‖z₀‖ / 2) ∩ {z | z ≠ 0},
       Filter.inter_mem (mem_nhdsWithin_of_mem_nhds (Metric.ball_mem_nhds z₀ hr₀))
         self_mem_nhdsWithin, hr ε hε⟩
 
 /-- Uniform convergence of the product of two bounded sequences in a normed ring. -/
-lemma TendstoUniformlyOn.mul_of_bounded {s : Set ℂ}
+lemma _root_.TendstoUniformlyOn.mul_of_bounded {s : Set ℂ}
     {f₁ f₂ : ℕ → ℂ → ℂ} {F₁ F₂ : ℂ → ℂ}
     (h₁ : TendstoUniformlyOn f₁ F₁ atTop s)
     (h₂ : TendstoUniformlyOn f₂ F₂ atTop s)
@@ -244,7 +245,7 @@ lemma TendstoUniformlyOn.mul_of_bounded {s : Set ℂ}
   nlinarith [norm_nonneg (F₁ z - f₁ n z), norm_nonneg (F₂ z - f₂ n z)]
 
 /-- The partial Pochhammer products are uniformly bounded on any closed ball. -/
-lemma qPochhammer_bounded_on_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
+lemma exists_norm_qPochhammer_le {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     ∃ C, ∀ n, ∀ a ∈ Metric.closedBall (0 : ℂ) R, ‖qPochhammer a q n‖ ≤ C := by
   refine ⟨Real.exp (R / (1 - ‖q‖)), fun n a ha => ?_⟩
   have haR : ‖a‖ ≤ R := mem_closedBall_zero_iff.mp ha
@@ -269,22 +270,22 @@ lemma qPochhammer_bounded_on_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     (summable_geometric_of_lt_one (norm_nonneg q) hq)
 
 /-- The Pochhammer products $(a;q)_n$ converge uniformly on any closed ball as $n \to \infty$. -/
-lemma qPochhammer_tendstoUniformlyOn_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
+lemma tendstoUniformlyOn_qPochhammer_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     TendstoUniformlyOn (fun n a => qPochhammer a q n)
       (fun a => qPochhammerInf a q) atTop (Metric.closedBall 0 R) :=
   (tendstoLocallyUniformlyOn_iff_tendstoUniformlyOn_of_compact
     (ProperSpace.isCompact_closedBall (0 : ℂ) R)).mp
-    (qPochhammer_tendstoLocallyUniformly hq).tendstoLocallyUniformlyOn
+    (tendstoLocallyUniformly_qPochhammer hq).tendstoLocallyUniformlyOn
 
 /-- The infinite Pochhammer product $\mathrm{qPochhammerInf}$ is uniformly bounded on any
 closed ball. -/
-lemma qPochhammerInf_bounded_on_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
+lemma exists_norm_qPochhammerInf_le {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
     ∃ C, ∀ a ∈ Metric.closedBall (0 : ℂ) R, ‖qPochhammerInf a q‖ ≤ C := by
-  obtain ⟨C, hC⟩ := qPochhammer_bounded_on_closedBall hq R
+  obtain ⟨C, hC⟩ := exists_norm_qPochhammer_le hq R
   obtain ⟨N, hN⟩ : ∃ N, ∀ n ≥ N, ∀ a ∈ Metric.closedBall (0 : ℂ) R,
       ‖qPochhammerInf a q - qPochhammer a q n‖ < 1 := by
     simpa [dist_eq_norm] using Metric.tendstoUniformlyOn_iff.mp
-      (qPochhammer_tendstoUniformlyOn_closedBall hq R) 1 zero_lt_one
+      (tendstoUniformlyOn_qPochhammer_closedBall hq R) 1 zero_lt_one
   refine ⟨C + 1, fun a ha => ?_⟩
   have h1 := hN N le_rfl a ha
   have h2 := hC N a ha
@@ -294,21 +295,21 @@ lemma qPochhammerInf_bounded_on_closedBall {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ
 
 /-- For `z` in the closed ball of radius `‖z₀‖ / 2` around `z₀ ≠ 0`,
 `-q / z` lies in the closed ball of radius `2 * ‖q‖ / ‖z₀‖` around `0`. -/
-lemma neg_q_div_mem_closedBall {q z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
+lemma neg_div_mem_closedBall {q z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
     (hz : z ∈ Metric.closedBall z₀ (‖z₀‖ / 2)) :
     -q / z ∈ Metric.closedBall (0 : ℂ) (2 * ‖q‖ / ‖z₀‖) := by
   have hz₀' : 0 < ‖z₀‖ := norm_pos_iff.mpr hz₀
-  have hzn := aux_analytic_half_norm_le_of_mem_closedBall hz
+  have hzn := half_norm_le_norm_of_mem_closedBall hz
   rw [mem_closedBall_zero_iff, norm_div, norm_neg, div_le_div_iff₀ (by linarith) hz₀']
   nlinarith [norm_nonneg q]
 
 /-- The Pochhammer products `qPochhammer (-z) q n` converge uniformly to
 `qPochhammerInf (-z) q` on any `Metric.closedBall z₀ r` when `‖q‖ < 1`. -/
-lemma qPochhammer_neg_tendstoUniformlyOn_closedBall {q : ℂ} (hq : ‖q‖ < 1) (z₀ : ℂ) (r : ℝ) :
+lemma tendstoUniformlyOn_qPochhammer_neg_closedBall {q : ℂ} (hq : ‖q‖ < 1) (z₀ : ℂ) (r : ℝ) :
     TendstoUniformlyOn (fun n z => qPochhammer (-z) q n)
       (fun z => qPochhammerInf (-z) q) atTop (Metric.closedBall z₀ r) := by
-  refine aux_analytic_tendstoUniformlyOn_comp
-    (qPochhammer_tendstoUniformlyOn_closedBall hq (‖z₀‖ + r)) fun z hz => ?_
+  refine tendstoUniformlyOn_comp_of_mapsTo
+    (tendstoUniformlyOn_qPochhammer_closedBall hq (‖z₀‖ + r)) fun z hz => ?_
   rw [Metric.mem_closedBall, dist_eq_norm] at hz
   rw [mem_closedBall_zero_iff, norm_neg]
   linarith [norm_sub_norm_le z z₀]
@@ -316,16 +317,16 @@ lemma qPochhammer_neg_tendstoUniformlyOn_closedBall {q : ℂ} (hq : ‖q‖ < 1)
 /-- The Pochhammer products `qPochhammer (-q / z) q n` converge uniformly to
 `qPochhammerInf (-q / z) q` on `Metric.closedBall z₀ (‖z₀‖ / 2)` for `z₀ ≠ 0`,
 `‖q‖ < 1`. -/
-lemma qPochhammer_neg_q_div_tendstoUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) {z₀ : ℂ} (hz₀ : z₀ ≠ 0) :
+lemma tendstoUniformlyOn_qPochhammer_neg_div {q : ℂ} (hq : ‖q‖ < 1) {z₀ : ℂ} (hz₀ : z₀ ≠ 0) :
     TendstoUniformlyOn (fun n z => qPochhammer (-q / z) q n)
       (fun z => qPochhammerInf (-q / z) q) atTop (Metric.closedBall z₀ (‖z₀‖ / 2)) :=
-  aux_analytic_tendstoUniformlyOn_comp
-    (qPochhammer_tendstoUniformlyOn_closedBall hq (2 * ‖q‖ / ‖z₀‖))
-    fun _ hz => neg_q_div_mem_closedBall hz₀ hz
+  tendstoUniformlyOn_comp_of_mapsTo
+    (tendstoUniformlyOn_qPochhammer_closedBall hq (2 * ‖q‖ / ‖z₀‖))
+    fun _ hz => neg_div_mem_closedBall hz₀ hz
 
 /-- The partial products `qPochhammer q q n * qPochhammer (-z) q n * qPochhammer (-q / z) q n`
 converge locally uniformly to `jacobiProd q z` on `{z : ℂ | z ≠ 0}` when `‖q‖ < 1`. -/
-theorem jacobiProd_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
+theorem tendstoLocallyUniformlyOn_jacobiProd {q : ℂ} (hq : ‖q‖ < 1) :
     TendstoLocallyUniformlyOn
       (fun n z => qPochhammer q q n * qPochhammer (-z) q n * qPochhammer (-q / z) q n)
       (fun z => jacobiProd q z) atTop {z : ℂ | z ≠ 0} := by
@@ -342,19 +343,19 @@ theorem jacobiProd_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
       linarith [norm_sub_norm_le z z₀]
     have hmem₂ : ∀ z ∈ Metric.closedBall z₀ (‖z₀‖ / 2),
         -q / z ∈ Metric.closedBall (0 : ℂ) (2 * ‖q‖ / ‖z₀‖) :=
-      fun z hz => neg_q_div_mem_closedBall hz₀ hz
+      fun z hz => neg_div_mem_closedBall hz₀ hz
     have hmemq : ∀ z ∈ Metric.closedBall z₀ (‖z₀‖ / 2), q ∈ Metric.closedBall (0 : ℂ) 1 :=
       fun _ _ => mem_closedBall_zero_iff.mpr hq.le
-    have h_neg := qPochhammer_neg_tendstoUniformlyOn_closedBall hq z₀ (‖z₀‖ / 2)
-    have h_div := qPochhammer_neg_q_div_tendstoUniformlyOn hq hz₀
+    have h_neg := tendstoUniformlyOn_qPochhammer_neg_closedBall hq z₀ (‖z₀‖ / 2)
+    have h_div := tendstoUniformlyOn_qPochhammer_neg_div hq hz₀
     have h_qq : TendstoUniformlyOn (fun n z => qPochhammer q q n)
         (fun _ : ℂ => qPochhammerInf q q) atTop (Metric.closedBall z₀ (‖z₀‖ / 2)) :=
-      aux_analytic_tendstoUniformlyOn_comp (φ := fun _ => q)
-        (qPochhammer_tendstoUniformlyOn_closedBall hq 1) hmemq
-    obtain ⟨B₁, hB₁⟩ := qPochhammer_bounded_on_closedBall hq (‖z₀‖ + ‖z₀‖ / 2)
-    obtain ⟨Bq, hBq⟩ := qPochhammer_bounded_on_closedBall hq 1
-    obtain ⟨C₁, hC₁⟩ := qPochhammerInf_bounded_on_closedBall hq (‖z₀‖ + ‖z₀‖ / 2)
-    obtain ⟨C₂, hC₂⟩ := qPochhammerInf_bounded_on_closedBall hq (2 * ‖q‖ / ‖z₀‖)
+      tendstoUniformlyOn_comp_of_mapsTo (φ := fun _ => q)
+        (tendstoUniformlyOn_qPochhammer_closedBall hq 1) hmemq
+    obtain ⟨B₁, hB₁⟩ := exists_norm_qPochhammer_le hq (‖z₀‖ + ‖z₀‖ / 2)
+    obtain ⟨Bq, hBq⟩ := exists_norm_qPochhammer_le hq 1
+    obtain ⟨C₁, hC₁⟩ := exists_norm_qPochhammerInf_le hq (‖z₀‖ + ‖z₀‖ / 2)
+    obtain ⟨C₂, hC₂⟩ := exists_norm_qPochhammerInf_le hq (2 * ‖q‖ / ‖z₀‖)
     have h_BC := TendstoUniformlyOn.mul_of_bounded h_neg h_div
       ⟨B₁, fun n z hz => hB₁ n (-z) (hmem₁ z hz)⟩
       ⟨C₂, fun z hz => hC₂ _ (hmem₂ z hz)⟩
@@ -375,7 +376,7 @@ theorem jacobiProd_tendstoLocallyUniformlyOn {q : ℂ} (hq : ‖q‖ < 1) :
   · exact (h_suff z₀ hz₀ ε hε).mono fun n hn y hy => hn y hy.1
 
 /-- The bilateral series satisfies $g(qz) = g(z)/z$ for **all** $z \neq 0$. -/
-theorem jacobiBilateral_fe_all {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
+theorem jacobiBilateral_mul_eq_div' {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
     (hz' : z ≠ 0) :
     jacobiBilateral q (q * z) = jacobiBilateral q z / z := by
   have h_split : jacobiBilateral q (q * z) =
@@ -387,7 +388,7 @@ theorem jacobiBilateral_fe_all {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
     rw [← Summable.sum_add_tsum_nat_add 1]
     · norm_num [pow_succ', mul_pow, mul_assoc, mul_comm, mul_left_comm, tsum_mul_left]
       norm_num [Nat.choose_succ_succ, pow_add, mul_assoc, mul_comm, mul_left_comm]
-    · convert summable_jacobi_nonneg_all hq using 1
+    · convert summable_pow_mul_pow_choose_two' hq using 1
   have h_neg : jacobiBilateralNeg q (q * z) = (jacobiBilateralNeg q z + 1) / z := by
     unfold jacobiBilateralNeg
     simp +decide only [mul_inv_rev, mul_comm, pow_succ, mul_assoc, tsum_mul_left, inv_pow,
@@ -402,7 +403,7 @@ theorem jacobiBilateral_fe_all {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
       rw [show (3 + x).choose 2 = (2 + x).choose 2 + (2 + x) by
             simp +arith +decide [Nat.choose]]; ring_nf
       simp +decide [mul_assoc, mul_comm, mul_left_comm, hq']
-    · have := summable_jacobi_neg (z := q * z) hq
+    · have := summable_inv_pow_mul_pow_choose_two (z := q * z) hq
       convert this.mul_left (q * z) using 2; ring_nf
       simp +decide [hq', hz', mul_assoc, mul_comm q]
   rw [h_split, h_pos, h_neg,
@@ -410,7 +411,7 @@ theorem jacobiBilateral_fe_all {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
   ring
 
 /-- Iterating the product-side FE $N$ times. -/
-theorem jacobiProd_iterate {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
+theorem jacobiProd_eq_pow_mul_pow_choose_two_mul {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
     (hz : z ≠ 0) (N : ℕ) :
     jacobiProd q z = z ^ N * q ^ N.choose 2 * jacobiProd q (q ^ N * z) := by
   induction N with
@@ -419,7 +420,7 @@ theorem jacobiProd_iterate {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
       rw [ih, pow_succ']
       rw [show jacobiProd q (q ^ N * z) =
             jacobiProd q (q * (q ^ N * z)) * (q ^ N * z) by
-        rw [eq_comm, jacobiProd_fe]
+        rw [eq_comm, jacobiProd_mul_eq_div]
         · rw [div_mul_cancel₀ _ (mul_ne_zero (pow_ne_zero _ hq') hz)]
         · exact hq
         · assumption
@@ -428,7 +429,7 @@ theorem jacobiProd_iterate {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
         rw [Nat.add_comm, Nat.choose_succ_succ]; norm_num; ring]; ring
 
 /-- Iterating the series-side FE $N$ times. -/
-theorem jacobiBilateral_iterate {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
+theorem jacobiBilateral_eq_pow_mul_pow_choose_two_mul {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
     (hz : z ≠ 0) (N : ℕ) :
     jacobiBilateral q z =
       z ^ N * q ^ N.choose 2 * jacobiBilateral q (q ^ N * z) := by
@@ -437,7 +438,7 @@ theorem jacobiBilateral_iterate {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0)
   | succ N ih =>
       have h_fe : jacobiBilateral q (q * (q ^ N * z)) =
           jacobiBilateral q (q ^ N * z) / (q ^ N * z) :=
-        jacobiBilateral_fe_all hq hq' (mul_ne_zero (pow_ne_zero _ hq') hz)
+        jacobiBilateral_mul_eq_div' hq hq' (mul_ne_zero (pow_ne_zero _ hq') hz)
       simp_all +decide [Nat.choose_succ_succ, pow_succ', mul_assoc, mul_comm,
                          mul_left_comm, div_eq_mul_inv]
       simp +decide [pow_add, mul_assoc, hq']
@@ -449,7 +450,7 @@ $$(q;q)_\infty \cdot (-z;q)_\infty \cdot (-q/z;q)_\infty
 
 This extends the basic JTP (which required $\|z\| < 1$) to **all** $z \neq 0$
 using the functional equation $f(qz) = f(z)/z$ satisfied by both sides. -/
-theorem jacobiTripleProduct_analytic {q z : ℂ} (hq : ‖q‖ < 1) (hz : z ≠ 0) :
+theorem jacobiTripleProduct' {q z : ℂ} (hq : ‖q‖ < 1) (hz : z ≠ 0) :
     jacobiProd q z = jacobiBilateral q z := by
   by_cases hq' : q = 0
   · subst hq'
@@ -464,10 +465,10 @@ theorem jacobiTripleProduct_analytic {q z : ℂ} (hq : ‖q‖ < 1) (hz : z ≠ 
       simpa using (summable_geometric_of_lt_one (by positivity) hq) |> fun h =>
         h.mul_right _ |> fun h =>
         h.tendsto_atTop_zero.eventually (gt_mem_nhds zero_lt_one) |> fun h => h.exists
-    rw [jacobiProd_iterate hq hq' hz N,
-        jacobiBilateral_iterate hq hq' hz N,
+    rw [jacobiProd_eq_pow_mul_pow_choose_two_mul hq hq' hz N,
+        jacobiBilateral_eq_pow_mul_pow_choose_two_mul hq hq' hz N,
         jacobiTripleProduct hq hN (by aesop)]
 
 end
 
-end qSeries
+end QSeries

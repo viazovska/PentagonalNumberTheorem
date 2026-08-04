@@ -3,7 +3,10 @@ Copyright (c) 2026 Jonathan Conrad. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad
 -/
-import Mathlib
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Tactic.LinearCombination
+import Mathlib.Tactic.Ring.RingNF
+import Mathlib.Topology.Defs.Filter
 
 /-!
 # q-Pochhammer symbol and Gaussian binomial coefficient
@@ -13,25 +16,25 @@ binomial coefficient $\binom{n}{k}_q$, together with their basic properties.
 
 ## Main definitions
 
-* `qSeries.qPochhammer a q n` — the finite q-Pochhammer symbol
+* `QSeries.qPochhammer a q n` — the finite q-Pochhammer symbol
   $(a;q)_n = \prod_{k=0}^{n-1}(1 - a q^k)$.
-* `qSeries.qBinom n k q` — the Gaussian binomial coefficient $\binom{n}{k}_q$,
+* `QSeries.qBinom n k q` — the Gaussian binomial coefficient $\binom{n}{k}_q$,
   defined via the q-Pascal recurrence.
 
 ## Main results
 
-* `qSeries.qPochhammer_succ` — the recurrence $(a;q)_{n+1} = (a;q)_n (1 - aq^n)$.
-* `qSeries.qBinom_succ_succ` — the q-Pascal recurrence.
-* `qSeries.qBinom_eq_zero_of_lt` — vanishing above the diagonal.
-* `qSeries.qBinom_self` — diagonal value is 1.
-* `qSeries.qBinom_mul_qPochhammer_mul_qPochhammer` — closed-form identity
+* `QSeries.qPochhammer_succ` — the recurrence $(a;q)_{n+1} = (a;q)_n (1 - aq^n)$.
+* `QSeries.qBinom_succ_succ` — the q-Pascal recurrence.
+* `QSeries.qBinom_eq_zero_of_lt` — vanishing above the diagonal.
+* `QSeries.qBinom_self` — diagonal value is 1.
+* `QSeries.qBinom_mul_qPochhammer_mul_qPochhammer` — closed-form identity
   $\binom{n}{k}_q (q;q)_k (q;q)_{n-k} = (q;q)_n$.
 -/
 
 open Finset Filter
 open scoped Topology
 
-namespace qSeries
+namespace QSeries
 
 variable {R : Type*}
 
@@ -132,4 +135,4 @@ theorem qBinom_mul_qPochhammer_mul_qPochhammer [CommRing R] (q : R) :
         Nat.sub_self, Nat.sub_self, pow_zero, qPochhammer_zero]
       ring
 
-end qSeries
+end QSeries

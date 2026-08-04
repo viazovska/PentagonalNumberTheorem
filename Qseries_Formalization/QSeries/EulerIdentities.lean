@@ -3,6 +3,7 @@ Copyright (c) 2026 Jonathan Conrad. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad
 -/
+import Mathlib.LinearAlgebra.Complex.FiniteDimensional
 import QSeries.CauchyIdentity
 import QSeries.FiniteBinomial
 
@@ -19,14 +20,14 @@ Two classical specializations of the Cauchy identity:
 
 ## Main results
 
-* `qSeries.euler_first_identity` — the first Euler identity.
-* `qSeries.euler_second_identity` — the second Euler identity.
+* `QSeries.euler_first_identity` — the first Euler identity.
+* `QSeries.euler_second_identity` — the second Euler identity.
 -/
 
 open Finset Filter
 open scoped Topology
 
-namespace qSeries
+namespace QSeries
 
 variable {R : Type*}
 
@@ -47,7 +48,7 @@ for $\|q\| < 1$ and $\|z\| < 1$. -/
 theorem euler_first_identity {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
     HasSum (fun n : ℕ => z ^ n / qPochhammer q q n)
       (1 / qPochhammerInf z q) := by
-  have h := qBinom_infinite_thm 0 z q hq hz
+  have h := hasSum_qPochhammer_div_mul_pow 0 z q hq hz
   simp only [qPochhammer_zero_left, one_div] at h
   convert h using 1
   · ext n; ring
@@ -57,14 +58,14 @@ section SecondEuler
 
 /-- The finite q-binomial theorem specialised to $z = -1$ gives a vanishing alternating sum
 for every positive $n$. -/
-theorem qBinom_finite_at_neg_one [CommRing R] (q : R) (n : ℕ) (hn : 0 < n) :
+theorem sum_pow_choose_two_mul_qBinom_mul_neg_one_pow [CommRing R] (q : R) (n : ℕ) (hn : 0 < n) :
     ∑ k ∈ Finset.range (n + 1), q ^ k.choose 2 * qBinom n k q * (-1) ^ k = 0 := by
-  rw [← qBinom_finite_thm]
+  rw [← prod_one_add_mul_pow_eq_sum_qBinom]
   exact Finset.prod_eq_zero (Finset.mem_range.mpr hn) (by ring)
 
 /-- The series $\sum_{n \geq 0} q^{\binom{n}{2}} z^n / (q;q)_n$ is summable for $\|q\| < 1$
 and $\|z\| < 1$. -/
-theorem euler_second_summable {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
+theorem summable_euler_second {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
     Summable (fun n : ℕ => q ^ n.choose 2 * z ^ n / qPochhammer q q n) := by
   have h_const_mul : Summable fun n : ℕ => z ^ n / qPochhammer q q n :=
     (euler_first_identity hq hz).summable
@@ -74,9 +75,9 @@ theorem euler_second_summable {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) 
   exact mul_le_of_le_one_left (norm_nonneg _) (pow_le_one₀ (norm_nonneg q) hq.le)
 
 /-- For $\|q\| < 1$ the ratio $(q;q)_N / (q;q)_{N-k}$ tends to $1$ as $N \to \infty$. -/
-private theorem tendsto_qPochhammer_div_sub {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
+private theorem tendsto_qPochhammer_self_div {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     Tendsto (fun N => qPochhammer q q N / qPochhammer q q (N - k)) atTop (𝓝 1) := by
-  have hne : qPochhammerInf q q ≠ 0 := qPochhammerInf_z_q_ne_zero hq hq
+  have hne : qPochhammerInf q q ≠ 0 := qPochhammerInf_ne_zero hq hq
   have h : Tendsto (fun N => qPochhammer q q (N + k) / qPochhammer q q N) atTop (𝓝 1) := by
     have h1 : Tendsto (fun N => qPochhammer q q (N + k)) atTop (𝓝 (qPochhammerInf q q)) :=
       (tendsto_qPochhammer hq).comp (tendsto_add_atTop_nat k)
@@ -85,9 +86,9 @@ private theorem tendsto_qPochhammer_div_sub {q : ℂ} (hq : ‖q‖ < 1) (k : �
   simpa using h
 
 /-- The ratios $(q;q)_N / (q;q)_{N-k}$ are bounded uniformly in both $k$ and $N$. -/
-private theorem exists_bound_qPochhammer_div {q : ℂ} (hq : ‖q‖ < 1) :
+private theorem exists_norm_qPochhammer_self_div_le {q : ℂ} (hq : ‖q‖ < 1) :
     ∃ C, ∀ k N : ℕ, ‖qPochhammer q q N / qPochhammer q q (N - k)‖ ≤ C := by
-  have hne : qPochhammerInf q q ≠ 0 := qPochhammerInf_z_q_ne_zero hq hq
+  have hne : qPochhammerInf q q ≠ 0 := qPochhammerInf_ne_zero hq hq
   obtain ⟨A, hA⟩ := ((tendsto_qPochhammer hq).norm).bddAbove_range
   obtain ⟨B, hB⟩ := (((tendsto_qPochhammer hq).inv₀ hne).norm).bddAbove_range
   refine ⟨A * B, fun k N => ?_⟩
@@ -106,15 +107,15 @@ theorem euler_second_identity {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) 
         (𝓝 (qPochhammerInf (-z) q)) := by
       convert tendsto_qPochhammer (a := -z) hq using 1
       exact funext fun n => Finset.prod_congr rfl fun _ _ => by ring
-    exact hprod.congr fun N => qBinom_finite_thm q z N
+    exact hprod.congr fun N => prod_one_add_mul_pow_eq_sum_qBinom q z N
   have h_rewrite : ∀ N : ℕ, ∑ k ∈ Finset.range (N + 1), q ^ k.choose 2 * qBinom N k q * z ^ k =
       ∑ k ∈ Finset.range (N + 1), q ^ k.choose 2 * z ^ k / qPochhammer q q k *
         (qPochhammer q q N / qPochhammer q q (N - k)) := by
     refine fun N => Finset.sum_congr rfl fun k hk => ?_
     have h_eq : qBinom N k q =
         qPochhammer q q N / (qPochhammer q q k * qPochhammer q q (N - k)) := by
-      rw [eq_div_iff (mul_ne_zero (qPochhammer_q_q_ne_zero hq k)
-        (qPochhammer_q_q_ne_zero hq (N - k))), ← mul_assoc,
+      rw [eq_div_iff (mul_ne_zero (qPochhammer_self_ne_zero hq k)
+        (qPochhammer_self_ne_zero hq (N - k))), ← mul_assoc,
         qBinom_mul_qPochhammer_mul_qPochhammer q (Finset.mem_range_succ_iff.mp hk)]
     rw [h_eq]
     field_simp
@@ -122,7 +123,7 @@ theorem euler_second_identity {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) 
       q ^ k.choose 2 * z ^ k / qPochhammer q q k *
         (qPochhammer q q N / qPochhammer q q (N - k))) atTop
       (𝓝 (∑' k : ℕ, q ^ k.choose 2 * z ^ k / qPochhammer q q k)) := by
-    obtain ⟨C, hC⟩ := exists_bound_qPochhammer_div (q := q) hq
+    obtain ⟨C, hC⟩ := exists_norm_qPochhammer_self_div_le (q := q) hq
     have hC0 : 0 ≤ C := (norm_nonneg _).trans (hC 0 0)
     have hdom : Tendsto (fun N => ∑' k : ℕ, if k < N + 1 then
         q ^ k.choose 2 * z ^ k / qPochhammer q q k *
@@ -130,11 +131,11 @@ theorem euler_second_identity {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) 
         (𝓝 (∑' k : ℕ, q ^ k.choose 2 * z ^ k / qPochhammer q q k)) := by
       refine tendsto_tsum_of_dominated_convergence
         (bound := fun k => ‖q ^ k.choose 2 * z ^ k / qPochhammer q q k‖ * C)
-        ((euler_second_summable hq hz).norm.mul_right C) (fun k => ?_) (.of_forall fun N k => ?_)
+        ((summable_euler_second hq hz).norm.mul_right C) (fun k => ?_) (.of_forall fun N k => ?_)
       · have h1 : Tendsto (fun N => q ^ k.choose 2 * z ^ k / qPochhammer q q k *
             (qPochhammer q q N / qPochhammer q q (N - k))) atTop
             (𝓝 (q ^ k.choose 2 * z ^ k / qPochhammer q q k)) := by
-          simpa using tendsto_const_nhds.mul (tendsto_qPochhammer_div_sub hq k)
+          simpa using tendsto_const_nhds.mul (tendsto_qPochhammer_self_div hq k)
         refine h1.congr' ?_
         filter_upwards [eventually_gt_atTop k] with N hN
         exact (if_pos (by omega)).symm
@@ -149,8 +150,8 @@ theorem euler_second_identity {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) 
   have key : ∑' k : ℕ, q ^ k.choose 2 * z ^ k / qPochhammer q q k = qPochhammerInf (-z) q :=
     tendsto_nhds_unique h_tsum (h_limit.congr h_rewrite)
   rw [← key]
-  exact (euler_second_summable hq hz).hasSum
+  exact (summable_euler_second hq hz).hasSum
 
 end SecondEuler
 
-end qSeries
+end QSeries

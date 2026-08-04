@@ -129,14 +129,14 @@ the \emph{$q$-factorial} $[n]_q! = (q;q)_n / (1-q)^n$, and the \emph{Gaussian bi
 \]
 By convention $\binom{n}{k}_q = 0$ for $k < 0$ or $k > n$. These are polynomials in $q$ with integer coefficients (this is part of what needs to be proved).
 
-\begin{theorem}[Finite $q$-binomial theorem]\label{thm:qbin-finite}\lean{qSeries.qBinom_finite_thm}\leanok\uses{def:qBinom, def:qPochhammer}
+\begin{theorem}[Finite $q$-binomial theorem]\label{thm:qbin-finite}\lean{QSeries.prod_one_add_mul_pow_eq_sum_qBinom}\leanok\uses{def:qBinom, def:qPochhammer}
 In $\mathbb{Z}[q, z]$, for every $n \geq 0$,
 \[
 \prod_{k=0}^{n-1} (1 + z q^k) = \sum_{k=0}^n q^{\binom{k}{2}} \binom{n}{k}_q z^k.
 \]
 \end{theorem}
 
-\begin{theorem}[Infinite $q$-binomial / Cauchy identity]\label{thm:qbin-infinite}\lean{qSeries.qBinom_infinite_thm}\leanok\uses{def:qPochhammer, def:qPochhammerInf}
+\begin{theorem}[Infinite $q$-binomial / Cauchy identity]\label{thm:qbin-infinite}\lean{QSeries.hasSum_qPochhammer_div_mul_pow}\leanok\uses{def:qPochhammer, def:qPochhammerInf}
 For $|q| < 1$ and any $a, z \in \mathbb{C}$ with $|z| < 1$,
 \[
 \sum_{n=0}^\infty \frac{(a; q)_n}{(q; q)_n} z^n = \frac{(a z; q)_\infty}{(z; q)_\infty}.
@@ -149,7 +149,7 @@ The two Euler identities follow from Theorem~\ref{thm:qbin-infinite} by speciali
 
 This proof is purely algebraic (no analysis) and is the version best suited for Lean. It uses only induction on $n$ and the $q$-Pascal identity.
 
-\begin{lemma}[$q$-Pascal]\label{lem:qpascal}\lean{qSeries.qBinom_succ_succ}\leanok\uses{def:qBinom}
+\begin{lemma}[$q$-Pascal]\label{lem:qpascal}\lean{QSeries.qBinom_succ_succ}\leanok\uses{def:qBinom}
 For all $n, k \in \mathbb{N}$,
 \[
   \binom{n+1}{k+1}_q \;=\; \binom{n}{k+1}_q + q^{n - k}\,\binom{n}{k}_q.
@@ -175,7 +175,7 @@ recovering the off-by-one form.
 
 \begin{proof}[Proof of Theorem~\ref{thm:qbin-finite}]\proves{thm:qbin-finite}\leanok\uses{lem:qpascal, lem:qBinom-eq-zero-of-lt, def:qBinom}
 Induction on $n$, following the Lean proof
-\texttt{qSeries.qBinom\_finite\_thm} in \texttt{Series/qSeries.lean}.
+\texttt{QSeries.prod\_one\_add\_mul\_pow\_eq\_sum\_qBinom} in \texttt{Series/qSeries.lean}.
 The case $n = 0$ gives $1 = 1$.
 
 For the inductive step, set
@@ -236,7 +236,7 @@ The final algebraic identity is closed in Lean by
 \proves{thm:qbin-infinite}
 \uses{def:qPochhammer, def:qPochhammerInf, lem:multipliable-one-sub-smul-qpow}
 We follow Heine's classical functional-equation argument, which is the route
-realised in Lean (\texttt{qSeries.qBinom\_infinite\_thm}). Define
+realised in Lean (\texttt{QSeries.hasSum\_qPochhammer\_div\_mul\_pow}). Define
 \[
   c_n \;:=\; \frac{(a;q)_n}{(q;q)_n}, \qquad
   F(z) \;:=\; \sum_{n \ge 0} c_n\, z^n, \qquad
@@ -381,12 +381,12 @@ which is the $n \to \infty$ limit of Theorem~\ref{thm:qbin-finite} after rewriti
 This section records the foundational definitions and lemmas that have been
 formalized in Lean for the $q$-series approach to Jacobi's triple product.
 The corresponding source file is \texttt{Series/qSeries.lean} in the
-\texttt{Series} Lean library, under the namespace \texttt{qSeries}.
+\texttt{Series} Lean library, under the namespace \texttt{QSeries}.
 Throughout this section $R$ is a commutative ring and $a, q \in R$.
 
 \subsection{The $q$-Pochhammer symbol}
 
-\begin{definition}[Finite $q$-Pochhammer symbol]\label{def:qPochhammer}\lean{qSeries.qPochhammer}\leanok
+\begin{definition}[Finite $q$-Pochhammer symbol]\label{def:qPochhammer}\lean{QSeries.qPochhammer}\leanok
 For $n \in \mathbb{N}$, the finite $q$-Pochhammer symbol is
 \[
   (a; q)_n \;:=\; \prod_{k = 0}^{n - 1} \bigl(1 - a\, q^k\bigr).
@@ -395,7 +395,7 @@ In Lean, this is implemented as \texttt{$\prod$ k $\in$ Finset.range n, (1 - a *
 specialising to $(a; q)_0 = 1$ (the empty product).
 \end{definition}
 
-\begin{lemma}[Base case]\label{lem:qPochhammer-zero}\lean{qSeries.qPochhammer_zero}\leanok\uses{def:qPochhammer}
+\begin{lemma}[Base case]\label{lem:qPochhammer-zero}\lean{QSeries.qPochhammer_zero}\leanok\uses{def:qPochhammer}
 $(a; q)_0 = 1$.
 \end{lemma}
 
@@ -403,7 +403,7 @@ $(a; q)_0 = 1$.
 The empty product is $1$ (\texttt{Finset.prod\_range\_zero}).
 \end{proof}
 
-\begin{lemma}[Recurrence]\label{lem:qPochhammer-succ}\lean{qSeries.qPochhammer_succ}\leanok\uses{def:qPochhammer}
+\begin{lemma}[Recurrence]\label{lem:qPochhammer-succ}\lean{QSeries.qPochhammer_succ}\leanok\uses{def:qPochhammer}
 For all $n \in \mathbb{N}$,
 \[
   (a; q)_{n+1} \;=\; (a; q)_n \cdot \bigl(1 - a\, q^n\bigr).
@@ -416,7 +416,7 @@ Immediate from \texttt{Finset.prod\_range\_succ}.
 
 \subsection{The Gaussian binomial coefficient}
 
-\begin{definition}[Gaussian binomial coefficient]\label{def:qBinom}\lean{qSeries.qBinom}\leanok
+\begin{definition}[Gaussian binomial coefficient]\label{def:qBinom}\lean{QSeries.qBinom}\leanok
 The Gaussian binomial coefficient $\binom{n}{k}_q \in R$ is defined by
 recursion on $n$ and $k$:
 \[
@@ -434,7 +434,7 @@ coefficients, defined for every pair $(n, k) \in \mathbb{N}^2$ (no
 division, no roots-of-unity exclusion).
 \end{definition}
 
-\begin{lemma}[Vanishing above the diagonal]\label{lem:qBinom-eq-zero-of-lt}\lean{qSeries.qBinom_eq_zero_of_lt}\leanok\uses{def:qBinom}
+\begin{lemma}[Vanishing above the diagonal]\label{lem:qBinom-eq-zero-of-lt}\lean{QSeries.qBinom_eq_zero_of_lt}\leanok\uses{def:qBinom, lem:qpascal}
 If $n < k$, then $\binom{n}{k}_q = 0$.
 \end{lemma}
 
@@ -446,7 +446,7 @@ inductive hypotheses (at $(n, k+1)$ and $(n, k)$, available because
 $n < k + 1$ and $n < k$ respectively) yield $0$.
 \end{proof}
 
-\begin{lemma}[Diagonal]\label{lem:qBinom-self}\lean{qSeries.qBinom_self}\leanok\uses{def:qBinom, lem:qBinom-eq-zero-of-lt}
+\begin{lemma}[Diagonal]\label{lem:qBinom-self}\lean{QSeries.qBinom_self}\leanok\uses{def:qBinom, lem:qBinom-eq-zero-of-lt, lem:qpascal}
 $\binom{n}{n}_q = 1$ for every $n \in \mathbb{N}$.
 \end{lemma}
 
@@ -461,7 +461,7 @@ using Lemma~\ref{lem:qBinom-eq-zero-of-lt} for the first term and the
 inductive hypothesis for the second.
 \end{proof}
 
-\begin{lemma}[Closed form for $\binom{n}{k}_q$]\label{lem:qBinom-closed-form}\lean{qSeries.qBinom_mul_qPochhammer_mul_qPochhammer}\leanok\uses{def:qBinom, def:qPochhammer, lem:qPochhammer-succ, lem:qBinom-self, lem:qBinom-eq-zero-of-lt}
+\begin{lemma}[Closed form for $\binom{n}{k}_q$]\label{lem:qBinom-closed-form}\lean{QSeries.qBinom_mul_qPochhammer_mul_qPochhammer}\leanok\uses{def:qBinom, def:qPochhammer, lem:qPochhammer-succ, lem:qBinom-self, lem:qBinom-eq-zero-of-lt, lem:qpascal, lem:qPochhammer-zero}
 For all $k \leq n$,
 \[
   \binom{n}{k}_q \cdot (q; q)_k \cdot (q; q)_{n - k} \;=\; (q; q)_n.
@@ -499,7 +499,7 @@ by \texttt{linear\_combination}.
 \subsection{The finite $q$-binomial theorem (step 5)}\label{subsec:qbin-finite-formalized}
 
 Theorem~\ref{thm:qbin-finite} is formalised as
-\texttt{qSeries.qBinom\_finite\_thm} in \texttt{QSeries/FiniteBinomial.lean}
+\texttt{QSeries.prod\_one\_add\_mul\_pow\_eq\_sum\_qBinom} in \texttt{QSeries/FiniteBinomial.lean}
 (in \texttt{Qseries\_Aristotle\_new}).
 % Old reference: \texttt{Series/qSeries.lean} (monolithic version, superseded).
 The Lean proof follows exactly the four-step strategy spelled out in
@@ -513,7 +513,7 @@ $\binom{n}{n+1}_q = 0$ (Lemma~\ref{lem:qBinom-eq-zero-of-lt}).
 
 Working in $\mathbb{C}$ for the analytic part of the development.
 
-\begin{definition}[Infinite $q$-Pochhammer symbol]\label{def:qPochhammerInf}\lean{qSeries.qPochhammerInf}\leanok
+\begin{definition}[Infinite $q$-Pochhammer symbol]\label{def:qPochhammerInf}\lean{QSeries.qPochhammerInf}\leanok
 \[
   (a; q)_\infty \;:=\; \prod_{k=0}^{\infty}\bigl(1 - a\, q^k\bigr) \;\in\; \mathbb{C},
 \]
@@ -522,7 +522,7 @@ meaningful (and the product is convergent) under the hypothesis $\|q\| < 1$
 provided by Lemma~\ref{lem:multipliable-one-sub-smul-qpow}.
 \end{definition}
 
-\begin{lemma}[Multipliability]\label{lem:multipliable-one-sub-smul-qpow}\lean{qSeries.multipliable_one_sub_smul_qpow}\leanok\uses{def:qPochhammerInf}
+\begin{lemma}[Multipliability]\label{lem:multipliable-one-sub-smul-qpow}\lean{QSeries.multipliable_one_sub_mul_pow}\leanok\uses{def:qPochhammerInf}
 For $a, q \in \mathbb{C}$ with $\|q\| < 1$, the family
 $k \mapsto 1 - a\, q^k$ is multipliable; in particular the partial
 products converge to $(a; q)_\infty$.
@@ -536,14 +536,14 @@ geometric series $\sum_k \|q\|^k < \infty$
 (\texttt{summable\_geometric\_of\_lt\_one}).
 \end{proof}
 
-\begin{theorem}[Infinite $q$-binomial / Cauchy identity, restated for the formal development]\label{thm:qbin-infinite-formalized}\lean{qSeries.qBinom_infinite_thm}\leanok\uses{def:qPochhammer, def:qPochhammerInf, lem:multipliable-one-sub-smul-qpow}
+\begin{theorem}[Infinite $q$-binomial / Cauchy identity, restated for the formal development]\label{thm:qbin-infinite-formalized}\lean{QSeries.hasSum_qPochhammer_div_mul_pow}\leanok\uses{def:qPochhammer, def:qPochhammerInf, lem:multipliable-one-sub-smul-qpow}
 For $a, z, q \in \mathbb{C}$ with $\|q\| < 1$ and $\|z\| < 1$,
 \[
   \sum_{n=0}^{\infty} \frac{(a; q)_n}{(q; q)_n}\, z^n
     = \frac{(a z; q)_\infty}{(z; q)_\infty}.
 \]
 (Equivalent to Theorem~\ref{thm:qbin-infinite}.)
-The Lean theorem is \texttt{qSeries.qBinom\_infinite\_thm} in
+The Lean theorem is \texttt{QSeries.hasSum\_qPochhammer\_div\_mul\_pow} in
 \texttt{QSeries/CauchyIdentity.lean} (in \texttt{Qseries\_Aristotle\_new}).
 % Old reference: \texttt{Series/qSeries.lean} (monolithic version, superseded).
 The proof realised in Lean follows Heine's
@@ -569,7 +569,7 @@ Theorem~\ref{thm:qbin-finite} realises steps 1, 2, 3, 4, and
 Definition~\ref{def:qPochhammerInf} and
 Lemma~\ref{lem:multipliable-one-sub-smul-qpow}. Step 8 (the full Cauchy
 identity, Theorem~\ref{thm:qbin-infinite}) is now formalised in full
-via Heine's functional-equation route (\texttt{qSeries.qBinom\_infinite\_thm}).
+via Heine's functional-equation route (\texttt{QSeries.hasSum\_qPochhammer\_div\_mul\_pow}).
 Step 3 is partially completed: the recursive definition is in place
 (Definition~\ref{def:qBinom}) and the closed-form bridge to the quotient
 description is established (Lemma~\ref{lem:qBinom-closed-form}); the
@@ -622,11 +622,11 @@ truncation or a complex-analytic continuation, the formalisation
 \texttt{QSeries/JacobiTripleProduct.lean},
 \texttt{QSeries/PentagonalNumber.lean}, and
 \texttt{QSeries/JTP\_Analytic.lean} (which extends the identity to all
-$z \neq 0$), all under the namespace \texttt{qSeries}. An independent
+$z \neq 0$), all under the namespace \texttt{QSeries}. An independent
 purely algebraic proof of the triple product in the formal power series ring
 $R[\![ X]\!]$ lives in \texttt{QSeries/FPS.lean},
 \texttt{QSeries/FPS\_Euler.lean}, and \texttt{QSeries/FPS\_Algebra.lean}
-under the namespace \texttt{qSeries.FPS}; this is documented in
+under the namespace \texttt{QSeries.PowerSeries}; this is documented in
 Section~\ref{sec:fps}. The $q$-Pochhammer / $q$-binomial foundations
 (Section~\ref{sec:qPochhammer-formalized}) are shared between both
 developments.
@@ -637,7 +637,7 @@ Both Euler $q$-exponential identities are obtained as specialisations of the
 Cauchy identity (Theorem~\ref{thm:qbin-infinite-formalized}) and the finite
 $q$-binomial theorem (Theorem~\ref{thm:qbin-finite}).
 
-\begin{lemma}[First Euler identity]\label{lem:euler-first}\lean{qSeries.euler_first_identity}\leanok\uses{thm:qbin-infinite-formalized, def:qPochhammerInf}
+\begin{lemma}[First Euler identity]\label{lem:euler-first}\lean{QSeries.euler_first_identity}\leanok\uses{thm:qbin-infinite-formalized, def:qPochhammerInf}
 For $\|q\| < 1$ and $\|z\| < 1$,
 \[
   \sum_{n=0}^{\infty} \frac{z^n}{(q;q)_n} = \frac{1}{(z;q)_\infty}.
@@ -650,7 +650,7 @@ Specialise the Cauchy identity
 $(0;q)_n = 1$ and $(0\cdot z;q)_\infty = 1$.
 \end{proof}
 
-\begin{lemma}[Second Euler identity]\label{lem:euler-second}\lean{qSeries.euler_second_identity}\leanok\uses{thm:qbin-finite, def:qPochhammer, def:qPochhammerInf, lem:qBinom-closed-form}
+\begin{lemma}[Second Euler identity]\label{lem:euler-second}\lean{QSeries.euler_second_identity}\leanok\uses{thm:qbin-finite, def:qPochhammer, def:qPochhammerInf, lem:qBinom-closed-form}
 For $\|q\| < 1$ and $\|z\| < 1$,
 \[
   \sum_{n=0}^{\infty} \frac{q^{\binom{n}{2}} z^n}{(q;q)_n} = (-z;q)_\infty.
@@ -667,7 +667,7 @@ $\binom{N}{k}_q$ by $(q;q)_N / \bigl((q;q)_k (q;q)_{N-k}\bigr)$
 \texttt{tendsto\_tsum\_of\_dominated\_convergence}, with the dominating bound
 coming from $(q;q)_N / (q;q)_{N-k} \to 1$ being bounded uniformly in $N$.
 Summability of the target series is
-\texttt{qSeries.euler\_second\_summable}.
+\texttt{QSeries.summable\_euler\_second}.
 \end{proof}
 
 \subsection{Expanding the product as a single series}
@@ -675,7 +675,7 @@ Summability of the target series is
 The two factors $(q;q)_\infty(-z;q)_\infty$ are folded into one series using a
 telescoping identity for the infinite $q$-Pochhammer symbol.
 
-\begin{lemma}[Telescoping]\label{lem:qPochhammerInf-telescope}\lean{qSeries.qPochhammerInf_eq_mul}\leanok\uses{def:qPochhammer, def:qPochhammerInf}
+\begin{lemma}[Telescoping]\label{lem:qPochhammerInf-telescope}\lean{QSeries.qPochhammerInf_self_eq_qPochhammer_mul}\leanok\uses{def:qPochhammer, def:qPochhammerInf, lem:qPochhammer-succ}
 For $\|q\| < 1$ and every $n$,
 \[
   (q;q)_\infty \;=\; (q;q)_n \cdot (q^{\,n+1};q)_\infty.
@@ -686,10 +686,10 @@ For $\|q\| < 1$ and every $n$,
 Induction on $n$, using $(q;q)_{n+1} = (q;q)_n(1 - q^{n+1})$
 (Lemma~\ref{lem:qPochhammer-succ}) and the recursion
 $(z;q)_\infty = (1-z)(zq;q)_\infty$
-(\texttt{qSeries.qPochhammerInf\_recursion}).
+(\texttt{QSeries.qPochhammerInf\_eq\_one\_sub\_mul}).
 \end{proof}
 
-\begin{lemma}[Product as a series]\label{lem:qPochhammerInf-prod-hassum}\lean{qSeries.qPochhammerInf_prod_hasSum}\leanok\uses{lem:euler-second, lem:qPochhammerInf-telescope}
+\begin{lemma}[Product as a series]\label{lem:qPochhammerInf-prod-hassum}\lean{QSeries.hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf}\leanok\uses{lem:euler-second, lem:qPochhammerInf-telescope}
 For $\|q\| < 1$ and $\|z\| < 1$,
 \[
   \sum_{n=0}^{\infty} q^{\binom{n}{2}} z^n\,(q^{\,n+1};q)_\infty
@@ -725,12 +725,12 @@ the proof: rather than the Young-diagram bijection, the identity is established
 \emph{analytically} through the contraction recurrence below, which is
 convenient to formalise in Lean.
 
-\begin{definition}[The key sum]\label{def:S-sum}\lean{qSeries.S_sum}\leanok\uses{def:qPochhammer}
+\begin{definition}[The key sum]\label{def:S-sum}\lean{QSeries.keySum}\leanok\uses{def:qPochhammer}
 For $\|q\| < 1$ and $k \in \mathbb{N}$,
 $S_k(q) := \sum_{m \ge 0} q^{m(m+k)} / \bigl((q;q)_m\,(q;q)_{m+k}\bigr)$.
 \end{definition}
 
-\begin{lemma}[Summability of $S_k$]\label{lem:summable-S}\lean{qSeries.summable_S_summand}\leanok\uses{def:S-sum}
+\begin{lemma}[Summability of $S_k$]\label{lem:summable-S}\lean{QSeries.summable_keySummand}\leanok\uses{def:S-sum}
 For $\|q\| < 1$, the summand of $S_k$ is summable.
 \end{lemma}
 
@@ -740,7 +740,7 @@ constant (the partial products of a convergent infinite product with nonzero
 limit), so the summand is dominated by $C\,\|q\|^{m^2}$, which is summable.
 \end{proof}
 
-\begin{lemma}[Limit of $S_k$]\label{lem:S-sum-tendsto}\lean{qSeries.S_sum_tendsto}\leanok\uses{def:S-sum, def:qPochhammerInf}
+\begin{lemma}[Limit of $S_k$]\label{lem:S-sum-tendsto}\lean{QSeries.tendsto_keySum}\leanok\uses{def:S-sum, def:qPochhammerInf, lem:summable-S}
 For $\|q\| < 1$, $S_k(q) \to 1/(q;q)_\infty$ as $k \to \infty$.
 \end{lemma}
 
@@ -752,7 +752,7 @@ $q^{m(m+k)}/\bigl((q;q)_m(q;q)_{m+k}\bigr) \to 0$ as $k \to \infty$, dominated
 by $\|q\|^{m^2}/C$.
 \end{proof}
 
-\begin{lemma}[Recurrence for $S_k$]\label{lem:S-sum-recurrence}\lean{qSeries.S_sum_recurrence}\leanok\uses{def:S-sum, lem:qPochhammer-succ}
+\begin{lemma}[Recurrence for $S_k$]\label{lem:S-sum-recurrence}\lean{QSeries.keySum_sub_keySum_succ}\leanok\uses{def:S-sum, lem:qPochhammer-succ, lem:summable-S}
 For $\|q\| < 1$ and every $k$,
 \[
   S_k - S_{k+1} \;=\; q^{\,k+1}\,\bigl(S_{k+2} - S_{k+1}\bigr).
@@ -766,7 +766,7 @@ $1 - q^m - q^{m+k+1}$ and reindex the $(1 - q^m)$ part by $m \mapsto m+1$. The
 two pieces reassemble into $q^{k+1}(S_{k+2} - S_{k+1})$.
 \end{proof}
 
-\begin{theorem}[Key identity]\label{thm:S-sum-eq}\lean{qSeries.S_sum_eq}\leanok\uses{lem:S-sum-recurrence, lem:S-sum-tendsto}
+\begin{theorem}[Key identity]\label{thm:S-sum-eq}\lean{QSeries.keySum_eq_one_div_qPochhammerInf_self}\leanok\uses{lem:S-sum-recurrence, lem:S-sum-tendsto}
 For $\|q\| < 1$ and every $k$, $\;S_k(q) = 1/(q;q)_\infty$.
 \end{theorem}
 
@@ -778,7 +778,7 @@ we get $D_k = 0$ for all $k$. Hence $S_k = S_0$ is constant in $k$, and its
 common value equals $\lim_{k} S_k = 1/(q;q)_\infty$.
 \end{proof}
 
-\begin{lemma}[Non-negative diagonal coefficient]\label{lem:cauchy-coeff-nonneg}\lean{qSeries.cauchy_coeff_nonneg}\leanok\uses{thm:S-sum-eq}
+\begin{lemma}[Non-negative diagonal coefficient]\label{lem:cauchy-coeff-nonneg}\lean{QSeries.hasSum_pow_choose_two_nonneg}\leanok\uses{thm:S-sum-eq, lem:summable-S}
 For $\|q\| < 1$ and $k \ge 0$,
 \[
   \sum_{m=0}^{\infty}
@@ -795,7 +795,7 @@ $q^{\binom{k}{2}}\,(q;q)_\infty \cdot S_k(q)$. Apply
 Theorem~\ref{thm:S-sum-eq}.
 \end{proof}
 
-\begin{lemma}[Negative diagonal coefficient]\label{lem:cauchy-coeff-neg}\lean{qSeries.cauchy_coeff_neg}\leanok\uses{thm:S-sum-eq}
+\begin{lemma}[Negative diagonal coefficient]\label{lem:cauchy-coeff-neg}\lean{QSeries.hasSum_pow_choose_two_neg}\leanok\uses{thm:S-sum-eq, lem:summable-S}
 For $\|q\| < 1$ and $l \ge 0$,
 \[
   \sum_{n=0}^{\infty}
@@ -816,7 +816,7 @@ and the key identity $S_{l+1} = 1/(q;q)_\infty$ (Theorem~\ref{thm:S-sum-eq}).
 To run the Cauchy product on the full punctured disc rather than only the
 annulus, the second Euler identity is extended to all $z\in\mathbb{C}$.
 
-\begin{lemma}[Series recursion]\label{lem:euler-second-recursion}\lean{qSeries.euler_second_series_recursion}\leanok\uses{def:qPochhammer, lem:qPochhammer-succ}
+\begin{lemma}[Series recursion]\label{lem:euler-second-recursion}\lean{QSeries.tsum_euler_second_eq_one_add_mul}\leanok\uses{def:qPochhammer, lem:qPochhammer-succ}
 For $\|q\| < 1$, the series $S(z) := \sum_n q^{\binom{n}{2}} z^n / (q;q)_n$
 satisfies $S(z) = (1+z)\,S(qz)$.
 \end{lemma}
@@ -824,11 +824,11 @@ satisfies $S(z) = (1+z)\,S(qz)$.
 \begin{proof}\leanok
 A term-by-term algebraic identity: the difference of the $z$- and $qz$-series
 equals $z\,S(qz)$, using $(q;q)_{n} = (q;q)_{n-1}(1 - q^{n})$. Summability for
-all $z$ is \texttt{qSeries.euler\_second\_summable\_all}, proved by the ratio
+all $z$ is \texttt{QSeries.summable\_euler\_second'}, proved by the ratio
 test (the ratio $\|q\|^n\|z\|/\|1 - q^{n+1}\| \to 0$).
 \end{proof}
 
-\begin{theorem}[Extended second Euler identity]\label{thm:euler-second-all}\lean{qSeries.euler_second_identity_all}\leanok\uses{lem:euler-second, lem:euler-second-recursion}
+\begin{theorem}[Extended second Euler identity]\label{thm:euler-second-all}\lean{QSeries.euler_second_identity'}\leanok\uses{lem:euler-second, lem:euler-second-recursion}
 For $\|q\| < 1$ and \emph{every} $z\in\mathbb{C}$,
 \[
   \sum_{n=0}^{\infty} \frac{q^{\binom{n}{2}} z^n}{(q;q)_n}
@@ -843,10 +843,10 @@ $S(z) = \prod_{k=0}^{N-1}(1 + z q^k)\cdot S(z q^N)$, and
 $S(z q^N) = (-z q^N;q)_\infty$ by the (small-argument) second Euler identity
 (Lemma~\ref{lem:euler-second}). The product
 $\prod_{k=0}^{N-1}(1 + z q^k)\cdot(-zq^N;q)_\infty = (-z;q)_\infty$ by repeated
-use of \texttt{qSeries.qPochhammerInf\_recursion}.
+use of \texttt{QSeries.qPochhammerInf\_eq\_one\_sub\_mul}.
 \end{proof}
 
-\begin{lemma}[Extended Euler identity at $q/z$]\label{lem:euler-second-qoz-all}\lean{qSeries.euler_second_at_qoz_all}\leanok\uses{thm:euler-second-all}
+\begin{lemma}[Extended Euler identity at $q/z$]\label{lem:euler-second-qoz-all}\lean{QSeries.euler_second_identity_div'}\leanok\uses{thm:euler-second-all}
 For $\|q\| < 1$ and $z \neq 0$ (no annulus condition),
 \[
   \sum_{m=0}^{\infty} \frac{q^{\binom{m}{2}}\, q^{m}\, z^{-m}}{(q;q)_m}
@@ -861,7 +861,7 @@ $q/z$, hence all $z \neq 0$).
 
 \subsection{The triple product and bilateral series}
 
-\begin{definition}[Triple product and bilateral series]\label{def:jacobiProd}\lean{qSeries.jacobiProd, qSeries.jacobiBilateral}\leanok\uses{def:qPochhammerInf}
+\begin{definition}[Triple product and bilateral series]\label{def:jacobiProd}\lean{QSeries.jacobiProd, QSeries.jacobiBilateral}\leanok\uses{def:qPochhammerInf}
 $\mathrm{jacobiProd}(q,z) := (q;q)_\infty\,(-z;q)_\infty\,(-q/z;q)_\infty$, and
 the bilateral series $\mathrm{jacobiBilateral}(q,z) :=
 \sum_{k\ge0} z^k q^{\binom{k}{2}} + \sum_{m\ge0} z^{-(m+1)} q^{\binom{m+2}{2}}$
@@ -870,7 +870,7 @@ the bilateral series $\mathrm{jacobiBilateral}(q,z) :=
 
 \subsection{The Jacobi triple product}
 
-\begin{theorem}[Jacobi triple product]\label{thm:jtp-full}\lean{qSeries.jacobiTripleProduct}\leanok\uses{lem:qPochhammerInf-prod-hassum, lem:euler-second-qoz-all, lem:cauchy-coeff-nonneg, lem:cauchy-coeff-neg, def:jacobiProd}
+\begin{theorem}[Jacobi triple product]\label{thm:jtp-full}\lean{QSeries.jacobiTripleProduct}\leanok\uses{lem:qPochhammerInf-prod-hassum, lem:euler-second-qoz-all, lem:cauchy-coeff-nonneg, lem:cauchy-coeff-neg, def:jacobiProd}
 For $\|q\| < 1$, $\|z\| < 1$, $z \neq 0$, $\;\mathrm{jacobiProd}(q,z) =
 \mathrm{jacobiBilateral}(q,z)$; that is,
 \[
@@ -911,12 +911,12 @@ Sinica \textbf{9} (1993), 24--26.)
 
 \subsection{Euler's pentagonal number theorem}
 
-\begin{definition}[Generalized pentagonal number]\label{def:pentagonal}\lean{qSeries.pentagonal}\leanok
+\begin{definition}[Generalized pentagonal number]\label{def:pentagonal}\lean{QSeries.pentagonal}\leanok
 $\omega(k) := \bigl(k(3k-1)/2\bigr)$ for $k \in \mathbb{Z}$ (the product
 $k(3k-1)$ is always even), realised in Lean as a natural number.
 \end{definition}
 
-\begin{theorem}[Euler's pentagonal number theorem]\label{thm:pentagonal-impl}\lean{qSeries.eulerPentagonalNumber}\leanok\uses{thm:jtp-full, def:pentagonal}
+\begin{theorem}[Euler's pentagonal number theorem]\label{thm:pentagonal-impl}\lean{QSeries.euler_pentagonal_number}\leanok\uses{thm:jtp-full, def:pentagonal}
 For $\|q\| < 1$,
 \[
   (q;q)_\infty
@@ -946,7 +946,7 @@ locally uniform convergence of both sides on $\{z \neq 0\}$ and the functional
 equation $f(qz) = f(z)/z$ satisfied by both
 $\mathrm{jacobiProd}(q,z)$ and $\mathrm{jacobiBilateral}(q,z)$.
 
-\begin{theorem}[Summability of bilateral series for all $z$]\label{thm:summable-nonneg-all}\lean{qSeries.summable_jacobi_nonneg_all}\leanok\uses{def:jacobiProd}
+\begin{theorem}[Summability of bilateral series for all $z$]\label{thm:summable-nonneg-all}\lean{QSeries.summable_pow_mul_pow_choose_two'}\leanok\uses{def:jacobiProd}
 For $\|q\| < 1$ and \emph{every} $z \in \mathbb{C}$, the non-negative part
 $\sum_{k \ge 0} z^k\, q^{\binom{k}{2}}$ is summable.
 \end{theorem}
@@ -958,7 +958,7 @@ summability; the Weierstrass $M$-test with $M_k = R^k \|q\|^{\binom{k}{2}}$
 $|z| \le R$.
 \end{proof}
 
-\begin{theorem}[Locally uniform convergence of the product side]\label{thm:jacobi-prod-luc}\lean{qSeries.jacobiProd_tendstoLocallyUniformlyOn}\leanok\uses{def:jacobiProd}
+\begin{theorem}[Locally uniform convergence of the product side]\label{thm:jacobi-prod-luc}\lean{QSeries.tendstoLocallyUniformlyOn_jacobiProd}\leanok\uses{def:jacobiProd}
 For $\|q\| < 1$, the partial products
 $\prod_{k < N}(1 - q^{2k})(1 + zq^{2k-1})(1 + q^{2k-1}/z)$ converge
 \emph{locally uniformly} on $\{z \neq 0\}$ to $\mathrm{jacobiProd}(q,z)$.
@@ -973,7 +973,7 @@ bound $\|-q/z\| \le 2\|q\|/\|z_0\|$ on that ball. Products of uniformly
 convergent bounded sequences converge uniformly.
 \end{proof}
 
-\begin{theorem}[Locally uniform convergence of the series side]\label{thm:jacobi-series-luc}\lean{qSeries.jacobiBilateral_tendstoLocallyUniformlyOn}\leanok\uses{def:jacobiProd}
+\begin{theorem}[Locally uniform convergence of the series side]\label{thm:jacobi-series-luc}\lean{QSeries.tendstoLocallyUniformlyOn_jacobiBilateral}\leanok\uses{def:jacobiProd}
 For $\|q\| < 1$, the bilateral partial sums
 $\sum_{|k| < N} z^k\, q^{\binom{k}{2}}$ converge \emph{locally uniformly}
 on $\{z \neq 0\}$ to $\mathrm{jacobiBilateral}(q,z)$.
@@ -987,7 +987,7 @@ $\{\|z^{-1}\| \le R'\}$; near any $z_0 \neq 0$ the ball
 $B(z_0, \|z_0\|/2)$ satisfies $\|z^{-1}\| \le 2/\|z_0\|$.
 \end{proof}
 
-\begin{theorem}[Analytic Jacobi triple product]\label{thm:jtp-analytic}\lean{qSeries.jacobiTripleProduct_analytic}\leanok\uses{thm:jtp-full, def:jacobiProd, thm:summable-nonneg-all, thm:jacobi-prod-luc, thm:jacobi-series-luc}
+\begin{theorem}[Analytic Jacobi triple product]\label{thm:jtp-analytic}\lean{QSeries.jacobiTripleProduct'}\leanok\uses{thm:jtp-full, def:jacobiProd, thm:summable-nonneg-all, thm:jacobi-prod-luc, thm:jacobi-series-luc}
 For $\|q\| < 1$ and every $z \neq 0$,
 \[
   (q;q)_\infty\,(-z;q)_\infty\,(-q/z;q)_\infty
@@ -1012,7 +1012,7 @@ iterated functional equation for both sides yields equality at $z$.
 This section records the second, independent proof of the Jacobi triple product
 that was formalised in \texttt{Qseries\_Aristotle\_new/QSeries/FPS.lean},
 \texttt{QSeries/FPS\_Euler.lean}, and \texttt{QSeries/FPS\_Algebra.lean} under the namespace
-\texttt{qSeries.FPS}. Unlike the analytic proof of Section~\ref{sec:implemented},
+\texttt{QSeries.PowerSeries}. Unlike the analytic proof of Section~\ref{sec:implemented},
 this proof is \emph{entirely algebraic}: no norms, no $\|q\| < 1$ hypothesis, and
 no topological analysis beyond the $X$-adic (pi) topology on $R[\![ X ]\!]$.
 
@@ -1030,7 +1030,7 @@ finitely many coefficients of any fixed degree.
 
 Throughout this section $R$ is a commutative ring (with \texttt{DiscreteTopology}).
 
-\begin{definition}[FPS finite $q$-Pochhammer symbol]\label{def:fps-qPoch}\lean{qSeries.FPS.qPoch}\leanok
+\begin{definition}[FPS finite $q$-Pochhammer symbol]\label{def:fps-qPoch}\lean{QSeries.PowerSeries.qPochhammer}\leanok
 For $a \in R[\![ X]\!]$ and $n \in \mathbb{N}$,
 \[
   \texttt{qPoch}\,a\,n
@@ -1039,25 +1039,25 @@ For $a \in R[\![ X]\!]$ and $n \in \mathbb{N}$,
 \]
 \end{definition}
 
-\begin{lemma}[Base case]\label{lem:fps-qPoch-zero}\lean{qSeries.FPS.qPoch_zero}\leanok\uses{def:fps-qPoch}
+\begin{lemma}[Base case]\label{lem:fps-qPoch-zero}\lean{QSeries.PowerSeries.qPochhammer_zero}\leanok\uses{def:fps-qPoch}
 $\texttt{qPoch}\,a\,0 = 1$.
 \end{lemma}
 
 \begin{proof}\leanok Empty product. \end{proof}
 
-\begin{lemma}[FPS recurrence]\label{lem:fps-qPoch-succ}\lean{qSeries.FPS.qPoch_succ}\leanok\uses{def:fps-qPoch}
+\begin{lemma}[FPS recurrence]\label{lem:fps-qPoch-succ}\lean{QSeries.PowerSeries.qPochhammer_succ}\leanok\uses{def:fps-qPoch}
 $\texttt{qPoch}\,a\,(n+1) = \texttt{qPoch}\,a\,n \cdot (1 - a\cdot X^n)$.
 \end{lemma}
 
 \begin{proof}\leanok Immediate from \texttt{Finset.prod\_range\_succ}. \end{proof}
 
-\begin{lemma}[FPS shift identity]\label{lem:fps-qPoch-shift}\lean{qSeries.FPS.qPoch_eq_mul_qPoch_shift}\leanok\uses{def:fps-qPoch}
+\begin{lemma}[FPS shift identity]\label{lem:fps-qPoch-shift}\lean{QSeries.PowerSeries.qPochhammer_succ_eq_one_sub_mul}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
 $\texttt{qPoch}\,a\,(n+1) = (1-a)\cdot\texttt{qPoch}\,(aX)\,n$.
 \end{lemma}
 
 \begin{proof}\leanok Induction on $n$ using the recurrence. \end{proof}
 
-\begin{lemma}[Coefficient stabilisation]\label{lem:fps-coeff-stable}\lean{qSeries.FPS.coeff_qPoch_stable}\leanok\uses{def:fps-qPoch}
+\begin{lemma}[Coefficient stabilisation]\label{lem:fps-coeff-stable}\lean{QSeries.PowerSeries.coeff_qPochhammer_succ}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
 If $d < n$ then $[X^d]\,\texttt{qPoch}\,a\,(n+1) = [X^d]\,\texttt{qPoch}\,a\,n$.
 \end{lemma}
 
@@ -1065,13 +1065,13 @@ If $d < n$ then $[X^d]\,\texttt{qPoch}\,a\,(n+1) = [X^d]\,\texttt{qPoch}\,a\,n$.
 The new factor $(1 - a X^n)$ only affects monomials of degree $\ge n > d$.
 \end{proof}
 
-\begin{lemma}[Constant coefficient]\label{lem:fps-constantCoeff-qPoch-X}\lean{qSeries.FPS.constantCoeff_qPoch_X}\leanok\uses{def:fps-qPoch}
+\begin{lemma}[Constant coefficient]\label{lem:fps-constantCoeff-qPoch-X}\lean{QSeries.PowerSeries.constantCoeff_qPochhammer_X}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
 The constant term of $\texttt{qPoch}\,(X : R[\![ X]\!])\,n$ is $1$.
 \end{lemma}
 
 \begin{proof}\leanok Induction on $n$; each factor $(1 - X \cdot X^k)$ has constant term $1$. \end{proof}
 
-\begin{theorem}[FPS multipliability in pi topology]\label{thm:fps-multipliable}\lean{qSeries.FPS.multipliable_qPoch}\leanok\uses{def:fps-qPoch}
+\begin{theorem}[FPS multipliability in pi topology]\label{thm:fps-multipliable}\lean{QSeries.PowerSeries.multipliable_one_sub_mul_pow}\leanok\uses{def:fps-qPoch}
 The family $k \mapsto 1 - a\cdot X^k$ is multipliable in $R[\![ X]\!]$
 (with the pi / $X$-adic topology).
 \end{theorem}
@@ -1084,7 +1084,7 @@ which is the criterion for multipliability in the pi topology.
 No norm hypothesis is needed.
 \end{proof}
 
-\begin{definition}[FPS infinite $q$-Pochhammer symbol]\label{def:fps-qPochInf}\lean{qSeries.FPS.qPochInf}\leanok\uses{thm:fps-multipliable}
+\begin{definition}[FPS infinite $q$-Pochhammer symbol]\label{def:fps-qPochInf}\lean{QSeries.PowerSeries.qPochhammerInf}\leanok\uses{thm:fps-multipliable}
 \[
   \texttt{qPochInf}\,a
   \;:=\; \prod_{k=0}^{\infty}\bigl(1 - a\cdot X^k\bigr)
@@ -1092,7 +1092,7 @@ No norm hypothesis is needed.
 \]
 \end{definition}
 
-\begin{lemma}[Coefficient formula]\label{lem:fps-coeff-qPochInf}\lean{qSeries.FPS.coeff_qPochInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-stable}
+\begin{lemma}[Coefficient formula]\label{lem:fps-coeff-qPochInf}\lean{QSeries.PowerSeries.coeff_qPochhammerInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-stable, thm:fps-multipliable}
 $[X^d]\,\texttt{qPochInf}\,a = [X^d]\,\texttt{qPoch}\,a\,(d+1)$.
 \end{lemma}
 
@@ -1103,7 +1103,7 @@ $\texttt{qPochInf}\,a$ in the pi topology; continuity of
 coefficient extraction gives the identity.
 \end{proof}
 
-\begin{lemma}[FPS recursion]\label{lem:fps-qPochInf-recursion}\lean{qSeries.FPS.qPochInf_recursion}\leanok\uses{def:fps-qPochInf}
+\begin{lemma}[FPS recursion]\label{lem:fps-qPochInf-recursion}\lean{QSeries.PowerSeries.qPochhammerInf_eq_one_sub_mul}\leanok\uses{def:fps-qPochInf, thm:fps-multipliable}
 $\texttt{qPochInf}\,a = (1-a)\cdot\texttt{qPochInf}\,(a\cdot X)$.
 \end{lemma}
 
@@ -1113,14 +1113,14 @@ $\prod_{k\ge 0}(1-a X^k) = (1-a)\cdot\prod_{k\ge 0}(1 - a X^{k+1})
 = (1-a)\cdot\texttt{qPochInf}(aX)$.
 \end{proof}
 
-\begin{lemma}[Iterated telescoping]\label{lem:fps-qPochInf-eq-qPoch-mul}\lean{qSeries.FPS.qPochInf_eq_qPoch_mul}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, lem:fps-qPochInf-recursion}
+\begin{lemma}[Iterated telescoping]\label{lem:fps-qPochInf-eq-qPoch-mul}\lean{QSeries.PowerSeries.qPochhammerInf_eq_qPochhammer_mul}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, lem:fps-qPochInf-recursion, lem:fps-qPoch-succ}
 For every $n \in \mathbb{N}$:
 $\texttt{qPochInf}\,a = \texttt{qPoch}\,a\,n \cdot \texttt{qPochInf}\,(a\cdot X^n)$.
 \end{lemma}
 
 \begin{proof}\leanok Induction on $n$ using Lemma~\ref{lem:fps-qPochInf-recursion}. \end{proof}
 
-\begin{lemma}[FPS unit]\label{lem:fps-isUnit-qPochInf}\lean{qSeries.FPS.isUnit_qPochInf}\leanok\uses{def:fps-qPochInf}
+\begin{lemma}[FPS unit]\label{lem:fps-isUnit-qPochInf}\lean{QSeries.PowerSeries.isUnit_qPochhammerInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-qPochInf, lem:fps-qPoch-succ, lem:fps-qPoch-zero}
 If $1 - [X^0]\,a$ is a unit of $R$, then $\texttt{qPochInf}\,a$ is a unit
 of $R[\![ X]\!]$.
 \end{lemma}
@@ -1133,7 +1133,7 @@ The constant term of $\texttt{qPochInf}\,a$ equals $1 - [X^0]\,a$
 \subsection{FPS Euler second identity}
 \label{subsec:fps-euler2}
 
-\begin{theorem}[FPS Euler second identity]\label{thm:fps-euler-second}\lean{qSeries.FPS.fps_euler_second}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, def:qBinom, thm:qbin-finite, lem:fps-coeff-qPochInf}
+\begin{theorem}[FPS Euler second identity]\label{thm:fps-euler-second}\lean{QSeries.PowerSeries.euler_second_identity}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, def:qBinom, thm:qbin-finite, lem:fps-coeff-qPochInf}
 In $R[\![ X]\!]$ (for any commutative ring $R$ with discrete topology),
 \[
   \texttt{qPochInf}(-a)
@@ -1159,7 +1159,7 @@ the tprod as $N \to \infty$ in the pi topology.
 \subsection{FPS key identity}
 \label{subsec:fps-key}
 
-\begin{definition}[FPS key sum]\label{def:fps-S}\lean{qSeries.FPS.S_fps}\leanok\uses{def:fps-qPochInf, def:fps-qPoch}
+\begin{definition}[FPS key sum]\label{def:fps-S}\lean{QSeries.PowerSeries.keySum}\leanok\uses{def:fps-qPochInf, def:fps-qPoch}
 For $k \in \mathbb{N}$, define
 \[
   S^{\mathrm{fps}}_k
@@ -1170,7 +1170,7 @@ For $k \in \mathbb{N}$, define
 \]
 \end{definition}
 
-\begin{lemma}[FPS key sum is summable]\label{lem:fps-summable-S}\lean{qSeries.FPS.summable_S_fps}\leanok\uses{def:fps-S}
+\begin{lemma}[FPS key sum is summable]\label{lem:fps-summable-S}\lean{QSeries.PowerSeries.summable_keySummand}\leanok\uses{def:fps-S}
 The summand of $S^{\mathrm{fps}}_k$ is summable in $R[\![ X]\!]$.
 \end{lemma}
 
@@ -1179,7 +1179,7 @@ The monomial $X^{m(m+k)}$ has $X$-adic order $\ge m$; since $m \to \infty$, the
 summand family satisfies the pi-topology criterion for summability.
 \end{proof}
 
-\begin{lemma}[FPS key sum recurrence]\label{lem:fps-S-recurrence}\lean{qSeries.FPS.S_fps_recurrence}\leanok\uses{def:fps-S, lem:fps-summable-S}
+\begin{lemma}[FPS key sum recurrence]\label{lem:fps-S-recurrence}\lean{QSeries.PowerSeries.keySum_sub_keySum_succ}\leanok\uses{def:fps-S, lem:fps-summable-S}
 For every $k$:
 \[
   S^{\mathrm{fps}}_k - S^{\mathrm{fps}}_{k+1}
@@ -1196,7 +1196,7 @@ This is a \emph{purely algebraic} ring identity in $R[\![ X]\!]$;
 no norms are needed.
 \end{proof}
 
-\begin{theorem}[FPS: all $S_k$ are equal]\label{thm:fps-S-const}\lean{qSeries.FPS.S_fps_const}\leanok\uses{lem:fps-S-recurrence, lem:fps-summable-S}
+\begin{theorem}[FPS: all $S_k$ are equal]\label{thm:fps-S-const}\lean{QSeries.PowerSeries.keySum_eq_keySum_zero}\leanok\uses{lem:fps-S-recurrence, lem:fps-summable-S, def:fps-S}
 $S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0$ for all $k \in \mathbb{N}$.
 \end{theorem}
 
@@ -1211,7 +1211,7 @@ $[X^{d-(k+1)}]\,D_{k+2} = [X^{d-(k+1)}]\,D_k$ and the argument closes
 by strong induction. Hence $D_k = 0$ for all $k$, giving $S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0$.
 \end{proof}
 
-\begin{theorem}[FPS key identity]\label{thm:fps-key}\lean{qSeries.FPS.fps_key_identity}\leanok\uses{thm:fps-S-const, def:fps-S, def:fps-qPochInf}
+\begin{theorem}[FPS key identity]\label{thm:fps-key}\lean{QSeries.PowerSeries.keySum_eq_qPochhammerInfInv}\leanok\uses{thm:fps-S-const, def:fps-S, def:fps-qPochInf}
 For every $k$,
 \[
   S^{\mathrm{fps}}_k
@@ -1239,7 +1239,7 @@ requiring no analytic hypotheses whatsoever.
 \subsection{FPS Cauchy coefficient identities}
 \label{subsec:fps-cauchy}
 
-\begin{lemma}[FPS product expansion]\label{lem:fps-qqInf-euler2}\lean{qSeries.FPS.qqInf_mul_euler2}\leanok\uses{def:fps-qPochInf, thm:fps-euler-second, lem:fps-qPochInf-eq-qPoch-mul}
+\begin{lemma}[FPS product expansion]\label{lem:fps-qqInf-euler2}\lean{QSeries.PowerSeries.qPochhammerInf_X_mul_qPochhammerInf_neg}\leanok\uses{def:fps-qPochInf, thm:fps-euler-second, lem:fps-qPochInf-eq-qPoch-mul}
 In $R[\![ X]\!]$:
 \[
   \texttt{qPochInf}(X)\cdot\texttt{qPochInf}(-a)
@@ -1255,7 +1255,7 @@ $\texttt{qPochInf}(X)\cdot(\texttt{qPoch}(X,n))^{-1} = \texttt{qPochInf}(X\cdot 
 (Lemma~\ref{lem:fps-qPochInf-eq-qPoch-mul}) converts each term.
 \end{proof}
 
-\begin{theorem}[FPS Cauchy coefficient -- non-negative diagonal]\label{thm:fps-cauchy-nonneg}\lean{qSeries.FPS.cauchy_coeff_nonneg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S}
+\begin{theorem}[FPS Cauchy coefficient -- non-negative diagonal]\label{thm:fps-cauchy-nonneg}\lean{QSeries.PowerSeries.hasSum_pow_choose_two_nonneg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S, def:fps-qPochInf}
 For every $k \ge 0$:
 \[
   \sum_{m=0}^{\infty}
@@ -1275,7 +1275,7 @@ $\binom{m+k}{2} + \binom{m}{2} + m = \binom{k}{2} + m(m+k)$
 Apply Theorem~\ref{thm:fps-key} and $\texttt{qPochInf}(X)\cdot\texttt{qqInv} = 1$.
 \end{proof}
 
-\begin{theorem}[FPS Cauchy coefficient -- negative diagonal]\label{thm:fps-cauchy-neg}\lean{qSeries.FPS.cauchy_coeff_neg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S}
+\begin{theorem}[FPS Cauchy coefficient -- negative diagonal]\label{thm:fps-cauchy-neg}\lean{QSeries.PowerSeries.hasSum_pow_choose_two_neg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S, def:fps-qPochInf}
 For every $l \ge 0$:
 \[
   \sum_{n=0}^{\infty}
@@ -1296,7 +1296,7 @@ arithmetic identity $\binom{n}{2} + \binom{n+l+1}{2} + (n+l+1) = \binom{l+2}{2} 
 \subsection{FPS Jacobi triple product}
 \label{subsec:fps-jtp}
 
-\begin{definition}[FPS JTP objects]\label{def:fps-jtp}\lean{qSeries.FPS.jtpProd}\leanok\uses{def:fps-qPochInf}
+\begin{definition}[FPS JTP objects]\label{def:fps-jtp}\lean{QSeries.PowerSeries.jacobiProd}\leanok\uses{def:fps-qPochInf}
 Let $A = \texttt{LaurentPolynomial}\,\mathbb{C}$, $z = T(1)$,
 $z^{-1} = T(-1)$ viewed as constant power series in $A[\![ X]\!]$.
 Define:
@@ -1313,7 +1313,7 @@ Here $T(k)$ is the degree-$k$ monomial in the Laurent polynomial ring $A$,
 so $T(n) = z^n$ and $T(-(m+1)) = z^{-(m+1)}$.
 \end{definition}
 
-\begin{theorem}[FPS Jacobi triple product]\label{thm:fps-jtp}\lean{qSeries.FPS.jacobiTripleProduct_fps}\leanok\uses{def:fps-jtp, thm:fps-cauchy-nonneg, thm:fps-cauchy-neg, lem:fps-qqInf-euler2, thm:fps-euler-second}
+\begin{theorem}[FPS Jacobi triple product]\label{thm:fps-jtp}\lean{QSeries.PowerSeries.jacobiTripleProduct}\leanok\uses{def:fps-jtp, thm:fps-cauchy-nonneg, thm:fps-cauchy-neg, lem:fps-qqInf-euler2, thm:fps-euler-second}
 In $A[\![ X]\!]$ (with $A = \texttt{LaurentPolynomial}\,\mathbb{C}$):
 \[
   \texttt{jtpProd} \;=\; \texttt{jtpSeries},

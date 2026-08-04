@@ -17,17 +17,17 @@ $\{3n\} \cup \{3n-2\} \cup \{3n-1\} = \mathbb{Z}_{\geq 1}$.
 
 ## Main definitions
 
-* `qSeries.pentagonal` — the generalized pentagonal number $\omega(k) = k(3k-1)/2$.
+* `QSeries.pentagonal` — the generalized pentagonal number $\omega(k) = k(3k-1)/2$.
 
 ## Main results
 
-* `qSeries.eulerPentagonalNumber` — the pentagonal number theorem.
+* `QSeries.euler_pentagonal_number` — the pentagonal number theorem.
 -/
 
 open Finset Filter
 open scoped Topology
 
-namespace qSeries
+namespace QSeries
 
 noncomputable section
 
@@ -50,7 +50,7 @@ private theorem pentagonal_natCast (k : ℕ) : pentagonal (k : ℤ) = k + k.choo
   omega
 
 /-- At a negative index, $\omega(-(m+1)) + (m+1) = 3\binom{m+2}{2}$. -/
-private theorem pentagonal_neg_add (m : ℕ) :
+private theorem pentagonal_neg_succ_add (m : ℕ) :
     pentagonal (-(m + 1) : ℤ) + (m + 1) = (m + 2).choose 2 * 3 := by
   have key : (-((m : ℤ) + 1)) * (3 * (-((m : ℤ) + 1)) - 1) =
       2 * (((m + 2).choose 2 * 3 : ℤ) - ((m : ℤ) + 1)) := by
@@ -71,8 +71,8 @@ private theorem pentagonal_neg_add (m : ℕ) :
   omega
 
 /-- $\omega(-(m+1)) \neq 0$: the negative pentagonal numbers are all positive. -/
-private theorem pentagonal_neg_ne_zero (m : ℕ) : pentagonal (-(m + 1) : ℤ) ≠ 0 := by
-  have hp := pentagonal_neg_add m
+private theorem pentagonal_neg_succ_ne_zero (m : ℕ) : pentagonal (-(m + 1) : ℤ) ≠ 0 := by
+  have hp := pentagonal_neg_succ_add m
   have h : (m + 2).choose 2 = (m + 1) + (m + 1).choose 2 := by
     rw [Nat.choose_succ_succ, Nat.choose_one_right]
   omega
@@ -83,7 +83,7 @@ private theorem tendsto_prod_one_add {f : ℕ → ℂ} (hf : Summable fun k => �
   (multipliable_one_add_of_summable hf).hasProd.tendsto_prod_nat
 
 /-- An absolutely convergent product over `ℕ` splits into its three residue classes mod `3`. -/
-private theorem tprod_one_add_split_three {f : ℕ → ℂ} (hf : Summable fun k => ‖f k‖) :
+private theorem tprod_one_add_eq_mul_mul {f : ℕ → ℂ} (hf : Summable fun k => ‖f k‖) :
     ∏' k : ℕ, (1 + f k) = (∏' k : ℕ, (1 + f (3 * k))) * (∏' k : ℕ, (1 + f (3 * k + 1))) *
       ∏' k : ℕ, (1 + f (3 * k + 2)) := by
   have hpart : ∀ n : ℕ, ∏ k ∈ Finset.range (3 * n), (1 + f k) =
@@ -108,7 +108,7 @@ private theorem tprod_one_add_split_three {f : ℕ → ℂ} (hf : Summable fun k
 /-- **Euler's pentagonal number theorem**: for $\|q\| < 1$, the infinite product $(q;q)_\infty$
 equals the bilateral series $\sum_{k \in \mathbb{Z}} (-1)^k q^{\omega(k)}$ over generalized
 pentagonal numbers $\omega(k) = k(3k-1)/2$, written as two one-sided sums. -/
-theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
+theorem euler_pentagonal_number {q : ℂ} (hq : ‖q‖ < 1) :
     qPochhammerInf q q =
       (∑' k : ℕ, (-1 : ℂ) ^ k * q ^ pentagonal k)
       + ∑' k : ℕ, (-1 : ℂ) ^ (k + 1) * q ^ pentagonal (-(↑k + 1)) := by
@@ -117,7 +117,7 @@ theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
     have h1 : ∀ k : ℕ, k ≠ 0 → (-1 : ℂ) ^ k * (0 : ℂ) ^ pentagonal (k : ℤ) = 0 := fun k hk => by
       rw [pentagonal_natCast, zero_pow (by omega), mul_zero]
     have h2 : ∀ k : ℕ, (-1 : ℂ) ^ (k + 1) * (0 : ℂ) ^ pentagonal (-(↑k + 1)) = 0 := fun k => by
-      rw [zero_pow (pentagonal_neg_ne_zero k), mul_zero]
+      rw [zero_pow (pentagonal_neg_succ_ne_zero k), mul_zero]
     rw [tsum_eq_single 0 h1]
     simp only [h2, tsum_zero, add_zero]
     simp [qPochhammerInf, pentagonal]
@@ -137,7 +137,7 @@ theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
         tprod_congr fun k => by ring
       have e3 : qPochhammerInf (q ^ 3) (q ^ 3) = ∏' k : ℕ, (1 + -q ^ (3 * k + 3)) :=
         tprod_congr fun k => by ring
-      rw [hd, e0, e1, e2, e3, tprod_one_add_split_three hf]
+      rw [hd, e0, e1, e2, e3, tprod_one_add_eq_mul_mul hf]
       ring
     have hsum1 : ∑' k : ℕ, (-1 : ℂ) ^ k * q ^ pentagonal (k : ℤ) =
         ∑' k : ℕ, (-q) ^ k * (q ^ 3) ^ k.choose 2 :=
@@ -145,7 +145,7 @@ theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
     have hsum2 : ∑' k : ℕ, (-1 : ℂ) ^ (k + 1) * q ^ pentagonal (-(↑k + 1)) =
         ∑' m : ℕ, (-q : ℂ)⁻¹ ^ (m + 1) * (q ^ 3) ^ (m + 2).choose 2 := by
       refine tsum_congr fun m => ?_
-      have hp := pentagonal_neg_add m
+      have hp := pentagonal_neg_succ_add m
       have key : (q ^ 3) ^ (m + 2).choose 2 = q ^ pentagonal (-(↑m + 1)) * q ^ (m + 1) := by
         rw [← pow_mul, ← pow_add]
         congr 1
@@ -158,4 +158,4 @@ theorem eulerPentagonalNumber {q : ℂ} (hq : ‖q‖ < 1) :
 
 end
 
-end qSeries
+end QSeries
