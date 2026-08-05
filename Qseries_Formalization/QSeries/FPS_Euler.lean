@@ -22,11 +22,11 @@ noncomputable section
 open scoped MvPowerSeries.WithPiTopology
 open PowerSeries Finset
 
-namespace QSeries.PowerSeries
+namespace QSeries.FormalPowerSeries
 
 variable {R : Type*} [CommRing R] [TopologicalSpace R] [DiscreteTopology R]
 
-set_option linter.unusedSectionVars false in
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- The constant term of `qPochhammer X n` is 1. -/
 theorem constantCoeff_qPochhammer_X (n : ℕ) :
     constantCoeff (qPochhammer (X : R⟦X⟧) n) = 1 := by
@@ -36,6 +36,7 @@ theorem constantCoeff_qPochhammer_X (n : ℕ) :
     rw [qPochhammer_succ]
     simp [map_mul, map_sub, ih]
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- `qPochhammer X n` is a unit in `R⟦X⟧` (its constant term is 1). -/
 theorem isUnit_qPochhammer_X (n : ℕ) : IsUnit (qPochhammer (X : R⟦X⟧) n) := by
   rw [PowerSeries.isUnit_iff_constantCoeff, constantCoeff_qPochhammer_X]
@@ -57,6 +58,6 @@ theorem qPochhammerInf_X_eq_qPochhammer_mul (n : ℕ) :
     qPochhammerInf (X : R⟦X⟧) = qPochhammer X n * qPochhammerInf (X * X ^ n) :=
   qPochhammerInf_eq_qPochhammer_mul X n
 
-end QSeries.PowerSeries
+end QSeries.FormalPowerSeries
 
 end

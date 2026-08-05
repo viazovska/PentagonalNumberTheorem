@@ -25,15 +25,16 @@ convergence hypotheses are needed.
 
 ## Main definitions
 
-* `QSeries.PowerSeries.qPochhammer`    — Finite q-Pochhammer `(a; X)_n` in `R⟦X⟧`.
-* `QSeries.PowerSeries.qPochhammerInf` — Infinite q-Pochhammer `(a; X)_∞` in `R⟦X⟧` (via `tprod`).
+* `QSeries.FormalPowerSeries.qPochhammer`    — Finite q-Pochhammer `(a; X)_n` in `R⟦X⟧`.
+* `QSeries.FormalPowerSeries.qPochhammerInf` — Infinite q-Pochhammer `(a; X)_∞` in `R⟦X⟧`
+  (via `tprod`).
 
 ## Main results
 
-* `QSeries.PowerSeries.multipliable_one_sub_mul_pow` — The infinite product is multipliable.
-* `QSeries.PowerSeries.qPochhammerInf_eq_one_sub_mul`  — `(a; X)_∞ = (1 - a) · (aX; X)_∞`.
-* `QSeries.PowerSeries.qPochhammerInf_eq_mk`     — Coefficient-wise characterisation.
-* `QSeries.PowerSeries.jacobiTripleProduct` — The Jacobi triple product in `A⟦X⟧`
+* `QSeries.FormalPowerSeries.multipliable_one_sub_mul_pow` — The infinite product is multipliable.
+* `QSeries.FormalPowerSeries.qPochhammerInf_eq_one_sub_mul`  — `(a; X)_∞ = (1 - a) · (aX; X)_∞`.
+* `QSeries.FormalPowerSeries.qPochhammerInf_eq_mk`     — Coefficient-wise characterisation.
+* `QSeries.FormalPowerSeries.jacobiTripleProduct` — The Jacobi triple product in `A⟦X⟧`
   (proved in `QSeries.FPS_Algebra`).
 -/
 
@@ -42,7 +43,7 @@ noncomputable section
 open scoped MvPowerSeries.WithPiTopology
 open PowerSeries Finset
 
-namespace QSeries.PowerSeries
+namespace QSeries.FormalPowerSeries
 
 section Finite
 
@@ -170,8 +171,16 @@ section JTP
 
 local notation "A" => LaurentPolynomial ℂ
 
-instance : TopologicalSpace A := ⊥
-instance : DiscreteTopology A := ⟨rfl⟩
+/-- The discrete topology on `LaurentPolynomial ℂ`, the coefficient ring of the formal-power-series
+Jacobi triple product. It is all the `X`-adic arguments below require.
+
+This is `scoped` deliberately: a *global* instance would silently equip Mathlib's
+`LaurentPolynomial ℂ` with a discrete topology for every downstream import, which is not this
+library's decision to make. Consumers opt in with `open scoped QSeries.FormalPowerSeries`. -/
+scoped instance : TopologicalSpace A := ⊥
+
+/-- The topology on `LaurentPolynomial ℂ` from the scoped instance above is discrete. -/
+scoped instance : DiscreteTopology A := ⟨rfl⟩
 
 local notation "PS" => (PowerSeries.C : A →+* A⟦X⟧)
 
@@ -200,6 +209,6 @@ def jacobiBilateral : A⟦X⟧ :=
 
 end JTP
 
-end QSeries.PowerSeries
+end QSeries.FormalPowerSeries
 
 end

@@ -83,7 +83,7 @@ theorem euler_second_identity_div {q z : ℂ} (hq : ‖q‖ < 1) (hzq : ‖q‖ 
 /-- The diagonal splitting equivalence `(ℕ × ℕ) ⊕ (ℕ × ℕ) ≃ ℕ × ℕ`: the left summand
 enumerates the pairs on or below the diagonal as `(m + k, m)`, the right summand
 enumerates the pairs strictly above it as `(n, n + l + 1)`. -/
-def diagonalEquiv : (ℕ × ℕ) ⊕ (ℕ × ℕ) ≃ ℕ × ℕ where
+private def diagonalEquiv : (ℕ × ℕ) ⊕ (ℕ × ℕ) ≃ ℕ × ℕ where
   toFun s := match s with
     | .inl p => (p.2 + p.1, p.2)
     | .inr p => (p.2, p.2 + (p.1 + 1))
@@ -92,7 +92,7 @@ def diagonalEquiv : (ℕ × ℕ) ⊕ (ℕ × ℕ) ≃ ℕ × ℕ where
   right_inv := by rintro ⟨a, b⟩; dsimp only; split_ifs with h <;> simp <;> omega
 
 /-- `HasSum` form of the diagonal splitting of a family indexed by `ℕ × ℕ`. -/
-theorem hasSum_split_diagonal {f : ℕ × ℕ → ℂ} {a b : ℂ}
+private theorem hasSum_split_diagonal {f : ℕ × ℕ → ℂ} {a b : ℂ}
     (h1 : HasSum (fun p : ℕ × ℕ => f (p.2 + p.1, p.2)) a)
     (h2 : HasSum (fun p : ℕ × ℕ => f (p.2, p.2 + (p.1 + 1))) b) :
     HasSum f (a + b) :=
@@ -112,12 +112,12 @@ theorem tsum_split_diagonal {f : ℕ × ℕ → ℂ} (hf : Summable f) :
 /-! ### The Jacobi triple product from two `HasSum` inputs -/
 
 /-- Cancellation `z ^ (m + k) * (z⁻¹) ^ m = z ^ k` for `z ≠ 0`. -/
-theorem pow_add_mul_inv_pow {z : ℂ} (hz : z ≠ 0) (m k : ℕ) :
+private theorem pow_add_mul_inv_pow {z : ℂ} (hz : z ≠ 0) (m k : ℕ) :
     z ^ (m + k) * z⁻¹ ^ m = z ^ k := by
   rw [pow_add, mul_right_comm, ← mul_pow, mul_inv_cancel₀ hz, one_pow, one_mul]
 
 /-- Cancellation `z ^ n * (z⁻¹) ^ (n + j) = (z⁻¹) ^ j` for `z ≠ 0`. -/
-theorem pow_mul_inv_pow_add {z : ℂ} (hz : z ≠ 0) (n j : ℕ) :
+private theorem pow_mul_inv_pow_add {z : ℂ} (hz : z ≠ 0) (n j : ℕ) :
     z ^ n * z⁻¹ ^ (n + j) = z⁻¹ ^ j := by
   rw [pow_add, ← mul_assoc, ← mul_pow, mul_inv_cancel₀ hz, one_pow, one_mul]
 

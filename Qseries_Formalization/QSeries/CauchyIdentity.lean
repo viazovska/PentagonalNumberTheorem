@@ -28,13 +28,13 @@ namespace QSeries
 section CauchyIdentity
 
 /-- A product of two complex numbers of norm `< 1` again has norm `< 1`. -/
-theorem norm_mul_lt_one {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
+private theorem norm_mul_lt_one {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) :
     ‖q * z‖ < 1 := by
   rw [norm_mul]
   nlinarith [norm_nonneg q, norm_nonneg z]
 
 /-- If `‖q‖ < 1` and `‖z‖ < 1` then `‖q ^ n * z‖ < 1` for every `n`. -/
-theorem norm_pow_mul_lt_one {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) (n : ℕ) :
+private theorem norm_pow_mul_lt_one {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) (n : ℕ) :
     ‖q ^ n * z‖ < 1 := by
   rw [norm_mul, norm_pow]
   nlinarith [pow_le_one₀ (norm_nonneg q) hq.le (n := n), norm_nonneg z,

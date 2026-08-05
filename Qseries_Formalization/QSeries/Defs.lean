@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad
 -/
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Nat.Choose.Basic
+import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.LinearCombination
 import Mathlib.Tactic.Ring.RingNF
 import Mathlib.Topology.Defs.Filter
@@ -33,6 +35,41 @@ binomial coefficient $\binom{n}{k}_q$, together with their basic properties.
 
 open Finset Filter
 open scoped Topology
+
+namespace Nat
+
+/-- Pascal's rule specialised to `C(·, 2)`. -/
+theorem choose_two_succ (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
+  rw [Nat.choose_succ_succ, Nat.choose_one_right, add_comm]
+
+/-- `C(m+k,2) + C(m,2) + m = C(k,2) + m*(m+k)`. -/
+theorem choose_two_add_choose_two (m k : ℕ) :
+    (m + k).choose 2 + m.choose 2 + m = k.choose 2 + m * (m + k) := by
+  induction m with
+  | zero => simp
+  | succ m ih =>
+    rw [show m + 1 + k = (m + k) + 1 from by omega, choose_two_succ, choose_two_succ]; linarith
+
+/-- `C(n,2) + C(n+l+1,2) + (n+l+1) = C(l+2,2) + n*(n+l+1)`. -/
+theorem choose_two_add_choose_two' (n l : ℕ) :
+    n.choose 2 + (n + (l + 1)).choose 2 + (n + (l + 1)) =
+    (l + 2).choose 2 + n * (n + (l + 1)) := by
+  have h := choose_two_add_choose_two n (l + 1)
+  have h2 : (l + 2).choose 2 = (l + 1).choose 2 + (l + 1) := choose_two_succ (l + 1)
+  linarith
+
+/-- `C(k,2)` is at least `k - 1`. -/
+theorem le_choose_two_add_one (k : ℕ) : k ≤ k.choose 2 + 1 := by
+  induction k with
+  | zero => omega
+  | succ k ih => rw [choose_two_succ]; omega
+
+/-- `C(k,2)` eventually dominates: `d < C(k,2)` as soon as `d + 2 ≤ k`. -/
+theorem lt_choose_two_of_add_two_le {d k : ℕ} (hk : d + 2 ≤ k) : d < k.choose 2 := by
+  have := le_choose_two_add_one k
+  omega
+
+end Nat
 
 namespace QSeries
 

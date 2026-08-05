@@ -32,9 +32,6 @@ namespace QSeries
 
 noncomputable section
 
-/-- `(n+1).choose 2 = n.choose 2 + n`. -/
-private theorem choose_two_succ (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
-  rw [Nat.choose_succ_succ, Nat.choose_one_right, add_comm]
 
 /-- For `‖q‖ < 1` the q-Pochhammer factor `1 - q ^ (n + 1)` is nonzero. -/
 private theorem one_sub_pow_ne_zero {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
@@ -65,7 +62,7 @@ theorem summable_inv_pow_mul_pow_choose_two {q z : ℂ} (hq : ‖q‖ < 1) :
       ((tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg q) hq).comp
         (tendsto_add_atTop_nat 2))
   filter_upwards [h0.eventually (gt_mem_nhds hr)] with n hn
-  have hstep : (n + 1 + 2).choose 2 = (n + 2).choose 2 + (n + 2) := choose_two_succ (n + 2)
+  have hstep : (n + 1 + 2).choose 2 = (n + 2).choose 2 + (n + 2) := Nat.choose_two_succ (n + 2)
   calc ‖z⁻¹ ^ (n + 1 + 1) * q ^ (n + 1 + 2).choose 2‖
       = ‖z⁻¹ ^ (n + 1) * q ^ (n + 2).choose 2‖ * (‖z⁻¹‖ * ‖q‖ ^ (n + 2)) := by
         rw [hstep, pow_add]
@@ -181,7 +178,7 @@ theorem summable_euler_second' {q z : ℂ} (hq : ‖q‖ < 1) :
       (((tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq).comp
         (tendsto_add_atTop_nat 1)).const_sub 1).norm (by norm_num)
   filter_upwards [h0.eventually (gt_mem_nhds hr)] with n hn
-  have hstep : (n + 1).choose 2 = n.choose 2 + n := choose_two_succ n
+  have hstep : (n + 1).choose 2 = n.choose 2 + n := Nat.choose_two_succ n
   have hpoch : qPochhammer q q (n + 1) = qPochhammer q q n * (1 - q ^ (n + 1)) := by
     rw [qPochhammer_succ]; ring
   calc ‖q ^ (n + 1).choose 2 * z ^ (n + 1) / qPochhammer q q (n + 1)‖
@@ -207,7 +204,7 @@ theorem tsum_euler_second_eq_one_add_mul {q z : ℂ} (hq : ‖q‖ < 1) :
       have hpne : qPochhammer q q m ≠ 0 := qPochhammer_self_ne_zero hq m
       have hpoch : qPochhammer q q (m + 1) = qPochhammer q q m * (1 - q ^ (m + 1)) := by
         rw [qPochhammer_succ]; ring
-      rw [if_neg (Nat.succ_ne_zero m), mul_one, Nat.add_sub_cancel, choose_two_succ,
+      rw [if_neg (Nat.succ_ne_zero m), mul_one, Nat.add_sub_cancel, Nat.choose_two_succ,
         hpoch]
       field_simp
       ring

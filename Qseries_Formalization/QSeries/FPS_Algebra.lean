@@ -16,11 +16,13 @@ and Cauchy product, these identities yield the Jacobi triple product.
 
 ## Main results
 
-* `QSeries.PowerSeries.euler_second_identity` — FPS Euler second identity.
-* `QSeries.PowerSeries.keySum_eq_qPochhammerInfInv` — `S_k = (qPochhammerInf X)⁻¹` for all `k`.
-* `QSeries.PowerSeries.hasSum_pow_choose_two_nonneg` — Cauchy diagonal coefficient for `n ≥ 0`.
-* `QSeries.PowerSeries.hasSum_pow_choose_two_neg` — Cauchy diagonal coefficient for `n < 0`.
-* `QSeries.PowerSeries.jacobiTripleProduct` — FPS Jacobi Triple Product Identity.
+* `QSeries.FormalPowerSeries.euler_second_identity` — FPS Euler second identity.
+* `QSeries.FormalPowerSeries.keySum_eq_qPochhammerInfInv` — `S_k = (qPochhammerInf X)⁻¹`
+  for all `k`.
+* `QSeries.FormalPowerSeries.hasSum_pow_choose_two_nonneg` — Cauchy diagonal coefficient
+  for `n ≥ 0`.
+* `QSeries.FormalPowerSeries.hasSum_pow_choose_two_neg` — Cauchy diagonal coefficient for `n < 0`.
+* `QSeries.FormalPowerSeries.jacobiTripleProduct` — FPS Jacobi Triple Product Identity.
 -/
 
 noncomputable section
@@ -28,7 +30,7 @@ noncomputable section
 open scoped MvPowerSeries.WithPiTopology
 open PowerSeries Finset
 
-namespace QSeries.PowerSeries
+namespace QSeries.FormalPowerSeries
 
 variable {R : Type*} [CommRing R] [TopologicalSpace R] [DiscreteTopology R]
 
@@ -38,18 +40,21 @@ constant coefficient is `1`. -/
 def qPochhammerInv (k : ℕ) : R⟦X⟧ :=
   MvPowerSeries.invOfUnit (qPochhammer (X : R⟦X⟧) k) 1
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- `qPochhammer X k` times its formal power series inverse equals 1. -/
 @[simp]
 theorem qPochhammer_X_mul_qPochhammerInv (k : ℕ) :
     qPochhammer (X : R⟦X⟧) k * qPochhammerInv (R := R) k = 1 :=
   PowerSeries.mul_invOfUnit _ 1 (by simpa using constantCoeff_qPochhammer_X (R := R) k)
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- The formal power series inverse of `qPochhammer X k` times `qPochhammer X k` equals 1. -/
 @[simp]
 theorem qPochhammerInv_mul_qPochhammer_X (k : ℕ) :
     qPochhammerInv (R := R) k * qPochhammer (X : R⟦X⟧) k = 1 := by
   rw [mul_comm, qPochhammer_X_mul_qPochhammerInv]
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- The recursion `(1 - X^{k+1}) * qPochhammerInv(k+1) = qPochhammerInv(k)` for the inverse
 q-Pochhammer symbol. -/
 theorem one_sub_pow_mul_qPochhammerInv_succ (k : ℕ) :
@@ -85,31 +90,10 @@ theorem qPochhammerInf_X_mul_qPochhammerInv (n : ℕ) :
   rw [qPochhammerInf_X_eq_qPochhammer_mul n, mul_right_comm, qPochhammer_X_mul_qPochhammerInv,
     one_mul]
 
-
-private lemma choose_two_succ (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
-  rw [Nat.choose_succ_succ, Nat.choose_one_right, add_comm]
-
-/-- `C(m+k,2) + C(m,2) + m = C(k,2) + m*(m+k)`. -/
-lemma choose_two_add_choose_two (m k : ℕ) :
-    (m + k).choose 2 + m.choose 2 + m = k.choose 2 + m * (m + k) := by
-  induction m with
-  | zero => simp
-  | succ m ih =>
-    rw [show m + 1 + k = (m + k) + 1 from by omega, choose_two_succ, choose_two_succ]; linarith
-
-/-- `C(n,2) + C(n+l+1,2) + (n+l+1) = C(l+2,2) + n*(n+l+1)`. -/
-lemma choose_two_add_choose_two' (n l : ℕ) :
-    n.choose 2 + (n + (l + 1)).choose 2 + (n + (l + 1)) =
-    (l + 2).choose 2 + n * (n + (l + 1)) := by
-  have h := choose_two_add_choose_two n (l + 1)
-  have h2 : (l + 2).choose 2 = (l + 1).choose 2 + (l + 1) := choose_two_succ (l + 1)
-  linarith
-
-
 section Euler2
 
 omit [TopologicalSpace R] [DiscreteTopology R] in
-/-- Every nonconstant term of a finite q-Pochhammer product is divisible by `a`:
+/-- Every finite q-Pochhammer product is `1` plus a multiple of its argument:
 `(a; X)_k = 1 + a * g` for some `g`. -/
 private theorem exists_qPochhammer_eq_one_add_mul (a : R⟦X⟧) (k : ℕ) :
     ∃ g : R⟦X⟧, qPochhammer a k = 1 + a * g := by
@@ -146,17 +130,9 @@ private theorem coeff_mul_congr {f g b : R⟦X⟧} {N j : ℕ} (hj : j < N)
   have hj0 := PowerSeries.X_pow_dvd_iff.mp (hd.mul_right b) j hj
   rwa [sub_mul, map_sub, sub_eq_zero] at hj0
 
-/-- `k ≤ C(k,2) + 1`. -/
-private lemma le_choose_two_add_one (k : ℕ) : k ≤ k.choose 2 + 1 := by
-  induction k with
-  | zero => omega
-  | succ k ih => rw [choose_two_succ]; omega
 
-/-- `C(k,2)` eventually dominates: `d < C(k,2)` as soon as `d + 2 ≤ k`. -/
-private lemma lt_choose_two_of_add_two_le {d k : ℕ} (hk : d + 2 ≤ k) : d < k.choose 2 := by
-  have := le_choose_two_add_one k
-  omega
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- For `j + k ≤ n`, the `j`-th coefficient of `qBinom n k X` equals that of `qPochhammerInv k`. -/
 theorem coeff_qBinom_eq_coeff_qPochhammerInv {k j n : ℕ} (hjk : j + k ≤ n) :
     PowerSeries.coeff j (QSeries.qBinom n k (X : R⟦X⟧)) =
@@ -198,8 +174,9 @@ private theorem summable_pow_choose_two_mul_pow_mul_qPochhammerInv (a : R⟦X⟧
     Summable fun k : ℕ => (X : R⟦X⟧) ^ k.choose 2 * a ^ k * qPochhammerInv (R := R) k := by
   refine (WithPiTopology.summable_iff_summable_coeff R).mpr fun d => ?_
   refine summable_of_ne_finset_zero (s := Finset.range (d + 2)) fun k hk => ?_
-  exact coeff_eq_zero_of_lt_choose_two a d k (lt_choose_two_of_add_two_le (by simpa using hk))
+  exact coeff_eq_zero_of_lt_choose_two a d k (Nat.lt_choose_two_of_add_two_le (by simpa using hk))
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- Termwise agreement, in degree `n`, between the finite q-binomial expansion of
 `(-a; X)_{n+1}` and the Euler-second summands. -/
 private theorem coeff_pow_choose_two_mul_qBinom_mul_pow (a : R⟦X⟧) (n k : ℕ) :
@@ -210,7 +187,7 @@ private theorem coeff_pow_choose_two_mul_qBinom_mul_pow (a : R⟦X⟧) (n k : �
     PowerSeries.coeff_X_pow_mul', PowerSeries.coeff_X_pow_mul']
   split_ifs with h
   · refine coeff_mul_congr (N := n - k.choose 2 + 1) (by omega) fun i hi => ?_
-    exact coeff_qBinom_eq_coeff_qPochhammerInv (by have := le_choose_two_add_one k; omega)
+    exact coeff_qBinom_eq_coeff_qPochhammerInv (by have := Nat.le_choose_two_add_one k; omega)
   · rfl
 
 /-- FPS Euler second identity: `qPochhammerInf(-a) = Σ_{k≥0} X^{C(k,2)} · a^k · (qPochhammer X k)⁻¹`
@@ -226,7 +203,7 @@ theorem euler_second_identity (a : R⟦X⟧) :
       (PowerSeries.coeff n).toAddMonoidHom (WithPiTopology.continuous_coeff R n)).tsum_eq
   rw [coeff_qPochhammerInf, qPochhammer_neg_eq_sum, ← hcoeff,
     tsum_eq_sum (s := Finset.range (n + 2)) fun k hk =>
-      coeff_eq_zero_of_lt_choose_two a n k (lt_choose_two_of_add_two_le (by simpa using hk)),
+      coeff_eq_zero_of_lt_choose_two a n k (Nat.lt_choose_two_of_add_two_le (by simpa using hk)),
     map_sum]
   exact Finset.sum_congr rfl fun k _ => coeff_pow_choose_two_mul_qBinom_mul_pow a n k
 
@@ -239,7 +216,7 @@ omit [DiscreteTopology R] in
 /-- A family `m ↦ X ^ e m * g m` in `R⟦X⟧` is summable as soon as the exponents `e m`
 eventually exceed every fixed degree: only finitely many terms contribute to each
 coefficient. -/
-theorem summable_X_pow_mul {e : ℕ → ℕ}
+private theorem summable_X_pow_mul {e : ℕ → ℕ}
     (he : ∀ d : ℕ, ∃ N : ℕ, ∀ m ≥ N, d < e m) (g : ℕ → R⟦X⟧) :
     Summable fun m : ℕ => (X : R⟦X⟧) ^ e m * g m := by
   refine (PowerSeries.WithPiTopology.summable_iff_summable_coeff R).mpr fun d => ?_
@@ -257,7 +234,7 @@ private theorem exists_forall_lt_choose_two (d : ℕ) :
     ∃ N : ℕ, ∀ m ≥ N, d < m.choose 2 := by
   refine ⟨d + 2, fun m hm => ?_⟩
   obtain ⟨j, rfl⟩ : ∃ j, m = j + 1 := ⟨m - 1, by omega⟩
-  rw [choose_two_succ]
+  rw [Nat.choose_two_succ]
   omega
 
 /-- The key sum `S_k = ∑_m X^{m(m+k)} / ((X;X)_m (X;X)_{m+k})`. -/
@@ -272,6 +249,7 @@ theorem summable_keySummand (k : ℕ) :
   simpa [mul_assoc] using summable_X_pow_mul (R := R)
     (exists_forall_lt_mul k) fun m => qPochhammerInv m * qPochhammerInv (m + k)
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- Key auxiliary: `qPochhammerInv(n-1) + X^n * qPochhammerInv(n) = qPochhammerInv(n)`.
     Equivalently,
     `(1 - X^{n+1}) * qPochhammerInv(n+1) + X^{n+1} * qPochhammerInv(n+1) = qPochhammerInv(n+1)`. -/
@@ -284,12 +262,6 @@ private theorem qPochhammerInv_add_pow_mul_qPochhammerInv_succ (n : ℕ) :
 private def keySumShift (k : ℕ) : R⟦X⟧ :=
   ∑' m : ℕ, X ^ (m * (m + k)) * qPochhammerInv (R := R) m * qPochhammerInv (m + k + 1)
 
-omit [DiscreteTopology R] in
-private theorem summable_keySumShift_summand (k : ℕ) :
-    Summable (fun m : ℕ =>
-      X ^ (m * (m + k)) * qPochhammerInv (R := R) m * qPochhammerInv (m + k + 1)) := by
-  simpa [mul_assoc] using summable_X_pow_mul (R := R)
-    (exists_forall_lt_mul k) fun m => qPochhammerInv m * qPochhammerInv (m + k + 1)
 
 private theorem keySumShift_eq_keySum_add (k : ℕ) :
     keySumShift (R := R) k = keySum k + X ^ (k + 1) * keySum (k + 1) := by
@@ -322,11 +294,6 @@ private theorem hasSum_pow_mul_keySum (k : ℕ) :
     ring
   exact hfun ▸ (summable_keySummand (R := R) (k + 2)).hasSum.mul_left _
 
-private theorem pow_mul_keySum_eq_tsum (k : ℕ) :
-    X ^ (k + 1) * keySum (R := R) (k + 2) =
-    ∑' n : ℕ, X ^ ((n + 1) * (n + 1 + k)) * qPochhammerInv (R := R) n *
-      qPochhammerInv (n + k + 2) :=
-  (hasSum_pow_mul_keySum k).tsum_eq.symm
 
 private theorem keySumShift_eq_keySum_succ_add (k : ℕ) :
     keySumShift (R := R) k = keySum (k + 1) + X ^ (k + 1) * keySum (k + 2) := by
@@ -404,6 +371,7 @@ private theorem coeff_tsum {f : ℕ → R⟦X⟧} (hf : Summable f) (d : ℕ) :
   ((hf.hasSum.map (PowerSeries.coeff d).toAddMonoidHom
     (WithPiTopology.continuous_coeff R d)).tsum_eq).symm
 
+omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- `qPochhammerInv 0 = 1`. -/
 private theorem qPochhammerInv_zero : qPochhammerInv (R := R) 0 = 1 := by
   simpa using qPochhammer_X_mul_qPochhammerInv (R := R) 0
@@ -468,7 +436,7 @@ theorem hasSum_pow_choose_two_nonneg (k : ℕ) :
       (X ^ k.choose 2 : R⟦X⟧) := by
   convert hasSum_pow_mul_qPochhammerInf_mul_qPochhammerInv (R := R) k (k.choose 2) using 1
   funext m
-  rw [← qPochhammerInf_X_mul_qPochhammerInv (m + k), ← choose_two_add_choose_two m k]
+  rw [← qPochhammerInf_X_mul_qPochhammerInv (m + k), ← Nat.choose_two_add_choose_two m k]
   ring
 
 /-- Cauchy diagonal coefficient for negative index `-(l+1)`: the `(n, n+l+1)` diagonal of the
@@ -481,7 +449,7 @@ theorem hasSum_pow_choose_two_neg (l : ℕ) :
   convert hasSum_pow_mul_qPochhammerInf_mul_qPochhammerInv (R := R) (l + 1)
     ((l + 2).choose 2) using 1
   funext n
-  rw [← qPochhammerInf_X_mul_qPochhammerInv n, ← choose_two_add_choose_two' n l]
+  rw [← qPochhammerInf_X_mul_qPochhammerInv n, ← Nat.choose_two_add_choose_two' n l]
   ring
 
 end Cauchy
@@ -628,7 +596,7 @@ private theorem summable_leftSummand : Summable leftSummand := by
   refine (PowerSeries.WithPiTopology.summable_iff_summable_coeff (LaurentPolynomial ℂ)).mpr
     fun d => summable_of_ne_finset_zero (s := Finset.range (d + 2)) fun n hn => ?_
   rw [Finset.mem_range, not_lt] at hn
-  exact coeff_leftSummand_eq_zero (lt_choose_two_of_add_two_le hn)
+  exact coeff_leftSummand_eq_zero (Nat.lt_choose_two_of_add_two_le hn)
 
 open LaurentPolynomial in
 /-- The rightSummand sequence is summable. -/
@@ -648,7 +616,7 @@ private theorem summable_leftSummand_mul_rightSummand :
   simp only [Finset.mem_product, Finset.mem_range, not_and_or, not_lt] at hp
   refine coeff_leftSummand_mul_rightSummand_eq_zero ?_
   rcases hp with h | h
-  · have := lt_choose_two_of_add_two_le h
+  · have := Nat.lt_choose_two_of_add_two_le h
     omega
   · omega
 
@@ -663,24 +631,7 @@ private theorem hasSum_leftSummand_mul_rightSummand_jacobiProd :
   rw [h]
   exact summable_leftSummand_mul_rightSummand.hasSum
 
-open LaurentPolynomial in
-/-- The non-negative part of the theta series is summable. -/
-private theorem summable_laurentZ_pow_mul_pow_choose_two :
-    Summable (fun k : ℕ => laurentZ ^ k * X ^ k.choose 2) := by
-  refine (PowerSeries.WithPiTopology.summable_iff_summable_coeff (LaurentPolynomial ℂ)).mpr
-    fun d => summable_of_ne_finset_zero (s := Finset.range (d + 2)) fun k hk => ?_
-  rw [Finset.mem_range, not_lt] at hk
-  rw [mul_comm, PowerSeries.coeff_X_pow_mul', if_neg (lt_choose_two_of_add_two_le hk).not_ge]
 
-open LaurentPolynomial in
-/-- The negative part of the theta series is summable. -/
-private theorem summable_laurentZInv_pow_mul_pow_choose_two :
-    Summable (fun l : ℕ => laurentZInv ^ (l + 1) * X ^ (l + 2).choose 2) := by
-  refine (PowerSeries.WithPiTopology.summable_iff_summable_coeff (LaurentPolynomial ℂ)).mpr
-    fun d => summable_of_ne_finset_zero (s := Finset.range (d + 1)) fun l hl => ?_
-  rw [Finset.mem_range, not_lt] at hl
-  rw [mul_comm, PowerSeries.coeff_X_pow_mul',
-    if_neg (lt_choose_two_of_add_two_le (show d + 2 ≤ l + 2 by omega)).not_ge]
 
 open LaurentPolynomial in
 /-- Summability of the non-negative diagonal rearrangement. -/
@@ -692,7 +643,7 @@ private theorem summable_diagonal_nonneg :
   simp only [Finset.mem_product, Finset.mem_range, not_and_or, not_lt] at hp
   refine coeff_leftSummand_mul_rightSummand_eq_zero ?_
   rcases hp with h | h
-  · have := lt_choose_two_of_add_two_le (show d + 2 ≤ p.2 + p.1 by omega)
+  · have := Nat.lt_choose_two_of_add_two_le (show d + 2 ≤ p.2 + p.1 by omega)
     omega
   · omega
 
@@ -760,6 +711,6 @@ theorem jacobiTripleProduct : @jacobiProd = @jacobiBilateral :=
 
 end JTP
 
-end QSeries.PowerSeries
+end QSeries.FormalPowerSeries
 
 end

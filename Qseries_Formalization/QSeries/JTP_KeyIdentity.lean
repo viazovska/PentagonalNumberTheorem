@@ -41,7 +41,7 @@ theorem keySum_eq_tsum (q : ℂ) (k : ℕ) :
 
 /-- A sequence of positive reals converging to a positive limit is bounded below by a
 positive constant. -/
-theorem exists_pos_le_of_tendsto {f : ℕ → ℝ} {L : ℝ} (hL : 0 < L)
+private theorem exists_pos_le_of_tendsto {f : ℕ → ℝ} {L : ℝ} (hL : 0 < L)
     (hf : Tendsto f atTop (𝓝 L)) (hpos : ∀ n, 0 < f n) : ∃ C > 0, ∀ n, C ≤ f n := by
   obtain ⟨N, hN⟩ := eventually_atTop.mp (hf.eventually (lt_mem_nhds (half_lt_self hL)))
   have hne : (Finset.range (N + 1)).Nonempty := ⟨0, by simp⟩
@@ -264,33 +264,8 @@ theorem keySum_eq_one_div_qPochhammerInf_self {q : ℂ} (hq : ‖q‖ < 1) (k : 
     (tendsto_keySum hq) using 1
   exact h_const k
 
-private lemma choose_two_succ (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
-  rw [Nat.choose_succ_succ, Nat.choose_one_right, add_comm]
-
-/-- Key arithmetic: C(m+k,2) + C(m,2) + m = C(k,2) + m*(m+k). -/
-lemma choose_two_add_choose_two (m k : ℕ) :
-    (m + k).choose 2 + m.choose 2 + m = k.choose 2 + m * (m + k) := by
-  induction m with
-  | zero => simp
-  | succ m ih =>
-    rw [show m + 1 + k = (m + k) + 1 from by omega, choose_two_succ, choose_two_succ]
-    nlinarith [ih]
-
-/-- Variant: C(n,2) + C(n+l+1,2) + n+l+1 = C(l+2,2) + n*(n+l+1). -/
-lemma choose_two_add_choose_two' (n l : ℕ) :
-    n.choose 2 + (n + (l + 1)).choose 2 + (n + (l + 1)) = (l + 2).choose 2 + n * (n + (l + 1)) := by
-  induction n with
-  | zero =>
-    simp only [zero_add, Nat.zero_mul, add_zero, Nat.choose_zero_succ]
-    have : (l + 2).choose 2 = (l + 1).choose 2 + (l + 1) := by
-      rw [show l + 2 = (l + 1) + 1 from by omega]; exact choose_two_succ (l+1)
-    omega
-  | succ n ih =>
-    rw [choose_two_succ, show n + 1 + (l + 1) = (n + (l + 1)) + 1 from by omega, choose_two_succ]
-    nlinarith [ih]
-
-/-- Telescoping: (q;q)_∞ = (q;q)_n * (q^{n+1};q)_∞. -/
-private lemma qPochhammerInf_self_eq_qPochhammer_mul {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
+/-- Telescoping: `(q;q)_∞ = (q;q)_n * (q^{n+1};q)_∞`. -/
+private lemma qPochhammerInf_eq_qPochhammer_mul {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
     qPochhammerInf q q = qPochhammer q q n * qPochhammerInf (q * q ^ n) q := by
   induction n with
   | zero => simp [qPochhammer]
@@ -300,11 +275,11 @@ private lemma qPochhammerInf_self_eq_qPochhammer_mul {q : ℂ} (hq : ‖q‖ < 1
     rw [qPochhammerInf_eq_one_sub_mul hq]
     ring_nf
 
-/-- qPochhammerInf (q * q^n) q = (q;q)_∞ / (q;q)_n -/
-lemma qPochhammerInf_mul_pow_eq_div {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
+/-- `qPochhammerInf (q * q^n) q = (q;q)_∞ / (q;q)_n`. -/
+theorem qPochhammerInf_mul_pow_eq_div {q : ℂ} (hq : ‖q‖ < 1) (n : ℕ) :
     qPochhammerInf (q * q ^ n) q = qPochhammerInf q q / qPochhammer q q n := by
   rw [eq_div_iff (qPochhammer_self_ne_zero hq n), mul_comm]
-  exact (qPochhammerInf_self_eq_qPochhammer_mul hq n).symm
+  exact (qPochhammerInf_eq_qPochhammer_mul hq n).symm
 
 /-- The sum over $m$ of the $z^k$ cross-terms in the JTP double product has sum
 $q^{\binom{k}{2}}$. -/
@@ -327,7 +302,7 @@ theorem hasSum_pow_choose_two_nonneg {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
       q ^ ((m + k).choose 2 + m.choose 2 + m) * qPochhammerInf q q /
         (qPochhammer q q (m + k) * qPochhammer q q m)) (q ^ k.choose 2) := by
     convert h_scaled using 3
-    rw [choose_two_add_choose_two]
+    rw [Nat.choose_two_add_choose_two]
   convert h_sum using 2
   push_cast [qPochhammerInf_mul_pow_eq_div hq]
   ring
@@ -345,7 +320,7 @@ theorem hasSum_pow_choose_two_neg {q : ℂ} (hq : ‖q‖ < 1) (l : ℕ) :
     convert HasSum.mul_left (q ^ (l + 2).choose 2 * qPochhammerInf q q)
       (summable_keySummand hq (l + 1)).hasSum using 1
     · ext n
-      rw [keySummand, choose_two_add_choose_two']
+      rw [keySummand, Nat.choose_two_add_choose_two']
       ring
     · rw [show (∑' n : ℕ, keySummand q (l + 1) n) = 1 / qPochhammerInf q q from ?_]
       · rw [mul_assoc, mul_one_div_cancel (qPochhammerInf_ne_zero hq hq), mul_one]

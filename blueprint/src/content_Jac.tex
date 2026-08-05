@@ -175,7 +175,8 @@ recovering the off-by-one form.
 
 \begin{proof}[Proof of Theorem~\ref{thm:qbin-finite}]\proves{thm:qbin-finite}\leanok\uses{lem:qpascal, lem:qBinom-eq-zero-of-lt, def:qBinom}
 Induction on $n$, following the Lean proof
-\texttt{QSeries.prod\_one\_add\_mul\_pow\_eq\_sum\_qBinom} in \texttt{Series/qSeries.lean}.
+\texttt{QSeries.prod\_one\_add\_mul\_pow\_eq\_sum\_qBinom} in
+\texttt{QSeries/FiniteBinomial.lean}.
 The case $n = 0$ gives $1 = 1$.
 
 For the inductive step, set
@@ -380,8 +381,8 @@ which is the $n \to \infty$ limit of Theorem~\ref{thm:qbin-finite} after rewriti
 
 This section records the foundational definitions and lemmas that have been
 formalized in Lean for the $q$-series approach to Jacobi's triple product.
-The corresponding source file is \texttt{Series/qSeries.lean} in the
-\texttt{Series} Lean library, under the namespace \texttt{QSeries}.
+The corresponding source files are in \texttt{QSeries/} in the
+\texttt{QSeries} Lean library, under the namespace \texttt{QSeries}.
 Throughout this section $R$ is a commutative ring and $a, q \in R$.
 
 \subsection{The $q$-Pochhammer symbol}
@@ -626,7 +627,7 @@ $z \neq 0$), all under the namespace \texttt{QSeries}. An independent
 purely algebraic proof of the triple product in the formal power series ring
 $R[\![ X]\!]$ lives in \texttt{QSeries/FPS.lean},
 \texttt{QSeries/FPS\_Euler.lean}, and \texttt{QSeries/FPS\_Algebra.lean}
-under the namespace \texttt{QSeries.PowerSeries}; this is documented in
+under the namespace \texttt{QSeries.FormalPowerSeries}; this is documented in
 Section~\ref{sec:fps}. The $q$-Pochhammer / $q$-binomial foundations
 (Section~\ref{sec:qPochhammer-formalized}) are shared between both
 developments.
@@ -1012,7 +1013,7 @@ iterated functional equation for both sides yields equality at $z$.
 This section records the second, independent proof of the Jacobi triple product
 that was formalised in \texttt{Qseries\_Aristotle\_new/QSeries/FPS.lean},
 \texttt{QSeries/FPS\_Euler.lean}, and \texttt{QSeries/FPS\_Algebra.lean} under the namespace
-\texttt{QSeries.PowerSeries}. Unlike the analytic proof of Section~\ref{sec:implemented},
+\texttt{QSeries.FormalPowerSeries}. Unlike the analytic proof of Section~\ref{sec:implemented},
 this proof is \emph{entirely algebraic}: no norms, no $\|q\| < 1$ hypothesis, and
 no topological analysis beyond the $X$-adic (pi) topology on $R[\![ X ]\!]$.
 
@@ -1030,7 +1031,7 @@ finitely many coefficients of any fixed degree.
 
 Throughout this section $R$ is a commutative ring (with \texttt{DiscreteTopology}).
 
-\begin{definition}[FPS finite $q$-Pochhammer symbol]\label{def:fps-qPoch}\lean{QSeries.PowerSeries.qPochhammer}\leanok
+\begin{definition}[FPS finite $q$-Pochhammer symbol]\label{def:fps-qPoch}\lean{QSeries.FormalPowerSeries.qPochhammer}\leanok
 For $a \in R[\![ X]\!]$ and $n \in \mathbb{N}$,
 \[
   \texttt{qPoch}\,a\,n
@@ -1039,25 +1040,25 @@ For $a \in R[\![ X]\!]$ and $n \in \mathbb{N}$,
 \]
 \end{definition}
 
-\begin{lemma}[Base case]\label{lem:fps-qPoch-zero}\lean{QSeries.PowerSeries.qPochhammer_zero}\leanok\uses{def:fps-qPoch}
+\begin{lemma}[Base case]\label{lem:fps-qPoch-zero}\lean{QSeries.FormalPowerSeries.qPochhammer_zero}\leanok\uses{def:fps-qPoch}
 $\texttt{qPoch}\,a\,0 = 1$.
 \end{lemma}
 
 \begin{proof}\leanok Empty product. \end{proof}
 
-\begin{lemma}[FPS recurrence]\label{lem:fps-qPoch-succ}\lean{QSeries.PowerSeries.qPochhammer_succ}\leanok\uses{def:fps-qPoch}
+\begin{lemma}[FPS recurrence]\label{lem:fps-qPoch-succ}\lean{QSeries.FormalPowerSeries.qPochhammer_succ}\leanok\uses{def:fps-qPoch}
 $\texttt{qPoch}\,a\,(n+1) = \texttt{qPoch}\,a\,n \cdot (1 - a\cdot X^n)$.
 \end{lemma}
 
 \begin{proof}\leanok Immediate from \texttt{Finset.prod\_range\_succ}. \end{proof}
 
-\begin{lemma}[FPS shift identity]\label{lem:fps-qPoch-shift}\lean{QSeries.PowerSeries.qPochhammer_succ_eq_one_sub_mul}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
+\begin{lemma}[FPS shift identity]\label{lem:fps-qPoch-shift}\lean{QSeries.FormalPowerSeries.qPochhammer_succ_eq_one_sub_mul}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
 $\texttt{qPoch}\,a\,(n+1) = (1-a)\cdot\texttt{qPoch}\,(aX)\,n$.
 \end{lemma}
 
 \begin{proof}\leanok Induction on $n$ using the recurrence. \end{proof}
 
-\begin{lemma}[Coefficient stabilisation]\label{lem:fps-coeff-stable}\lean{QSeries.PowerSeries.coeff_qPochhammer_succ}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
+\begin{lemma}[Coefficient stabilisation]\label{lem:fps-coeff-stable}\lean{QSeries.FormalPowerSeries.coeff_qPochhammer_succ}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
 If $d < n$ then $[X^d]\,\texttt{qPoch}\,a\,(n+1) = [X^d]\,\texttt{qPoch}\,a\,n$.
 \end{lemma}
 
@@ -1065,13 +1066,13 @@ If $d < n$ then $[X^d]\,\texttt{qPoch}\,a\,(n+1) = [X^d]\,\texttt{qPoch}\,a\,n$.
 The new factor $(1 - a X^n)$ only affects monomials of degree $\ge n > d$.
 \end{proof}
 
-\begin{lemma}[Constant coefficient]\label{lem:fps-constantCoeff-qPoch-X}\lean{QSeries.PowerSeries.constantCoeff_qPochhammer_X}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
+\begin{lemma}[Constant coefficient]\label{lem:fps-constantCoeff-qPoch-X}\lean{QSeries.FormalPowerSeries.constantCoeff_qPochhammer_X}\leanok\uses{def:fps-qPoch, lem:fps-qPoch-succ}
 The constant term of $\texttt{qPoch}\,(X : R[\![ X]\!])\,n$ is $1$.
 \end{lemma}
 
 \begin{proof}\leanok Induction on $n$; each factor $(1 - X \cdot X^k)$ has constant term $1$. \end{proof}
 
-\begin{theorem}[FPS multipliability in pi topology]\label{thm:fps-multipliable}\lean{QSeries.PowerSeries.multipliable_one_sub_mul_pow}\leanok\uses{def:fps-qPoch}
+\begin{theorem}[FPS multipliability in pi topology]\label{thm:fps-multipliable}\lean{QSeries.FormalPowerSeries.multipliable_one_sub_mul_pow}\leanok\uses{def:fps-qPoch}
 The family $k \mapsto 1 - a\cdot X^k$ is multipliable in $R[\![ X]\!]$
 (with the pi / $X$-adic topology).
 \end{theorem}
@@ -1084,7 +1085,7 @@ which is the criterion for multipliability in the pi topology.
 No norm hypothesis is needed.
 \end{proof}
 
-\begin{definition}[FPS infinite $q$-Pochhammer symbol]\label{def:fps-qPochInf}\lean{QSeries.PowerSeries.qPochhammerInf}\leanok\uses{thm:fps-multipliable}
+\begin{definition}[FPS infinite $q$-Pochhammer symbol]\label{def:fps-qPochInf}\lean{QSeries.FormalPowerSeries.qPochhammerInf}\leanok\uses{thm:fps-multipliable}
 \[
   \texttt{qPochInf}\,a
   \;:=\; \prod_{k=0}^{\infty}\bigl(1 - a\cdot X^k\bigr)
@@ -1092,7 +1093,7 @@ No norm hypothesis is needed.
 \]
 \end{definition}
 
-\begin{lemma}[Coefficient formula]\label{lem:fps-coeff-qPochInf}\lean{QSeries.PowerSeries.coeff_qPochhammerInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-stable, thm:fps-multipliable}
+\begin{lemma}[Coefficient formula]\label{lem:fps-coeff-qPochInf}\lean{QSeries.FormalPowerSeries.coeff_qPochhammerInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-stable, thm:fps-multipliable}
 $[X^d]\,\texttt{qPochInf}\,a = [X^d]\,\texttt{qPoch}\,a\,(d+1)$.
 \end{lemma}
 
@@ -1103,7 +1104,7 @@ $\texttt{qPochInf}\,a$ in the pi topology; continuity of
 coefficient extraction gives the identity.
 \end{proof}
 
-\begin{lemma}[FPS recursion]\label{lem:fps-qPochInf-recursion}\lean{QSeries.PowerSeries.qPochhammerInf_eq_one_sub_mul}\leanok\uses{def:fps-qPochInf, thm:fps-multipliable}
+\begin{lemma}[FPS recursion]\label{lem:fps-qPochInf-recursion}\lean{QSeries.FormalPowerSeries.qPochhammerInf_eq_one_sub_mul}\leanok\uses{def:fps-qPochInf, thm:fps-multipliable}
 $\texttt{qPochInf}\,a = (1-a)\cdot\texttt{qPochInf}\,(a\cdot X)$.
 \end{lemma}
 
@@ -1113,14 +1114,14 @@ $\prod_{k\ge 0}(1-a X^k) = (1-a)\cdot\prod_{k\ge 0}(1 - a X^{k+1})
 = (1-a)\cdot\texttt{qPochInf}(aX)$.
 \end{proof}
 
-\begin{lemma}[Iterated telescoping]\label{lem:fps-qPochInf-eq-qPoch-mul}\lean{QSeries.PowerSeries.qPochhammerInf_eq_qPochhammer_mul}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, lem:fps-qPochInf-recursion, lem:fps-qPoch-succ}
+\begin{lemma}[Iterated telescoping]\label{lem:fps-qPochInf-eq-qPoch-mul}\lean{QSeries.FormalPowerSeries.qPochhammerInf_eq_qPochhammer_mul}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, lem:fps-qPochInf-recursion, lem:fps-qPoch-succ}
 For every $n \in \mathbb{N}$:
 $\texttt{qPochInf}\,a = \texttt{qPoch}\,a\,n \cdot \texttt{qPochInf}\,(a\cdot X^n)$.
 \end{lemma}
 
 \begin{proof}\leanok Induction on $n$ using Lemma~\ref{lem:fps-qPochInf-recursion}. \end{proof}
 
-\begin{lemma}[FPS unit]\label{lem:fps-isUnit-qPochInf}\lean{QSeries.PowerSeries.isUnit_qPochhammerInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-qPochInf, lem:fps-qPoch-succ, lem:fps-qPoch-zero}
+\begin{lemma}[FPS unit]\label{lem:fps-isUnit-qPochInf}\lean{QSeries.FormalPowerSeries.isUnit_qPochhammerInf}\leanok\uses{def:fps-qPochInf, lem:fps-coeff-qPochInf, lem:fps-qPoch-succ, lem:fps-qPoch-zero}
 If $1 - [X^0]\,a$ is a unit of $R$, then $\texttt{qPochInf}\,a$ is a unit
 of $R[\![ X]\!]$.
 \end{lemma}
@@ -1133,7 +1134,7 @@ The constant term of $\texttt{qPochInf}\,a$ equals $1 - [X^0]\,a$
 \subsection{FPS Euler second identity}
 \label{subsec:fps-euler2}
 
-\begin{theorem}[FPS Euler second identity]\label{thm:fps-euler-second}\lean{QSeries.PowerSeries.euler_second_identity}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, def:qBinom, thm:qbin-finite, lem:fps-coeff-qPochInf}
+\begin{theorem}[FPS Euler second identity]\label{thm:fps-euler-second}\lean{QSeries.FormalPowerSeries.euler_second_identity}\leanok\uses{def:fps-qPochInf, def:fps-qPoch, def:qBinom, thm:qbin-finite, lem:fps-coeff-qPochInf}
 In $R[\![ X]\!]$ (for any commutative ring $R$ with discrete topology),
 \[
   \texttt{qPochInf}(-a)
@@ -1159,7 +1160,7 @@ the tprod as $N \to \infty$ in the pi topology.
 \subsection{FPS key identity}
 \label{subsec:fps-key}
 
-\begin{definition}[FPS key sum]\label{def:fps-S}\lean{QSeries.PowerSeries.keySum}\leanok\uses{def:fps-qPochInf, def:fps-qPoch}
+\begin{definition}[FPS key sum]\label{def:fps-S}\lean{QSeries.FormalPowerSeries.keySum}\leanok\uses{def:fps-qPochInf, def:fps-qPoch}
 For $k \in \mathbb{N}$, define
 \[
   S^{\mathrm{fps}}_k
@@ -1170,7 +1171,7 @@ For $k \in \mathbb{N}$, define
 \]
 \end{definition}
 
-\begin{lemma}[FPS key sum is summable]\label{lem:fps-summable-S}\lean{QSeries.PowerSeries.summable_keySummand}\leanok\uses{def:fps-S}
+\begin{lemma}[FPS key sum is summable]\label{lem:fps-summable-S}\lean{QSeries.FormalPowerSeries.summable_keySummand}\leanok\uses{def:fps-S}
 The summand of $S^{\mathrm{fps}}_k$ is summable in $R[\![ X]\!]$.
 \end{lemma}
 
@@ -1179,7 +1180,7 @@ The monomial $X^{m(m+k)}$ has $X$-adic order $\ge m$; since $m \to \infty$, the
 summand family satisfies the pi-topology criterion for summability.
 \end{proof}
 
-\begin{lemma}[FPS key sum recurrence]\label{lem:fps-S-recurrence}\lean{QSeries.PowerSeries.keySum_sub_keySum_succ}\leanok\uses{def:fps-S, lem:fps-summable-S}
+\begin{lemma}[FPS key sum recurrence]\label{lem:fps-S-recurrence}\lean{QSeries.FormalPowerSeries.keySum_sub_keySum_succ}\leanok\uses{def:fps-S, lem:fps-summable-S}
 For every $k$:
 \[
   S^{\mathrm{fps}}_k - S^{\mathrm{fps}}_{k+1}
@@ -1196,7 +1197,7 @@ This is a \emph{purely algebraic} ring identity in $R[\![ X]\!]$;
 no norms are needed.
 \end{proof}
 
-\begin{theorem}[FPS: all $S_k$ are equal]\label{thm:fps-S-const}\lean{QSeries.PowerSeries.keySum_eq_keySum_zero}\leanok\uses{lem:fps-S-recurrence, lem:fps-summable-S, def:fps-S}
+\begin{theorem}[FPS: all $S_k$ are equal]\label{thm:fps-S-const}\lean{QSeries.FormalPowerSeries.keySum_eq_keySum_zero}\leanok\uses{lem:fps-S-recurrence, lem:fps-summable-S, def:fps-S}
 $S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0$ for all $k \in \mathbb{N}$.
 \end{theorem}
 
@@ -1211,7 +1212,7 @@ $[X^{d-(k+1)}]\,D_{k+2} = [X^{d-(k+1)}]\,D_k$ and the argument closes
 by strong induction. Hence $D_k = 0$ for all $k$, giving $S^{\mathrm{fps}}_k = S^{\mathrm{fps}}_0$.
 \end{proof}
 
-\begin{theorem}[FPS key identity]\label{thm:fps-key}\lean{QSeries.PowerSeries.keySum_eq_qPochhammerInfInv}\leanok\uses{thm:fps-S-const, def:fps-S, def:fps-qPochInf}
+\begin{theorem}[FPS key identity]\label{thm:fps-key}\lean{QSeries.FormalPowerSeries.keySum_eq_qPochhammerInfInv}\leanok\uses{thm:fps-S-const, def:fps-S, def:fps-qPochInf}
 For every $k$,
 \[
   S^{\mathrm{fps}}_k
@@ -1239,7 +1240,7 @@ requiring no analytic hypotheses whatsoever.
 \subsection{FPS Cauchy coefficient identities}
 \label{subsec:fps-cauchy}
 
-\begin{lemma}[FPS product expansion]\label{lem:fps-qqInf-euler2}\lean{QSeries.PowerSeries.qPochhammerInf_X_mul_qPochhammerInf_neg}\leanok\uses{def:fps-qPochInf, thm:fps-euler-second, lem:fps-qPochInf-eq-qPoch-mul}
+\begin{lemma}[FPS product expansion]\label{lem:fps-qqInf-euler2}\lean{QSeries.FormalPowerSeries.qPochhammerInf_X_mul_qPochhammerInf_neg}\leanok\uses{def:fps-qPochInf, thm:fps-euler-second, lem:fps-qPochInf-eq-qPoch-mul}
 In $R[\![ X]\!]$:
 \[
   \texttt{qPochInf}(X)\cdot\texttt{qPochInf}(-a)
@@ -1255,7 +1256,7 @@ $\texttt{qPochInf}(X)\cdot(\texttt{qPoch}(X,n))^{-1} = \texttt{qPochInf}(X\cdot 
 (Lemma~\ref{lem:fps-qPochInf-eq-qPoch-mul}) converts each term.
 \end{proof}
 
-\begin{theorem}[FPS Cauchy coefficient -- non-negative diagonal]\label{thm:fps-cauchy-nonneg}\lean{QSeries.PowerSeries.hasSum_pow_choose_two_nonneg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S, def:fps-qPochInf}
+\begin{theorem}[FPS Cauchy coefficient -- non-negative diagonal]\label{thm:fps-cauchy-nonneg}\lean{QSeries.FormalPowerSeries.hasSum_pow_choose_two_nonneg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S, def:fps-qPochInf}
 For every $k \ge 0$:
 \[
   \sum_{m=0}^{\infty}
@@ -1275,7 +1276,7 @@ $\binom{m+k}{2} + \binom{m}{2} + m = \binom{k}{2} + m(m+k)$
 Apply Theorem~\ref{thm:fps-key} and $\texttt{qPochInf}(X)\cdot\texttt{qqInv} = 1$.
 \end{proof}
 
-\begin{theorem}[FPS Cauchy coefficient -- negative diagonal]\label{thm:fps-cauchy-neg}\lean{QSeries.PowerSeries.hasSum_pow_choose_two_neg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S, def:fps-qPochInf}
+\begin{theorem}[FPS Cauchy coefficient -- negative diagonal]\label{thm:fps-cauchy-neg}\lean{QSeries.FormalPowerSeries.hasSum_pow_choose_two_neg}\leanok\uses{lem:fps-qqInf-euler2, thm:fps-key, def:fps-S, def:fps-qPochInf}
 For every $l \ge 0$:
 \[
   \sum_{n=0}^{\infty}
@@ -1296,7 +1297,7 @@ arithmetic identity $\binom{n}{2} + \binom{n+l+1}{2} + (n+l+1) = \binom{l+2}{2} 
 \subsection{FPS Jacobi triple product}
 \label{subsec:fps-jtp}
 
-\begin{definition}[FPS JTP objects]\label{def:fps-jtp}\lean{QSeries.PowerSeries.jacobiProd}\leanok\uses{def:fps-qPochInf}
+\begin{definition}[FPS JTP objects]\label{def:fps-jtp}\lean{QSeries.FormalPowerSeries.jacobiProd}\leanok\uses{def:fps-qPochInf}
 Let $A = \texttt{LaurentPolynomial}\,\mathbb{C}$, $z = T(1)$,
 $z^{-1} = T(-1)$ viewed as constant power series in $A[\![ X]\!]$.
 Define:
@@ -1313,7 +1314,7 @@ Here $T(k)$ is the degree-$k$ monomial in the Laurent polynomial ring $A$,
 so $T(n) = z^n$ and $T(-(m+1)) = z^{-(m+1)}$.
 \end{definition}
 
-\begin{theorem}[FPS Jacobi triple product]\label{thm:fps-jtp}\lean{QSeries.PowerSeries.jacobiTripleProduct}\leanok\uses{def:fps-jtp, thm:fps-cauchy-nonneg, thm:fps-cauchy-neg, lem:fps-qqInf-euler2, thm:fps-euler-second}
+\begin{theorem}[FPS Jacobi triple product]\label{thm:fps-jtp}\lean{QSeries.FormalPowerSeries.jacobiTripleProduct}\leanok\uses{def:fps-jtp, thm:fps-cauchy-nonneg, thm:fps-cauchy-neg, lem:fps-qqInf-euler2, thm:fps-euler-second}
 In $A[\![ X]\!]$ (with $A = \texttt{LaurentPolynomial}\,\mathbb{C}$):
 \[
   \texttt{jtpProd} \;=\; \texttt{jtpSeries},

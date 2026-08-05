@@ -111,7 +111,7 @@ theorem tendstoUniformlyOn_sum_inv_pow_mul_pow_choose_two {q : ℂ} (hq : ‖q�
     (pow_le_pow_left₀ (norm_nonneg _) hz (m + 1)) (by positivity)
 
 /-- Convert Finset-indexed `TendstoUniformlyOn` to ℕ-indexed via `Finset.range`. -/
-lemma tendstoUniformlyOn_prod_range_of_finset {α β : Type*}
+private lemma tendstoUniformlyOn_prod_range_of_finset {α β : Type*}
     [CommMonoid β] [UniformSpace β] {f : ℕ → α → β} {g : α → β} {s : Set α}
     (h : TendstoUniformlyOn (fun (S : Finset ℕ) (x : α) => ∏ i ∈ S, f i x) g
          Filter.atTop s) :
@@ -159,7 +159,7 @@ theorem tendstoLocallyUniformly_qPochhammer {q : ℂ} (hq : ‖q‖ < 1) :
   exact ⟨Metric.closedBall x 1, Metric.closedBall_mem_nhds _ zero_lt_one, hK ε hε⟩
 
 /-- Precomposing a uniform limit with a map sending `s` into the domain set `t`. -/
-lemma tendstoUniformlyOn_comp_of_mapsTo {s t : Set ℂ} {f : ℕ → ℂ → ℂ} {F φ : ℂ → ℂ}
+private lemma tendstoUniformlyOn_comp_of_mapsTo {s t : Set ℂ} {f : ℕ → ℂ → ℂ} {F φ : ℂ → ℂ}
     (h : TendstoUniformlyOn f F atTop t) (hφ : ∀ z ∈ s, φ z ∈ t) :
     TendstoUniformlyOn (fun n z => f n (φ z)) (fun z => F (φ z)) atTop s := by
   intro U hU
@@ -168,7 +168,7 @@ lemma tendstoUniformlyOn_comp_of_mapsTo {s t : Set ℂ} {f : ℕ → ℂ → ℂ
 
 /-- On the closed ball of radius `‖z₀‖ / 2` around `z₀` every point has norm at least
 `‖z₀‖ / 2`; so on such a ball `z` stays away from `0`. -/
-lemma half_norm_le_norm_of_mem_closedBall {z₀ z : ℂ}
+private lemma half_norm_le_norm_of_mem_closedBall {z₀ z : ℂ}
     (hz : z ∈ Metric.closedBall z₀ (‖z₀‖ / 2)) : ‖z₀‖ / 2 ≤ ‖z‖ := by
   rw [Metric.mem_closedBall, dist_eq_norm'] at hz
   have := norm_sub_norm_le z₀ z
@@ -176,7 +176,7 @@ lemma half_norm_le_norm_of_mem_closedBall {z₀ z : ℂ}
 
 /-- On a ball of radius `‖z₀‖ / 2` around `z₀ ≠ 0` the inverse `z⁻¹` is bounded
 by `2 / ‖z₀‖`. -/
-lemma norm_inv_le_of_mem_ball {z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
+private lemma norm_inv_le_of_mem_ball {z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
     (hz : z ∈ Metric.ball z₀ (‖z₀‖ / 2)) : ‖z⁻¹‖ ≤ 2 / ‖z₀‖ := by
   have hz₀' : 0 < ‖z₀‖ := norm_pos_iff.mpr hz₀
   have hzn := half_norm_le_norm_of_mem_closedBall (Metric.ball_subset_closedBall hz)
@@ -295,7 +295,7 @@ lemma exists_norm_qPochhammerInf_le {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
 
 /-- For `z` in the closed ball of radius `‖z₀‖ / 2` around `z₀ ≠ 0`,
 `-q / z` lies in the closed ball of radius `2 * ‖q‖ / ‖z₀‖` around `0`. -/
-lemma neg_div_mem_closedBall {q z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
+private lemma neg_div_mem_closedBall {q z₀ z : ℂ} (hz₀ : z₀ ≠ 0)
     (hz : z ∈ Metric.closedBall z₀ (‖z₀‖ / 2)) :
     -q / z ∈ Metric.closedBall (0 : ℂ) (2 * ‖q‖ / ‖z₀‖) := by
   have hz₀' : 0 < ‖z₀‖ := norm_pos_iff.mpr hz₀

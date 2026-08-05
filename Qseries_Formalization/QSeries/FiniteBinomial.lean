@@ -24,9 +24,6 @@ namespace QSeries
 
 variable {R : Type*}
 
-/-- Helper: $(k+1).choose\, 2 = k.choose\, 2 + k$. -/
-private lemma choose_two_succ (k : ℕ) : (k + 1).choose 2 = k.choose 2 + k := by
-  rw [Nat.choose_succ_succ, Nat.choose_one_right, add_comm]
 
 /-- **Finite q-binomial theorem.**
 $$\prod_{k=0}^{n-1}(1 + z q^k) = \sum_{k=0}^{n} q^{\binom{k}{2}} \binom{n}{k}_q z^k.$$ -/
@@ -64,7 +61,7 @@ theorem prod_one_add_mul_pow_eq_sum_qBinom [CommRing R] (q z : R) (n : ℕ) :
         apply Finset.sum_congr rfl
         intro k hk
         have hkle : k ≤ n := Nat.lt_succ_iff.mp (Finset.mem_range.mp hk)
-        rw [choose_two_succ k, pow_add q (k.choose 2) k,
+        rw [Nat.choose_two_succ k, pow_add q (k.choose 2) k,
             mul_assoc (q ^ k.choose 2) (q ^ k) (q ^ (n - k)),
             ← pow_add q k (n - k),
             show k + (n - k) = n from by omega,
