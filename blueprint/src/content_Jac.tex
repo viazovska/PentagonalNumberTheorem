@@ -593,9 +593,9 @@ Section~\ref{sec:fps}.
 
 This section records the proof strategy that was \emph{actually} carried out in
 the Lean formalisation (produced with the Aristotle prover). It does not follow
-any one of the three textbook routes of Sections~\ref{sec:hermite},
-\ref{sec:qbin}, \ref{sec:complex} verbatim. It is closest in spirit to
-Proof~2 (the Euler / $q$-binomial route, Section~\ref{sec:qbin}), but the
+verbatim any of the three textbook routes -- the Hermite-style coefficient
+recurrence, the Euler / $q$-binomial theorem, or complex analysis via
+quasi-periodicity. It is closest in spirit to the Euler / $q$-binomial route, but the
 execution is neither Andrews' nor Zhu's: instead of Zhu's semi-finite
 truncation or a complex-analytic continuation, the formalisation
 
@@ -896,8 +896,8 @@ extended identity carries no annulus hypothesis, the argument runs directly on
 the full punctured disc $0 < \|z\| < 1$, with no separate continuation step.
 \end{proof}
 
-\paragraph{Remark (divergence from the outline).} Compared with
-Section~\ref{sec:qbin}: the formalisation uses a \emph{genuine Cauchy product}
+\paragraph{Remark (divergence from the outline).} Compared with the
+Euler / $q$-binomial route: the formalisation uses a \emph{genuine Cauchy product}
 of two second-Euler expansions, not Zhu's semi-finite truncation; the diagonal
 coefficients are evaluated through the classical Durfee rectangle identity
 (Theorem~\ref{thm:S-sum-eq}), but via its analytic contraction-recurrence proof
