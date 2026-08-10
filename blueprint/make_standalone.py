@@ -8,7 +8,7 @@ for public jsdelivr CDN URLs, and writes blueprint/web/dep_graph_standalone.html
 The resulting file is ~60 KB and renders the dep graph anywhere an HTTPS
 connection is available — open from disk, email, drop on any static host.
 
-Run after post_build.py so the embedded GitHub source links are correct.
+Run after `leanblueprint web` so the embedded Lean declaration links are present.
 """
 
 import re

@@ -67,13 +67,13 @@ Qseries_Formalization/                    q-series / JTP proof route
     ├── EulerIdentities.lean              Euler's first and second FPS identities
     ├── FPS.lean                          FPS infrastructure and pi-topology summability
     ├── FPS_Euler.lean                    FPS Euler second identity
-    ├── FPS_Algebra.lean                  FPS JTP (jacobiTripleProduct_fps), Cauchy coefficients
+    ├── FPS_Algebra.lean                  FPS JTP (FormalPowerSeries.jacobiTripleProduct), Cauchy coefficients
     ├── JTP_Core.lean                     Core JTP infrastructure
     ├── JTP_KeyIdentity.lean              Key identity S_k = (q;q)_∞⁻¹
     ├── JTP_Helpers.lean                  Helper lemmas for the JTP proof
-    ├── JTP_Analytic.lean                 Analytic JTP (jacobiTripleProduct_analytic)
+    ├── JTP_Analytic.lean                 Analytic JTP (jacobiTripleProduct')
     ├── JacobiTripleProduct.lean          Top-level JTP and pentagonal number theorem
-    └── PentagonalNumber.lean             eulerPentagonalNumber
+    └── PentagonalNumber.lean             pentagonal, euler_pentagonal_number
 
 blueprint/
 ├── src/
@@ -82,8 +82,8 @@ blueprint/
 │   ├── web.tex                           Master file for the web build
 │   ├── print.tex                         Master file for the PDF build
 │   └── macros/                           Shared / web / print-only macros
-├── post_build.py                         Rewrites doc URLs to GitHub source links
-└── build_web.sh                          Convenience wrapper: web build + post_build
+├── make_standalone.py                    Builds the self-contained dep-graph HTML
+└── build_web.sh                          Convenience wrapper: web build + standalone graph
 
 home_page/                                Jekyll source for the landing page
 .github/workflows/blueprint.yml           CI: build Lean, blueprint, deploy to Pages
@@ -108,15 +108,20 @@ lake build              # build the Lean code
 ### Blueprint
 
 ```bash
-./blueprint/build_web.sh        # web blueprint + GitHub link rewrite
+./blueprint/build_web.sh        # web blueprint + standalone dep graph
 leanblueprint pdf               # PDF blueprint
 ```
 
 Open `blueprint/web/index.html` in a browser to view the result locally.
 
-`build_web.sh` runs `leanblueprint web` and then `post_build.py`, which rewrites
-every Lean-declaration link (originally pointing at the doc-gen4 docs site) to
-the matching `.lean` source file and line on GitHub.
+`build_web.sh` runs `leanblueprint web` and then `make_standalone.py`, which
+bundles a dependency graph that renders without sibling assets.
+
+Every `\lean{...}` declaration in the blueprint links to the doc-gen4 API docs
+at the `\dochome` URL set in `blueprint/src/web.tex`. Each doc-gen4 page in turn
+carries a `source` link to the exact lines on GitHub, pinned to the commit the
+docs were built from. Both the docs and the blueprint are built from the same
+commit by `.github/workflows/blueprint.yml`, so the two stay in sync.
 
 ## Contributing
 

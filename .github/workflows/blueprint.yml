@@ -47,7 +47,16 @@ jobs:
         uses: leanprover/lean-action@434f25c2f80ded67bba02502ad3a86f25db50709 # 2025-07-02
         with:
           build: true
+          # `--wfail` fails the build if any warning is logged. The mathlib linter
+          # set is already enabled via `weak.linter.mathlibStandardSet` in
+          # lakefile.toml, so this is what actually enforces it in CI.
+          build-args: "--wfail"
+          # `lint: true` would run `lake lint`, which needs a lintDriver this
+          # project does not define (mathlib no longer ships `runLinter`).
+          # Linting is enforced through `build-args` above instead.
           lint: false
+          # `mk_all --check` assumes a root directory matching each library name;
+          # the QSeries lib uses `srcDir = "Qseries_Formalization"`, so it errors.
           mk_all-check: false
 
       - name: Compile blueprint and documentation

@@ -62,6 +62,7 @@ QSeries.qBinom_self
 QSeries.qBinom_mul_qPochhammer_mul_qPochhammer
 QSeries.qPochhammerInf
 QSeries.multipliable_one_sub_mul_pow
+QSeries.hasSum_qPochhammer_div_mul_pow
 QSeries.euler_first_identity
 QSeries.euler_second_identity
 QSeries.qPochhammerInf_self_eq_qPochhammer_mul
