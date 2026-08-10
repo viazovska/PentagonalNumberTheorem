@@ -263,14 +263,14 @@ The slope set is the maximal top-consecutive run: $D = \{\max(S) - s + 1, \ldots
 $$S = \{b, b+1, \ldots, \max(S)\} = D.$$
 In particular $|S| = \max(S) - b + 1 = s$, so $\max(S) = b + s - 1$.
 
-\textbf{Step 2: Case A --- $b = s$.}
+\textbf{Step 2: Case A ($b = s$).}
 Then $|S| = s = b$ and $\max(S) = 2b - 1$, so
 $$S = \{b, b+1, \ldots, 2b - 1\}.$$
 The sum is
 $$\sum_{i=b}^{2b-1} i = b \cdot b + (0 + 1 + \cdots + (b-1)) = b^2 + \frac{b(b-1)}{2} = \frac{3b^2 - b}{2}.$$
 Setting $k = b \in \mathbb{Z}_{\geq 1}$, we have $n = (3k^2 - k)/2$ and $S = S_{-k} = \{k, k+1, \ldots, 2k - 1\}$.
 
-\textbf{Step 3: Case B --- $b = s + 1$.}
+\textbf{Step 3: Case B ($b = s + 1$).}
 Then $|S| = s = b - 1$ and $\max(S) = b + s - 1 = 2b - 2$, so
 $$S = \{b, b+1, \ldots, 2b - 2\}.$$
 The sum is
@@ -285,7 +285,7 @@ Conversely, given $n = (3k^2 - k)/2$ with $k \geq 1$, the set $S_{-k} = \{k, k+1
 The case analysis in Steps 2--3 shows that for each pentagonal $n$, there is at most one special partition (the candidate is uniquely determined by $b$, and $b$ is determined by $n$). Combined with Step 4, this gives exactly one.
 
 \textbf{Step 6: Non-pentagonal $n$.}
-If $n$ is not pentagonal of either form, then by Steps 2--3 no $b \geq 1$ produces a special partition with $\sum = n$, so $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$.
+If $n$ is not pentagonal of either form, then by Steps 2--3 no $b \geq 1$ produces a special partition with the sum equal to $n$, so $\mathcal{P}_{\mathrm{special}}(n) = \emptyset$.
 \end{proof}
 
 \begin{definition} [Operations $\alpha$ and $\beta$]\label{def:alpha-beta-ops}\lean{alphaOp, betaOp}\uses{def:P-alpha-beta-special, def:base-slope}\leanok
@@ -325,9 +325,12 @@ We claim $m \geq 2b$ in both clauses of $\mathcal{P}_\alpha$. The top-$b$ slope 
 
 \emph{First clause ($b \leq s$, $b \notin D$):} If $m = 2b - 1$, then $m - b + 1 = b$, so $b \in D$, contradicting $b \notin D$. Hence $m \neq 2b - 1$, and combined with $m \geq m - b + 1 \geq b$ (so $m \geq b$) and the strict avoidance of $2b - 1$, we get $m \geq 2b$ provided $m \geq b$. Actually we need $m \geq 2b - 1$ first: since $\{m-b+1,\ldots,m\}$ has $b$ distinct positive elements, $m - b + 1 \geq 1$ gives $m \geq b$; combined with the existence of $b \in S$ and $b \notin D$, we have $b \leq m - b$ (since $b < m - b + 1 = \min(D)$), giving $m \geq 2b$.
 
-\emph{Second clause ($b \leq s - 1$):} The slope has length $s \geq b + 1$, so $|D| = s \geq b + 1$, and $\min(D) = m - s + 1 \leq m - b$. Since $b \in S$ and $b < \min(D)$ (because $b \leq s - 1 < s \leq m - b + 1$... we need $b < m - s + 1$, i.e., $m > s + b - 1 \geq 2b$, equivalently $m \geq 2b + 1$). For this, since $\{m - s + 1, \ldots, m\} \subseteq S$ are $s$ distinct elements all distinct from $b$, and the smallest of them is $m - s + 1 > b$ (as $b \leq s - 1$ would mean $b + 1 \leq s$, hence $m - s + 1 \leq m - b$; this gives $m - s + 1 > b$ iff $m > s + b - 1$, which holds because $m \geq \min(D) + s - 1 = m$, trivially; we need a strict bound). The minimal sum of $S$ is at least $b + (m - s + 1) + \cdots + m$, which forces $m \geq 2b + 1 \geq 2b$.
+%\emph{Second clause ($b \leq s - 1$):} The slope has length $s \geq b + 1$, so $|D| = s \geq b + 1$, and $\min(D) = m - s + 1 \leq m - b$. Since $b \in S$ and $b < \min(D)$ (because $b \leq s - 1 < s \leq m - b + 1$... we need $b < m - s + 1$, i.e., $m > s + b - 1 \geq 2b$, equivalently $m \geq 2b + 1$). For this, since $\{m - s + 1, \ldots, m\} \subseteq S$ are $s$ distinct elements all distinct from $b$, and the smallest of them is $m - s + 1 > b$ (as $b \leq s - 1$ would mean $b + 1 \leq s$, hence $m - s + 1 \leq m - b$; this gives $m - s + 1 > b$ iff $m > s + b - 1$, which holds because $m \geq \min(D) + s - 1 = m$, trivially; we need a strict bound). The minimal sum of $S$ is at least $b + (m - s + 1) + \cdots + m$, which forces $m \geq 2b + 1 \geq 2b$.
 
-(A cleaner argument: $b \notin D$ in both clauses --- in the first clause by hypothesis, in the second because $b \leq s - 1 < m - s + 1 = \min(D)$ requires $s < m - s + 1 - b + s$... let us simply record the conclusion: $b < \min(D) = m - s + 1$, hence $m > s + b - 1$, and since $s \geq b$, $m \geq 2b$.)
+\emph{Second clause} (\(b \leq s-1\)): Since \(D \subseteq S\) and \(b=\min(S)\), we have $b \leq \min(D)=m-s+1$.
+Therefore, $m \geq b+s-1$. Since \(s \geq b+1\), it follows that $m \geq b+s-1 \geq b+(b+1)-1= 2b.$
+
+%(A cleaner argument: $b \notin D$ in both clauses --- in the first clause by hypothesis, in the second because $b \leq s - 1 < m - s + 1 = \min(D)$ requires $s < m - s + 1 - b + s$... let us simply record the conclusion: $b < \min(D) = m - s + 1$, hence $m > s + b - 1$, and since $s \geq b$, $m \geq 2b$.)
 
 \textbf{Step 1: $\alpha(S)$ is a partition of $n$.}
 The sum change is $-b - (m - b + 1) + (m + 1) = 0$, so the sum is preserved. We must verify that $\alpha(S)$ has distinct positive elements.
