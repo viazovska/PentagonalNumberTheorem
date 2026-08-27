@@ -379,3 +379,6 @@ TSWLatexianTemp*
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
+## Palomar submission staging area (working documents; the files that must be
+## public live at the repo root once copied out of palomar-submission/to-commit/)
+palomar-submission/

@@ -1,7 +1,7 @@
 name = "my_project"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["EulerPentagonalNumberTheorem_Franklin", "QSeries"]
+defaultTargets = ["EulerPentagonalNumberTheorem_Franklin", "QSeries", "PentagonalNumberTheorem"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -24,3 +24,6 @@ name = "EulerPentagonalNumberTheorem_Franklin"
 [[lean_lib]]
 name = "QSeries"
 srcDir = "Qseries_Formalization"
+
+[[lean_lib]]
+name = "PentagonalNumberTheorem"
