@@ -117,8 +117,9 @@ differ in how much human direction and checking went into them:
 - **q-series / Jacobi triple product route** — here the blueprint is machine-generated as well as
   the proofs. The authors restructured the library, renamed its API to be mathlib-ready and
   reviewed the statements, but the development is machine output. It is included because it is
-  much the more reusable of the two: Mathlib has no q-Pochhammer symbol, Gaussian binomial
-  coefficient, Euler identities, Cauchy identity or Jacobi triple product.
+  much the more reusable of the two: q-Pochhammer symbols, the Gaussian binomial coefficient,
+  Euler's identities and the Cauchy identity are general-purpose machinery, whereas the Franklin
+  route is specific to this theorem.
 
 **Claude** assisted with Lean proof development, blueprint maintenance and CI/deployment
 infrastructure across the project.

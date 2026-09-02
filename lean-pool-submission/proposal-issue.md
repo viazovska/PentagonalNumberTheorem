@@ -22,12 +22,13 @@ Two independent formalizations of Euler's pentagonal number theorem that share n
   formal power series identity over an arbitrary commutative ring and analytically over `ℂ` for
   `‖q‖ < 1`, then specialized to the pentagonal number theorem for the infinite product.
 
-**Why it may fit the pool.** Mathlib currently has no q-Pochhammer symbol, no Gaussian binomial
-coefficient, no Jacobi triple product and no pentagonal number theorem. It does have
-`Nat.Partition.genFun`, whose module docstring lists "generating function for the partition
-function p(n) (TODO: prove this)" — which this project's `coeff_pGenFun_eq_p_count` effectively
-does. So the q-series half is a clean addition and the combinatorial half already docks onto
-existing Mathlib API.
+**Why it may fit the pool.** The combinatorial half already docks onto existing Mathlib API: it
+builds on `Nat.Partition.genFun`, whose module docstring lists "generating function for the
+partition function p(n) (TODO: prove this)" — which this project's `coeff_pGenFun_eq_p_count`
+effectively does. The q-series half is a general-purpose development (q-Pochhammer symbols,
+Gaussian binomial coefficients, Euler's identities, the Cauchy identity) rather than scaffolding
+for a single result. We make no claim of priority for either: q-series identities including the
+Jacobi triple product have been formalized in Lean before.
 
 **Gates.** 4582 LOC of own Lean across 19 files; 0 `sorry`; axioms limited to `propext`,
 `Classical.choice`, `Quot.sound`; no `unsafe`/`partial`; Apache-2.0; Apache header on 19/19 files;

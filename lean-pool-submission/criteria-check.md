@@ -9,7 +9,7 @@ and the gates in `CONTRIBUTING.md`. All figures re-measured on this branch.
 |---|---|---|
 | Domain fits mathlib / cslib / physlean | ✅ mathlib | number theory + enumerative combinatorics |
 | ≥ 250 LOC of own `.lean` (not vendored) | ✅ **4582** | 19 files under `QSeries/` and `EulerPentagonalNumberTheorem_Franklin/` |
-| Reads like theorems a big library could absorb | ✅ | 271 declarations; q-Pochhammer / Gaussian binomial / Euler identities / Cauchy identity / JTP form a reusable API, none of which exists in Mathlib today |
+| Reads like theorems a big library could absorb | ✅ | 271 declarations; the q-Pochhammer / Gaussian binomial / Euler identity / Cauchy identity / JTP development is a general-purpose API rather than one-off scaffolding |
 
 ## EXCLUDE criteria — none apply
 
