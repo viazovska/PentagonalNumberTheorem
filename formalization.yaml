@@ -47,6 +47,19 @@ sources:
     relationship: "background"
     note: "Standard textbook treatment of both routes; the formalization follows neither verbatim."
 
+related_formalizations:
+  - id: "https://arxiv.org/abs/2607.01544"
+    relationship: "independent"
+    note: >
+      Kenny Lau, Seewoo Lee and Ken Ono, "Formalized q-series: The Rogers-Ramanujan Identities
+      and Beyond" (Lean 4 / Mathlib; https://github.com/AxiomMath/RogersRamanujan) formalizes
+      the Jacobi triple product and Euler's pentagonal number theorem over complete
+      non-archimedean rings, via Bailey pairs. Developed independently of this project and we
+      claim no priority over it. The overlap is with our q-series route; our Franklin route is
+      a combinatorial proof by sign-reversing involution, which theirs does not use, and our
+      analytic statements are over the complex numbers for ‖q‖ < 1, a setting their
+      non-archimedean hypotheses do not cover.
+
 classification:
   arxiv: [math.NT, math.CO]
   msc2020: [11P81, 11P84, 05A17, 05A19, 33D15]
