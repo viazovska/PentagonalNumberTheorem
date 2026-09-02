@@ -61,6 +61,36 @@ jobs:
           # the QSeries lib uses `srcDir = "Qseries_Formalization"`, so it errors.
           mk_all-check: false
 
+      # Cache doc-gen4's incremental build state.
+      #
+      # docgen-action has its own "Cache Mathlib docs" step, but it covers only
+      # the rendered HTML under `docbuild/.lake/build/doc/<Pkg>`. doc-gen4 tracks
+      # incrementality elsewhere: a marker file per module at
+      # `buildDir / "doc-data" / "<Module>.doc"` (doc-gen4 lakefile.lean, the
+      # `docInfo` module facet) plus the SQLite database at
+      # `buildDir / "api-docs.db"` (DocGen4/DB.lean, `updateModuleDb`). Neither
+      # is cached upstream, so Lake sees every module as stale and re-runs the
+      # full `docInfo` pass -- 8273 jobs, ~232 min of a ~240 min run, even
+      # though the Mathlib oleans themselves come from cache and are not rebuilt.
+      #
+      # The key includes the commit SHA with a restore-key prefix so each run
+      # starts from the previous run's state and saves an updated copy. The
+      # upstream `Docs-` key is the manifest hash alone, so once written it is
+      # never refreshed ("Cache hit occurred on the primary key ... not saving
+      # cache"). Keying on lake-manifest.json means the cache is dropped
+      # whenever the Mathlib revision changes, which is when doc-data would
+      # genuinely go stale.
+      - name: Cache doc-gen4 incremental state
+        if: github.event_name == 'push'
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            docbuild/.lake/build/doc-data
+            docbuild/.lake/build/api-docs.db
+          key: DocData-${{ hashFiles('lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            DocData-${{ hashFiles('lake-manifest.json') }}-
+
       - name: Compile blueprint and documentation
         uses: leanprover-community/docgen-action@deed0cdc44dd8e5de07a300773eb751d33e32fc8 # 2025-10-26
         with:
