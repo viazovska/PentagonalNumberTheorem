@@ -2,17 +2,20 @@
 # Schema mirrors the existing cards in that file. `provenance` is required and must be
 # one of human | AI | mix.
   - slug: pentagonal-number-theorem
-    title: Euler's pentagonal number theorem, twice, and the Jacobi triple product
+    title: Euler's pentagonal number theorem via Franklin's involution, with a q-series route
     summary: >-
-      Formalizes Euler's pentagonal number theorem by two independent arguments that share no
-      lemmas. The combinatorial route builds Franklin's sign-reversing involution on partitions
-      into distinct parts and evaluates the coefficient of qⁿ in the truncated product
-      ∏_{k=1}^{n}(1 - qᵏ) as p_e(n) - p_o(n), equal to (-1)^k at generalized pentagonal
-      n = k(3k-1)/2 and 0 otherwise. The q-series route develops q-Pochhammer symbols, the
-      Gaussian binomial coefficient, Euler's two identities and the Cauchy identity, proves the
-      Jacobi triple product both as a formal power series identity over an arbitrary commutative
-      ring and analytically over ℂ for ‖q‖ < 1, and specializes it to the pentagonal number
-      theorem for the infinite product. Mathlib currently has none of the q-series material.
+      Formalizes Euler's pentagonal number theorem, primarily by Franklin's sign-reversing
+      involution on partitions into distinct parts: p_e(n) - p_o(n) = (-1)^|k| when n is the
+      generalized pentagonal number k(3k-1)/2 for some k ∈ ℤ, and 0 otherwise, stated under a
+      single integer index, together with the identification of that signed count with the
+      coefficient of Xⁿ in the truncated product ∏_{k=1}^{n}(1 - Xᵏ) over ℤ⟦X⟧. The
+      combinatorial side builds on Mathlib's Nat.Partition.genFun. An accompanying extension
+      develops q-Pochhammer symbols, the Gaussian binomial coefficient, Euler's two identities
+      and the Cauchy identity, proves the Jacobi triple product both as a formal power series
+      identity over an arbitrary commutative ring and analytically over ℂ for ‖q‖ < 1, and
+      reaches the same theorem for the infinite product by specialization. The two routes share
+      no lemmas, so each independently confirms the result. Mathlib currently has none of the
+      q-series material.
     branch: number theory and enumerative combinatorics
     entry_module: LeanPool.PentagonalNumberTheorem
     authors:
@@ -31,34 +34,41 @@
     status: verified
     provenance: mix
     main_declarations:
-      - QSeries.euler_pentagonal_number
+      - euler_pentagonal_number_theorem_packaged
+      - coeff_prod_eq_pe_sub_po
       - QSeries.jacobiTripleProduct
+      - QSeries.euler_pentagonal_number
       - QSeries.FormalPowerSeries.jacobiTripleProduct
-      - coeff_prod_pentagonal_zero
     main_results:
-      - declaration: QSeries.euler_pentagonal_number
+      - declaration: euler_pentagonal_number_theorem_packaged
         informal: >-
-          For ‖q‖ < 1, the infinite product (q;q)_∞ equals the bilateral series
-          ∑_{k ∈ ℤ} (-1)^k q^{ω(k)} over the generalized pentagonal numbers ω(k) = k(3k-1)/2,
-          written as two one-sided sums.
+          The primary result. For every n, either n is a generalized pentagonal number
+          k(3k-1)/2 for some integer k, in which case the number of partitions of n into an
+          even number of distinct parts exceeds the number with an odd number of distinct
+          parts by exactly (-1)^|k|; or n is not of that form, in which case the two counts
+          are equal. Proved by Franklin's sign-reversing involution.
+      - declaration: coeff_prod_eq_pe_sub_po
+        informal: >-
+          The coefficient of X^n in the truncated product ∏_{k=1}^{n}(1 - X^k) over ℤ⟦X⟧ equals
+          p_e(n) - p_o(n), the signed count of partitions of n into distinct parts. Truncating
+          at n is harmless because the omitted factors are ≡ 1 mod X^{n+1}.
       - declaration: QSeries.jacobiTripleProduct
         informal: >-
           For ‖q‖ < 1, ‖z‖ < 1 and z ≠ 0, the product (q;q)_∞ (-z;q)_∞ (-q/z;q)_∞ equals the
           bilateral theta series ∑_{k ∈ ℤ} z^k q^{k(k-1)/2}.
+      - declaration: QSeries.euler_pentagonal_number
+        informal: >-
+          For ‖q‖ < 1, the infinite product (q;q)_∞ equals ∑_{k ∈ ℤ} (-1)^k q^{ω(k)} over the
+          generalized pentagonal numbers ω(k) = k(3k-1)/2, written as two one-sided sums.
+          Obtained from the Jacobi triple product by specialization.
       - declaration: QSeries.FormalPowerSeries.jacobiTripleProduct
         informal: >-
           The Jacobi triple product as an identity of formal power series over an arbitrary
-          commutative ring, with no convergence hypothesis: the product of q-Pochhammer symbols
-          equals the bilateral theta series coefficientwise.
-      - declaration: coeff_prod_pentagonal_zero
-        informal: >-
-          Via Franklin's involution, the coefficient of qⁿ in the truncated product
-          ∏_{k=1}^{n}(1 - qᵏ) is zero whenever n is not a generalized pentagonal number; the
-          sibling declarations coeff_prod_pentagonal_plus and coeff_prod_pentagonal_minus give
-          the value (-1)^k at pentagonal n.
+          commutative ring, with no convergence hypothesis.
     tags:
       - number-theory
       - partitions
+      - franklin-involution
       - q-series
       - pentagonal-number-theorem
       - jacobi-triple-product

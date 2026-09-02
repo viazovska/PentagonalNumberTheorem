@@ -6,14 +6,16 @@ project:
   name: "PentagonalNumberTheorem"
   authors: [Jonathan Conrad, Paula Muermann, Maryna Viazovska]
   description: >
-    Two independent Lean 4 / Mathlib formalizations of Euler's pentagonal number theorem.
-    The first follows Franklin's sign-reversing involution on partitions into distinct parts
-    and yields the coefficient identity for the truncated product. The second develops
+    A Lean 4 / Mathlib formalization of Euler's pentagonal number theorem. The primary
+    development is combinatorial: Franklin's sign-reversing involution on partitions into
+    distinct parts, giving p_e(n) - p_o(n) = (-1)^|k| when n is the generalized pentagonal
+    number k(3k-1)/2 and 0 otherwise, together with the identification of that signed count
+    with the coefficient of q^n in the truncated product. An accompanying extension develops
     q-Pochhammer symbols, Euler's identities and the Cauchy identity to prove the Jacobi
-    triple product, both as a formal power series identity over an arbitrary commutative ring
-    and analytically over the complex numbers for ‖q‖ < 1, and derives the pentagonal number
-    theorem for the infinite product by specialization. The two routes share no lemmas:
-    neither depends on the other.
+    triple product -- both as a formal power series identity over an arbitrary commutative
+    ring and analytically over the complex numbers for ‖q‖ < 1 -- and reaches the same theorem
+    for the infinite product by specialization. The two routes share no lemmas: neither
+    depends on the other, so each independently confirms the result.
   responsible_maintainers: [Jonathan Conrad, Maryna Viazovska]
   license: "Apache-2.0"
 
@@ -44,30 +46,37 @@ classification:
 
 status:
   scope: >
-    Complete formalization of Euler's pentagonal number theorem by two independent routes,
-    together with the Jacobi triple product identity in both a formal-power-series form over
-    an arbitrary commutative ring and an analytic form over ℂ. No `sorry`, no axioms beyond
-    Lean's standard three, no unproved literature dependencies.
+    Complete formalization of Euler's pentagonal number theorem, primarily via Franklin's
+    involution, with an independent q-series route through the Jacobi triple product as an
+    accompanying extension. The Jacobi triple product is proved both as a formal-power-series
+    identity over an arbitrary commutative ring and analytically over ℂ. No `sorry`, no axioms
+    beyond Lean's standard three, no unproved literature dependencies.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: [propext, Classical.choice, Quot.sound]
   main_results:
-    - declaration: "QSeries.euler_pentagonal_number"
-      file: "Qseries_Formalization/QSeries/PentagonalNumber.lean"
+    - declaration: "euler_pentagonal_number_theorem_packaged"
+      file: "EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
-      comparator_config: "palomar/comparator.json"
+      comparator_config: "public/comparator.json"
+    - declaration: "coeff_prod_eq_pe_sub_po"
+      file: "EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "public/comparator.json"
     - declaration: "QSeries.jacobiTripleProduct"
       file: "Qseries_Formalization/QSeries/JacobiTripleProduct.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
-      comparator_config: "palomar/comparator.json"
-    - declaration: "QSeries.FormalPowerSeries.jacobiTripleProduct"
-      file: "Qseries_Formalization/QSeries/FPS_Algebra.lean"
+      comparator_config: "public/comparator.json"
+    - declaration: "QSeries.euler_pentagonal_number"
+      file: "Qseries_Formalization/QSeries/PentagonalNumber.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
-    - declaration: "coeff_prod_pentagonal_zero"
-      file: "EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean"
+      comparator_config: "public/comparator.json"
+    - declaration: "QSeries.FormalPowerSeries.jacobiTripleProduct"
+      file: "Qseries_Formalization/QSeries/FPS_Algebra.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
 
@@ -105,21 +114,34 @@ review:
 
 alignment:
   statements:
-    - source: "Pentagonal Number Theorem (Lemma 24)"
-      lean: "coeff_prod_pentagonal_zero"
+    - source: "Pentagonal Number Theorem (Lemma 24, unified form)"
+      lean: "euler_pentagonal_number_theorem_packaged"
       module: "EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries"
       status: "Proved"
-      note: "Franklin route: p_e(n) - p_o(n) = 0 at non-pentagonal n, with the ±(-1)^k cases in the sibling declarations."
-    - source: "Pentagonal Number Theorem (Section 5.7)"
-      lean: "QSeries.euler_pentagonal_number"
-      module: "QSeries.PentagonalNumber"
+      note: >
+        The primary result. Franklin's involution, packaged under a single integer index:
+        p_e(n) - p_o(n) = (-1)^|k| when 2n = k(3k-1) for some k in ZZ, and 0 otherwise. This
+        subsumes the separate zero, non-pentagonal and two pentagonal cases.
+    - source: "Pentagonal Number Theorem (Lemma 5 / Theorem 7)"
+      lean: "coeff_prod_eq_pe_sub_po"
+      module: "EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries"
       status: "Proved"
-      note: "q-series route: the infinite-product form, obtained by specializing the Jacobi triple product."
+      note: >
+        Identifies the signed partition count with the coefficient of X^n in the truncated
+        product prod_{k=1}^{n} (1 - X^k) over ZZ[[X]], which agrees with the infinite product
+        in degree n.
     - source: "Pentagonal Number Theorem (Section 5.6)"
       lean: "QSeries.jacobiTripleProduct"
       module: "QSeries.JacobiTripleProduct"
       status: "Proved"
-      note: "Analytic Jacobi triple product for ‖q‖ < 1, ‖z‖ < 1, z ≠ 0."
+      note: "Accompanying extension: analytic Jacobi triple product for ‖q‖ < 1, ‖z‖ < 1, z ≠ 0."
+    - source: "Pentagonal Number Theorem (Section 5.7)"
+      lean: "QSeries.euler_pentagonal_number"
+      module: "QSeries.PentagonalNumber"
+      status: "Proved"
+      note: >
+        Accompanying extension: the infinite-product form of the same theorem, obtained by
+        specializing the Jacobi triple product. Independent of the Franklin route.
 
 acknowledgements: >
   The q-series route depends only on Mathlib. The blueprint and dependency graph are built

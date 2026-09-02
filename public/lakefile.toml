@@ -1,4 +1,5 @@
-# Separate Lake package for the Palomar submission.
+# Separate Lake package for the public submission artefacts (Palomar, and reused
+# for later submissions).
 #
 # Challenge and Solution deliberately declare the *same* theorem names -- that is
 # exactly what Comparator compares -- so they can never be imported into one
@@ -12,8 +13,8 @@
 # Lake writes a `lean-toolchain` and `lake-manifest.json` here on first build. Both
 # are committed so the submitted commit is reproducible, but the toolchain file must
 # be kept identical to the one at the repo root -- a stale copy here would silently
-# pin the Lean LSP to the wrong version for files under palomar/.
-name = "palomar"
+# pin the Lean LSP to the wrong version for files under public/.
+name = "public"
 version = "0.1.0"
 defaultTargets = ["Challenge", "Solution"]
 packagesDir = "../.lake/packages"
