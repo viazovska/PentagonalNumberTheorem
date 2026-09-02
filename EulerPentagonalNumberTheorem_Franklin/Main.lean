@@ -1,7 +1,7 @@
 /-
-Copyright (c) 2026 Jonathan Conrad. All rights reserved.
+Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Jonathan Conrad
+Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
 import EulerPentagonalNumberTheorem_Franklin.Defs
 import EulerPentagonalNumberTheorem_Franklin.Helpers
@@ -12,7 +12,7 @@ import EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries
 
 This file imports all components of the formalization of the
 Pentagonal Number Theorem, following the source document
-"Pentagonal Number Theorem" by Jonathan Conrad, Paula Mürmann, Maryna Viazovska (May 11, 2026).
+"Pentagonal Number Theorem" by Jonathan Conrad, Paula Muermann, Maryna Viazovska (May 11, 2026).
 
 ## Main results
 

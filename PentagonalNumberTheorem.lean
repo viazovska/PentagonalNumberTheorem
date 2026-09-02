@@ -1,7 +1,7 @@
 /-
-Copyright (c) 2026 Jonathan Conrad, Paula Mürmann, Maryna Viazovska. All rights reserved.
+Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Jonathan Conrad, Paula Mürmann, Maryna Viazovska
+Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
 import EulerPentagonalNumberTheorem_Franklin
 import QSeries

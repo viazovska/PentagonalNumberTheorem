@@ -17,13 +17,13 @@
     entry_module: LeanPool.PentagonalNumberTheorem
     authors:
       - Jonathan Conrad
-      - Paula Mürmann
+      - Paula Muermann
       - Maryna Viazovska
     source:
       title: Pentagonal Number Theorem
       authors:
         - Jonathan Conrad
-        - Paula Mürmann
+        - Paula Muermann
         - Maryna Viazovska
       url: https://viazovska.github.io/PentagonalNumberTheorem
       github_repo: viazovska/PentagonalNumberTheorem

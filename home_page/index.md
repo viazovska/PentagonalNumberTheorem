@@ -120,4 +120,4 @@ Apache License 2.0 — see [LICENSE](https://github.com/{{ site.repository }}/bl
 
 ## Authors
 
-Jonathan Conrad, Paula Mürmann, Maryna Viazovska.
+Jonathan Conrad, Paula Muermann, Maryna Viazovska.
