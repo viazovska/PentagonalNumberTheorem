@@ -2,20 +2,21 @@
 # Schema mirrors the existing cards in that file. `provenance` is required and must be
 # one of human | AI | mix.
   - slug: pentagonal-number-theorem
-    title: Euler's pentagonal number theorem via Franklin's involution, with a q-series route
+    title: Euler's pentagonal number theorem, two independent proofs, and the Jacobi triple product
     summary: >-
-      Formalizes Euler's pentagonal number theorem, primarily by Franklin's sign-reversing
-      involution on partitions into distinct parts: p_e(n) - p_o(n) = (-1)^|k| when n is the
-      generalized pentagonal number k(3k-1)/2 for some k ∈ ℤ, and 0 otherwise, stated under a
-      single integer index, together with the identification of that signed count with the
-      coefficient of Xⁿ in the truncated product ∏_{k=1}^{n}(1 - Xᵏ) over ℤ⟦X⟧. The
-      combinatorial side builds on Mathlib's Nat.Partition.genFun. An accompanying extension
-      develops q-Pochhammer symbols, the Gaussian binomial coefficient, Euler's two identities
-      and the Cauchy identity, proves the Jacobi triple product both as a formal power series
-      identity over an arbitrary commutative ring and analytically over ℂ for ‖q‖ < 1, and
-      reaches the same theorem for the infinite product by specialization. The two routes share
-      no lemmas, so each independently confirms the result. Mathlib currently has none of the
-      q-series material.
+      Two independent proofs of Euler's pentagonal number theorem that share no lemmas, so each
+      confirms the result on its own. The primary development, and the authors' own work, is
+      combinatorial: Franklin's sign-reversing involution on partitions into distinct parts,
+      giving p_e(n) - p_o(n) = (-1)^|k| when n is the generalized pentagonal number k(3k-1)/2
+      and 0 otherwise, stated under a single integer index, together with the identification of
+      that signed count with the coefficient of X^n in the truncated product over ℤ⟦X⟧. It
+      builds on Mathlib's Nat.Partition.genFun. The second route develops q-Pochhammer symbols,
+      the Gaussian binomial coefficient, Euler's two identities and the Cauchy identity, proves
+      the Jacobi triple product both as a formal power series identity over an arbitrary
+      commutative ring and analytically over ℂ for ‖q‖ < 1, and reaches the same theorem for
+      the infinite product by specialization. That route was generated autonomously (see
+      provenance) and is included because it is the more reusable of the two: Mathlib has none
+      of the q-series material.
     branch: number theory and enumerative combinatorics
     entry_module: LeanPool.PentagonalNumberTheorem
     authors:

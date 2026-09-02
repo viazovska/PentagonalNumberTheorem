@@ -5,7 +5,7 @@ a maintainer imports the repository. Title and body below.
 
 ---
 
-**Title:** Propose: Euler's pentagonal number theorem (two independent proofs) + Jacobi triple product
+**Title:** Propose: Euler's pentagonal number theorem — two independent proofs + Jacobi triple product
 
 **Body:**
 
@@ -34,10 +34,14 @@ existing Mathlib API.
 largest file 716 lines; `lake build --wfail` green (Mathlib's standard linter set is enabled in
 `lakefile.toml` and enforced by `--wfail` in CI).
 
-**Provenance: `mix`.** Aristotle (Harmonic) contributed to the mathematical argument and the
-Franklin-route development; Claude assisted with Lean proof development and CI. The human authors
-set the definitions and proof architecture and reviewed all statements against the source
-manuscript.
+**Provenance: `mix`, and the split is lopsided — stating it up front.** The q-series route
+(3318 lines, 72% of the project) was **generated autonomously by Aristotle** (Harmonic); we did
+not write those proofs, though we later restructured the library, renamed its API to be
+mathlib-ready and reviewed its statements. The Franklin route (1264 lines) is our own
+development: definitions, proof architecture and the mathematical argument are ours, with
+Aristotle editing the Lean and Claude assisting. Claude also helped with the blueprint and CI.
+We include the q-series route precisely because it is the more reusable half — if you read that
+split as `AI` rather than `mix`, that seems fair to us.
 
 **Extras.** Every formalized declaration is tied to a blueprint entry with a prose statement and
 proof sketch, with `leanblueprint checkdecls` enforcing in CI that every `\lean{}` annotation

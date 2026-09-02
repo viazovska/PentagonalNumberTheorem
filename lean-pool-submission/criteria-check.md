@@ -38,20 +38,28 @@ and the gates in `CONTRIBUTING.md`. All figures re-measured on this branch.
 | Size limits | ✅ | largest 716 lines (`FPS_Algebra.lean`) |
 | `provenance` declared | ✅ `mix` | see below |
 
-## Provenance: `mix`
+## Provenance: `mix` — with the split stated openly
 
 CONTRIBUTING requires one of `human` / `AI` / `mix`, describing **who wrote the Lean proofs**.
-`mix` is the honest answer, and matches what `formalization.yaml` discloses for Palomar:
+`mix` is correct under lean-pool's own definition ("both contributed substantially"), but the
+split is lopsided and worth stating before a reviewer works it out:
 
-- **Aristotle** (Harmonic) contributed to the mathematical argument, the blueprint structure, and
-  the Franklin-route development — `EulerPentagonalNumberTheorem_Franklin/README.md` carries its
-  attribution.
-- **Claude** assisted with Lean proof development, blueprint maintenance, and CI.
-- **The human authors** set the definitions and the overall proof architecture, and reviewed all
-  statements against the source manuscript.
+| Route | Lines | Declarations | Who wrote the Lean |
+|---|---|---|---|
+| q-series / Jacobi triple product | 3318 (72%) | 148 | **generated autonomously by Aristotle** (Harmonic). The authors did not write these proofs; they later restructured the library, renamed the API to be mathlib-ready, and reviewed the statements. |
+| Franklin involution | 1264 (28%) | 123 | the authors' own development — definitions, proof architecture and the mathematical argument set by the authors, with Aristotle editing the Lean and Claude assisting. |
 
-Do not claim `human`. The pool reviews provenance explicitly and understating it is the kind of
-thing that costs credibility.
+Claude also assisted project-wide with the blueprint and CI/deployment infrastructure.
+
+Do not soften this. lean-pool reviews provenance explicitly, `AI` is an accepted value there, and
+the pool exists partly to host exactly this kind of work. Understating it is the only thing that
+would cost credibility. If a maintainer reads 72% autonomous as `AI` rather than `mix`, that is a
+reasonable call and worth conceding rather than arguing.
+
+The q-series route is included *because* it is machine-generated and reusable: it is the larger,
+more general library, and none of q-Pochhammer symbols, Gaussian binomial coefficients, Euler's
+identities, the Cauchy identity or the Jacobi triple product exists in Mathlib today. The
+Franklin route is where the team's mathematical attention went.
 
 ## Above the bar
 

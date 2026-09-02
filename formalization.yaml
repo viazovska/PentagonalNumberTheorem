@@ -6,16 +6,21 @@ project:
   name: "PentagonalNumberTheorem"
   authors: [Jonathan Conrad, Paula Muermann, Maryna Viazovska]
   description: >
-    A Lean 4 / Mathlib formalization of Euler's pentagonal number theorem. The primary
-    development is combinatorial: Franklin's sign-reversing involution on partitions into
-    distinct parts, giving p_e(n) - p_o(n) = (-1)^|k| when n is the generalized pentagonal
-    number k(3k-1)/2 and 0 otherwise, together with the identification of that signed count
-    with the coefficient of q^n in the truncated product. An accompanying extension develops
-    q-Pochhammer symbols, Euler's identities and the Cauchy identity to prove the Jacobi
-    triple product -- both as a formal power series identity over an arbitrary commutative
-    ring and analytically over the complex numbers for ‖q‖ < 1 -- and reaches the same theorem
-    for the infinite product by specialization. The two routes share no lemmas: neither
-    depends on the other, so each independently confirms the result.
+    Two independent Lean 4 / Mathlib proofs of Euler's pentagonal number theorem. They share no
+    lemmas -- neither depends on the other -- so each confirms the result on its own.
+
+    The primary development is combinatorial: Franklin's sign-reversing involution on partitions
+    into distinct parts, giving p_e(n) - p_o(n) = (-1)^|k| when n is the generalized pentagonal
+    number k(3k-1)/2 and 0 otherwise, stated under a single integer index, together with the
+    identification of that signed count with the coefficient of X^n in the truncated product
+    over ZZ[[X]]. This route is the authors' own work and the focus of the project.
+
+    The second route develops q-Pochhammer symbols, the Gaussian binomial coefficient, Euler's
+    identities and the Cauchy identity to prove the Jacobi triple product -- both as a formal
+    power series identity over an arbitrary commutative ring and analytically over the complex
+    numbers for ‖q‖ < 1 -- and reaches the same theorem for the infinite product by
+    specialization. It was generated autonomously (see `automation`) and is included because it
+    is the more reusable of the two: none of that material exists in Mathlib today.
   responsible_maintainers: [Jonathan Conrad, Maryna Viazovska]
   license: "Apache-2.0"
 
@@ -82,15 +87,29 @@ status:
 
 automation:
   methods:
+    - method: "autonomous"
+      models: [Aristotle]
     - method: "agent"
       models: [Aristotle, Claude]
     - method: "manual"
   notes: >
-    Aristotle (Harmonic) helped develop and refine the mathematical argument and the structure
-    of the blueprint, and edited the Franklin-route development. Claude assisted with Lean 4
-    proof development, blueprint maintenance, and CI/deployment infrastructure. Definitions and
-    the overall proof architecture were set by the human authors; all statements were reviewed
-    by the authors against the source manuscript.
+    Provenance differs sharply between the two routes, which is why both are recorded here.
+
+    The q-series / Jacobi triple product route (Qseries_Formalization/, 3318 of the project's
+    4582 lines of Lean, 148 declarations) was generated autonomously by Aristotle (Harmonic).
+    The authors did not write its proofs. They subsequently restructured the library, renamed
+    its API to be mathlib-ready, and reviewed its statements against the intended mathematics,
+    but the formalization itself is machine output. It is retained because it is the more
+    reusable development -- q-Pochhammer symbols, the Gaussian binomial coefficient, Euler's
+    identities, the Cauchy identity and the Jacobi triple product are all absent from Mathlib.
+
+    The Franklin route (EulerPentagonalNumberTheorem_Franklin/, 1264 lines, 123 declarations)
+    is the authors' primary development and the focus of the team's work: the definitions, the
+    proof architecture and the mathematical argument were set by the authors, with Aristotle
+    editing the Lean development and Claude assisting with proof development.
+
+    Claude additionally assisted across the project with blueprint maintenance and
+    CI/deployment infrastructure.
 
 fidelity:
   divergences: >
