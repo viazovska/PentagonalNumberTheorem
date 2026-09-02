@@ -1,0 +1,29 @@
+# Separate Lake package for the Palomar submission.
+#
+# Challenge and Solution deliberately declare the *same* theorem names -- that is
+# exactly what Comparator compares -- so they can never be imported into one
+# environment. Keeping them out of the root package matters because
+# `lake exe checkdecls`, which CI runs, imports every root lean_lib and would hit
+# the name collision.
+#
+# `packagesDir` points at the parent's already-downloaded dependencies, so this
+# package reuses the existing Mathlib build rather than fetching its own.
+#
+# Lake writes a `lean-toolchain` and `lake-manifest.json` here on first build. Both
+# are committed so the submitted commit is reproducible, but the toolchain file must
+# be kept identical to the one at the repo root -- a stale copy here would silently
+# pin the Lean LSP to the wrong version for files under palomar/.
+name = "palomar"
+version = "0.1.0"
+defaultTargets = ["Challenge", "Solution"]
+packagesDir = "../.lake/packages"
+
+[[require]]
+name = "my_project"
+path = ".."
+
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"

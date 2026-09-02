@@ -1,0 +1,126 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+
+version: "v0.4"
+
+project:
+  name: "PentagonalNumberTheorem"
+  authors: [Jonathan Conrad, Paula Muermann, Maryna Viazovska]
+  description: >
+    Two independent Lean 4 / Mathlib formalizations of Euler's pentagonal number theorem.
+    The first follows Franklin's sign-reversing involution on partitions into distinct parts
+    and yields the coefficient identity for the truncated product. The second develops
+    q-Pochhammer symbols, Euler's identities and the Cauchy identity to prove the Jacobi
+    triple product, both as a formal power series identity over an arbitrary commutative ring
+    and analytically over the complex numbers for ‖q‖ < 1, and derives the pentagonal number
+    theorem for the infinite product by specialization. The two routes share no lemmas:
+    neither depends on the other.
+  responsible_maintainers: [Jonathan Conrad, Maryna Viazovska]
+  license: "Apache-2.0"
+
+repository:
+  role: "substantive-development"
+
+sources:
+  - title: "Pentagonal Number Theorem"
+    authors: [Jonathan Conrad, Paula Muermann, Maryna Viazovska]
+    type: "unpublished manuscript"
+    location: "May 11, 2026 draft; Lemmas 11-24 (Franklin route), Sections 5.1-5.7 (q-series route)"
+    relationship: "formalizes"
+    author_endorsement: "participated"
+    note: >
+      The source document is the authors' own write-up; the blueprint in blueprint/src/
+      tracks it section by section. TODO before submitting: if this manuscript has since
+      been posted (arXiv / DOI), add the identifier in an `id:` field here.
+  - title: "Introduction to the Theory of Partitions"
+    authors: [George E. Andrews]
+    type: "book"
+    location: "Chapter 1 (Franklin's involution); Chapter 2 (q-series, Jacobi triple product)"
+    relationship: "background"
+    note: "Standard textbook treatment of both routes; the formalization follows neither verbatim."
+
+classification:
+  arxiv: [math.NT, math.CO]
+  msc2020: [11P81, 11P84, 05A17, 05A19, 33D15]
+
+status:
+  scope: >
+    Complete formalization of Euler's pentagonal number theorem by two independent routes,
+    together with the Jacobi triple product identity in both a formal-power-series form over
+    an arbitrary commutative ring and an analytic form over ℂ. No `sorry`, no axioms beyond
+    Lean's standard three, no unproved literature dependencies.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: "QSeries.euler_pentagonal_number"
+      file: "Qseries_Formalization/QSeries/PentagonalNumber.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "palomar/comparator.json"
+    - declaration: "QSeries.jacobiTripleProduct"
+      file: "Qseries_Formalization/QSeries/JacobiTripleProduct.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "palomar/comparator.json"
+    - declaration: "QSeries.FormalPowerSeries.jacobiTripleProduct"
+      file: "Qseries_Formalization/QSeries/FPS_Algebra.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+    - declaration: "coeff_prod_pentagonal_zero"
+      file: "EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+
+automation:
+  methods:
+    - method: "agent"
+      models: [Aristotle, Claude]
+    - method: "manual"
+  notes: >
+    Aristotle (Harmonic) helped develop and refine the mathematical argument and the structure
+    of the blueprint, and edited the Franklin-route development. Claude assisted with Lean 4
+    proof development, blueprint maintenance, and CI/deployment infrastructure. Definitions and
+    the overall proof architecture were set by the human authors; all statements were reviewed
+    by the authors against the source manuscript.
+
+fidelity:
+  divergences: >
+    The Franklin route proves the coefficient identity for the truncated product
+    ∏_{k=1}^{n} (1 - q^k), which agrees with the infinite product in degree n; it does not
+    itself pass to the infinite product. The q-series route proves the infinite-product form
+    directly. The analytic Jacobi triple product is stated for ‖q‖ < 1, ‖z‖ < 1, z ≠ 0
+    (`QSeries.jacobiTripleProduct`) and extended to the full punctured disc z ≠ 0 in
+    `QSeries.jacobiTripleProduct'`.
+
+review:
+  status: "self-assessed"
+  reviewers: [Jonathan Conrad, Paula Muermann, Maryna Viazovska]
+  notes: >
+    The project is accompanied by a blueprint (leanblueprint) in which every formalized
+    declaration is tied to a paragraph-level mathematical statement and proof sketch, and
+    `leanblueprint checkdecls` verifies in CI that every `\lean{}` annotation names a
+    declaration that exists in the compiled environment. CI additionally builds with
+    Mathlib's standard linter set enabled and fails on any warning (`lake build --wfail`).
+    The formalization has not undergone external peer review.
+
+alignment:
+  statements:
+    - source: "Pentagonal Number Theorem (Lemma 24)"
+      lean: "coeff_prod_pentagonal_zero"
+      module: "EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries"
+      status: "Proved"
+      note: "Franklin route: p_e(n) - p_o(n) = 0 at non-pentagonal n, with the ±(-1)^k cases in the sibling declarations."
+    - source: "Pentagonal Number Theorem (Section 5.7)"
+      lean: "QSeries.euler_pentagonal_number"
+      module: "QSeries.PentagonalNumber"
+      status: "Proved"
+      note: "q-series route: the infinite-product form, obtained by specializing the Jacobi triple product."
+    - source: "Pentagonal Number Theorem (Section 5.6)"
+      lean: "QSeries.jacobiTripleProduct"
+      module: "QSeries.JacobiTripleProduct"
+      status: "Proved"
+      note: "Analytic Jacobi triple product for ‖q‖ < 1, ‖z‖ < 1, z ≠ 0."
+
+acknowledgements: >
+  The q-series route depends only on Mathlib. The blueprint and dependency graph are built
+  with leanblueprint; API documentation is generated with doc-gen4.
