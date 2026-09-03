@@ -1,7 +1,7 @@
 name = "my_project"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["EulerPentagonalNumberTheorem_Franklin", "QSeries", "PentagonalNumberTheorem"]
+defaultTargets = ["EulerPentagonalNumberTheorem_Franklin", "QSeries", "PentagonalNumberTheorem", "Solution"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -27,3 +27,17 @@ srcDir = "Qseries_Formalization"
 
 [[lean_lib]]
 name = "PentagonalNumberTheorem"
+
+# Comparator (Palomar) modules.
+#
+# `Solution` is a root library and IS in defaultTargets: it contains no `sorry`, so
+# it is safe under `lake build --wfail`, and checkdecls needs its olean to exist.
+# The matching `Challenge` lives in the `public/` sub-package precisely so that
+# checkdecls does not import both and hit the name collision.
+[[require]]
+name = "publicChallenge"
+path = "public"
+
+[[lean_lib]]
+name = "Solution"
+
