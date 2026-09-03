@@ -7,8 +7,16 @@
 # `lake exe checkdecls`, which CI runs, imports every root lean_lib and would hit
 # the name collision.
 #
-# `packagesDir` points at the parent's already-downloaded dependencies, so this
-# package reuses the existing Mathlib build rather than fetching its own.
+# This package resolves its dependencies into `public/.lake/packages`, i.e. inside
+# the directory submitted to Palomar as the project directory. Do NOT add
+# `packagesDir = "../.lake/packages"` to share the parent's downloads: Comparator
+# runs the build in a sandbox that only grants write access to the project
+# directory, and Lake needs to write a lock while elaborating Mathlib's
+# `lakefile.lean` into `lakefile.olean`. Pointing at the parent's package tree put
+# that lock outside the sandbox and the verification failed with
+# "permission denied ... .lake/packages/mathlib/.lake/config/mathlib/lakefile.olean.lock".
+# The cost of keeping it here is a second local Mathlib checkout, which is the
+# right trade for a submission that actually verifies.
 #
 # Lake writes a `lean-toolchain` and `lake-manifest.json` here on first build. Both
 # are committed so the submitted commit is reproducible, but the toolchain file must
@@ -17,7 +25,6 @@
 name = "public"
 version = "0.1.0"
 defaultTargets = ["Challenge", "Solution"]
-packagesDir = "../.lake/packages"
 
 [[require]]
 name = "my_project"
