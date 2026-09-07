@@ -19,10 +19,6 @@ scope = "leanprover-community"
 rev = "5d32f3eac7f8cc9f39e46ab0d7e0c1722d6d2a4e"
 
 
-[[require]]
-name = "checkdecls"
-git = "https://github.com/PatrickMassot/checkdecls.git"
-rev = "3d425859e73fcfbef85b9638c2a91708ef4a22d4"
 [[lean_lib]]
 name = "EulerPentagonalNumberTheorem_Franklin"
 
@@ -33,21 +29,11 @@ srcDir = "Qseries_Formalization"
 [[lean_lib]]
 name = "PentagonalNumberTheorem"
 
-# Comparator (Palomar) modules.
-#
-# `Solution` is deliberately NOT in defaultTargets, matching the reference submission
-# AxiomMath/PrimeGapsLib. Comparator builds the challenge with the solution withheld,
-# so that the challenge cannot be contaminated by it; if `Solution` were a default
-# target Lake would still try to configure it and fail with
-# "configured module 'Solution' has no source file in Lake's source path".
-#
-# CI builds it explicitly instead (see .github/workflows/blueprint.yml), because
-# `lake exe checkdecls` imports the root module of every root lean_lib and needs the
-# olean to exist. The matching `Challenge` lives in the `public/` sub-package so that
-# checkdecls never imports both and hits their identical theorem names.
-[[require]]
-name = "publicChallenge"
-path = "public"
+## Comparator begins -- both libraries are root libs and stay out of defaultTargets,
+## exactly as in AxiomMath/PrimeGapsLib.
+
+[[lean_lib]]
+name = "Challenge"
 
 [[lean_lib]]
 name = "Solution"
