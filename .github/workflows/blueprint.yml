@@ -91,6 +91,15 @@ jobs:
           restore-keys: |
             DocData-${{ hashFiles('lake-manifest.json') }}-
 
+      # `Solution` is not a default target -- Comparator builds the challenge with the
+      # solution withheld, so declaring it as a default target makes Lake fail with
+      # "configured module 'Solution' has no source file in Lake's source path".
+      # It still has to be built here, because the docgen-action step below runs
+      # `lake exe checkdecls`, which imports the root module of every root lean_lib.
+      - name: Build the Comparator solution module
+        run: ~/.elan/bin/lake build Solution --wfail
+        shell: bash
+
       - name: Compile blueprint and documentation
         uses: leanprover-community/docgen-action@deed0cdc44dd8e5de07a300773eb751d33e32fc8 # 2025-10-26
         with:

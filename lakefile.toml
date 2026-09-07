@@ -1,7 +1,7 @@
 name = "my_project"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["EulerPentagonalNumberTheorem_Franklin", "QSeries", "PentagonalNumberTheorem", "Solution"]
+defaultTargets = ["EulerPentagonalNumberTheorem_Franklin", "QSeries", "PentagonalNumberTheorem"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -35,10 +35,16 @@ name = "PentagonalNumberTheorem"
 
 # Comparator (Palomar) modules.
 #
-# `Solution` is a root library and IS in defaultTargets: it contains no `sorry`, so
-# it is safe under `lake build --wfail`, and checkdecls needs its olean to exist.
-# The matching `Challenge` lives in the `public/` sub-package precisely so that
-# checkdecls does not import both and hit the name collision.
+# `Solution` is deliberately NOT in defaultTargets, matching the reference submission
+# AxiomMath/PrimeGapsLib. Comparator builds the challenge with the solution withheld,
+# so that the challenge cannot be contaminated by it; if `Solution` were a default
+# target Lake would still try to configure it and fail with
+# "configured module 'Solution' has no source file in Lake's source path".
+#
+# CI builds it explicitly instead (see .github/workflows/blueprint.yml), because
+# `lake exe checkdecls` imports the root module of every root lean_lib and needs the
+# olean to exist. The matching `Challenge` lives in the `public/` sub-package so that
+# checkdecls never imports both and hits their identical theorem names.
 [[require]]
 name = "publicChallenge"
 path = "public"
