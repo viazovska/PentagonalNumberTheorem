@@ -3,7 +3,7 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import QSeries.JTP_Core
+import QSeries.JTPCore
 
 /-!
 # Jacobi triple product identity
@@ -270,68 +270,15 @@ theorem euler_second_identity_div' {q z : ℂ} (hq : ‖q‖ < 1) :
   rotate_left
   exacts [q * z⁻¹, by ring, by ring_nf]
 
-/-- The `ℕ × ℕ`-indexed family occurring in the Cauchy product of the two Euler series
-is summable. -/
-private theorem summable_prod_euler_second {q z : ℂ}
-    (hA : Summable fun n : ℕ => q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q)
-    (hB : Summable fun m : ℕ => q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m) :
-    Summable fun p : ℕ × ℕ => q ^ p.1.choose 2 * z ^ p.1 * qPochhammerInf (q * q ^ p.1) q *
-      (q ^ p.2.choose 2 * q ^ p.2 * z⁻¹ ^ p.2 / qPochhammer q q p.2) :=
-  .of_norm <| by simpa using Summable.mul_norm hA.norm hB.norm
-
-/-- Fubini: the product of the two Euler series is a single sum over `ℕ × ℕ`. -/
-private theorem tsum_mul_tsum_euler_second {q z : ℂ}
-    (hA : Summable fun n : ℕ => q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q)
-    (hB : Summable fun m : ℕ => q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m) :
-    (∑' n : ℕ, q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q) *
-        ∑' m : ℕ, q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m =
-      ∑' p : ℕ × ℕ, q ^ p.1.choose 2 * z ^ p.1 * qPochhammerInf (q * q ^ p.1) q *
-        (q ^ p.2.choose 2 * q ^ p.2 * z⁻¹ ^ p.2 / qPochhammer q q p.2) := by
-  rw [(summable_prod_euler_second hA hB).tsum_prod]
-  simp only [tsum_mul_left, tsum_mul_right]
-
-/-- The `k`-th diagonal of the Cauchy product sums to $z^k q^{\binom{k}{2}}$. -/
-private theorem tsum_diagonal_nonneg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z ≠ 0) (k : ℕ) :
-    ∑' m : ℕ, q ^ (m + k).choose 2 * z ^ (m + k) * qPochhammerInf (q * q ^ (m + k)) q *
-        (q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m) = z ^ k * q ^ k.choose 2 := by
-  rw [← (hasSum_pow_choose_two_nonneg hq k).tsum_eq, ← tsum_mul_left]
-  refine tsum_congr fun m => ?_
-  have hzz : z ^ m * z⁻¹ ^ m = 1 := by rw [← mul_pow, mul_inv_cancel₀ hz', one_pow]
-  calc q ^ (m + k).choose 2 * z ^ (m + k) * qPochhammerInf (q * q ^ (m + k)) q *
-        (q ^ m.choose 2 * q ^ m * z⁻¹ ^ m / qPochhammer q q m)
-      = z ^ m * z⁻¹ ^ m * (z ^ k * (q ^ (m + k).choose 2 * qPochhammerInf (q * q ^ (m + k)) q *
-        (q ^ m.choose 2 * q ^ m / qPochhammer q q m))) := by rw [pow_add]; ring
-    _ = _ := by rw [hzz, one_mul]
-
-/-- The `l`-th subdiagonal of the Cauchy product sums to $z^{-(l+1)} q^{\binom{l+2}{2}}$. -/
-private theorem tsum_diagonal_neg {q z : ℂ} (hq : ‖q‖ < 1) (hz' : z ≠ 0) (l : ℕ) :
-    ∑' n : ℕ, q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q *
-        (q ^ (n + (l + 1)).choose 2 * q ^ (n + (l + 1)) * z⁻¹ ^ (n + (l + 1)) /
-          qPochhammer q q (n + (l + 1))) = z⁻¹ ^ (l + 1) * q ^ (l + 2).choose 2 := by
-  rw [← (hasSum_pow_choose_two_neg hq l).tsum_eq, ← tsum_mul_left]
-  refine tsum_congr fun n => ?_
-  have hzz : z ^ n * z⁻¹ ^ n = 1 := by rw [← mul_pow, mul_inv_cancel₀ hz', one_pow]
-  calc q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q *
-        (q ^ (n + (l + 1)).choose 2 * q ^ (n + (l + 1)) * z⁻¹ ^ (n + (l + 1)) /
-          qPochhammer q q (n + (l + 1)))
-      = z ^ n * z⁻¹ ^ n * (z⁻¹ ^ (l + 1) * (q ^ n.choose 2 * qPochhammerInf (q * q ^ n) q *
-        (q ^ (n + (l + 1)).choose 2 * q ^ (n + (l + 1)) /
-          qPochhammer q q (n + (l + 1))))) := by rw [pow_add]; ring
-    _ = _ := by rw [hzz, one_mul]
-
 /-- **Jacobi triple product identity**: $(q;q)_\infty (-z;q)_\infty (-q/z;q)_\infty$ equals the
 bilateral theta series $\sum_{k \in \mathbb{Z}} z^k q^{k(k-1)/2}$ for $\|q\| < 1$, $\|z\| < 1$,
 and $z \neq 0$. -/
 theorem jacobiTripleProduct {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) (hz' : z ≠ 0) :
     jacobiProd q z = jacobiBilateral q z := by
-  have hA := (hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf hq hz).summable
-  have hB := (euler_second_identity_div' (z := z) hq).summable
   unfold jacobiProd jacobiBilateral jacobiBilateralPos jacobiBilateralNeg
-  rw [← (hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf hq hz).tsum_eq,
-    ← (euler_second_identity_div' (z := z) hq).tsum_eq,
-    tsum_mul_tsum_euler_second hA hB, tsum_split_diagonal (summable_prod_euler_second hA hB)]
-  exact congr_arg₂ (· + ·) (tsum_congr fun k => tsum_diagonal_nonneg hq hz' k)
-    (tsum_congr fun l => tsum_diagonal_neg hq hz' l)
+  exact jacobiTripleProduct_of_hasSum hq hz'
+    (hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf hq hz)
+    (euler_second_identity_div' (z := z) hq)
 
 end
 

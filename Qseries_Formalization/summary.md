@@ -92,7 +92,7 @@ FPS q-Pochhammer infrastructure over any commutative ring `R`:
 | `jtpProd` | `(X;X)_∞ · (-z;X)_∞ · (-X·z⁻¹;X)_∞` in `A⟦X⟧` |
 | `jtpSeries` | `∑_{k∈ℤ} z^k · X^{k(k-1)/2}` in `A⟦X⟧` |
 
-### `FPS_Euler.lean` (65 lines)
+### `FPSEuler.lean` (65 lines)
 
 Helper lemmas connecting `qPoch X n` to `qPochInf`:
 
@@ -102,7 +102,7 @@ Helper lemmas connecting `qPoch X n` to `qPochInf`:
 | `qPochInf_eq_qPoch_mul` | `(a;X)_∞ = qPoch a n · (aXⁿ;X)_∞` |
 | `qqInf_eq_qPoch_mul` | `(X;X)_∞ = qPoch X n · (Xⁿ⁺¹;X)_∞` |
 
-### `FPS_Algebra.lean` (870 lines)
+### `FPSAlgebra.lean` (870 lines)
 
 The algebraic heart of the FPS proof:
 
@@ -119,7 +119,7 @@ The algebraic heart of the FPS proof:
 | `cauchy_coeff_nonneg`, `cauchy_coeff_neg` | Cauchy product diagonal coefficients |
 | `jacobiTripleProduct_fps` | **Main result**: `jtpProd = jtpSeries` in `A⟦X⟧` |
 
-### `JTP_Core.lean` (165 lines)
+### `JTPCore.lean` (165 lines)
 
 Analytic setup for the JTP proof:
 
@@ -130,7 +130,7 @@ Analytic setup for the JTP proof:
 | `euler_second_at_qoz` | Euler second at `q/z` for `‖q‖ < ‖z‖` |
 | `jacobiTripleProduct_annulus` | JTP for `‖q‖ < ‖z‖ < 1` |
 
-### `JTP_KeyIdentity.lean` (325 lines)
+### `JTPKeyIdentity.lean` (325 lines)
 
 Analytic analogue of `fps_key_identity`:
 
@@ -159,7 +159,7 @@ Analytic analogue of `fps_key_identity`:
 | `euler_second_identity_all` | Euler second identity for all `z` (not just `‖z‖ < 1`) |
 | `jacobiTripleProduct` | JTP for `‖q‖ < 1`, `‖z‖ < 1`, `z ≠ 0` |
 
-### `JTP_Analytic.lean` (423 lines)
+### `JTPAnalytic.lean` (423 lines)
 
 Extension to the full domain and locally uniform convergence:
 

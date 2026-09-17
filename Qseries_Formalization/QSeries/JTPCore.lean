@@ -3,7 +3,7 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import QSeries.JTP_KeyIdentity
+import QSeries.JTPKeyIdentity
 
 /-!
 # Core lemmas for the Jacobi triple product proof

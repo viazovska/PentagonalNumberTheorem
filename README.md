@@ -39,11 +39,12 @@ into distinct parts. Zero sorries. Key declarations:
 An algebraic and analytic proof route through the Jacobi Triple Product identity.
 Zero sorries. Key declarations:
 
-- `fps_euler_second` — Euler's second identity as formal power series over any commutative ring
-- `fps_key_identity` — `S_k = (q;q)_∞⁻¹` for all `k` (coefficient stabilization)
-- `jacobiTripleProduct_fps` — Jacobi Triple Product as an identity in `A⟦X⟧` (FPS over Laurent polynomials ℂ[z, z⁻¹])
-- `jacobiTripleProduct_analytic` — analytic JTP: `(q;q)_∞ · (-z;q)_∞ · (-q/z;q)_∞ = ∑_{k∈ℤ} zᵏ q^{k(k-1)/2}` for all `‖q‖ < 1`, `z ≠ 0`
-- `eulerPentagonalNumber` — Euler's pentagonal number theorem (corollary of JTP)
+- `QSeries.FormalPowerSeries.euler_second_identity` — Euler's second identity as formal power series
+- `QSeries.keySum_eq_one_div_qPochhammerInf_self` — `S_k = (q;q)_∞⁻¹` for all `k`
+- `QSeries.FormalPowerSeries.jacobiTripleProduct` — JTP in `A⟦X⟧`, `A = LaurentPolynomial ℂ`
+- `QSeries.jacobiTripleProduct` — analytic JTP for `‖q‖ < 1`, `‖z‖ < 1`, `z ≠ 0`, with
+  `QSeries.jacobiTripleProduct'` extending it to the punctured disc `z ≠ 0`
+- `QSeries.euler_pentagonal_number` — Euler's pentagonal number theorem (corollary of JTP)
 
 Supporting infrastructure: q-Pochhammer symbols `qPoch`, `qPochInf`; q-binomial
 coefficients `qBinom`; summability and locally-uniform-convergence lemmas.
@@ -66,12 +67,11 @@ Qseries_Formalization/                    q-series / JTP proof route
     ├── CauchyIdentity.lean               Cauchy product diagonal coefficient identities
     ├── EulerIdentities.lean              Euler's first and second FPS identities
     ├── FPS.lean                          FPS infrastructure and pi-topology summability
-    ├── FPS_Euler.lean                    FPS Euler second identity
-    ├── FPS_Algebra.lean                  FPS JTP (FormalPowerSeries.jacobiTripleProduct), Cauchy coefficients
-    ├── JTP_Core.lean                     Core JTP infrastructure
-    ├── JTP_KeyIdentity.lean              Key identity S_k = (q;q)_∞⁻¹
-    ├── JTP_Helpers.lean                  Helper lemmas for the JTP proof
-    ├── JTP_Analytic.lean                 Analytic JTP (jacobiTripleProduct')
+    ├── FPSEuler.lean                     FPS Euler second identity
+    ├── FPSAlgebra.lean                   FPS JTP (FormalPowerSeries.jacobiTripleProduct), Cauchy coefficients
+    ├── JTPCore.lean                      Core JTP infrastructure
+    ├── JTPKeyIdentity.lean               Key identity S_k = (q;q)_∞⁻¹
+    ├── JTPAnalytic.lean                  Analytic JTP (jacobiTripleProduct')
     ├── JacobiTripleProduct.lean          Top-level JTP and pentagonal number theorem
     └── PentagonalNumber.lean             pentagonal, euler_pentagonal_number
 

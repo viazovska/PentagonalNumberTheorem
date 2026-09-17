@@ -35,7 +35,7 @@ convergence hypotheses are needed.
 * `QSeries.FormalPowerSeries.qPochhammerInf_eq_one_sub_mul`  — `(a; X)_∞ = (1 - a) · (aX; X)_∞`.
 * `QSeries.FormalPowerSeries.qPochhammerInf_eq_mk`     — Coefficient-wise characterisation.
 * `QSeries.FormalPowerSeries.jacobiTripleProduct` — The Jacobi triple product in `A⟦X⟧`
-  (proved in `QSeries.FPS_Algebra`).
+  (proved in `QSeries.FPSAlgebra`).
 -/
 
 noncomputable section

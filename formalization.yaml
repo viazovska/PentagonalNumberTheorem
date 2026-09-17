@@ -96,7 +96,7 @@ status:
       axioms: [propext, Classical.choice, Quot.sound]
       comparator_config: "public/comparator.json"
     - declaration: "QSeries.FormalPowerSeries.jacobiTripleProduct"
-      file: "Qseries_Formalization/QSeries/FPS_Algebra.lean"
+      file: "Qseries_Formalization/QSeries/FPSAlgebra.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
 
