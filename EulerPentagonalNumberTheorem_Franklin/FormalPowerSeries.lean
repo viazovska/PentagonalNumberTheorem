@@ -18,6 +18,8 @@ to the algebraic identities involving generating functions.
 open Finset PowerSeries
 open scoped PowerSeries.WithPiTopology
 
+namespace PentagonalNumberTheorem.Franklin
+
 /-- The unrestricted partition count `p(n)`: the number of ways to write
 `n` as a sum of positive integers (with repetition allowed, order ignored). -/
 noncomputable def p_count (n : ℕ) : ℕ := Fintype.card n.Partition
@@ -211,3 +213,5 @@ theorem euler_pentagonal_number_theorem_packaged (n : ℕ) :
     rcases Nat.eq_zero_or_pos n with rfl | h
     · exact absurd ⟨0, by norm_num⟩ hP
     · exact h
+
+end PentagonalNumberTheorem.Franklin

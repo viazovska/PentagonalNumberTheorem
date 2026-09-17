@@ -23,6 +23,8 @@ following Franklin's involution argument.
 
 open Finset
 
+namespace PentagonalNumberTheorem.Franklin
+
 /-- α-partitions and β-partitions are disjoint. -/
 theorem DPalpha_inter_DPbeta (n : ℕ) :
     distinctPartitionsAlpha n ∩ distinctPartitionsBeta n = ∅ := by
@@ -490,3 +492,5 @@ theorem pe_minus_po_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2
     (pe n : ℤ) - po n = (-1) ^ k := by
   rw [pe_minus_po_eq_special, DPspecial_pent_plus n k hk hn]
   exact signed_card_of_singleton _ k (SpkSet_card k hk)
+
+end PentagonalNumberTheorem.Franklin

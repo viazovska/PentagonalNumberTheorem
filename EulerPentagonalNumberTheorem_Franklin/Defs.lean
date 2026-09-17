@@ -27,6 +27,8 @@ via Franklin's involution.
 -/
 open Finset
 
+namespace PentagonalNumberTheorem.Franklin
+
 /-- The length of the maximal consecutive run of elements of `S` ending at `m`, counted downward. -/
 def consecutiveTopRun (S : Finset ℕ) : ℕ → ℕ
   | 0 => if (0 : ℕ) ∈ S then 1 else 0
@@ -108,3 +110,5 @@ def betaOp (S : Finset ℕ) : Finset ℕ :=
   let s := partSlope S
   let m := partMax S
   (insert s (insert (m - s) S)).erase m
+
+end PentagonalNumberTheorem.Franklin

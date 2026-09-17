@@ -24,6 +24,8 @@ and properties of `αOp`/`βOp`.
 
 open Finset
 
+namespace PentagonalNumberTheorem.Franklin
+
 /-- Base case: `consecutiveTopRun S 0 = 1` if `0 ∈ S`, else `0`. -/
 @[simp]
 lemma ctr_zero (S : Finset ℕ) : consecutiveTopRun S 0 = if (0 : ℕ) ∈ S then 1 else 0 := by
@@ -420,3 +422,5 @@ lemma betaOp_partBase (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsB
     · have := partBase_le S hne hxS; omega
   simp only [partBase, dite_eq_left hneB]
   exact le_antisymm (min'_le _ _ hmem) (le_min' _ _ _ hlb)
+
+end PentagonalNumberTheorem.Franklin

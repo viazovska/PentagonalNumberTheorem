@@ -36,7 +36,7 @@ binomial coefficient $\binom{n}{k}_q$, together with their basic properties.
 open Finset Filter
 open scoped Topology
 
-namespace Nat
+namespace QSeries.Nat
 
 /-- Pascal's rule specialised to `C(·, 2)`. -/
 theorem choose_two_succ (n : ℕ) : (n + 1).choose 2 = n.choose 2 + n := by
@@ -69,7 +69,7 @@ theorem lt_choose_two_of_add_two_le {d k : ℕ} (hk : d + 2 ≤ k) : d < k.choos
   have := le_choose_two_add_one k
   omega
 
-end Nat
+end QSeries.Nat
 
 namespace QSeries
 
