@@ -79,22 +79,22 @@ status:
       file: "EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
-      comparator_config: "public/comparator.json"
+      comparator_config: "comparator.json"
     - declaration: "PentagonalNumberTheorem.Franklin.coeff_prod_eq_pe_sub_po"
       file: "EulerPentagonalNumberTheorem_Franklin/FormalPowerSeries.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
-      comparator_config: "public/comparator.json"
+      comparator_config: "comparator.json"
     - declaration: "QSeries.jacobiTripleProduct"
       file: "Qseries_Formalization/QSeries/JacobiTripleProduct.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
-      comparator_config: "public/comparator.json"
+      comparator_config: "comparator.json"
     - declaration: "QSeries.euler_pentagonal_number"
       file: "Qseries_Formalization/QSeries/PentagonalNumber.lean"
       sorry_count: 0
       axioms: [propext, Classical.choice, Quot.sound]
-      comparator_config: "public/comparator.json"
+      comparator_config: "comparator.json"
     - declaration: "QSeries.FormalPowerSeries.jacobiTripleProduct"
       file: "Qseries_Formalization/QSeries/FPSAlgebra.lean"
       sorry_count: 0
