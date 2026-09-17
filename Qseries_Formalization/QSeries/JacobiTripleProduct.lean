@@ -152,7 +152,7 @@ theorem jacobiBilateral_mul_eq_div {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0
             ring_nf
           · have := summable_inv_pow_mul_pow_choose_two (z := z) hq
             rw [← summable_nat_add_iff 1]
-            convert this using 2
+            convert this using 2 <;> try rfl
             norm_num [Nat.choose_succ_succ, pow_succ']
             ring
         · refine Summable.of_norm ?_
@@ -173,7 +173,7 @@ theorem summable_euler_second' {q z : ℂ} (hq : ‖q‖ < 1) :
   have hr : (0 : ℝ) < ‖q‖ + (1 - ‖q‖) / 2 := by linarith [norm_nonneg q]
   refine summable_of_ratio_norm_eventually_le (r := ‖q‖ + (1 - ‖q‖) / 2) (by linarith) ?_
   have h0 : Tendsto (fun n : ℕ => ‖q‖ ^ n * ‖z‖ / ‖1 - q ^ (n + 1)‖) atTop (𝓝 0) := by
-    simpa using Tendsto.div
+    simpa [Pi.div_def] using Tendsto.div
       ((tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg q) hq).mul_const ‖z‖)
       (((tendsto_pow_atTop_nhds_zero_of_norm_lt_one hq).comp
         (tendsto_add_atTop_nat 1)).const_sub 1).norm (by norm_num)
@@ -204,7 +204,7 @@ theorem tsum_euler_second_eq_one_add_mul {q z : ℂ} (hq : ‖q‖ < 1) :
       have hpne : qPochhammer q q m ≠ 0 := qPochhammer_self_ne_zero hq m
       have hpoch : qPochhammer q q (m + 1) = qPochhammer q q m * (1 - q ^ (m + 1)) := by
         rw [qPochhammer_succ]; ring
-      rw [if_neg (Nat.succ_ne_zero m), mul_one, Nat.add_sub_cancel, Nat.choose_two_succ,
+      rw [ite_eq_right (Nat.succ_ne_zero m), mul_one, Nat.add_sub_cancel, Nat.choose_two_succ,
         hpoch]
       field_simp
       ring
@@ -217,11 +217,11 @@ theorem tsum_euler_second_eq_one_add_mul {q z : ℂ} (hq : ‖q‖ < 1) :
       · aesop
       · rw [← summable_nat_add_iff 1]
         convert Summable.mul_left z
-          ((summable_euler_second' hq).comp_injective Nat.cast_injective) using 2
+          ((summable_euler_second' hq).comp_injective Nat.cast_injective) using 2 <;> try rfl
         aesop
     · exact summable_euler_second' hq
     · exact summable_euler_second' hq
-  linear_combination' h_series_sum
+  linear_combination h_series_sum
 
 /-- The finite telescoping $(-z;q)_\infty = \prod_{k<N}(1+zq^k)\cdot(-zq^N;q)_\infty$. -/
 private theorem qPochhammerInf_neg_eq_prod_mul {q z : ℂ} (hq : ‖q‖ < 1) (N : ℕ) :

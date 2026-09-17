@@ -6,7 +6,6 @@ Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 import Mathlib
 import EulerPentagonalNumberTheorem_Franklin.Defs
 import EulerPentagonalNumberTheorem_Franklin.Helpers
-open Finset
 /-!
 # Pentagonal Number Theorem — Lemmas
 
@@ -21,6 +20,9 @@ following Franklin's involution argument.
 * `parity_flip`: Franklin's involution flips even/odd parity
 * `signed_partition_main`: pe(n) - po(n) = (-1)^k for pentagonal n, 0 otherwise
 -/
+
+open Finset
+
 /-- α-partitions and β-partitions are disjoint. -/
 theorem DPalpha_inter_DPbeta (n : ℕ) :
     distinctPartitionsAlpha n ∩ distinctPartitionsBeta n = ∅ := by
@@ -473,10 +475,10 @@ theorem signed_card_of_singleton (T : Finset ℕ) (k : ℕ) (hT : T.card = k) :
   rw [filter_singleton, filter_singleton, hT]
   rcases Nat.even_or_odd k with h | h
   · have hk : k % 2 = 0 := Nat.even_iff.mp h
-    rw [if_pos hk, if_neg (by omega), h.neg_one_pow]
+    rw [ite_eq_left hk, ite_eq_right (by omega), h.neg_one_pow]
     simp
   · have hk : k % 2 = 1 := Nat.odd_iff.mp h
-    rw [if_neg (by omega), if_pos hk, h.neg_one_pow]
+    rw [ite_eq_right (by omega), ite_eq_left hk, h.neg_one_pow]
     simp
 /-- For n = (3k²-k)/2, pe(n) - po(n) = (-1)^k. -/
 theorem pe_minus_po_pent_minus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2 - k) :

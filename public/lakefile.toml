@@ -13,13 +13,21 @@
 # this package's Mathlib into the root's `.lake/packages` -- a single package tree,
 # which is what Comparator's sandbox expects to find pre-built. Do not give this
 # package its own `packagesDir` or run Lake from inside this directory.
+#
+# NOTE: the committed lake-manifest.json here pins the whole dependency set, and because
+# this is a path dependency of the root package Lake honours those pins workspace-wide.
+# A stale copy silently holds the ROOT project back on an old Mathlib and makes
+# `lake exe cache get` fail with "mathlib: failed to fetch cache". Regenerate it on every
+# Mathlib bump: temporarily add `packagesDir = "../.lake/packages"`, run `lake update` in
+# this directory, remove the setting, then reset `"packagesDir"` in the generated manifest
+# to `.lake/packages`. Palomar requires the manifest, so it cannot simply be deleted.
 name = "publicChallenge"
 version = "0.1.0"
 
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "5d32f3eac7f8cc9f39e46ab0d7e0c1722d6d2a4e"
+rev = "de5ce8a9a66a4aa68a9bdbb35b63a06d34d9ca11"
 
 [[lean_lib]]
 name = "Challenge"

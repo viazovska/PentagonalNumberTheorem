@@ -81,7 +81,7 @@ private theorem tendsto_qPochhammer_self_div {q : ℂ} (hq : ‖q‖ < 1) (k : �
   have h : Tendsto (fun N => qPochhammer q q (N + k) / qPochhammer q q N) atTop (𝓝 1) := by
     have h1 : Tendsto (fun N => qPochhammer q q (N + k)) atTop (𝓝 (qPochhammerInf q q)) :=
       (tendsto_qPochhammer hq).comp (tendsto_add_atTop_nat k)
-    simpa [div_self hne] using h1.div (tendsto_qPochhammer hq) hne
+    simpa [div_self hne, Pi.div_def] using h1.div (tendsto_qPochhammer hq) hne
   rw [← tendsto_add_atTop_iff_nat k]
   simpa using h
 
@@ -138,15 +138,15 @@ theorem euler_second_identity {q z : ℂ} (hq : ‖q‖ < 1) (hz : ‖z‖ < 1) 
           simpa using tendsto_const_nhds.mul (tendsto_qPochhammer_self_div hq k)
         refine h1.congr' ?_
         filter_upwards [eventually_gt_atTop k] with N hN
-        exact (if_pos (by omega)).symm
+        exact (ite_eq_left (by omega)).symm
       · split_ifs
         · rw [norm_mul]
           exact mul_le_mul_of_nonneg_left (hC k N) (norm_nonneg _)
         · simp only [norm_zero]
           exact mul_nonneg (norm_nonneg _) hC0
     refine hdom.congr fun N => ?_
-    rw [tsum_eq_sum (s := Finset.range (N + 1)) fun i hi => if_neg (by simpa using hi)]
-    exact Finset.sum_congr rfl fun i hi => if_pos (Finset.mem_range.mp hi)
+    rw [tsum_eq_sum (s := Finset.range (N + 1)) fun i hi => ite_eq_right (by simpa using hi)]
+    exact Finset.sum_congr rfl fun i hi => ite_eq_left (Finset.mem_range.mp hi)
   have key : ∑' k : ℕ, q ^ k.choose 2 * z ^ k / qPochhammer q q k = qPochhammerInf (-z) q :=
     tendsto_nhds_unique h_tsum (h_limit.congr h_rewrite)
   rw [← key]

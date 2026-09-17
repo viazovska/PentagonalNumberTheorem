@@ -5,7 +5,6 @@ Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
 import Mathlib
 import EulerPentagonalNumberTheorem_Franklin.Defs
-open Finset
 /-!
 # Helper lemmas for Franklin's involution
 
@@ -22,6 +21,9 @@ and properties of `αOp`/`βOp`.
 * `consecutiveTopRun_Icc`, `partBase_Icc`, `partMax_Icc`, `partSlope_Icc`: the structural
   invariants of an interval, which is the shape both pentagonal families `smkSet`/`spkSet` take
 -/
+
+open Finset
+
 /-- Base case: `consecutiveTopRun S 0 = 1` if `0 ∈ S`, else `0`. -/
 @[simp]
 lemma ctr_zero (S : Finset ℕ) : consecutiveTopRun S 0 = if (0 : ℕ) ∈ S then 1 else 0 := by
@@ -36,12 +38,12 @@ lemma ctr_succ (S : Finset ℕ) (m : ℕ) :
 lemma ctr_not_mem (S : Finset ℕ) (m : ℕ) (h : m ∉ S) : consecutiveTopRun S m = 0 := by
   cases m with
   | zero => simp [h]
-  | succ m => rw [ctr_succ, if_neg h]
+  | succ m => rw [ctr_succ, ite_eq_right h]
 /-- If `m ∈ S` then `consecutiveTopRun S m > 0`. -/
 lemma ctr_pos_of_mem (S : Finset ℕ) (m : ℕ) (h : m ∈ S) : 0 < consecutiveTopRun S m := by
   cases m with
   | zero => simp [h]
-  | succ m => rw [ctr_succ, if_pos h]; omega
+  | succ m => rw [ctr_succ, ite_eq_left h]; omega
 /-- If `0 ∉ S` then `consecutiveTopRun S m ≤ m`. -/
 lemma ctr_le (S : Finset ℕ) (m : ℕ) (h : (0 : ℕ) ∉ S) : consecutiveTopRun S m ≤ m := by
   induction m with
@@ -74,7 +76,7 @@ lemma ctr_ge_of_mem (S : Finset ℕ) (m r : ℕ) (hrm : r ≤ m) (h : ∀ j < r,
     cases r with
     | zero => exact Nat.zero_le _
     | succ r =>
-      rw [ctr_succ, if_pos (by simpa using h 0 (Nat.succ_pos r))]
+      rw [ctr_succ, ite_eq_left (by simpa using h 0 (Nat.succ_pos r))]
       have := ih r (by omega) fun j hj => by simpa using h (j + 1) (by omega)
       omega
 /-- `consecutiveTopRun S m` is the unique `r ≤ m` with `m - j ∈ S` for every `j < r` and
@@ -89,7 +91,7 @@ lemma ctr_not_mem_boundary (S : Finset ℕ) (m : ℕ) (h0 : (0 : ℕ) ∉ S) (hm
   induction m with
   | zero => exact absurd hm h0
   | succ m ih =>
-    rw [ctr_succ, if_pos hm]
+    rw [ctr_succ, ite_eq_left hm]
     by_cases h : m ∈ S
     · rw [show m + 1 - (1 + consecutiveTopRun S m) = m - consecutiveTopRun S m by omega]
       exact ih h
@@ -130,21 +132,21 @@ lemma DPbeta_nonempty (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsB
   card_pos.mp (mem_filter.mp hS).2.1
 /-- `partBase S ∈ S` for nonempty S. -/
 lemma partBase_mem (S : Finset ℕ) (hne : S.Nonempty) : partBase S ∈ S := by
-  simp only [partBase, dif_pos hne]
+  simp only [partBase, dite_eq_left hne]
   exact min'_mem _ hne
 /-- `partMax S ∈ S` for nonempty S. -/
 lemma partMax_mem (S : Finset ℕ) (hne : S.Nonempty) : partMax S ∈ S := by
-  simp only [partMax, dif_pos hne]
+  simp only [partMax, dite_eq_left hne]
   exact max'_mem _ hne
 /-- `partBase S ≤ x` for any `x ∈ S`. -/
 lemma partBase_le (S : Finset ℕ) (hne : S.Nonempty) {x : ℕ} (hx : x ∈ S) :
     partBase S ≤ x := by
-  simp only [partBase, dif_pos hne]
+  simp only [partBase, dite_eq_left hne]
   exact min'_le _ _ hx
 /-- `x ≤ partMax S` for any `x ∈ S`. -/
 lemma le_partMax (S : Finset ℕ) (hne : S.Nonempty) {x : ℕ} (hx : x ∈ S) :
     x ≤ partMax S := by
-  simp only [partMax, dif_pos hne]
+  simp only [partMax, dite_eq_left hne]
   exact le_max' _ _ hx
 /-- `partBase S ≤ partMax S` for nonempty S. -/
 lemma partBase_le_partMax (S : Finset ℕ) (hne : S.Nonempty) : partBase S ≤ partMax S :=
@@ -240,20 +242,20 @@ theorem consecutiveTopRun_Icc (a b m : ℕ) :
 /-- The base of a nonempty interval is its left endpoint. -/
 theorem partBase_Icc {a b : ℕ} (hab : a ≤ b) : partBase (Icc a b) = a := by
   have hne : (Icc a b).Nonempty := nonempty_Icc.mpr hab
-  simp only [partBase, dif_pos hne]
+  simp only [partBase, dite_eq_left hne]
   exact le_antisymm (min'_le _ _ (mem_Icc.mpr ⟨le_rfl, hab⟩))
     (le_min' _ _ _ fun x hx => (mem_Icc.mp hx).1)
 
 /-- The max of a nonempty interval is its right endpoint. -/
 theorem partMax_Icc {a b : ℕ} (hab : a ≤ b) : partMax (Icc a b) = b := by
   have hne : (Icc a b).Nonempty := nonempty_Icc.mpr hab
-  simp only [partMax, dif_pos hne]
+  simp only [partMax, dite_eq_left hne]
   exact le_antisymm (max'_le _ _ _ fun x hx => (mem_Icc.mp hx).2)
     (le_max' _ _ (mem_Icc.mpr ⟨hab, le_rfl⟩))
 
 /-- A nonempty interval is one single run, so its slope is its whole length. -/
 theorem partSlope_Icc {a b : ℕ} (hab : a ≤ b) : partSlope (Icc a b) = b - a + 1 := by
-  rw [partSlope, partMax_Icc hab, consecutiveTopRun_Icc, if_pos ⟨hab, le_rfl⟩]
+  rw [partSlope, partMax_Icc hab, consecutiveTopRun_Icc, ite_eq_left ⟨hab, le_rfl⟩]
 
 /-- For S ∈ α(n), `partMax S - partBase S + 1 ∈ S`. -/
 lemma DPalpha_m_sub_b_add_1_mem (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsAlpha n) :
@@ -310,7 +312,7 @@ lemma alphaOp_partMax (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsA
     rcases mem_alphaOp.mp hx with rfl | ⟨-, -, hxS⟩
     · exact le_rfl
     · exact Nat.le_succ_of_le (le_partMax S hne hxS)
-  simp only [partMax, dif_pos hneA]
+  simp only [partMax, dite_eq_left hneA]
   exact le_antisymm (max'_le _ _ _ hub) (le_max' _ _ hmem)
 /-- For S ∈ α(n), `partSlope (αOp S) = partBase S`. -/
 lemma alphaOp_partSlope (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsAlpha n) :
@@ -396,7 +398,7 @@ lemma betaOp_partMax (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsBe
     · omega
     · omega
     · have := le_partMax S hne hxS; omega
-  simp only [partMax, dif_pos hneB]
+  simp only [partMax, dite_eq_left hneB]
   exact le_antisymm (max'_le _ _ _ hub) (le_max' _ _ hmem)
 /-- For S ∈ β(n), `partBase (βOp S) = partSlope S`. -/
 lemma betaOp_partBase (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsBeta n) :
@@ -416,5 +418,5 @@ lemma betaOp_partBase (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsB
     · exact le_rfl
     · omega
     · have := partBase_le S hne hxS; omega
-  simp only [partBase, dif_pos hneB]
+  simp only [partBase, dite_eq_left hneB]
   exact le_antisymm (min'_le _ _ hmem) (le_min' _ _ _ hlb)
