@@ -36,7 +36,7 @@ theorem franklin_pentagonal_number_theorem (n : ℕ) :
           - ((((Icc 1 n).powerset.filter fun S => S.sum id = n).filter
               fun S => S.card % 2 = 1).card : ℤ)
           = 0) :=
-  euler_pentagonal_number_theorem_packaged n
+  PentagonalNumberTheorem.Franklin.euler_pentagonal_number_theorem_packaged n
 
 theorem franklin_coeff_prod_eq_pe_sub_po (n : ℕ) :
     (PowerSeries.coeff n) (∏ k ∈ Icc 1 n, (1 - PowerSeries.X ^ k : PowerSeries ℤ))
@@ -44,7 +44,7 @@ theorem franklin_coeff_prod_eq_pe_sub_po (n : ℕ) :
             fun S => S.card % 2 = 0).card : ℤ)
         - ((((Icc 1 n).powerset.filter fun S => S.sum id = n).filter
             fun S => S.card % 2 = 1).card : ℤ) :=
-  coeff_prod_eq_pe_sub_po n
+  PentagonalNumberTheorem.Franklin.coeff_prod_eq_pe_sub_po n
 
 /-! ## Accompanying extension — the q-series / Jacobi triple product route -/
 

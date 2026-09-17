@@ -3,7 +3,21 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Combinatorics.Enumerative.Partition.GenFun
+import Mathlib.Data.Finset.Powerset
+import Mathlib.Data.Nat.Choose.Basic
+import Mathlib.Order.Interval.Finset.Nat
+import Mathlib.RingTheory.PowerSeries.Basic
+import Mathlib.RingTheory.PowerSeries.PiTopology
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.LinearCombination
+import Mathlib.Tactic.Zify
 import EulerPentagonalNumberTheorem_Franklin.Defs
 import EulerPentagonalNumberTheorem_Franklin.Helpers
 import EulerPentagonalNumberTheorem_Franklin.Lemmas
@@ -18,11 +32,13 @@ to the algebraic identities involving generating functions.
 open Finset PowerSeries
 open scoped PowerSeries.WithPiTopology
 
+namespace PentagonalNumberTheorem.Franklin
+
 /-- The unrestricted partition count `p(n)`: the number of ways to write
 `n` as a sum of positive integers (with repetition allowed, order ignored). -/
-noncomputable def p_count (n : ℕ) : ℕ := Fintype.card n.Partition
+noncomputable def pCount (n : ℕ) : ℕ := Fintype.card n.Partition
 
-/-- The generating function for `p_count`: a formal power series in `ℤ⟦X⟧`
+/-- The generating function for `pCount`: a formal power series in `ℤ⟦X⟧`
 whose coefficients are the partition counts. -/
 noncomputable def pGenFun : ℤ⟦X⟧ := Nat.Partition.genFun fun _ _ => (1 : ℤ)
 
@@ -31,8 +47,8 @@ noncomputable def pGenFun : ℤ⟦X⟧ := Nat.Partition.genFun fun _ _ => (1 : �
 generating function is `p(n)`.
 -/
 theorem coeff_pGenFun_eq_p_count (n : ℕ) :
-    (coeff n) pGenFun = (p_count n : ℤ) := by
-  simp [pGenFun, p_count, Finsupp.prod_fun_one]
+    (coeff n) pGenFun = (pCount n : ℤ) := by
+  simp [pGenFun, pCount, Finsupp.prod_fun_one]
 
 /--
 **Lemma 3 (product side).** The generating function equals the formal product
@@ -211,3 +227,5 @@ theorem euler_pentagonal_number_theorem_packaged (n : ℕ) :
     rcases Nat.eq_zero_or_pos n with rfl | h
     · exact absurd ⟨0, by norm_num⟩ hP
     · exact h
+
+end PentagonalNumberTheorem.Franklin

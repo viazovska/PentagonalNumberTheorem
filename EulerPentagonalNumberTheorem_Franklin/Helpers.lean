@@ -3,7 +3,19 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Combinatorics.Enumerative.Partition.GenFun
+import Mathlib.Data.Finset.Powerset
+import Mathlib.Data.Nat.Choose.Basic
+import Mathlib.Order.Interval.Finset.Nat
+import Mathlib.RingTheory.PowerSeries.Basic
+import Mathlib.RingTheory.PowerSeries.PiTopology
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
 import EulerPentagonalNumberTheorem_Franklin.Defs
 /-!
 # Helper lemmas for Franklin's involution
@@ -23,6 +35,8 @@ and properties of `αOp`/`βOp`.
 -/
 
 open Finset
+
+namespace PentagonalNumberTheorem.Franklin
 
 /-- Base case: `consecutiveTopRun S 0 = 1` if `0 ∈ S`, else `0`. -/
 @[simp]
@@ -420,3 +434,5 @@ lemma betaOp_partBase (n : ℕ) (S : Finset ℕ) (hS : S ∈ distinctPartitionsB
     · have := partBase_le S hne hxS; omega
   simp only [partBase, dite_eq_left hneB]
   exact le_antisymm (min'_le _ _ hmem) (le_min' _ _ _ hlb)
+
+end PentagonalNumberTheorem.Franklin

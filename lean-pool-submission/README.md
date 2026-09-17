@@ -37,6 +37,23 @@ Verified: `lake build --wfail` → **8293 jobs, 0 warnings, exit 0**.
 This is worth merging to `main` regardless of the lean-pool outcome — it gives the repository a
 single import point, which it lacked.
 
+
+## Overlap with existing work — read before submitting
+
+Two formalizations cover much of this project, and both are declared in the materials rather
+than left for a reviewer to find:
+
+1. **`pentagonal-number-theorem` is already in the pool** (Weiyi Wang,
+   `wwylele/PentagonalNumberTheorem`). It covers the theorem as a power series, over `RCLike`
+   fields, and by a Franklin-style involution. The slug and the `LeanPool.PentagonalNumberTheorem`
+   entry module are therefore taken, and this project needs different ones.
+2. **arXiv:2607.01544** (Lau, Lee, Ono — `AxiomMath/RogersRamanujan`) covers q-Pochhammer symbols,
+   q-binomial coefficients, Euler's identities and the Jacobi triple product, all in a
+   non-archimedean setting.
+
+The distinct contribution is the complex-analytic layer only. See `criteria-check.md` for the
+per-item comparison and the evidence.
+
 ## Status of the gates
 
 All measured on this branch; details and evidence in `criteria-check.md`.

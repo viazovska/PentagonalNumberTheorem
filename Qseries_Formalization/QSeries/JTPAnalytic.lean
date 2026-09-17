@@ -211,7 +211,7 @@ theorem tendstoLocallyUniformlyOn_jacobiBilateral {q : ℂ} (hq : ‖q‖ < 1) :
         self_mem_nhdsWithin, hr ε hε⟩
 
 /-- Uniform convergence of the product of two bounded sequences in a normed ring. -/
-lemma _root_.TendstoUniformlyOn.mul_of_bounded {s : Set ℂ}
+lemma tendstoUniformlyOn_mul_of_bounded {s : Set ℂ}
     {f₁ f₂ : ℕ → ℂ → ℂ} {F₁ F₂ : ℂ → ℂ}
     (h₁ : TendstoUniformlyOn f₁ F₁ atTop s)
     (h₂ : TendstoUniformlyOn f₂ F₂ atTop s)
@@ -356,7 +356,7 @@ theorem tendstoLocallyUniformlyOn_jacobiProd {q : ℂ} (hq : ‖q‖ < 1) :
     obtain ⟨Bq, hBq⟩ := exists_norm_qPochhammer_le hq 1
     obtain ⟨C₁, hC₁⟩ := exists_norm_qPochhammerInf_le hq (‖z₀‖ + ‖z₀‖ / 2)
     obtain ⟨C₂, hC₂⟩ := exists_norm_qPochhammerInf_le hq (2 * ‖q‖ / ‖z₀‖)
-    have h_BC := TendstoUniformlyOn.mul_of_bounded h_neg h_div
+    have h_BC := tendstoUniformlyOn_mul_of_bounded h_neg h_div
       ⟨B₁, fun n z hz => hB₁ n (-z) (hmem₁ z hz)⟩
       ⟨C₂, fun z hz => hC₂ _ (hmem₂ z hz)⟩
     have hb : ∀ z ∈ Metric.closedBall z₀ (‖z₀‖ / 2),
@@ -365,7 +365,7 @@ theorem tendstoLocallyUniformlyOn_jacobiProd {q : ℂ} (hq : ‖q‖ < 1) :
       rw [norm_mul]
       exact mul_le_mul (hC₁ _ (hmem₁ z hz)) (hC₂ _ (hmem₂ z hz)) (norm_nonneg _)
         ((norm_nonneg _).trans (hC₁ _ (hmem₁ z hz)))
-    have h_ABC := TendstoUniformlyOn.mul_of_bounded h_qq h_BC
+    have h_ABC := tendstoUniformlyOn_mul_of_bounded h_qq h_BC
       ⟨Bq, fun n z hz => hBq n q (hmemq z hz)⟩ ⟨C₁ * C₂, hb⟩
     simpa only [← mul_assoc, jacobiProd] using h_ABC
   intro ε hε z₀ hz₀

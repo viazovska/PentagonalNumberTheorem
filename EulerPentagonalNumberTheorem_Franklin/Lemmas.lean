@@ -3,7 +3,19 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Combinatorics.Enumerative.Partition.GenFun
+import Mathlib.Data.Finset.Powerset
+import Mathlib.Data.Nat.Choose.Basic
+import Mathlib.Order.Interval.Finset.Nat
+import Mathlib.RingTheory.PowerSeries.Basic
+import Mathlib.RingTheory.PowerSeries.PiTopology
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
 import EulerPentagonalNumberTheorem_Franklin.Defs
 import EulerPentagonalNumberTheorem_Franklin.Helpers
 /-!
@@ -22,6 +34,8 @@ following Franklin's involution argument.
 -/
 
 open Finset
+
+namespace PentagonalNumberTheorem.Franklin
 
 /-- α-partitions and β-partitions are disjoint. -/
 theorem DPalpha_inter_DPbeta (n : ℕ) :
@@ -490,3 +504,5 @@ theorem pe_minus_po_pent_plus (n k : ℕ) (hk : 1 ≤ k) (hn : 2 * n = 3 * k ^ 2
     (pe n : ℤ) - po n = (-1) ^ k := by
   rw [pe_minus_po_eq_special, DPspecial_pent_plus n k hk hn]
   exact signed_card_of_singleton _ k (SpkSet_card k hk)
+
+end PentagonalNumberTheorem.Franklin

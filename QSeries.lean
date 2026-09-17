@@ -10,5 +10,4 @@ import QSeries.PentagonalNumber
 import QSeries.FPS
 import QSeries.FPS_Euler
 import QSeries.FPS_Algebra
-import QSeries.JTP_Helpers
 import QSeries.JTP_Analytic
