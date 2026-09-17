@@ -38,6 +38,36 @@ and the gates in `CONTRIBUTING.md`. All figures re-measured on this branch.
 | Size limits | ✅ | largest 716 lines (`FPS_Algebra.lean`) |
 | `provenance` declared | ✅ `mix` | see below |
 
+## Overlap with existing work (declared, not discovered)
+
+Novelty is one of five independent reviews lean-pool runs ("is it already in Mathlib or the
+pool"), and its rubric is explicitly not softened by strength on the others. Two overlaps, both
+verified against source rather than inferred from abstracts:
+
+| Our content | Already exists |
+|---|---|
+| Franklin combinatorial proof | pooled `pentagonal-number-theorem` (Weiyi Wang), `Old.lean`, 134 declarations |
+| Analytic pentagonal number theorem | same entry's `pentagonalNumberTheorem_complex`, stated over `RCLike K` -- **more general than ours**, which is ℂ-specific |
+| Pentagonal number theorem as power series | both that entry and arXiv:2607.01544 |
+| q-Pochhammer, Gaussian binomial | arXiv:2607.01544 (`qPochhammer`, `qPochhammerInf`, `qChoose`), over arbitrary `CommRing` |
+| Euler's two identities | same, as `qPochhammerInf_eq_tsum` / `qPochhammerInf_neg_eq_tsum` |
+| Jacobi triple product, formal/algebraic | same, over complete non-archimedean rings -- more general than our `CommRing` FPS form |
+
+**What neither covers: the complex-analytic case.** The AxiomMath development is non-archimedean
+throughout -- `IsTopologicallyNilpotent q`, `[NonarchimedeanRing R]`, a rearrangement step via
+`mul_of_nonarchimedean`, and zero files mentioning `Complex`. ℂ is not a `NonarchimedeanRing`, so
+none of it specializes. The pooled pentagonal entry has no Jacobi triple product at all (zero
+hits for `jacobi`, `qPochhammer`, `Cauchy`, `hypergeometric`).
+
+So the claim is narrow and checkable: the analytic Jacobi triple product over ℂ, its extension to
+the punctured disc, the analytic Cauchy identity, and `JTP_Analytic.lean` (474 lines) of
+convergence machinery that a non-archimedean proof never needs.
+
+Precedent for declaring overlap rather than hiding it: `erdos81-paper-i-contrib` ("The Farkas and
+LP statements overlap the pooled Duality development; the generic cone-closedness results provide
+the project's distinct reusable API") and `infinite-connes-rigidity` ("independent of the pooled
+conditional two-group Connes-rigidity formalization"). Both were merged.
+
 ## Provenance: `AI`
 
 CONTRIBUTING requires one of `human` / `AI` / `mix`, describing **who wrote the Lean proofs**.
