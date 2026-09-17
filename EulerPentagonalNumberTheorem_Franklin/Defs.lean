@@ -3,7 +3,19 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Combinatorics.Enumerative.Partition.GenFun
+import Mathlib.Data.Finset.Powerset
+import Mathlib.Data.Nat.Choose.Basic
+import Mathlib.Order.Interval.Finset.Nat
+import Mathlib.RingTheory.PowerSeries.Basic
+import Mathlib.RingTheory.PowerSeries.PiTopology
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
 
 /-!
 # Pentagonal Number Theorem — Definitions
