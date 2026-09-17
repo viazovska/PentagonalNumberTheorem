@@ -16,7 +16,7 @@ scope = "leanprover-community"
 # Pinned explicitly. An unpinned require makes Lake re-resolve the dependency
 # instead of trusting lake-manifest.json, which means writing package configs --
 # impossible inside Comparator's read-only sandbox.
-rev = "5d32f3eac7f8cc9f39e46ab0d7e0c1722d6d2a4e"
+rev = "de5ce8a9a66a4aa68a9bdbb35b63a06d34d9ca11"
 
 
 [[lean_lib]]

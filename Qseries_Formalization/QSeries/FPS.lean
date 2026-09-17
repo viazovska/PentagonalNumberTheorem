@@ -81,7 +81,7 @@ variable {R : Type*} [CommRing R]
 theorem coeff_qPochhammer_succ (a : R⟦X⟧) {d n : ℕ} (hdn : d < n) :
     coeff d (qPochhammer a (n + 1)) = coeff d (qPochhammer a n) := by
   rw [qPochhammer_succ, mul_sub, mul_one, map_sub, ← mul_assoc,
-    PowerSeries.coeff_mul_X_pow', if_neg hdn.not_ge, sub_zero]
+    PowerSeries.coeff_mul_X_pow', ite_eq_right hdn.not_ge, sub_zero]
 
 /-- For `N ≥ M > d`, the `d`-th coefficient of `(a; X)_N` equals that of `(a; X)_M`. -/
 theorem coeff_qPochhammer_eq_of_le (a : R⟦X⟧) {d M N : ℕ}
@@ -106,7 +106,7 @@ theorem multipliable_one_sub_mul_pow (a : R⟦X⟧) :
   have hord : ∀ k : ℕ, (k : ℕ∞) ≤ (-(a * X ^ k) : R⟦X⟧).order := fun k =>
     PowerSeries.le_order _ _ fun i hi => by
       have hik : i < k := by exact_mod_cast hi
-      rw [map_neg, PowerSeries.coeff_mul_X_pow', if_neg hik.not_ge, neg_zero]
+      rw [map_neg, PowerSeries.coeff_mul_X_pow', ite_eq_right hik.not_ge, neg_zero]
   simp only [sub_eq_add_neg]
   refine WithPiTopology.multipliable_one_add_of_tendsto_order_atTop_nhds_top R
     (ENat.tendsto_nhds_top_iff_natCast_lt.2 fun n => Filter.eventually_atTop.2 ⟨n + 1, ?_⟩)

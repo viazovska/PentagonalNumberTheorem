@@ -112,7 +112,7 @@ private theorem hasSum_ite_sub_mul_pow {d : ℕ → ℂ} {z u S : ℂ} (hd0 : d 
     refine (hasSum_nat_add_iff' (f := g) 1).mp ?_
     have hshift : (fun n : ℕ => g (n + 1)) = fun n : ℕ => u * z * (d n * z ^ n) := by
       funext n
-      simp only [hg_def, if_neg (Nat.succ_ne_zero n), Nat.add_sub_cancel, pow_succ]
+      simp only [hg_def, ite_eq_right (Nat.succ_ne_zero n), Nat.add_sub_cancel, pow_succ]
       ring
     rw [hshift]
     simpa [hg_def] using hd.mul_left (u * z)
@@ -121,7 +121,7 @@ private theorem hasSum_ite_sub_mul_pow {d : ℕ → ℂ} {z u S : ℂ} (hd0 : d 
     funext n
     by_cases hn : n = 0
     · simp [hn, hg_def, hd0]
-    · simp only [if_neg hn, hg_def]; ring
+    · simp only [ite_eq_right hn, hg_def]; ring
   rw [hfun, show (1 - u * z) * S = S - u * z * S from by ring]
   exact hd.sub hg
 
@@ -160,7 +160,7 @@ theorem one_sub_mul_tsum_cauchyCoeff_eq {a q z : ℂ} (hq : ‖q‖ < 1) (hz : �
     ext n
     obtain _ | m := n
     · simp
-    · simp only [if_neg (Nat.succ_ne_zero m), Nat.succ_sub_one]
+    · simp only [ite_eq_right (Nat.succ_ne_zero m), Nat.succ_sub_one]
       rw [show cauchyCoeff a q (m + 1) - cauchyCoeff a q m
             = cauchyCoeff a q (m + 1) * q ^ (m + 1) - a * cauchyCoeff a q m * q ^ m from by
           linear_combination cauchyCoeff_succ_mul (a := a) hq m]
@@ -198,7 +198,7 @@ theorem tendsto_tsum_cauchyCoeff_mul_pow {a q z : ℂ} (hq : ‖q‖ < 1) (hz : 
         rw [norm_pow]; exact pow_lt_one₀ (norm_nonneg _) hq (Nat.succ_ne_zero m)
       have hmul := (tendsto_pow_atTop_nhds_zero_of_norm_lt_one hqpow).const_mul
         (cauchyCoeff a q (m + 1) * z ^ (m + 1))
-      simp only [hg_def, if_neg (Nat.succ_ne_zero m), mul_zero] at hmul ⊢
+      simp only [hg_def, ite_eq_right (Nat.succ_ne_zero m), mul_zero] at hmul ⊢
       exact hmul.congr fun n => by ring
   have h_bound : ∀ᶠ n in atTop, ∀ k : ℕ,
                     ‖cauchyCoeff a q k * (q ^ n * z) ^ k‖ ≤ C * ‖z‖ ^ k := by

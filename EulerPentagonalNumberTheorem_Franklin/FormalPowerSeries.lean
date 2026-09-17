@@ -7,8 +7,6 @@ import Mathlib
 import EulerPentagonalNumberTheorem_Franklin.Defs
 import EulerPentagonalNumberTheorem_Franklin.Helpers
 import EulerPentagonalNumberTheorem_Franklin.Lemmas
-open Finset PowerSeries
-open scoped PowerSeries.WithPiTopology
 
 /-! # Pentagonal Number Theorem — Formal Power Series Statements
 This file contains the formal power series identities from the source document
@@ -16,6 +14,9 @@ This file contains the formal power series identities from the source document
 These results connect the combinatorial content (proved in `Lemmas.lean`)
 to the algebraic identities involving generating functions.
 -/
+
+open Finset PowerSeries
+open scoped PowerSeries.WithPiTopology
 
 /-- The unrestricted partition count `p(n)`: the number of ways to write
 `n` as a sum of positive integers (with repetition allowed, order ignored). -/
@@ -87,8 +88,8 @@ theorem signed_partition_sum_eq_pe_sub_po (n : ℕ) :
   have h_sign : ∀ S ∈ distinctPartitions n,
       (-1 : ℤ) ^ S.card = if S.card % 2 = 0 then (1 : ℤ) else -1 := fun S _ => by
     rcases Nat.even_or_odd S.card with h | h
-    · rw [h.neg_one_pow, if_pos (Nat.even_iff.1 h)]
-    · rw [h.neg_one_pow, if_neg (by rw [Nat.odd_iff] at h; omega)]
+    · rw [h.neg_one_pow, ite_eq_left (Nat.even_iff.1 h)]
+    · rw [h.neg_one_pow, ite_eq_right (by rw [Nat.odd_iff] at h; omega)]
   have hodd : {S ∈ distinctPartitions n | ¬S.card % 2 = 0} = distinctPartitionsOdd n :=
     filter_congr fun S _ => by omega
   rw [sum_congr rfl h_sign, sum_ite, hodd, sum_const, sum_const]

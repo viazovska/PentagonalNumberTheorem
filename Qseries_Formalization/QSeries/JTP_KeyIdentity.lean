@@ -3,7 +3,7 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib.Tactic.LinearCombination'
+import Mathlib.Tactic.LinearCombination
 import QSeries.EulerIdentities
 
 /-!
@@ -111,11 +111,11 @@ theorem tendsto_keySum {q : ℂ} (hq : ‖q‖ < 1) :
         by_cases hm : m = 0
         · simp only [hm]
           exact tendsto_const_nhds
-        · simpa only [if_neg hm] using h_dominated m hm
+        · simpa only [ite_eq_right hm] using h_dominated m hm
       · refine Filter.Eventually.of_forall fun k m => ?_
         by_cases hm : m = 0
         · simp [hm]
-        · simp only [if_neg hm, norm_div]
+        · simp only [ite_eq_right hm, norm_div]
           refine div_le_div₀ (by positivity) ?_ hCC₀ (hCC m k)
           rw [norm_pow]
           exact pow_le_pow_of_le_one (norm_nonneg q) hq.le (by nlinarith)
@@ -124,7 +124,7 @@ theorem tendsto_keySum {q : ℂ} (hq : ‖q‖ < 1) :
   rw [Summable.tsum_eq_add_tsum_ite]
   any_goals exact Nat.zero
   · norm_num [qPochhammer]
-  · convert summable_keySummand hq _ using 1
+  · exact summable_keySummand hq _
 
 /-- For `‖q‖ < 1` and `n ≥ 1` the tail factor `1 - qⁿ` is bounded away from zero,
 uniformly in `n`, by the constant `1 - ‖q‖`. -/
@@ -181,7 +181,7 @@ theorem keySum_sub_keySum_succ {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
           norm_num
           exact ne_of_lt <| pow_lt_one₀ (by positivity) hq (by positivity)
       convert mul_div_mul_right _ _ hne using 1
-      ring_nf
+      first | rfl | ring_nf
       rw [show 1 + m + k = m + k + 1 by ring, qPochhammer_succ]
       ring
     have hsum1 := summable_pow_mul_one_sub_pow_div_qPochhammer hq k
@@ -189,9 +189,8 @@ theorem keySum_sub_keySum_succ {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
         (qPochhammer q q m * qPochhammer q q (m + k + 1)) := by
       have h : Summable fun m : ℕ =>
           q ^ (m * (m + k + 1)) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) := by
-        convert summable_keySummand hq (k + 1) using 1
-      convert h.mul_left (-q ^ (k + 1)) using 2
-      ring_nf
+        exact summable_keySummand hq (k + 1)
+      convert h.mul_left (-q ^ (k + 1)) using 2 <;> first | rfl | ring_nf
     convert congr_arg₂ (· + ·) h_split
       (show ∑' m : ℕ, -(q ^ (m * (m + k)) * q ^ (m + k + 1)) /
           (qPochhammer q q m * qPochhammer q q (m + k + 1)) = -q ^ (k + 1) * keySum q (k + 1)
@@ -218,8 +217,8 @@ theorem keySum_sub_keySum_succ {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     · exact mul_ne_zero (qPochhammer_self_ne_zero hq m) (qPochhammer_self_ne_zero hq (m + k + 1))
     · exact mul_ne_zero (qPochhammer_self_ne_zero hq m) (qPochhammer_self_ne_zero hq (m + k))
     · exact mul_ne_zero (qPochhammer_self_ne_zero hq _) (qPochhammer_self_ne_zero hq _)
-  · convert summable_keySummand hq k using 1
-  · convert summable_keySummand hq (k + 1) using 1
+  · exact summable_keySummand hq k
+  · exact summable_keySummand hq (k + 1)
 
 /-- All $S_k(q)$ are equal to $1/(q;q)_\infty$ for $\|q\| < 1$. -/
 theorem keySum_eq_one_div_qPochhammerInf_self {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
@@ -236,7 +235,7 @@ theorem keySum_eq_one_div_qPochhammerInf_self {q : ℂ} (hq : ‖q‖ < 1) (k : 
             ‖q‖ ^ (k + n + 1) * ‖keySum q (k + n + 1) - keySum q (k + n + 2)‖ := by
           rw [keySum_sub_keySum_succ hq (k + n), norm_mul, norm_pow, norm_sub_rev]
         convert le_trans ih (mul_le_mul_of_nonneg_left h_induction_step <| by positivity) using 1
-        ring_nf
+        all_goals first | rfl | ring_nf
         rw [show (2 + n * 3 + n * k * 2 + n ^ 2 + k * 2) / 2 =
           n + k + (n + n * k * 2 + n ^ 2) / 2 + 1 from
             Nat.div_eq_of_eq_mul_left zero_lt_two <| by
@@ -250,7 +249,7 @@ theorem keySum_eq_one_div_qPochhammerInf_self {q : ℂ} (hq : ‖q‖ < 1) (k : 
           (tendsto_atTop_mono (fun n => Nat.le_add_left _ _) tendsto_id))
         ((tendsto_keySum hq).comp
           (tendsto_atTop_mono (fun n => Nat.le_succ_of_le <| Nat.le_add_left _ _) tendsto_id))
-        using 2
+        using 2 <;> try rfl
       norm_num
     have h_exp_zero : Tendsto (fun n => ‖q‖ ^ (n * (2 * k + n + 1) / 2)) atTop (𝓝 0) :=
       (tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg q) hq).comp <|
@@ -259,7 +258,7 @@ theorem keySum_eq_one_div_qPochhammerInf_self {q : ℂ} (hq : ‖q‖ < 1) (k : 
     exact norm_le_zero_iff.mp (le_of_tendsto_of_tendsto' tendsto_const_nhds
       (by simpa using h_exp_zero.mul h_diff_zero.norm) h_induction)
   have h_const : ∀ n : ℕ, keySum q n = keySum q 0 :=
-    fun n => Nat.recOn n rfl fun n ih => by linear_combination' ih - h_ind n
+    fun n => Nat.recOn n rfl fun n ih => by linear_combination ih - h_ind n
   convert tendsto_nhds_unique (tendsto_const_nhds.congr fun n => (h_const n).symm)
     (tendsto_keySum hq) using 1
   exact h_const k
@@ -295,7 +294,8 @@ theorem hasSum_pow_choose_two_nonneg {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
     exact ⟨fun h => h.tsum_eq, fun h => h ▸ (summable_keySummand hq k).hasSum⟩
   have h_scaled : HasSum (fun m : ℕ => q ^ (k.choose 2 + m * (m + k)) * qPochhammerInf q q /
       (qPochhammer q q (m + k) * qPochhammer q q m)) (q ^ k.choose 2) := by
-    convert h_base.mul_left (q ^ k.choose 2 * qPochhammerInf q q) using 1 <;> ring_nf
+    convert h_base.mul_left (q ^ k.choose 2 * qPochhammerInf q q) using 1 <;>
+      first | rfl | ring_nf
     · ac_rfl
     · rw [mul_assoc, mul_inv_cancel₀ (qPochhammerInf_ne_zero hq hq), mul_one]
   have h_sum : HasSum (fun m : ℕ =>
@@ -318,13 +318,14 @@ theorem hasSum_pow_choose_two_neg {q : ℂ} (hq : ‖q‖ < 1) (l : ℕ) :
       q ^ (n.choose 2 + (n + (l + 1)).choose 2 + (n + (l + 1))) * qPochhammerInf q q /
         (qPochhammer q q n * qPochhammer q q (n + (l + 1)))) (q ^ (l + 2).choose 2) := by
     convert HasSum.mul_left (q ^ (l + 2).choose 2 * qPochhammerInf q q)
-      (summable_keySummand hq (l + 1)).hasSum using 1
+      (summable_keySummand hq (l + 1)).hasSum using 1 <;> try rfl
     · ext n
       rw [keySummand, Nat.choose_two_add_choose_two']
       ring
     · rw [show (∑' n : ℕ, keySummand q (l + 1) n) = 1 / qPochhammerInf q q from ?_]
       · rw [mul_assoc, mul_one_div_cancel (qPochhammerInf_ne_zero hq hq), mul_one]
       · convert keySum_eq_one_div_qPochhammerInf_self hq (l + 1) using 1
+        exact (keySum_eq_tsum q (l + 1)).symm
   convert h_simp using 2
   rw [qPochhammerInf_mul_pow_eq_div hq]
   ring_nf

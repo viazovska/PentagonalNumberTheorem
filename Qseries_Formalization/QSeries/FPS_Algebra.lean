@@ -108,7 +108,7 @@ omit [TopologicalSpace R] [DiscreteTopology R] in
 private theorem coeff_qPochhammer_X_mul_pow (m k : ℕ) {j : ℕ} (hj : j < m + 1) :
     PowerSeries.coeff j (qPochhammer ((X : R⟦X⟧) * X ^ m) k) = PowerSeries.coeff j 1 := by
   obtain ⟨g, hg⟩ := exists_qPochhammer_eq_one_add_mul ((X : R⟦X⟧) * X ^ m) k
-  rw [hg, map_add, ← pow_succ', PowerSeries.coeff_X_pow_mul', if_neg hj.not_ge, add_zero]
+  rw [hg, map_add, ← pow_succ', PowerSeries.coeff_X_pow_mul', ite_eq_right hj.not_ge, add_zero]
 
 omit [TopologicalSpace R] [DiscreteTopology R] in
 /-- Telescoping split `(X; X)_n = (X; X)_{n-k} · (X·X^{n-k}; X)_k` for `k ≤ n`. -/
@@ -166,7 +166,7 @@ private theorem qPochhammer_neg_eq_sum (a : R⟦X⟧) (n : ℕ) :
 omit [TopologicalSpace R] [DiscreteTopology R] in
 private theorem coeff_eq_zero_of_lt_choose_two (a : R⟦X⟧) (d k : ℕ) (hk : d < k.choose 2) :
     PowerSeries.coeff d (X ^ k.choose 2 * a ^ k * qPochhammerInv (R := R) k) = 0 := by
-  rw [mul_assoc, PowerSeries.coeff_X_pow_mul', if_neg hk.not_ge]
+  rw [mul_assoc, PowerSeries.coeff_X_pow_mul', ite_eq_right hk.not_ge]
 
 omit [DiscreteTopology R] in
 /-- The Euler-second summands `X^{C(k,2)} · a^k · (X; X)_k⁻¹` form a summable family. -/
@@ -223,7 +223,7 @@ private theorem summable_X_pow_mul {e : ℕ → ℕ}
   obtain ⟨N, hN⟩ := he d
   refine summable_of_ne_finset_zero (s := Finset.range N) fun m hm => ?_
   rw [Finset.mem_range, not_lt] at hm
-  rw [PowerSeries.coeff_X_pow_mul', if_neg (by have := hN m hm; omega)]
+  rw [PowerSeries.coeff_X_pow_mul', ite_eq_right (by have := hN m hm; omega)]
 
 /-- The exponents `m * (m + k)` eventually exceed every fixed degree. -/
 private theorem exists_forall_lt_mul (k d : ℕ) : ∃ N : ℕ, ∀ m ≥ N, d < m * (m + k) :=
@@ -337,7 +337,7 @@ theorem keySum_eq_keySum_zero (k : ℕ) : keySum (R := R) k = keySum 0 := by
     rw [← sub_eq_zero]
     ext d
     obtain ⟨g, hg⟩ := key (d + 1) j
-    rw [hg, PowerSeries.coeff_X_pow_mul', if_neg (by omega), map_zero]
+    rw [hg, PowerSeries.coeff_X_pow_mul', ite_eq_right (by omega), map_zero]
   induction k with
   | zero => rfl
   | succ k ih => rw [← hzero k, ih]
@@ -347,7 +347,7 @@ private theorem coeff_qPochhammerInf_X_mul_pow {k j : ℕ} (hj : j < k + 1) :
     PowerSeries.coeff j (qPochhammerInf ((X : R⟦X⟧) * X ^ k)) = PowerSeries.coeff j 1 := by
   obtain ⟨g, hg⟩ := exists_qPochhammer_eq_one_add_mul ((X : R⟦X⟧) * X ^ k) (j + 1)
   rw [coeff_qPochhammerInf, hg, map_add, ← pow_succ', PowerSeries.coeff_X_pow_mul',
-    if_neg hj.not_ge, add_zero]
+    ite_eq_right hj.not_ge, add_zero]
 
 /-- For `d < k`, the `d`-th coefficient of `qPochhammerInv k` equals the `d`-th coefficient
 of `qPochhammerInfInv`. -/
@@ -382,7 +382,7 @@ theorem coeff_keySum_eq_coeff_qPochhammerInfInv (k : ℕ) (d : ℕ) (hkd : d < k
     PowerSeries.coeff d (keySum (R := R) k) = PowerSeries.coeff d (qPochhammerInfInv (R := R)) := by
   rw [keySum, coeff_tsum (summable_keySummand k), tsum_eq_single 0 fun m hm => by
     rw [mul_assoc, PowerSeries.coeff_X_pow_mul',
-      if_neg (by have := Nat.pos_of_ne_zero hm; nlinarith)]]
+      ite_eq_right (by have := Nat.pos_of_ne_zero hm; nlinarith)]]
   simpa [qPochhammerInv_zero] using coeff_qPochhammerInv_eq_coeff_qPochhammerInfInv (R := R) hkd
 
 /-- **Key identity**: `S_k = (qPochhammerInf X)⁻¹` for all `k ≥ 0`. -/
@@ -461,6 +461,7 @@ private theorem jacobiProd_eq_tsum_mul_tsum :
     @jacobiProd = (∑' n : ℕ, X ^ n.choose 2 * laurentZ ^ n * qPochhammerInf (X * X ^ n)) *
               (∑' m : ℕ, X ^ (m.choose 2 + m) * laurentZInv ^ m * qPochhammerInv m) := by
   convert congr_arg₂ (· * ·) (qPochhammerInf_X_mul_qPochhammerInf_neg laurentZ) _ using 1
+  all_goals try rfl
   convert euler_second_identity (X * laurentZInv) using 1
   · exact tprod_congr fun _ => by ring
   · simp +decide [pow_add, mul_pow, mul_assoc, mul_comm, mul_left_comm]
@@ -570,7 +571,7 @@ private theorem coeff_leftSummand_eq_zero {d n : ℕ} (h : d < n.choose 2) :
     PowerSeries.coeff d (leftSummand n) = 0 := by
   have hrw : leftSummand n = X ^ n.choose 2 * (laurentZ ^ n * qPochhammerInf (X * X ^ n)) := by
     unfold leftSummand; ring
-  rw [hrw, PowerSeries.coeff_X_pow_mul', if_neg h.not_ge]
+  rw [hrw, PowerSeries.coeff_X_pow_mul', ite_eq_right h.not_ge]
 
 open LaurentPolynomial in
 /-- `rightSummand m` is divisible by `X ^ (C(m, 2) + m)`, so its lower coefficients vanish. -/
@@ -578,7 +579,7 @@ private theorem coeff_rightSummand_eq_zero {d m : ℕ} (h : d < m.choose 2 + m) 
     PowerSeries.coeff d (rightSummand m) = 0 := by
   have hrw : rightSummand m = X ^ (m.choose 2 + m) * (laurentZInv ^ m * qPochhammerInv m) := by
     unfold rightSummand; ring
-  rw [hrw, PowerSeries.coeff_X_pow_mul', if_neg h.not_ge]
+  rw [hrw, PowerSeries.coeff_X_pow_mul', ite_eq_right h.not_ge]
 
 open LaurentPolynomial in
 /-- `leftSummand i * rightSummand j` is divisible by `X ^ (C(i, 2) + (C(j, 2) + j))`. -/
@@ -588,7 +589,7 @@ private theorem coeff_leftSummand_mul_rightSummand_eq_zero {d i j : ℕ}
   have hrw : leftSummand i * rightSummand j = X ^ (i.choose 2 + (j.choose 2 + j)) *
       (laurentZ ^ i * qPochhammerInf (X * X ^ i) * (laurentZInv ^ j * qPochhammerInv j)) := by
     unfold leftSummand rightSummand; ring
-  rw [hrw, PowerSeries.coeff_X_pow_mul', if_neg h.not_ge]
+  rw [hrw, PowerSeries.coeff_X_pow_mul', ite_eq_right h.not_ge]
 
 open LaurentPolynomial in
 /-- The leftSummand sequence is summable. -/
