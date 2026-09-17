@@ -77,8 +77,8 @@ Bridges the combinatorial result to the formal power series identity, using Math
 
 | Theorem | Statement |
 |---|---|
-| `p_count`, `pGenFun` | Unrestricted partition count and its generating function |
-| `coeff_pGenFun_eq_p_count` | Coefficients of `pGenFun` are `p_count` |
+| `pCount`, `pGenFun` | Unrestricted partition count and its generating function |
+| `coeff_pGenFun_eq_p_count` | Coefficients of `pGenFun` are `pCount` |
 | `pGenFun_eq_prod` | `pGenFun = ∏ (1 − Xᵏ)⁻¹` |
 | `coeff_prod_eq_signed_partition_sum` | Coefficient of `∏(1−Xᵏ)` at `n` equals the signed partition sum |
 | `signed_partition_sum_eq_pe_sub_po` | Signed partition sum equals `pe(n) − po(n)` |

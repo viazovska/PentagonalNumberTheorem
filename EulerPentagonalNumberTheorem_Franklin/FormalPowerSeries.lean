@@ -36,9 +36,9 @@ namespace PentagonalNumberTheorem.Franklin
 
 /-- The unrestricted partition count `p(n)`: the number of ways to write
 `n` as a sum of positive integers (with repetition allowed, order ignored). -/
-noncomputable def p_count (n : ℕ) : ℕ := Fintype.card n.Partition
+noncomputable def pCount (n : ℕ) : ℕ := Fintype.card n.Partition
 
-/-- The generating function for `p_count`: a formal power series in `ℤ⟦X⟧`
+/-- The generating function for `pCount`: a formal power series in `ℤ⟦X⟧`
 whose coefficients are the partition counts. -/
 noncomputable def pGenFun : ℤ⟦X⟧ := Nat.Partition.genFun fun _ _ => (1 : ℤ)
 
@@ -47,8 +47,8 @@ noncomputable def pGenFun : ℤ⟦X⟧ := Nat.Partition.genFun fun _ _ => (1 : �
 generating function is `p(n)`.
 -/
 theorem coeff_pGenFun_eq_p_count (n : ℕ) :
-    (coeff n) pGenFun = (p_count n : ℤ) := by
-  simp [pGenFun, p_count, Finsupp.prod_fun_one]
+    (coeff n) pGenFun = (pCount n : ℤ) := by
+  simp [pGenFun, pCount, Finsupp.prod_fun_one]
 
 /--
 **Lemma 3 (product side).** The generating function equals the formal product

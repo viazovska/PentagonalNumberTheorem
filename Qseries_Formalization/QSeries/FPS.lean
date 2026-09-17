@@ -177,10 +177,10 @@ Jacobi triple product. It is all the `X`-adic arguments below require.
 This is `scoped` deliberately: a *global* instance would silently equip Mathlib's
 `LaurentPolynomial ℂ` with a discrete topology for every downstream import, which is not this
 library's decision to make. Consumers opt in with `open scoped QSeries.FormalPowerSeries`. -/
-scoped instance : TopologicalSpace A := ⊥
+scoped instance instTopologicalSpaceLaurentPolyComplex : TopologicalSpace A := ⊥
 
 /-- The topology on `LaurentPolynomial ℂ` from the scoped instance above is discrete. -/
-scoped instance : DiscreteTopology A := ⟨rfl⟩
+scoped instance instDiscreteTopologyLaurentPolyComplex : DiscreteTopology A := ⟨rfl⟩
 
 local notation "PS" => (PowerSeries.C : A →+* A⟦X⟧)
 
