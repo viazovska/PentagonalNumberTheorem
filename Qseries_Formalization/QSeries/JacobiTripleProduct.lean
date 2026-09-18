@@ -14,15 +14,27 @@ $$(q;q)_\infty \cdot (-z;q)_\infty \cdot (-q/z;q)_\infty
 
 ## Proof strategy
 
-The proof uses:
-1. Both sides satisfy the functional equation $H(qz) = H(z)/z$.
-2. The Euler identities (first and second) provide series expansions.
-3. The Cauchy identity (`hasSum_qPochhammer_div_mul_pow`) relates the product to sums.
-4. Extension from the annulus ‖q‖ < ‖z‖ < 1 to the full punctured disk.
+`jacobiTripleProduct` is proved directly, by a Cauchy product and a diagonal evaluation;
+it does not go through the functional equation or the annulus. Euler's second identity,
+in the two shapes `euler_second_identity_div'` and
+`hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf`, expands the two halves of the product
+as series. `JTPCore.jacobiTripleProduct_of_hasSum` then multiplies those two series,
+uses Fubini to read the result as a double series over `ℕ × ℕ`, splits that along the
+diagonal with `tsum_split_diagonal`, and evaluates the two families of diagonals with
+`hasSum_diagonal_nonneg` and `hasSum_diagonal_neg`.
+
+The functional equation appears in this module only as infrastructure for a *different*
+theorem: `jacobiProd_mul_eq_div` and `jacobiBilateral_mul_eq_div` establish
+$f(qz) = f(z)/z$ for the two sides, and `JTPAnalytic.jacobiTripleProduct'` uses them to
+extend the identity from the annulus $\|q\| < \|z\| < 1$ to the full punctured disc
+$z \neq 0$. Neither lemma is used in the proof of `jacobiTripleProduct` below.
 
 ## Main results
 
-* `QSeries.jacobiTripleProduct` — the Jacobi triple product identity.
+* `QSeries.jacobiTripleProduct` — the Jacobi triple product identity for
+  $\|q\| < 1$, $\|z\| < 1$, $z \neq 0$.
+* `QSeries.jacobiProd_mul_eq_div`, `QSeries.jacobiBilateral_mul_eq_div` — the functional
+  equation satisfied by each side, used by `JTPAnalytic.jacobiTripleProduct'`.
 -/
 
 open Finset Filter
