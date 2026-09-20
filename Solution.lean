@@ -3,6 +3,7 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
+import Mathlib
 import PentagonalNumberTheorem
 
 /-!
@@ -15,6 +16,19 @@ the two statements are definitionally equal.
 
 The theorem signatures below must match `Challenge.lean` exactly -- that is what Comparator
 compares. This module deliberately does **not** import `Challenge`.
+
+`import Mathlib` above is **required and must not be removed**, even though
+`PentagonalNumberTheorem` already provides every declaration this file mentions. Comparator
+compares the two statements as elaborated terms, not as source text, so the instances they
+pick up have to agree. `Challenge.lean` imports all of Mathlib, where `‖·‖` on `ℂ` resolves
+through `CommCStarAlgebra.toNormedCommRing` / `instCommCStarAlgebraComplex`; the project's own
+imports stop short of the C*-algebra hierarchy, so without this line the same source text
+elaborates through `NormedField.toNormedCommRing` / `Complex.instNormedField` instead. The two
+are definitionally equal -- which is why this file still compiles without the import -- but
+Comparator rejects the mismatch, reporting "Challenge and solution theorem statement do not
+match" on the first affected theorem. It affects the two `ℂ`-valued statements,
+`jacobiTripleProduct` and `euler_pentagonal_number`; the two Franklin statements are over `ℤ`
+and match either way.
 -/
 
 namespace PentagonalNumberTheorem.Challenge
