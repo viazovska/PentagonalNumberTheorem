@@ -3,13 +3,15 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib
+module
+
+public import Mathlib
 
 /-!
 # Public challenge statements
 
 Self-contained statements of this repository's results. Palomar requires the challenge module to
-import only Lean core, Mathlib or Tau Ceti, so every project-specific definition is unfolded here
+public import only Lean core, Mathlib or Tau Ceti, so every project-specific definition is unfolded here
 into plain Mathlib vocabulary.
 
 The **primary** result is the combinatorial one, proved via Franklin's sign-reversing involution
@@ -29,6 +31,8 @@ infinite product via the Jacobi triple product:
 
 The proofs live in `Solution.lean`, which may import the project.
 -/
+
+@[expose] public section
 
 namespace PentagonalNumberTheorem.Challenge
 

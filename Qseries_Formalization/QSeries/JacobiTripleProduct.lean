@@ -3,7 +3,9 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import QSeries.JTPCore
+module
+
+public import QSeries.JTPCore
 
 /-!
 # Jacobi triple product identity
@@ -36,6 +38,8 @@ $z \neq 0$. Neither lemma is used in the proof of `jacobiTripleProduct` below.
 * `QSeries.jacobiProd_mul_eq_div`, `QSeries.jacobiBilateral_mul_eq_div` — the functional
   equation satisfied by each side, used by `JTPAnalytic.jacobiTripleProduct'`.
 -/
+
+@[expose] public section
 
 open Finset Filter
 open scoped Topology
@@ -164,7 +168,7 @@ theorem jacobiBilateral_mul_eq_div {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0
             ring_nf
           · have := summable_inv_pow_mul_pow_choose_two (z := z) hq
             rw [← summable_nat_add_iff 1]
-            convert this using 2 <;> try rfl
+            convert this using 2; try rfl
             norm_num [Nat.choose_succ_succ, pow_succ']
             ring
         · refine Summable.of_norm ?_
@@ -172,8 +176,10 @@ theorem jacobiBilateral_mul_eq_div {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 0
           refine Summable.of_nonneg_of_le (fun n => by positivity) (fun n => ?_)
             (summable_geometric_of_lt_one (by positivity) hz)
           exact le_trans (mul_le_of_le_one_right (by positivity)
-            (mul_le_one₀ (pow_le_one₀ (by positivity) hq.le) (pow_nonneg (by positivity) _)
-              (pow_le_one₀ (by positivity) hq.le))) (mul_le_of_le_one_left (by positivity) hz.le)
+            ((mul_le_of_le_one_left (pow_nonneg (by positivity) _)
+              (pow_le_one₀ (by positivity) hq.le)).trans
+                (pow_le_one₀ (by positivity) hq.le)))
+            (mul_le_of_le_one_left (by positivity) hz.le)
       · rw [← summable_nat_add_iff 1]
         exact (summable_pow_mul_pow_choose_two hq hz).comp_injective Nat.succ_injective
     · exact summable_pow_mul_pow_choose_two hq hz

@@ -12,7 +12,11 @@ current Mathlib. In the PR the bodies below go into `Mathlib/Algebra/BigOperator
 Intervals.lean` verbatim (that file already has `module` / `public import` /
 `public section` headers and `namespace Finset`, so only the declarations move).
 -/
-import Mathlib.Algebra.BigOperators.Intervals
+module
+
+public import Mathlib.Algebra.BigOperators.Intervals
+
+@[expose] public section
 
 namespace Finset
 

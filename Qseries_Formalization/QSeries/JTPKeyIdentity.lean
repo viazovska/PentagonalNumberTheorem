@@ -3,8 +3,10 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib.Tactic.LinearCombination
-import QSeries.EulerIdentities
+module
+
+public import Mathlib.Tactic.LinearCombination
+public import QSeries.EulerIdentities
 
 /-!
 # Key identity for the Jacobi triple product
@@ -19,6 +21,8 @@ The proof uses a recurrence:
 This forces all differences to be zero (since S_k → 1/(q;q)_∞),
 so all S_k are equal to 1/(q;q)_∞.
 -/
+
+@[expose] public section
 
 open Finset Filter
 open scoped Topology
@@ -190,7 +194,7 @@ theorem keySum_sub_keySum_succ {q : ℂ} (hq : ‖q‖ < 1) (k : ℕ) :
       have h : Summable fun m : ℕ =>
           q ^ (m * (m + k + 1)) / (qPochhammer q q m * qPochhammer q q (m + k + 1)) := by
         exact summable_keySummand hq (k + 1)
-      convert h.mul_left (-q ^ (k + 1)) using 2 <;> first | rfl | ring_nf
+      convert h.mul_left (-q ^ (k + 1)) using 2; first | rfl | ring_nf
     convert congr_arg₂ (· + ·) h_split
       (show ∑' m : ℕ, -(q ^ (m * (m + k)) * q ^ (m + k + 1)) /
           (qPochhammer q q m * qPochhammer q q (m + k + 1)) = -q ^ (k + 1) * keySum q (k + 1)

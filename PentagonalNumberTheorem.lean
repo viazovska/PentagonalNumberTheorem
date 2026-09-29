@@ -3,8 +3,10 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import EulerPentagonalNumberTheorem_Franklin
-import QSeries
+module
+
+public import EulerPentagonalNumberTheorem_Franklin
+public import QSeries
 
 /-!
 # Euler's pentagonal number theorem — top-level entry point
@@ -24,3 +26,5 @@ route uses a lemma from the other.
   (`QSeries.jacobiTripleProduct`), from which Euler's pentagonal number theorem for the infinite
   product follows by specialization (`QSeries.euler_pentagonal_number`).
 -/
+
+@[expose] public section
