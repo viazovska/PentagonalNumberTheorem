@@ -77,7 +77,7 @@ theorem summable_pow_succ_mul_norm_pow_choose_two {q : ℂ} (hq : ‖q‖ < 1) (
 theorem hasSum_pow_choose_two_mul_pow_mul_qPochhammerInf' {q z : ℂ} (hq : ‖q‖ < 1) :
     HasSum (fun n : ℕ => q ^ n.choose 2 * z ^ n * qPochhammerInf (q * q ^ n) q)
       (qPochhammerInf q q * qPochhammerInf (-z) q) := by
-  convert HasSum.mul_left (qPochhammerInf q q) (euler_second_identity' hq) using 1 <;> try rfl
+  convert HasSum.mul_left (qPochhammerInf q q) (euler_second_identity' hq) using 1; try rfl
   ext n
   by_cases hn : qPochhammer q q n = 0
   · exact absurd hn <| qPochhammer_ne_zero hq (by linarith) n
@@ -256,11 +256,11 @@ lemma exists_norm_qPochhammer_le {q : ℂ} (hq : ‖q‖ < 1) (R : ℝ) :
       (norm_sub_le _ _).trans <| by
         simpa [norm_mul] using
           add_le_add_left (mul_le_mul_of_nonneg_right haR (by positivity : (0 : ℝ) ≤ ‖q‖ ^ k)) 1
-    simpa [qPochhammer] using Finset.prod_le_prod (fun _ _ => norm_nonneg _) h_bound
+    simpa [qPochhammer] using Finset.prod_le_prod₀ (fun _ _ => norm_nonneg _) h_bound
   have h_exp_bound : ∏ k ∈ Finset.range n, (1 + R * ‖q‖ ^ k)
       ≤ Real.exp (∑ k ∈ Finset.range n, R * ‖q‖ ^ k) := by
     rw [Real.exp_sum]
-    exact Finset.prod_le_prod (fun k _ => by linarith [hterm k])
+    exact Finset.prod_le_prod₀ (fun k _ => by linarith [hterm k])
       fun k _ => by rw [add_comm]; exact Real.add_one_le_exp _
   refine h_prod_le.trans <| h_exp_bound.trans <| Real.exp_le_exp.mpr ?_
   rw [← Finset.mul_sum, div_eq_mul_inv]
@@ -404,7 +404,7 @@ theorem jacobiBilateral_mul_eq_div' {q z : ℂ} (hq : ‖q‖ < 1) (hq' : q ≠ 
             simp +arith +decide [Nat.choose]]; ring_nf
       simp +decide [mul_assoc, mul_comm, mul_left_comm, hq']
     · have := summable_inv_pow_mul_pow_choose_two (z := q * z) hq
-      convert this.mul_left (q * z) using 2 <;> first | rfl | ring_nf
+      convert this.mul_left (q * z) using 2; first | rfl | ring_nf
       simp +decide [hq', hz', mul_assoc, mul_comm q]
   rw [h_split, h_pos, h_neg,
       show jacobiBilateral q z = jacobiBilateralPos q z + jacobiBilateralNeg q z from rfl]

@@ -16,13 +16,6 @@ maxSynthPendingDepth = 3
 name = "checkdecls"
 git = "https://github.com/PatrickMassot/checkdecls.git"
 rev = "3d425859e73fcfbef85b9638c2a91708ef4a22d4"
-[[require]]
-name = "mathlib"
-scope = "leanprover-community"
-# Pinned explicitly. An unpinned require makes Lake re-resolve the dependency
-# instead of trusting lake-manifest.json, which means writing package configs --
-# impossible inside Comparator's read-only sandbox.
-rev = "de5ce8a9a66a4aa68a9bdbb35b63a06d34d9ca11"
 
 [[lean_lib]]
 name = "EulerPentagonalNumberTheorem_Franklin"
@@ -53,3 +46,17 @@ path = "public"
 [[lean_lib]]
 name = "Solution"
 
+# Mathlib MUST be the last `[[require]]` in this file.
+#
+# Lake resolves transitive dependency versions on a last-require-wins basis. `checkdecls`
+# and the `publicChallenge` path package both pull in Cli / batteries / Qq at revisions of
+# their own; if either is required after Mathlib, those pins beat Mathlib's and
+# `lake exe cache get` computes hashes that do not match the uploaded cache, failing with
+# "mathlib: failed to fetch cache". Moving this block up will silently reintroduce that.
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+# Pinned explicitly. An unpinned require makes Lake re-resolve the dependency
+# instead of trusting lake-manifest.json, which means writing package configs --
+# impossible inside Comparator's read-only sandbox.
+rev = "3f6737de4761ec7bf368491fe9faccc991ebd6ca"
