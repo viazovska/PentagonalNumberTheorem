@@ -3,10 +3,12 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import EulerPentagonalNumberTheorem_Franklin.Defs
-import EulerPentagonalNumberTheorem_Franklin.Helpers
-import EulerPentagonalNumberTheorem_Franklin.Lemmas
-import EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries
+module
+
+public import EulerPentagonalNumberTheorem_Franklin.Defs
+public import EulerPentagonalNumberTheorem_Franklin.Helpers
+public import EulerPentagonalNumberTheorem_Franklin.Lemmas
+public import EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries
 
 /-! # Pentagonal Number Theorem — Main Module
 
@@ -30,3 +32,5 @@ Pentagonal Number Theorem, following the source document
 * `FormalPowerSeries.lean`: Informal statements of the formal power series identities
   (Lemma 3, Lemma 5, Theorem 7, Theorem 25)
 -/
+
+@[expose] public section

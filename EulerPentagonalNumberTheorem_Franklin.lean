@@ -1,5 +1,7 @@
-import EulerPentagonalNumberTheorem_Franklin.Defs
-import EulerPentagonalNumberTheorem_Franklin.Helpers
-import EulerPentagonalNumberTheorem_Franklin.Lemmas
-import EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries
-import EulerPentagonalNumberTheorem_Franklin.Main
+module
+
+public import EulerPentagonalNumberTheorem_Franklin.Defs
+public import EulerPentagonalNumberTheorem_Franklin.Helpers
+public import EulerPentagonalNumberTheorem_Franklin.Lemmas
+public import EulerPentagonalNumberTheorem_Franklin.FormalPowerSeries
+public import EulerPentagonalNumberTheorem_Franklin.Main

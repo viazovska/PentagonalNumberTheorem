@@ -3,8 +3,10 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import Mathlib
-import PentagonalNumberTheorem
+module
+
+public import Mathlib
+public import PentagonalNumberTheorem
 
 /-!
 # Public solution
@@ -30,6 +32,8 @@ match" on the first affected theorem. It affects the two `ℂ`-valued statements
 `jacobiTripleProduct` and `euler_pentagonal_number`; the two Franklin statements are over `ℤ`
 and match either way.
 -/
+
+@[expose] public section
 
 namespace PentagonalNumberTheorem.Challenge
 

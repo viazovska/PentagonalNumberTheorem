@@ -1,13 +1,15 @@
-import QSeries.Defs
-import QSeries.FiniteBinomial
-import QSeries.InfPochhammer
-import QSeries.CauchyIdentity
-import QSeries.EulerIdentities
-import QSeries.JTPCore
-import QSeries.JTPKeyIdentity
-import QSeries.JacobiTripleProduct
-import QSeries.PentagonalNumber
-import QSeries.FPS
-import QSeries.FPSEuler
-import QSeries.FPSAlgebra
-import QSeries.JTPAnalytic
+module
+
+public import QSeries.Defs
+public import QSeries.FiniteBinomial
+public import QSeries.InfPochhammer
+public import QSeries.CauchyIdentity
+public import QSeries.EulerIdentities
+public import QSeries.JTPCore
+public import QSeries.JTPKeyIdentity
+public import QSeries.JacobiTripleProduct
+public import QSeries.PentagonalNumber
+public import QSeries.FPS
+public import QSeries.FPSEuler
+public import QSeries.FPSAlgebra
+public import QSeries.JTPAnalytic

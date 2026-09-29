@@ -3,7 +3,9 @@ Copyright (c) 2026 Jonathan Conrad, Paula Muermann, Maryna Viazovska. All rights
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonathan Conrad, Paula Muermann, Maryna Viazovska
 -/
-import QSeries.JTPCore
+module
+
+public import QSeries.JTPCore
 
 /-!
 # Jacobi triple product identity
@@ -36,6 +38,8 @@ $z \neq 0$. Neither lemma is used in the proof of `jacobiTripleProduct` below.
 * `QSeries.jacobiProd_mul_eq_div`, `QSeries.jacobiBilateral_mul_eq_div` — the functional
   equation satisfied by each side, used by `JTPAnalytic.jacobiTripleProduct'`.
 -/
+
+@[expose] public section
 
 open Finset Filter
 open scoped Topology
