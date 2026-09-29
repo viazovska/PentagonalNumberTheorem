@@ -14,7 +14,7 @@ public import QSeries.JacobiTripleProduct
 $$\prod_{n=1}^{\infty} (1 - q^n) = \sum_{k \in \mathbb{Z}} (-1)^k q^{k(3k-1)/2}$$
 
 This follows from the Jacobi triple product by the substitution
-$q \to q^3$, $z \to q$, using the index partition
+$q \to q^3$, $z \to -q$, using the index partition
 $\{3n\} \cup \{3n-2\} \cup \{3n-1\} = \mathbb{Z}_{\geq 1}$.
 
 ## Main definitions
