@@ -112,13 +112,13 @@ automation:
     between the two is how much human work went into directing and checking that generation, and
     whether the mathematical plan behind it was written by a person.
 
-    Franklin route (EulerPentagonalNumberTheorem_Franklin/, 1264 lines, 123 declarations), the
-    primary development: the blueprint was written manually and in detail by the authors. The
-    mathematical argument, its decomposition into lemmas and the proof plan are theirs, and the
-    formalization follows that blueprint lemma by lemma. The machine-generated proofs then
+    Franklin route (EulerPentagonalNumberTheorem_Franklin/, 1374 lines, 123 public
+    declarations), the primary development: the blueprint was written manually and in detail
+    by the authors. The mathematical argument, its decomposition into lemmas and the proof
+    plan are theirs, and the formalization follows that blueprint lemma by lemma. The machine-generated proofs then
     received substantially more manual intervention and review than the other route.
 
-    q-series / Jacobi triple product route (Qseries_Formalization/, 3318 lines, 148
+    q-series / Jacobi triple product route (Qseries_Formalization/, 3314 lines, 147 public
     declarations): here the blueprint is machine-generated as well as the proofs. The authors'
     contribution came afterwards -- restructuring the library, renaming its API to be
     mathlib-ready, and reviewing the statements. It is retained because it is much the more

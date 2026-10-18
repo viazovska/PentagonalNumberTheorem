@@ -10,9 +10,9 @@ public import Mathlib
 /-!
 # Public challenge statements
 
-Self-contained statements of this repository's results. Palomar requires the challenge module to
-public import only Lean core, Mathlib or Tau Ceti, so every project-specific definition is unfolded here
-into plain Mathlib vocabulary.
+Self-contained statements of this repository's results. Palomar requires the challenge
+module to import only Lean core, Mathlib or Tau Ceti, so every project-specific definition
+is unfolded here into plain Mathlib vocabulary.
 
 The **primary** result is the combinatorial one, proved via Franklin's sign-reversing involution
 on partitions into distinct parts. Writing `D n` for the partitions of `n` into distinct positive
