@@ -28,11 +28,21 @@ following Franklin's involution argument.
 
 ## Main results
 
-* `distinct_parts_disjoint_union`: the partition classes α/β/special are disjoint with union
-* `special_partition_char`: characterization of special partitions
-* `franklin_involution_bijection`: Franklin's involution is a bijection
-* `parity_flip`: Franklin's involution flips even/odd parity
-* `signed_partition_main`: pe(n) - po(n) = (-1)^k for pentagonal n, 0 otherwise
+* `DPalpha_inter_DPbeta`, `DPalpha_inter_DPspecial`, `DPbeta_inter_DPspecial`, `DP_eq_union`:
+  the classes α/β/special are pairwise disjoint and cover `distinctPartitions n`
+* `DPspecial_eq_Icc`, `DPspecial_empty_of_nonpent`, `DPspecial_pent_minus`,
+  `DPspecial_pent_plus`: the special class is an interval, empty unless `n` is pentagonal,
+  and a singleton at each pentagonal `n`
+* `alphaOp_mem_DPbeta`, `betaOp_mem_DPalpha`, `alphaOp_betaOp`, `betaOp_alphaOp`,
+  `alphaOp_inj`, `DPalpha_card_eq_DPbeta_card`: Franklin's involution is a bijection α ↔ β
+* `alphaOp_card`, `betaOp_card`, `DPalpha_odd_card_eq_DPbeta_even_card`,
+  `DPalpha_even_card_eq_DPbeta_odd_card`: it shifts cardinality by one, hence flips parity
+* `pe_minus_po_eq_special`: α and β cancel, leaving `pe n - po n` as the signed count of the
+  special class
+* `pe_minus_po_zero`, `pe_minus_po_nonpent`, `pe_minus_po_pent_minus`,
+  `pe_minus_po_pent_plus`: evaluating that signed count, case by case. They are assembled
+  into the single-integer-index statement `euler_pentagonal_number_theorem_packaged` in
+  `FormalPowerSeries.lean`.
 -/
 
 @[expose] public section

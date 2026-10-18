@@ -29,8 +29,10 @@ Pentagonal Number Theorem, following the source document
   cardinality equality), Lemma 22 (parity flip), Lemma 23 (parity-restricted cardinality
   equalities), and Lemma 24 (main result): pe(n) - po(n) = (-1)^k for pentagonal n,
   0 otherwise.
-* `FormalPowerSeries.lean`: Informal statements of the formal power series identities
-  (Lemma 3, Lemma 5, Theorem 7, Theorem 25)
+* `FormalPowerSeries.lean`: the formal power series identities (Lemma 3, Lemma 5, Theorem 7,
+  Theorem 25), fully proved -- 14 theorems, no `sorry`. These connect the combinatorial
+  content to the generating function, and include `coeff_prod_eq_pe_sub_po` and the packaged
+  main result `euler_pentagonal_number_theorem_packaged`.
 -/
 
 @[expose] public section

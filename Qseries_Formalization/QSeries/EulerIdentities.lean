@@ -12,9 +12,11 @@ public import QSeries.FiniteBinomial
 /-!
 # Euler's q-exponential identities
 
-Two classical specializations of the Cauchy identity:
+Euler's two classical q-exponential identities. They are proved by different routes: the
+first specializes the Cauchy identity, the second is a limit of the finite q-binomial
+theorem and does not go through the Cauchy identity at all.
 
-1. **First Euler identity** ($a = 0$):
+1. **First Euler identity** (the Cauchy identity at $a = 0$):
    $$\frac{1}{(z;q)_\infty} = \sum_{n \geq 0} \frac{z^n}{(q;q)_n}.$$
 
 2. **Second Euler identity** (limit of the finite q-binomial theorem):
