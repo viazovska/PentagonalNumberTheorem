@@ -57,7 +57,7 @@
 
 % \paragraph{References.}
 % \begin{itemize}\item G.\,E.\ Andrews, \emph{A simple proof of Jacobi's triple product identity}, Proc.~Amer.~Math.~Soc.\ \textbf{16} (1965), 333--334.
-% \item G.\,E.\ Andrews, \emph{The Theory of Partitions}, Cambridge, 1976, Ch.\ 2.
+% \item G.\,E.\ Andrews, \emph{The Theory of Partitions}, Cambridge University Press, 1998, Ch.\ 2.
 % \item G.\,E.\ Andrews, R.\ Askey, R.\ Roy, \emph{Special Functions}, Cambridge, 1999, Ch.\ 10.
 % \item J.-M.\ Zhu, \emph{A semi-finite proof of Jacobi's triple product identity}, arXiv:2106.16156.
 % \item A.\,B.\ Shukla, \emph{Tiling proofs of Jacobi triple product and Rogers--Ramanujan identities}, arXiv:2006.03878 (gives a combinatorial proof via the $q$-binomial theorem).
@@ -143,7 +143,7 @@ For $|q| < 1$ and any $a, z \in \mathbb{C}$ with $|z| < 1$,
 \]
 \end{theorem}
 
-The two Euler identities follow from Theorem~\ref{thm:qbin-infinite} by specializing $a = 0$ (gives $1/(z;q)_\infty = \sum z^n / (q;q)_n$) and by sending $a \to \infty$ along $a = -y/q^N$ with $N \to \infty$, then renaming (gives $(-z;q)_\infty = \sum q^{\binom{n}{2}} z^n / (q;q)_n$).
+The first Euler identity follows from Theorem~\ref{thm:qbin-infinite} by specializing $a = 0$ (gives $1/(z;q)_\infty = \sum z^n / (q;q)_n$). The second, $(-z;q)_\infty = \sum q^{\binom{n}{2}} z^n / (q;q)_n$, can be obtained from the same theorem by sending $a \to \infty$ along $a = -y/q^N$, but that is not the route taken here: it is derived instead from the \emph{finite} $q$-binomial theorem~\ref{thm:qbin-finite} by letting $n \to \infty$, which is what Lemma~\ref{lem:euler-second} and its formalization do.
 
 \subsection{Proof of the finite $q$-binomial theorem}
 
@@ -720,7 +720,7 @@ and all of them collapse to $1/(q;q)_\infty$. This is the classical
 rectangle of a partition, contributing $q^{m(m+k)}$, with the regions to its
 right and below contributing $1/(q;q)_m$ and $1/(q;q)_{m+k}$; the $k=0$ case is
 the classical Durfee square identity. (See Andrews, \emph{The Theory of
-Partitions}, 1976, and Gessel, \emph{Some generalized Durfee square identities},
+Partitions}, Cambridge University Press, 1998, and Gessel, \emph{Some generalized Durfee square identities},
 Discrete Math.\ \textbf{50} (1984).) What is specific to this formalisation is
 the proof: rather than the Young-diagram bijection, the identity is established
 \emph{analytically} through the contraction recurrence below, which is
