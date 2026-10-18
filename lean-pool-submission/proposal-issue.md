@@ -5,6 +5,10 @@ a maintainer imports the repository. Title and body below.
 
 ---
 
+> **Historical record** of the issue text as submitted; see `README.md` in this directory.
+> Figures and the toolchain version below describe the repository at
+> `5c3413265fcb44f74e67ebb5abddcac4b82e611b`, not as it stands now.
+
 **Title:** Propose: Euler's pentagonal number theorem — two independent proofs
 
 **Body:**

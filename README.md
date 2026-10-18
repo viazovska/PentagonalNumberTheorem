@@ -46,8 +46,9 @@ Zero sorries. Key declarations:
   `QSeries.jacobiTripleProduct'` extending it to the punctured disc `z ≠ 0`
 - `QSeries.euler_pentagonal_number` — Euler's pentagonal number theorem (corollary of JTP)
 
-Supporting infrastructure: q-Pochhammer symbols `qPoch`, `qPochInf`; q-binomial
-coefficients `qBinom`; summability and locally-uniform-convergence lemmas.
+Supporting infrastructure: q-Pochhammer symbols `QSeries.qPochhammer`,
+`QSeries.qPochhammerInf`; the Gaussian binomial coefficient `QSeries.qBinom`; summability
+and locally-uniform-convergence lemmas.
 
 ## Repository layout
 

@@ -1,7 +1,12 @@
 # lean-pool inclusion criteria — evidence
 
 Checked against [`candidates/CRITERIA.txt`](https://github.com/Vilin97/lean-pool/blob/main/candidates/CRITERIA.txt)
-and the gates in `CONTRIBUTING.md`. All figures re-measured on this branch.
+and the gates in `CONTRIBUTING.md`.
+
+> **Historical record.** The figures below were measured for the submission that became
+> [lean-pool#446](https://github.com/Vilin97/lean-pool/pull/446), merged 2026-09-21 against
+> `revision: 5c3413265fcb44f74e67ebb5abddcac4b82e611b`. They describe the repository at that
+> commit, not as it stands now. See `lean-pool-submission/README.md`.
 
 ## INCLUDE criteria
 

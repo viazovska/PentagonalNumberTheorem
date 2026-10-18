@@ -1,6 +1,17 @@
 # lean-pool submission materials
 
-Everything needed to submit this repository to
+> **Status: submitted and accepted.** These are a record of the submission as it was made,
+> not a description of the repository as it stands now.
+> [Vilin97/lean-pool#446](https://github.com/Vilin97/lean-pool/pull/446) was merged on
+> 2026-09-21 and the pool entry `pentagonal-number-theorem-analytic` pins
+> `revision: 5c3413265fcb44f74e67ebb5abddcac4b82e611b`. Every figure below -- line counts,
+> file counts, toolchain version, module names such as `FPS_Algebra.lean` and
+> `JTP_Analytic.lean` -- describes the repository around that commit. The tree has since
+> been renamed, bumped to `leanprover/lean4:v4.35.0-rc3` and ported to the Lean module
+> system, so these numbers and names no longer match the current source and are kept only
+> as a record of what was submitted.
+
+Everything that was needed to submit this repository to
 [lean-pool](https://github.com/Vilin97/lean-pool). Prepared on branch `lean-pool/submission`.
 
 ```
