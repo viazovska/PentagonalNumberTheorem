@@ -40,7 +40,7 @@ sources:
       The source document is the authors' own write-up; the blueprint in blueprint/src/
       tracks it section by section. TODO before submitting: if this manuscript has since
       been posted (arXiv / DOI), add the identifier in an `id:` field here.
-  - title: "Introduction to the Theory of Partitions"
+  - title: "The Theory of Partitions"
     authors: [George E. Andrews]
     type: "book"
     location: "Chapter 1 (Franklin's involution); Chapter 2 (q-series, Jacobi triple product)"

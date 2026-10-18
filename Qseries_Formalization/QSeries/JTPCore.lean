@@ -10,12 +10,27 @@ public import QSeries.JTPKeyIdentity
 /-!
 # Core lemmas for the Jacobi triple product proof
 
-The proof strategy: Show $(q;q)_∞ (-z;q)_∞ (-q/z;q)_∞ = g(z)$ by:
-1. Dividing both sides by $(-q/z;q)_∞$ (nonzero for ‖q/z‖ < 1)
-2. Showing $g(z) / (-q/z;q)_∞ = (q;q)_∞ (-z;q)_∞$
-3. This follows from the Cauchy product and the Euler 2nd identity
+## Proof strategy
 
-Key identity: $(q;q)_∞ / (q;q)_n = (q^{n+1};q)_∞$ (telescoping)
+`jacobiTripleProduct_of_hasSum` is the engine of this module. It divides by nothing and
+needs no annulus. It takes series expansions of the two halves of the product as
+hypotheses -- `hA` for $(q;q)_\infty (-z;q)_\infty$ and `hB` for $(-q/z;q)_\infty$ --
+multiplies them, shows the resulting family is summable over $\mathbb{N} \times
+\mathbb{N}$, uses Fubini to read the product as that double series, splits it along the
+diagonal with `tsum_split_diagonal`, and evaluates the two families of diagonals with
+`hasSum_diagonal_nonneg` and `hasSum_diagonal_neg`. Its only hypotheses on the
+parameters are $\|q\| < 1$ and $z \neq 0$.
+
+The annulus $\|q\| < \|z\| < 1$ enters only in the corollary
+`jacobiTripleProduct_annulus`, which discharges `hB` using `euler_second_identity_div`
+-- the one lemma here that needs $\|q\| < \|z\|$. The result this development actually
+exports, `QSeries.jacobiTripleProduct`, does not go through that corollary: it supplies
+`hB` from `euler_second_identity_div'`, which carries no annulus hypothesis.
+
+## Key identity
+
+$(q;q)_\infty = (q;q)_n \cdot (q^{n+1};q)_\infty$ (telescoping), proved as
+`qPochhammerInf_self_eq_qPochhammer_mul`.
 -/
 
 @[expose] public section
