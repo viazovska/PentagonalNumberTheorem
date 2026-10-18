@@ -167,7 +167,7 @@ $$\sum_{n=0}^{\infty} \frac{q^{\binom{n}{2}}}{(q;q)_n} z^n = (-z;q)_\infty.$$
 
 **Theorem 5.12** (Key identity). *For $|q| < 1$:*
 $$S_k := \sum_{m=0}^{\infty} \frac{q^{m(m+k)}}{(q;q)_m (q;q)_{m+k}} = \frac{1}{(q;q)_\infty}.$$
-*Sketch.* The differences $D_k := S_k - S_{k+1}$ satisfy $D_k = q^{k+1} D_{k+1}$, so $|D_k| \leq |D_0| \cdot |q|^{k(k+1)/2} \to 0$. Hence $D_k = 0$ for all $k$, and all $S_k$ are equal. Computing at $k = 0$ via the Cauchy identity gives $S_0 = 1/(q;q)_\infty$. ∎
+*Sketch.* The differences $D_k := S_k - S_{k+1}$ satisfy $D_k = q^{k+1} D_{k+1}$, so $|D_k| \leq |D_0| \cdot |q|^{k(k+1)/2} \to 0$. Hence $D_k = 0$ for all $k$, and all $S_k$ are equal. The common value is identified by letting $k \to \infty$: $S_k \to 1/(q;q)_\infty$, so every $S_k$ equals $1/(q;q)_\infty$. ∎
 
 **Theorem 5.13** (Jacobi Triple Product, analytic). *For $|q| < 1$ and $z \neq 0$:*
 $$(q;q)_\infty \cdot (-z;q)_\infty \cdot (-q/z;q)_\infty = \sum_{k \in \mathbb{Z}} z^k q^{k(k-1)/2}.$$
